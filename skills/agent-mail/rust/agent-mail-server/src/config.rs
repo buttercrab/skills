@@ -1,0 +1,20 @@
+use clap::Parser;
+use std::net::SocketAddr;
+
+#[derive(Debug, Clone, Parser)]
+pub struct Config {
+    #[arg(long, env = "AGENT_MAIL_DATABASE_URL")]
+    pub database_url: String,
+
+    #[arg(long, env = "AGENT_MAIL_BIND", default_value = "127.0.0.1:8787")]
+    pub bind: SocketAddr,
+
+    #[arg(long, env = "AGENT_MAIL_TOKEN")]
+    pub token: Option<String>,
+}
+
+impl Config {
+    pub fn from_env() -> Self {
+        Self::parse()
+    }
+}
