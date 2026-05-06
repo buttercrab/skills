@@ -10,7 +10,7 @@ pub struct Config {
     pub bind: SocketAddr,
 
     #[arg(long, env = "AGENT_MAIL_TOKEN")]
-    pub token: Option<String>,
+    pub token: String,
 }
 
 impl Config {

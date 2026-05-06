@@ -13,18 +13,21 @@ use serde_json::json;
 use crate::{
     domain::{AddProject, MarkRead, SendMessage, StartParticipant},
     error::{AppError, Result},
+    mcp::McpHub,
     store::Store,
 };
 
 #[derive(Clone)]
 pub struct AppState {
     pub store: Store,
-    pub token: Option<String>,
+    pub token: String,
+    pub mcp: McpHub,
 }
 
 pub fn router(state: AppState) -> Router {
     Router::new()
         .route("/health", get(health))
+        .route("/mcp", get(crate::mcp::mcp_get).post(crate::mcp::mcp_post))
         .route("/v1/participants/start", post(start_participant))
         .route("/v1/participants", get(list_participants))
         .route("/v1/projects", get(list_projects).post(add_project))
@@ -138,17 +141,14 @@ async fn mark_read(
     Ok(Json(json!({ "marked_read": mail_id })))
 }
 
-fn authorize(state: &AppState, headers: &HeaderMap) -> Result<()> {
-    let Some(expected) = &state.token else {
-        return Ok(());
-    };
+pub(crate) fn authorize(state: &AppState, headers: &HeaderMap) -> Result<()> {
     let Some(value) = headers.get(axum::http::header::AUTHORIZATION) else {
         return Err(AppError::Unauthorized);
     };
     let Ok(text) = value.to_str() else {
         return Err(AppError::Unauthorized);
     };
-    if text == format!("Bearer {expected}") {
+    if text == format!("Bearer {}", state.token) {
         Ok(())
     } else {
         Err(AppError::Unauthorized)

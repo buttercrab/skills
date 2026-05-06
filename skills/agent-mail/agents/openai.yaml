@@ -1,7 +1,7 @@
 interface:
   display_name: "Agent Mail"
-  short_description: "Rust Postgres mailbox service"
-  default_prompt: "Use $agent-mail with the Rust Postgres Agent Mail service: start participants, add project namespaces, send project mail, read participant inboxes, read message bodies, and mark messages read."
+  short_description: "Rust Postgres mailbox service with remote MCP resources"
+  default_prompt: "Use $agent-mail with the Rust Postgres Agent Mail service. Use MCP tools for participant start, project add, send, and mark-read mutations; use MCP resources for participant inboxes and message bodies when the remote MCP server is available."
 
 policy:
   allow_implicit_invocation: true
