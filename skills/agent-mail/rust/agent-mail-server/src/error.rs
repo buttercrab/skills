@@ -16,6 +16,8 @@ pub enum AppError {
     Conflict(String),
     #[error("unauthorized")]
     Unauthorized,
+    #[error("forbidden")]
+    Forbidden,
     #[error(transparent)]
     Database(#[from] sqlx::Error),
 }
@@ -27,6 +29,7 @@ impl IntoResponse for AppError {
             AppError::NotFound(_) => StatusCode::NOT_FOUND,
             AppError::Conflict(_) => StatusCode::CONFLICT,
             AppError::Unauthorized => StatusCode::UNAUTHORIZED,
+            AppError::Forbidden => StatusCode::FORBIDDEN,
             AppError::Database(_) => StatusCode::INTERNAL_SERVER_ERROR,
         };
         let message = self.to_string();

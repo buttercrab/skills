@@ -1,11 +1,11 @@
 ---
 name: agent-mail
-description: Use the Rust/PostgreSQL Agent Mail service for durable cross-agent instructions, handoffs, blockers, decisions, and status messages in project mailboxes. Use when Codex needs Agent Mail participants, project namespaces, cross-project mail, participant inboxes, or the deployed HTTP mailbox service.
+description: Use the Rust/PostgreSQL Agent Mail service for durable cross-agent instructions, handoffs, blockers, decisions, and status messages in project mailboxes. Use when Codex needs Agent Mail participants, project namespaces, cross-project mail, participant inboxes, MCP resources, or the deployed HTTP mailbox service.
 ---
 
 # Agent Mail
 
-Agent Mail is a Rust HTTP mailbox service backed by PostgreSQL. Use it for durable cross-session coordination, not routine logs or locks.
+Agent Mail is a Rust HTTP mailbox service backed by PostgreSQL. It also exposes a remote MCP Streamable HTTP endpoint. Use it for durable cross-session coordination, not routine logs or locks.
 
 The supported v1 runtime is the Rust `agent-mail-server` with PostgreSQL. The deployed Lightsail service runs in `us-west-2` against Lightsail managed PostgreSQL and is reached at:
 
@@ -30,13 +30,50 @@ skills/agent-mail/target/debug/agent-mail-server \
   --token "$AGENT_MAIL_TOKEN"
 ```
 
-Use `make real-test` before deployment. It starts a real temporary PostgreSQL cluster and exercises the Rust HTTP server over localhost.
+Use `make real-test` before deployment. It starts a real temporary PostgreSQL cluster and exercises both the JSON HTTP API and the MCP endpoint over localhost.
+
+Use `make public-mcp-smoke` after deployment with `AGENT_MAIL_TOKEN` set. It exercises the public `https://agent-mail.cc/mcp` endpoint through Cloudflare/nginx, including the SSE notification stream.
 
 Check the deployed service:
 
 ```bash
 curl -fsS https://agent-mail.cc/health
 ```
+
+## MCP
+
+The remote MCP endpoint is:
+
+```text
+https://agent-mail.cc/mcp
+```
+
+Codex should install it by URL, not by building a local shim:
+
+```bash
+codex mcp add agent-mail --url https://agent-mail.cc/mcp --bearer-token-env-var AGENT_MAIL_TOKEN
+```
+
+The Codex process must have `AGENT_MAIL_TOKEN` in its environment before it starts. Existing long-running Codex sessions may not discover a newly installed MCP server until restarted.
+
+MCP uses bearer authentication on every request. `POST /mcp` handles JSON-RPC requests and `GET /mcp` is the SSE stream used for `notifications/resources/updated`.
+
+MCP tools are only for mutations or session setup:
+
+- `agent_mail_start(role)`: generate and bind this MCP session's participant identity.
+- `agent_mail_project_add(alias, root?)`: create or update a project namespace.
+- `agent_mail_send(project, to, subject, body)`: send from the session-bound identity.
+- `agent_mail_mark_read(project, mail_id)`: explicitly mark a delivered message read.
+
+Inbox and message reads are MCP resources, not tools:
+
+```text
+agent-mail://projects
+agent-mail://projects/{alias}/inbox?identity={identity}
+agent-mail://projects/{alias}/messages/{mail_id}?identity={identity}
+```
+
+Clients can subscribe to the inbox and message resources. New mail and explicit read-state changes emit `notifications/resources/updated`; subscriptions are live MCP hints, not a durable queue.
 
 ## HTTP API
 
@@ -45,6 +82,8 @@ All endpoints except `GET /health` require:
 ```text
 Authorization: Bearer $AGENT_MAIL_TOKEN
 ```
+
+The Rust server requires a token at startup; missing `AGENT_MAIL_TOKEN` is a configuration error.
 
 Create or activate a participant:
 

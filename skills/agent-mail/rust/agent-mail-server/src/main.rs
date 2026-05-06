@@ -3,6 +3,7 @@ mod domain;
 mod error;
 mod http;
 mod id;
+mod mcp;
 mod store;
 mod time;
 mod validation;
@@ -28,6 +29,7 @@ async fn main() -> anyhow::Result<()> {
     let app = http::router(http::AppState {
         store,
         token: config.token,
+        mcp: mcp::McpHub::default(),
     })
     .layer(TraceLayer::new_for_http());
     let listener = TcpListener::bind(config.bind)
