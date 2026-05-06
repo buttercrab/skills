@@ -7,13 +7,13 @@ description: Use the Rust/PostgreSQL Agent Mail service for durable cross-agent 
 
 Agent Mail is a Rust HTTP mailbox service backed by PostgreSQL. It also exposes a remote MCP Streamable HTTP endpoint. Use it for durable cross-session coordination, not routine logs or locks.
 
-The supported v1 runtime is the Rust `agent-mail-server` with PostgreSQL. The deployed Lightsail service runs in `us-west-2` against Lightsail managed PostgreSQL and is reached at:
+The supported v1 runtime is the Rust `agent-mail-server` with PostgreSQL. The deployed service runs on a Lightsail Nano app host in `us-west-2` against private AWS RDS PostgreSQL and is reached at:
 
 ```text
 https://agent-mail.cc
 ```
 
-Use `https://agent-mail.cc` as the default `AGENT_MAIL_URL` for clients. The public edge is Cloudflare-proxied HTTPS on `agent-mail.cc`; nginx on the Lightsail instance terminates the Cloudflare origin certificate and proxies to the Rust server on `127.0.0.1:8787`. Port `8787` is private and should not be exposed publicly.
+Use `https://agent-mail.cc` as the default `AGENT_MAIL_URL` for clients. The public edge is Cloudflare-proxied HTTPS on `agent-mail.cc`; nginx on the Lightsail Nano instance terminates the Cloudflare origin certificate and proxies to the Rust server on `127.0.0.1:8787`. Port `8787` is private and should not be exposed publicly.
 
 Build the server:
 
@@ -156,7 +156,7 @@ Messages are not locks, claims, or exclusive assignments. Treat them as durable 
 The Lightsail deployment uses:
 
 - Rust `agent-mail-server`
-- Lightsail managed PostgreSQL
+- private AWS RDS PostgreSQL
 - bearer-token authentication
 - Cloudflare-proxied HTTPS at `https://agent-mail.cc`
 - nginx on the instance proxying HTTPS traffic to `127.0.0.1:8787`
