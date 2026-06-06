@@ -6,12 +6,13 @@ This repository contains authored Codex skills and their implementation code.
 
 - `skills/agent-mail` - Rust/PostgreSQL Agent Mail service and deployment docs.
 - `skills/front-agent-orchestration` - Human-facing gateway and main-agent orchestration protocol over Agent Mail.
+- `skills/execute-goal-loop` - Goal-driven execution loop with hard verification and review gates.
 
 ## Repository Layout
 
 - `skills/` - skill source directories.
 - `.env/` - local deployment environment, credentials, SSH keys, and certificates. This directory is intentionally gitignored.
-- `install.sh` - links repo skills into `~/.agents/skills`.
+- `install.sh` - links repo skills into `~/.agents/skills` and `~/.codex/skills`.
 
 ## Install
 
@@ -19,7 +20,7 @@ This repository contains authored Codex skills and their implementation code.
 ./install.sh
 ```
 
-The install script links included skills into `~/.agents/skills`.
+The install script links every `skills/*/SKILL.md` directory into `~/.agents/skills` and `~/.codex/skills`.
 
 Agent Mail also needs the remote MCP server installed by URL:
 
