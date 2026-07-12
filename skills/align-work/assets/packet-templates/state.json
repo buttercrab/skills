@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "packet_id": "{{PACKET_ID}}",
+  "repository_root": "{{REPOSITORY_ROOT}}",
+  "task_id": "{{TASK_ID}}",
+  "packet_revision": 0,
+  "protected_digest": null,
+  "status": "discovery",
+  "open_question_ids": [],
+  "active_coordinator": {
+    "id": "{{COORDINATOR_ID}}",
+    "epoch": 1
+  },
+  "coordinator_history": [],
+  "state_generation": 0,
+  "resume_status": null,
+  "requested_authority_classes": [],
+  "runtime_authorization_evidence": null,
+  "rollback_mode": false,
+  "execution_head": null,
+  "pending_execution_hash": null,
+  "approval": null,
+  "last_transition_at": "{{CREATED_AT}}"
+}
