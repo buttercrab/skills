@@ -1,0 +1,4 @@
+interface:
+  display_name: "Mine History Tool Landscapes"
+  short_description: "Mine agent histories into capability evidence"
+  default_prompt: "Use $mine-history-tool-landscapes in the single mode requested: reconstruct historical lineage or mine independent root intents for capability gaps; run both only when explicit."

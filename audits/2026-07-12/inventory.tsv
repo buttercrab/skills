@@ -1,0 +1,8 @@
+skill	planning_state	primary_surfaces	audit_status
+agent-mail	tracked	SKILL.md; Rust service; shell integration tests; deployment reference	remediated
+brief-linked-evidence	untracked	SKILL.md; evidence schema; Python validator	remediated
+execute-goal-loop	tracked	SKILL.md; reviewer prompts	remediated
+front-agent-orchestration	tracked	SKILL.md; Go CLI; shell smoke; protocol references	remediated
+map-technical-landscapes	untracked	SKILL.md; v2 schema; Python validator	remediated
+mine-history-tool-landscapes	untracked	SKILL.md; source contract; indexer; evidence validator	remediated
+align-work	late-discovered-untracked	SKILL.md; packet helper; references; tests	excluded-by-user-no-verdict

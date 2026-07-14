@@ -1,0 +1,24 @@
+command_group=agent-mail
+exit_status=0
+cargo fmt --all -- --check
+cargo clippy --workspace --all-targets -- -D warnings
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.59s
+cargo test --workspace
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.39s
+     Running unittests src/main.rs (target/debug/deps/agent_mail_server-919c20b466811526)
+
+running 5 tests
+test mcp::tests::validates_json_rpc_shape_and_error_classification ... ok
+test store::tests::inbox_cursor_round_trips_and_rejects_malformed_values ... ok
+test validation::tests::enforces_address_and_payload_limits ... ok
+test config::tests::rejects_equal_service_and_credential_admin_tokens ... ok
+test config::tests::rejects_empty_token ... ok
+
+test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+./scripts/real_postgres_http_test.sh
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.14s
+real postgres/http test passed
+./scripts/real_postgres_mcp_test.sh
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.15s
+real postgres/mcp test passed

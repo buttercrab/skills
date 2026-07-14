@@ -9,6 +9,13 @@ pub struct Session {
 }
 
 #[derive(Debug, Clone, Serialize)]
+pub struct ParticipantSession {
+    pub identity: String,
+    pub role: String,
+    pub participant_token: String,
+}
+
+#[derive(Debug, Clone, Serialize)]
 pub struct Participant {
     pub identity: String,
     pub role: String,
@@ -48,6 +55,8 @@ pub struct Inbox {
     pub role: String,
     pub unread_count: usize,
     pub messages: Vec<Message>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub next_cursor: Option<String>,
 }
 
 #[derive(Debug, Deserialize)]
@@ -65,6 +74,7 @@ pub struct AddProject {
 
 #[derive(Debug, Deserialize)]
 pub struct SendMessage {
+    #[serde(default)]
     pub sender_identity: String,
     pub project: String,
     #[serde(default)]
@@ -72,6 +82,8 @@ pub struct SendMessage {
     pub to: String,
     pub subject: String,
     pub body: String,
+    #[serde(default)]
+    pub idempotency_key: String,
 }
 
 #[derive(Debug, Deserialize)]

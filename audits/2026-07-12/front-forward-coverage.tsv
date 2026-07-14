@@ -1,0 +1,37 @@
+scenario	status	evidence_or_reason
+1 main startup	covered	TestMainPrintsRootAndStartsPairingWaiter; offline smoke; state polling documented
+2 gateway startup	covered	offline smoke; TestGatewayFailsClearlyWithoutLivePairingWaiter
+3 gateway initial clarification	agent-forward-unrun	requires qualitative fresh-agent behavior; canonical rule inspected
+4 gateway approval gate	covered	TestGatewayWorkRequiresHumanConfirmation; SKILL approval contract
+5 main receives work	covered	TestGatewayCanSubmitWorkAndMainCanListen
+6 main asks human	covered	TestSendQuestionAnswerAndListen
+7 gateway answers	covered	TestAnswerRequiresRespondsTo; duplicate-answer tests
+8 main updates	covered	TestMainCanSendUpdateToGateway; terminal status schema tests
+9 repeat listen loop	covered	TestListenWaitsForOneValidMessageThenExits; docs contract
+10 same-root setup	covered	root canonicalization and pairing tests
+11 multiple states	covered	TestSelectStatePrefersRequestedGatewayMode; identity binding tests
+12 full-body listen	covered	TestSendQuestionAnswerAndListen; TestListenDrainsAllUnreadMessages
+13 sender spoofing	covered	TestListenRejectsSpoofedProtocolMessage; participant-token HTTP tests
+14 fenced YAML	covered	fenced, duplicate-key, multiple-document, and nested-field tests
+15 missing confirmation	covered	TestGatewayWorkRequiresHumanConfirmation
+16 direct-to-main behavior	agent-forward-unrun	qualitative routing behavior documented; protocol prevents gateway-role bypass
+17 long work progress	agent-forward-unrun	qualitative timing behavior documented
+18 competing listener	covered	TestListenRejectsConcurrentListenerForSameIdentity; stale-lock tests
+19 raw YAML hiding	agent-forward-unrun	human-facing presentation behavior documented
+20 removed token flag	covered	TestGatewayRejectsRemovedTokenFlag
+21 missing waiter	covered	TestGatewayFailsClearlyWithoutLivePairingWaiter
+22 restarted waiter	covered	TestRestartedWaitReadyConsumesExistingGatewayReady
+23 queued drain	covered	TestListenDrainsAllUnreadMessages; paginated HTTP client tests
+24 gateway availability	covered	offline smoke returns after pairing; no foreground gateway listen
+25 main delegation	agent-forward-unrun	depends on host authorization and task; ownership contract reviewed
+26 gateway repo exploration	agent-forward-unrun	qualitative fresh-agent behavior; canonical rule inspected
+27 durable answer uniqueness	covered	sequential and concurrent duplicate-answer tests; server idempotency
+28 paired-state convergence	covered	TestRestartedWaitReadyConsumesExistingGatewayReady and pairing recovery tests
+29 rejected read state	covered	spoofed/malformed listen tests and read-state assertions
+30 output failure	covered	TestListenDoesNotMarkValidMessageReadBeforeOutput
+31 metadata injection	covered	TestRenderedMetadataCannotBeOverriddenBySubject; CR/LF rejection
+32 top-level YAML	covered	TestNestedProtocolFieldsDoNotSatisfyTopLevelContract; multi-document rejection
+33 terminal lifecycle	covered	method-specific update status tests and protocol reference
+34 offline smoke safety	covered	scripts/smoke_front_agent_protocol.sh passed without credentials; no waiter remained
+35 HTTP pagination	covered	TestHTTPInboxPaginatesReadsAndMarksWithParticipantCredential; bounded/deadline tests
+36 source freshness	covered	TestLauncherCannotUseStaleGeneratedBinary; no-Go refusal; binary absent

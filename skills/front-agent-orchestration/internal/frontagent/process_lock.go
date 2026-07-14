@@ -4,10 +4,10 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"io"
 	"os"
 	"path/filepath"
 	"syscall"
-	"time"
 )
 
 type processLock struct {
@@ -25,7 +25,14 @@ func acquireProcessLock(root, identity, name, liveMessage string) (func(), proce
 	if err != nil {
 		return nil, processLock{}, err
 	}
-	if err := os.MkdirAll(dir, 0700); err != nil {
+	stateDir, err := stateRoot(root)
+	if err != nil {
+		return nil, processLock{}, err
+	}
+	if err := ensurePrivateDir(stateDir); err != nil {
+		return nil, processLock{}, err
+	}
+	if err := ensurePrivateDir(dir); err != nil {
 		return nil, processLock{}, err
 	}
 	path := filepath.Join(dir, identity+".json")
@@ -33,78 +40,68 @@ func acquireProcessLock(root, identity, name, liveMessage string) (func(), proce
 	if name == "wait-ready" {
 		lock.LogPath = waitReadyLogPath(root, identity)
 	}
-	raw, err := json.MarshalIndent(lock, "", "  ")
+	file, err := openPrivateFile(path, os.O_CREATE|os.O_RDWR)
 	if err != nil {
 		return nil, processLock{}, err
 	}
-	raw = append(raw, '\n')
-
-	for {
-		tmp, err := os.CreateTemp(dir, "."+identity+".*.tmp")
-		if err != nil {
-			return nil, processLock{}, err
-		}
-		tmpPath := tmp.Name()
-		if _, err := tmp.Write(raw); err != nil {
-			_ = tmp.Close()
-			_ = os.Remove(tmpPath)
-			return nil, processLock{}, err
-		}
-		if err := tmp.Close(); err != nil {
-			_ = os.Remove(tmpPath)
-			return nil, processLock{}, err
-		}
-		err = os.Link(tmpPath, path)
-		_ = os.Remove(tmpPath)
-		if err == nil {
-			return func() {
-				current, err := readProcessLock(path)
-				if err == nil && current.PID == os.Getpid() {
-					_ = os.Remove(path)
-				}
-			}, lock, nil
-		}
-		if !errors.Is(err, os.ErrExist) {
-			return nil, processLock{}, err
-		}
-		existing, rawExisting, readErr := readProcessLockRaw(path)
-		if readErr != nil {
-			info, statErr := os.Stat(path)
-			if statErr == nil && time.Since(info.ModTime()) < 2*time.Second {
-				return nil, processLock{}, fmt.Errorf(liveMessage, identity, 0)
-			}
-			if rawExisting == nil {
-				return nil, processLock{}, readErr
-			}
-		}
-		if readErr == nil && processAlive(existing.PID) {
+	if err := syscall.Flock(int(file.Fd()), syscall.LOCK_EX|syscall.LOCK_NB); err != nil {
+		existing, _ := readProcessLockFile(file)
+		_ = file.Close()
+		if errors.Is(err, syscall.EWOULDBLOCK) || errors.Is(err, syscall.EAGAIN) {
 			return nil, processLock{}, fmt.Errorf(liveMessage, identity, existing.PID)
 		}
-		removed, removeErr := removeProcessLockIfUnchanged(path, rawExisting)
-		if removeErr != nil {
-			return nil, processLock{}, removeErr
-		}
-		if !removed {
-			continue
-		}
+		return nil, processLock{}, err
 	}
+	if err := writeProcessLockFile(file, lock); err != nil {
+		_ = syscall.Flock(int(file.Fd()), syscall.LOCK_UN)
+		_ = file.Close()
+		return nil, processLock{}, err
+	}
+	return func() {
+		_ = syscall.Flock(int(file.Fd()), syscall.LOCK_UN)
+		_ = file.Close()
+	}, lock, nil
 }
 
 func readProcessLock(path string) (processLock, error) {
-	lock, _, err := readProcessLockRaw(path)
-	return lock, err
+	file, err := openPrivateFile(path, os.O_RDONLY)
+	if err != nil {
+		return processLock{}, err
+	}
+	defer file.Close()
+	return readProcessLockFile(file)
 }
 
-func readProcessLockRaw(path string) (processLock, []byte, error) {
-	raw, err := os.ReadFile(path)
+func readProcessLockFile(file *os.File) (processLock, error) {
+	if _, err := file.Seek(0, io.SeekStart); err != nil {
+		return processLock{}, err
+	}
+	raw, err := io.ReadAll(file)
 	if err != nil {
-		return processLock{}, nil, err
+		return processLock{}, err
 	}
 	var lock processLock
 	if err := json.Unmarshal(raw, &lock); err != nil {
-		return processLock{}, raw, err
+		return processLock{}, err
 	}
-	return lock, raw, nil
+	return lock, nil
+}
+
+func writeProcessLockFile(file *os.File, lock processLock) error {
+	raw, err := json.MarshalIndent(lock, "", "  ")
+	if err != nil {
+		return err
+	}
+	if err := file.Truncate(0); err != nil {
+		return err
+	}
+	if _, err := file.Seek(0, io.SeekStart); err != nil {
+		return err
+	}
+	if _, err := file.Write(append(raw, '\n')); err != nil {
+		return err
+	}
+	return file.Sync()
 }
 
 func liveProcessLock(root, identity, name string) (processLock, bool, error) {
@@ -116,37 +113,30 @@ func liveProcessLock(root, identity, name string) (processLock, bool, error) {
 		return processLock{}, false, err
 	}
 	path := filepath.Join(dir, identity+".json")
-	lock, raw, err := readProcessLockRaw(path)
+	file, err := openPrivateFile(path, os.O_RDONLY)
 	if errors.Is(err, os.ErrNotExist) {
 		return processLock{}, false, nil
 	}
 	if err != nil {
 		return processLock{}, false, err
 	}
-	if processAlive(lock.PID) {
-		return lock, true, nil
+	defer file.Close()
+	if err := syscall.Flock(int(file.Fd()), syscall.LOCK_EX|syscall.LOCK_NB); err != nil {
+		if errors.Is(err, syscall.EWOULDBLOCK) || errors.Is(err, syscall.EAGAIN) {
+			lock, readErr := readProcessLockFile(file)
+			if readErr != nil {
+				return processLock{}, false, readErr
+			}
+			return lock, true, nil
+		}
+		return processLock{}, false, err
 	}
-	if _, removeErr := removeProcessLockIfUnchanged(path, raw); removeErr != nil {
-		return processLock{}, false, removeErr
+	defer syscall.Flock(int(file.Fd()), syscall.LOCK_UN)
+	lock, readErr := readProcessLockFile(file)
+	if readErr != nil {
+		return processLock{}, false, nil
 	}
 	return lock, false, nil
-}
-
-func removeProcessLockIfUnchanged(path string, expected []byte) (bool, error) {
-	current, err := os.ReadFile(path)
-	if errors.Is(err, os.ErrNotExist) {
-		return true, nil
-	}
-	if err != nil {
-		return false, err
-	}
-	if string(current) != string(expected) {
-		return false, nil
-	}
-	if err := os.Remove(path); err != nil && !errors.Is(err, os.ErrNotExist) {
-		return false, err
-	}
-	return true, nil
 }
 
 func processLockDir(root, name string) (string, error) {

@@ -1,0 +1,50 @@
+2026-07-12 final verification, cwd=/Users/jaeyong/skills
+
+Canonical validation, explicit audited paths only:
+quick_validate agent-mail PASS
+quick_validate brief-linked-evidence PASS
+quick_validate execute-goal-loop PASS
+quick_validate front-agent-orchestration PASS
+quick_validate map-technical-landscapes PASS
+quick_validate mine-history-tool-landscapes PASS
+
+Python suites:
+brief-linked-evidence: Ran 18 tests; OK
+map-technical-landscapes: Ran 33 tests; OK
+mine-history-tool-landscapes: Ran 23 tests; OK
+
+Agent Mail:
+cargo fmt --all -- --check: PASS
+cargo clippy --workspace --all-targets -- -D warnings: PASS
+cargo test --workspace: 5 passed; 0 failed
+real_postgres_http_test.sh: PASS
+real_postgres_mcp_test.sh: PASS
+
+Front Agent:
+gofmt: PASS
+go vet ./...: PASS
+go test ./... -count=1: PASS
+go test -race ./... -count=1: PASS
+go test ./... -shuffle=on -count=3: PASS
+bash syntax: PASS
+offline shared-mailbox smoke: PASS
+generated front-agent-bin absent: PASS
+per-identity state symlink rejection: PASS
+unsafe state-file mode rejection: PASS
+non-regular state-file rejection: PASS
+
+Repository and evidence:
+isolated installer: 7 .agents links + 7 .codex links; idempotent
+foreign symlink backup: PASS
+no-Go refusal before HOME mutation: PASS
+README/discovery inventory: exact, 7 discoverable skills
+git diff --check: PASS
+audited-scope Python cache hygiene: PASS
+root/audited-scope Markdown relative links: PASS, 9 links in 28 Markdown files
+audit ledger: 7 inventory rows, 6 reports, 74 fixtures, 36 Front Agent scenarios
+trigger matrix: 24 rows, 6 skills, 4 cases per skill, 8 fields; PASS
+
+Excluded scope:
+align-work was not audited, validated, tested, fixture-checked, link-checked, or remediated.
+All five interrupted audit edits were reversed before six concurrent post-baseline external/user deltas appeared.
+Six external deltas were present at review time. The excluded directory continued changing afterward, so exact end hashes are intentionally not treated as stable audit evidence.

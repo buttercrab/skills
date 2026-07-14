@@ -25,6 +25,10 @@ pub fn session_id() -> anyhow::Result<String> {
     Ok(format!("mcp-{}", random_hex(24)?))
 }
 
+pub fn participant_token() -> anyhow::Result<String> {
+    Ok(format!("amp_{}", random_hex(32)?))
+}
+
 fn random_hex(len: usize) -> anyhow::Result<String> {
     let mut raw = vec![0_u8; len];
     rand::rngs::OsRng.try_fill_bytes(&mut raw)?;

@@ -96,7 +96,9 @@ func cmdMain(args []string, stdout, stderr io.Writer) error {
 	fmt.Fprintf(stdout, "Main identity: %s\n\n", identity)
 	fmt.Fprintf(stdout, "Open the gateway session and say:\n\n$front-agent-orchestration gateway %s%s\n\n", identity, displayRootArg(*root))
 	fmt.Fprintln(stdout, "Pairing waiter is detached; gateway should pair without another main-side command.")
-	fmt.Fprintln(stdout, "After pairing, main should run:")
+	fmt.Fprintln(stdout, "Check until pairing_state is paired:")
+	fmt.Fprintf(stdout, "%s state --identity %s%s\n", displayCommand(), identity, displayRootArg(*root))
+	fmt.Fprintln(stdout, "Then main should run:")
 	fmt.Fprintf(stdout, "%s listen --identity %s%s\n", displayCommand(), identity, displayRootArg(*root))
 	return nil
 }
@@ -130,6 +132,14 @@ func cmdWaitReady(args []string, stdout, stderr io.Writer) error {
 			return err
 		} else if alive {
 			return sendMainReadyAck(stdout, *root, st, st.PeerIdentity, st.LastReadyID)
+		}
+		if gatewayState, err := selectState(*root, st.PeerIdentity, "gateway", true); err == nil && gatewayState.PeerIdentity == st.Identity && gatewayState.LastReadyID == st.LastReadyID {
+			st.PairedAt = gatewayState.PairedAt
+			if err := saveState(*root, st); err != nil {
+				return err
+			}
+			fmt.Fprintf(stdout, "Recovered pairing with gateway identity: %s\n", st.PeerIdentity)
+			return nil
 		}
 		if err := saveState(*root, state{Mode: "main", Identity: st.Identity, Role: mainRole, StartedAt: st.StartedAt}); err != nil {
 			return err
@@ -189,7 +199,7 @@ func detachWaitReady(stdout io.Writer, root, identity, timeout string) error {
 	if err := os.MkdirAll(filepath.Dir(logPath), 0700); err != nil {
 		return err
 	}
-	logFile, err := os.OpenFile(logPath, os.O_CREATE|os.O_WRONLY|os.O_TRUNC, 0600)
+	logFile, err := openPrivateFile(logPath, os.O_CREATE|os.O_WRONLY|os.O_TRUNC)
 	if err != nil {
 		return err
 	}
@@ -274,7 +284,7 @@ func waitForValidGatewayReady(stderr io.Writer, st state, root, timeoutText stri
 			}
 			return "", nil, err
 		}
-		if readyID, meta, ok, err := validateReadyIDs(stderr, st, root, mailIDPattern.FindAllString(line, -1)); err != nil {
+		if readyID, meta, ok, err := validateReadyIDs(stderr, st, root, inboxMailIDs(line)); err != nil {
 			return "", nil, err
 		} else if ok {
 			return readyID, meta, nil
@@ -288,7 +298,7 @@ func findValidGatewayReady(stderr io.Writer, st state, root string) (string, map
 	if err != nil {
 		return "", nil, false, err
 	}
-	return validateReadyIDs(stderr, st, root, mailIDPattern.FindAllString(inbox, -1))
+	return validateReadyIDs(stderr, st, root, inboxMailIDs(inbox))
 }
 
 func validateReadyIDs(stderr io.Writer, st state, root string, ids []string) (string, map[string]string, bool, error) {
@@ -353,17 +363,28 @@ func cmdGateway(args []string, stdout, stderr io.Writer) error {
 	if err != nil {
 		return err
 	}
-	if mainState.PairedAt != "" {
-		return fmt.Errorf("main identity %s is already paired with gateway %s", mainID, mainState.PeerIdentity)
-	}
-	if mainState.PeerIdentity != "" {
-		return fmt.Errorf("main identity %s is already in pending pairing with gateway %s", mainID, mainState.PeerIdentity)
-	}
 	releasePairing, _, err := acquireProcessLock(*root, mainID, "pairing", "front-agent gateway pairing already running for main identity %s with pid %d")
 	if err != nil {
 		return err
 	}
 	defer releasePairing()
+	if mainState.PeerIdentity != "" {
+		gatewayState, err := selectState(*root, mainState.PeerIdentity, "gateway", false)
+		if err != nil || gatewayState.PeerIdentity != mainID {
+			if mainState.PairedAt != "" {
+				return fmt.Errorf("main identity %s is already paired with gateway %s", mainID, mainState.PeerIdentity)
+			}
+			return fmt.Errorf("main identity %s is already in pending pairing with gateway %s", mainID, mainState.PeerIdentity)
+		}
+		if gatewayState.PairedAt != "" && mainState.PairedAt != "" {
+			printGatewayPaired(stdout, gatewayState.Identity, mainID, *root, true)
+			return nil
+		}
+		if gatewayState.LastReadyID == "" {
+			return fmt.Errorf("gateway %s has incomplete pairing state; rerun main with a fresh identity", gatewayState.Identity)
+		}
+		return resumeGatewayPairing(stdout, stderr, gatewayState, *root, *timeout)
+	}
 	if waiter, alive, err := liveProcessLock(*root, mainID, "wait-ready"); err != nil {
 		return err
 	} else if !alive {
@@ -402,29 +423,60 @@ func cmdGateway(args []string, stdout, stderr io.Writer) error {
 	if err != nil {
 		return err
 	}
+	if err := saveState(*root, state{Mode: "gateway", Identity: identity, PeerIdentity: mainID, Role: gatewayRole, StartedAt: startedAt, LastReadyID: readyID}); err != nil {
+		return err
+	}
 	fmt.Fprintf(stdout, "Gateway identity: %s\n", identity)
 	fmt.Fprintln(stdout, "Waiting for main acknowledgement...")
-	ackID, err := waitForValidMainAck(stderr, state{Mode: "gateway", Identity: identity, PeerIdentity: mainID, Role: gatewayRole, StartedAt: startedAt}, readyID, *root, *timeout)
+	ackID, pairedAt, err := waitForValidMainAck(stderr, state{Mode: "gateway", Identity: identity, PeerIdentity: mainID, Role: gatewayRole, StartedAt: startedAt, LastReadyID: readyID}, readyID, *root, *timeout)
 	if err != nil {
 		return err
 	}
-	if err := saveState(*root, state{Mode: "gateway", Identity: identity, PeerIdentity: mainID, Role: gatewayRole, StartedAt: startedAt, PairedAt: nowText(), LastReadyID: readyID}); err != nil {
+	if err := saveState(*root, state{Mode: "gateway", Identity: identity, PeerIdentity: mainID, Role: gatewayRole, StartedAt: startedAt, PairedAt: pairedAt, LastReadyID: readyID}); err != nil {
 		return err
 	}
 	if _, err := runMail("", "read", ackID, "--identity", identity, rootArgs(*root)); err != nil {
 		return err
 	}
-	fmt.Fprintf(stdout, "Paired with main identity: %s\n", mainID)
-	fmt.Fprintln(stdout, "Gateway is paired and ready for human input.")
-	fmt.Fprintln(stdout, "At the start of each human-facing turn, drain pending main messages with:")
-	fmt.Fprintf(stdout, "%s listen --timeout 0 --identity %s%s\n", displayCommand(), identity, displayRootArg(*root))
+	printGatewayPaired(stdout, identity, mainID, *root, false)
 	return nil
 }
 
-func waitForValidMainAck(stderr io.Writer, st state, readyID, root, timeoutText string) (string, error) {
+func resumeGatewayPairing(stdout, stderr io.Writer, st state, root, timeoutText string) error {
+	release, _, err := acquireProcessLock(root, st.Identity, "gateway-ready", "front-agent gateway already waiting for identity %s with pid %d")
+	if err != nil {
+		return err
+	}
+	defer release()
+	ackID, pairedAt, err := waitForValidMainAck(stderr, st, st.LastReadyID, root, timeoutText)
+	if err != nil {
+		return err
+	}
+	st.PairedAt = pairedAt
+	if err := saveState(root, st); err != nil {
+		return err
+	}
+	if _, err := runMail("", "read", ackID, "--identity", st.Identity, rootArgs(root)); err != nil {
+		return err
+	}
+	printGatewayPaired(stdout, st.Identity, st.PeerIdentity, root, true)
+	return nil
+}
+
+func printGatewayPaired(stdout io.Writer, identity, mainID, root string, includeIdentity bool) {
+	if includeIdentity {
+		fmt.Fprintf(stdout, "Gateway identity: %s\n", identity)
+	}
+	fmt.Fprintf(stdout, "Paired with main identity: %s\n", mainID)
+	fmt.Fprintln(stdout, "Gateway is paired and ready for human input.")
+	fmt.Fprintln(stdout, "At the start of each human-facing turn, drain pending main messages with:")
+	fmt.Fprintf(stdout, "%s listen --timeout 0 --identity %s%s\n", displayCommand(), identity, displayRootArg(root))
+}
+
+func waitForValidMainAck(stderr io.Writer, st state, readyID, root, timeoutText string) (string, string, error) {
 	timeout, err := time.ParseDuration(timeoutText)
 	if err != nil {
-		return "", err
+		return "", "", err
 	}
 	deadline := time.Now().Add(timeout)
 	for time.Now().Before(deadline) {
@@ -441,25 +493,25 @@ func waitForValidMainAck(stderr io.Writer, st state, readyID, root, timeoutText 
 			if isWaitTimeout(err) {
 				continue
 			}
-			return "", err
+			return "", "", err
 		}
-		for _, ackID := range mailIDPattern.FindAllString(line, -1) {
+		for _, ackID := range inboxMailIDs(line) {
 			read, err := runMail("", "read", ackID, "--identity", st.Identity, "--no-mark-read", rootArgs(root))
 			if err != nil {
-				return "", err
+				return "", "", err
 			}
 			meta, body := readMailMetaFromText(read)
 			if err := validateReadyForGateway(meta, body, st, readyID); err != nil {
 				fmt.Fprintf(stderr, "Rejected %s: %v\n", ackID, err)
 				if _, markErr := runMail("", "read", ackID, "--identity", st.Identity, rootArgs(root)); markErr != nil {
-					return "", markErr
+					return "", "", markErr
 				}
 				continue
 			}
-			return ackID, nil
+			return ackID, meta["created_at"], nil
 		}
 	}
-	return "", fmt.Errorf("timed out waiting for valid main acknowledgement")
+	return "", "", fmt.Errorf("timed out waiting for valid main acknowledgement")
 }
 
 func cmdListen(args []string, stdout, stderr io.Writer) error {
@@ -534,7 +586,21 @@ func cmdSend(args []string, stdin io.Reader, stdout, stderr io.Writer) error {
 		return err
 	}
 	sendArgs := []any{"send", "--to", st.PeerIdentity, "--subject", positional[0], "--identity", st.Identity, "--type", mailTypeForMethod(body), "--contract", contractMessage}
+	var releaseAnswer func()
 	if *respondsTo != "" {
+		if err := validateMailID(*respondsTo); err != nil {
+			return err
+		}
+		releaseAnswer, err = acquireAnswerLock(*root, st.Identity, *respondsTo)
+		if err != nil {
+			return err
+		}
+		defer releaseAnswer()
+		if existing, err := recordedAnswer(*root, st.Identity, *respondsTo); err != nil {
+			return err
+		} else if existing != "" {
+			return fmt.Errorf("question %s already has answer %s", *respondsTo, existing)
+		}
 		if err := validateRespondsToQuestion(st, *respondsTo, *root); err != nil {
 			return err
 		}
@@ -553,11 +619,22 @@ func cmdSend(args []string, stdin io.Reader, stdout, stderr io.Writer) error {
 		return err
 	}
 	if *respondsTo != "" {
+		if err := recordAnswer(*root, st.Identity, *respondsTo, id); err != nil {
+			return err
+		}
 		if _, err := runMail("", "read", *respondsTo, "--identity", st.Identity, rootArgs(*root)); err != nil {
 			return err
 		}
 	}
-	fmt.Fprintf(stdout, "%s\n", id)
+	if _, err = fmt.Fprintf(stdout, "%s\n", id); err != nil {
+		return err
+	}
+	if strings.TrimSpace(os.Getenv("FRONT_AGENT_MAIL_BACKEND")) != "memory" {
+		env := envelope{Type: mailTypeForMethod(body), Contract: contractMessage, RespondsTo: *respondsTo, Body: body}
+		if err := completeIdempotentSend(*root, st.Identity, st.PeerIdentity, positional[0], env); err != nil {
+			return err
+		}
+	}
 	return nil
 }
 
@@ -589,7 +666,7 @@ func ensureNoExistingAnswer(st state, questionID, root string) error {
 		return err
 	}
 	receiver := state{Mode: peerMode(st), Identity: st.PeerIdentity, PeerIdentity: st.Identity, Role: peerRole(st), PairedAt: st.PairedAt}
-	for _, id := range mailIDPattern.FindAllString(inbox, -1) {
+	for _, id := range inboxMailIDs(inbox) {
 		read, err := runMail("", "read", id, "--identity", st.PeerIdentity, "--no-mark-read", rootArgs(root))
 		if err != nil {
 			return err
@@ -707,7 +784,7 @@ func printUnreadContract(stdout, stderr io.Writer, st state, contract, root stri
 		return 0, err
 	}
 	printed := 0
-	for _, id := range mailIDPattern.FindAllString(inbox, -1) {
+	for _, id := range inboxMailIDs(inbox) {
 		didPrint, err := printValidatedMessage(stdout, stderr, st, id, contract, root)
 		if err != nil {
 			return printed, err
@@ -745,7 +822,7 @@ func listenValidated(stdout, stderr io.Writer, st state, root, timeoutText strin
 			}
 			return err
 		}
-		for _, id := range mailIDPattern.FindAllString(line, -1) {
+		for _, id := range inboxMailIDs(line) {
 			printed, err := printValidatedMessage(stdout, stderr, st, id, contractMessage, root)
 			if err != nil {
 				return err
@@ -777,13 +854,16 @@ func printValidatedMessage(stdout, stderr io.Writer, st state, id, contract, roo
 		_, markErr := runMail("", "read", id, "--identity", st.Identity, rootArgs(root))
 		return false, markErr
 	}
-	marked, err := runMail("", "read", id, "--identity", st.Identity, rootArgs(root))
-	if err != nil {
+	if _, err := io.WriteString(stdout, read); err != nil {
 		return false, err
 	}
-	fmt.Fprint(stdout, marked)
-	if !strings.HasSuffix(marked, "\n") {
-		fmt.Fprintln(stdout)
+	if !strings.HasSuffix(read, "\n") {
+		if _, err := io.WriteString(stdout, "\n"); err != nil {
+			return false, err
+		}
+	}
+	if _, err := runMail("", "read", id, "--identity", st.Identity, rootArgs(root)); err != nil {
+		return false, err
 	}
 	return true, nil
 }

@@ -1,0 +1,9 @@
+command_group=front-agent
+exit_status=0
+?   	front-agent-orchestration/cmd/front-agent	[no test files]
+ok  	front-agent-orchestration/internal/frontagent	5.170s
+?   	front-agent-orchestration/cmd/front-agent	[no test files]
+ok  	front-agent-orchestration/internal/frontagent	6.098s
+?   	front-agent-orchestration/cmd/front-agent	[no test files]
+ok  	front-agent-orchestration/internal/frontagent	14.418s
+front-agent smoke passed

@@ -2,15 +2,34 @@
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+TOKEN="mcp-test-token"
+CREDENTIAL_ADMIN_TOKEN="mcp-test-credential-admin-token"
+CARGO_TARGET_DIR="${CARGO_TARGET_DIR:-$ROOT/target}"
+TEST_PASSED=0
+if [[ -z "${POSTGRES_BIN:-}" ]]; then
+  if command -v pg_config >/dev/null 2>&1; then
+    POSTGRES_BIN="$(pg_config --bindir)"
+  elif command -v initdb >/dev/null 2>&1; then
+    POSTGRES_BIN="$(dirname "$(command -v initdb)")"
+  else
+    echo "PostgreSQL tools not found; set POSTGRES_BIN or install PostgreSQL" >&2
+    exit 2
+  fi
+fi
+for tool in initdb pg_ctl pg_isready createdb; do
+  [[ -x "$POSTGRES_BIN/$tool" ]] || { echo "missing PostgreSQL tool: $POSTGRES_BIN/$tool" >&2; exit 2; }
+done
 TMPDIR="$(mktemp -d /tmp/agent-mail-mcp-test-XXXXXX)"
 PGDATA="$TMPDIR/pgdata"
 PGLOG="$TMPDIR/postgres.log"
 SERVERLOG="$TMPDIR/server.log"
-TOKEN="mcp-test-token"
-POSTGRES_BIN="${POSTGRES_BIN:-/opt/homebrew/opt/postgresql@17/bin}"
 
 cleanup() {
   local status=$?
+  trap - EXIT
+  if [[ $status -eq 0 && $TEST_PASSED -ne 1 ]]; then
+    status=1
+  fi
   if [[ -n "${SSE_PID:-}" ]]; then
     kill "$SSE_PID" 2>/dev/null || true
     wait "$SSE_PID" 2>/dev/null || true
@@ -30,6 +49,7 @@ cleanup() {
   else
     rm -rf "$TMPDIR"
   fi
+  exit "$status"
 }
 trap cleanup EXIT
 
@@ -80,6 +100,7 @@ except FileNotFoundError:
     raise SystemExit(1)
 
 for line in lines:
+    line = line.lstrip("\x00")
     if not line.startswith("data:"):
         continue
     payload = line.removeprefix("data:").strip()
@@ -119,6 +140,7 @@ except FileNotFoundError:
     raise SystemExit(1)
 
 for line in lines:
+    line = line.lstrip("\x00")
     if not line.startswith("data:"):
         continue
     payload = line.removeprefix("data:").strip()
@@ -144,8 +166,10 @@ PY
 mcp_post() {
   local session="$1"
   local body="$2"
-  local out="$TMPDIR/body.json"
-  local headers="$TMPDIR/headers.txt"
+  local request_id
+  request_id="$(python3 -c 'import secrets; print(secrets.token_hex(8))')"
+  local out="$TMPDIR/body-$request_id.json"
+  local headers="$TMPDIR/headers-$request_id.txt"
   local extra_headers=(
     -H "Authorization: Bearer $TOKEN"
     -H "Content-Type: application/json"
@@ -186,6 +210,29 @@ tool_call() {
 print(json.dumps({"jsonrpc":"2.0","id":int(sys.argv[1]),"method":"tools/call","params":{"name":sys.argv[2],"arguments":json.loads(sys.argv[3])}}))' "$id" "$name" "$args")"
 }
 
+admin_http() {
+  local method="$1"
+  local path="$2"
+  local body="${3:-}"
+  local args=(-fsS -H "Authorization: Bearer $TOKEN" -X "$method")
+  if [[ -n "$body" ]]; then
+    args+=(-H "Content-Type: application/json" --data "$body")
+  fi
+  curl "${args[@]}" "http://127.0.0.1:$HTTP_PORT$path"
+}
+
+participant_http() {
+  local participant_token="$1"
+  local method="$2"
+  local path="$3"
+  local body="${4:-}"
+  local args=(-fsS -H "Authorization: Bearer $participant_token" -X "$method")
+  if [[ -n "$body" ]]; then
+    args+=(-H "Content-Type: application/json" --data "$body")
+  fi
+  curl "${args[@]}" "http://127.0.0.1:$HTTP_PORT$path"
+}
+
 PG_PORT="$(free_port)"
 HTTP_PORT="$(free_port)"
 
@@ -200,12 +247,13 @@ for _ in {1..100}; do
 done
 "$POSTGRES_BIN/createdb" -h 127.0.0.1 -p "$PG_PORT" -U postgres agent_mail_mcp_test
 
-cargo build --manifest-path "$ROOT/Cargo.toml" -p agent-mail-server >/dev/null
+CARGO_TARGET_DIR="$CARGO_TARGET_DIR" cargo build --manifest-path "$ROOT/Cargo.toml" -p agent-mail-server >/dev/null
 DATABASE_URL="postgres://postgres@127.0.0.1:$PG_PORT/agent_mail_mcp_test"
-RUST_LOG=warn "$ROOT/target/debug/agent-mail-server" \
+RUST_LOG=warn "$CARGO_TARGET_DIR/debug/agent-mail-server" \
   --database-url "$DATABASE_URL" \
   --bind "127.0.0.1:$HTTP_PORT" \
-  --token "$TOKEN" >"$SERVERLOG" 2>&1 &
+  --token "$TOKEN" \
+  --credential-admin-token "$CREDENTIAL_ADMIN_TOKEN" >"$SERVERLOG" 2>&1 &
 SERVER_PID=$!
 
 for _ in {1..100}; do
@@ -221,6 +269,8 @@ wrong_token_status="$(curl -sS -o /dev/null -w "%{http_code}" -X POST -H "Author
 [[ "$wrong_token_status" == "401" ]]
 bad_origin_status="$(curl -sS -o /dev/null -w "%{http_code}" -X POST -H "Authorization: Bearer $TOKEN" -H "Origin: https://evil.example" -H "Content-Type: application/json" --data '{"jsonrpc":"2.0","id":1,"method":"initialize","params":{}}' "http://127.0.0.1:$HTTP_PORT/mcp")"
 [[ "$bad_origin_status" == "403" ]]
+curl -fsS -H "Authorization: Bearer $TOKEN" -H "Content-Type: application/json" --data '{' "http://127.0.0.1:$HTTP_PORT/mcp" | assert_json 'data["error"]["code"] == -32700'
+curl -fsS -H "Authorization: Bearer $TOKEN" -H "Content-Type: application/json" --data '{"jsonrpc":"2.0","id":1}' "http://127.0.0.1:$HTTP_PORT/mcp" | assert_json 'data["error"]["code"] == -32600'
 
 receiver_session="$(mcp_init)"
 sender_session="$(mcp_init)"
@@ -243,7 +293,27 @@ mcp_post "$sender_session" '{"jsonrpc":"2.0","method":"notifications/initialized
 
 receiver_start="$(tool_call "$receiver_session" 2 agent_mail_start '{"role":"reviewer"}')"
 receiver_identity="$(printf '%s' "$receiver_start" | python3 -c 'import json, sys; print(json.loads(json.load(sys.stdin)["result"]["content"][0]["text"])["identity"])')"
-tool_call "$sender_session" 3 agent_mail_start '{"role":"sender"}' >/dev/null
+receiver_retry="$(tool_call "$receiver_session" 22 agent_mail_start '{"role":"reviewer"}')"
+receiver_retry_identity="$(printf '%s' "$receiver_retry" | python3 -c 'import json, sys; print(json.loads(json.load(sys.stdin)["result"]["content"][0]["text"])["identity"])')"
+[[ "$receiver_retry_identity" == "$receiver_identity" ]]
+receiver_whitespace_retry="$(tool_call "$receiver_session" 24 agent_mail_start '{"role":" reviewer "}')"
+receiver_whitespace_identity="$(printf '%s' "$receiver_whitespace_retry" | python3 -c 'import json, sys; print(json.loads(json.load(sys.stdin)["result"]["content"][0]["text"])["identity"])')"
+[[ "$receiver_whitespace_identity" == "$receiver_identity" ]]
+tool_call "$receiver_session" 23 agent_mail_start '{"role":"different-role"}' | assert_json 'data["error"]["message"].startswith("MCP session already started")'
+sender_start="$(tool_call "$sender_session" 3 agent_mail_start '{"role":"sender"}')"
+printf '%s' "$sender_start" | assert_json 'json.loads(data["result"]["content"][0]["text"])["role"] == "sender"'
+
+concurrent_session="$(mcp_init)"
+mcp_post "$concurrent_session" '{"jsonrpc":"2.0","method":"notifications/initialized"}' >/dev/null
+tool_call "$concurrent_session" 60 agent_mail_start '{"role":"concurrent"}' >"$TMPDIR/concurrent-a.json" &
+concurrent_a_pid=$!
+tool_call "$concurrent_session" 61 agent_mail_start '{"role":"concurrent"}' >"$TMPDIR/concurrent-b.json" &
+concurrent_b_pid=$!
+wait "$concurrent_a_pid" "$concurrent_b_pid"
+concurrent_a_identity="$(python3 -c 'import json, sys; print(json.loads(json.load(open(sys.argv[1]))["result"]["content"][0]["text"])["identity"])' "$TMPDIR/concurrent-a.json")"
+concurrent_b_identity="$(python3 -c 'import json, sys; print(json.loads(json.load(open(sys.argv[1]))["result"]["content"][0]["text"])["identity"])' "$TMPDIR/concurrent-b.json")"
+[[ "$concurrent_a_identity" == "$concurrent_b_identity" ]]
+admin_http GET /v1/participants | assert_json 'sum(item["role"] == "concurrent" for item in data["participants"]) == 1'
 
 curl -fsS -N \
   -H "Authorization: Bearer $TOKEN" \
@@ -255,7 +325,7 @@ curl -fsS -N \
 SSE_PID=$!
 sleep 0.2
 
-tool_call "$sender_session" 4 agent_mail_project_add '{"alias":"mcp-smoke","root":"/tmp/mcp-smoke"}' >/dev/null
+admin_http POST /v1/projects '{"alias":"mcp-smoke","root":"/tmp/mcp-smoke"}' >/dev/null
 wait_for_sse_method "notifications/resources/list_changed"
 
 inbox_uri="agent-mail://projects/mcp-smoke/inbox?identity=$receiver_identity"
@@ -263,7 +333,13 @@ mcp_post "$receiver_session" "$(mcp_request resources/list 40 '{}')" | assert_js
 mcp_post "$receiver_session" "$(mcp_request resources/templates/list 41 '{}')" | assert_json 'any(item["name"] == "project-inbox" for item in data["result"]["resourceTemplates"]) and any(item["name"] == "project-message" for item in data["result"]["resourceTemplates"])'
 mcp_post "$receiver_session" "$(python3 -c 'import json, sys; print(json.dumps({"jsonrpc":"2.0","id":5,"method":"resources/subscribe","params":{"uri":sys.argv[1]}}))' "$inbox_uri")" | assert_json 'data["result"] == {}'
 
-tool_call "$sender_session" 6 agent_mail_send '{"project":"mcp-smoke","to":"reviewer","subject":"MCP smoke","body":"real mcp body"}' >/dev/null
+mcp_post "$sender_session" "$(mcp_request resources/read 50 "$(python3 -c 'import json, sys; print(json.dumps({"uri":sys.argv[1]}))' "$inbox_uri")")" | assert_json 'data["error"]["message"] == "forbidden"'
+mcp_post "$sender_session" "$(mcp_request resources/subscribe 51 "$(python3 -c 'import json, sys; print(json.dumps({"uri":sys.argv[1]}))' "$inbox_uri")")" | assert_json 'data["error"]["message"] == "forbidden"'
+
+http_sender="$(admin_http POST /v1/participants/start '{"identity":"http-sender","role":"http-sender"}')"
+http_sender_token="$(printf '%s' "$http_sender" | json_get participant_token)"
+: >"$TMPDIR/sse.log"
+participant_http "$http_sender_token" POST /v1/messages '{"project":"mcp-smoke","to":"reviewer","subject":"MCP smoke","body":"real mcp body"}' >/dev/null
 wait_for_sse_uri "$inbox_uri"
 
 inbox_json="$(mcp_post "$receiver_session" "$(python3 -c 'import json, sys; print(json.dumps({"jsonrpc":"2.0","id":7,"method":"resources/read","params":{"uri":sys.argv[1]}}))' "$inbox_uri")")"
@@ -278,4 +354,10 @@ tool_call "$receiver_session" 9 agent_mail_mark_read "$(python3 -c 'import json,
 wait_for_sse_uri "$message_uri"
 mcp_post "$receiver_session" "$(python3 -c 'import json, sys; print(json.dumps({"jsonrpc":"2.0","id":10,"method":"resources/read","params":{"uri":sys.argv[1]}}))' "$inbox_uri")" | assert_json 'json.loads(data["result"]["contents"][0]["text"])["unread_count"] == 0'
 
+delete_status="$(curl -sS -o /dev/null -w "%{http_code}" -X DELETE -H "Authorization: Bearer $TOKEN" -H "MCP-Session-Id: $sender_session" "http://127.0.0.1:$HTTP_PORT/mcp")"
+[[ "$delete_status" == "204" ]]
+deleted_session_status="$(curl -sS -o /dev/null -w "%{http_code}" -X POST -H "Authorization: Bearer $TOKEN" -H "Content-Type: application/json" -H "MCP-Session-Id: $sender_session" --data '{"jsonrpc":"2.0","id":99,"method":"ping"}' "http://127.0.0.1:$HTTP_PORT/mcp")"
+[[ "$deleted_session_status" == "404" ]]
+
+TEST_PASSED=1
 echo "real postgres/mcp test passed"

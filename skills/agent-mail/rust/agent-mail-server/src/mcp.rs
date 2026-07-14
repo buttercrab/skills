@@ -2,10 +2,12 @@ use std::{
     collections::{HashMap, HashSet},
     convert::Infallible,
     sync::Arc,
+    time::{Duration, Instant},
 };
 
 use axum::{
     Json,
+    body::Bytes,
     extract::State,
     http::{HeaderMap, HeaderValue, StatusCode, header},
     response::{
@@ -28,20 +30,37 @@ const PROTOCOL_VERSION: &str = "2025-11-25";
 const SUPPORTED_PROTOCOL_VERSIONS: &[&str] = &["2025-11-25", "2025-06-18", "2025-03-26"];
 const MCP_SESSION_ID: &str = "mcp-session-id";
 const MCP_PROTOCOL_VERSION: &str = "mcp-protocol-version";
+const MAX_SESSIONS: usize = 4096;
+const MAX_SUBSCRIPTIONS_PER_SESSION: usize = 256;
+const SESSION_IDLE_TTL: Duration = Duration::from_secs(24 * 60 * 60);
 
 #[derive(Clone, Default)]
 pub struct McpHub {
     sessions: Arc<Mutex<HashMap<String, McpSession>>>,
 }
 
-#[derive(Default)]
 struct McpSession {
     identity: Option<String>,
     role: Option<String>,
     initialized: bool,
     protocol_version: String,
     subscriptions: HashSet<String>,
-    stream: Option<mpsc::UnboundedSender<Value>>,
+    stream: Option<mpsc::Sender<Value>>,
+    last_used: Instant,
+}
+
+impl Default for McpSession {
+    fn default() -> Self {
+        Self {
+            identity: None,
+            role: None,
+            initialized: false,
+            protocol_version: String::new(),
+            subscriptions: HashSet::new(),
+            stream: None,
+            last_used: Instant::now(),
+        }
+    }
 }
 
 #[derive(Debug, Deserialize)]
@@ -63,15 +82,17 @@ pub async fn mcp_get(State(state): State<Arc<AppState>>, headers: HeaderMap) -> 
         return (StatusCode::BAD_REQUEST, "missing Accept: text/event-stream").into_response();
     }
 
-    let (tx, mut rx) = mpsc::unbounded_channel();
+    let (tx, mut rx) = mpsc::channel(256);
     {
         let mut sessions = state.mcp.sessions.lock().await;
+        prune_expired_sessions(&mut sessions);
         let Some(session) = sessions.get_mut(&session_id) else {
             return (StatusCode::NOT_FOUND, "unknown MCP session").into_response();
         };
         if let Err(err) = validate_session_protocol(session, &headers) {
             return err.into_response();
         }
+        session.last_used = Instant::now();
         session.stream = Some(tx);
     }
 
@@ -93,17 +114,21 @@ pub async fn mcp_get(State(state): State<Arc<AppState>>, headers: HeaderMap) -> 
 pub async fn mcp_post(
     State(state): State<Arc<AppState>>,
     headers: HeaderMap,
-    Json(input): Json<Value>,
+    body: Bytes,
 ) -> Response {
     if let Err(err) = authorize_mcp(&state, &headers) {
         return err.into_response();
     }
+    let input: Value = match serde_json::from_slice(&body) {
+        Ok(value) => value,
+        Err(err) => return json_rpc_http(None, rpc_error(None, -32700, &err.to_string())),
+    };
     if let Err(err) = validate_rpc_shape(&input) {
         return json_rpc_http(None, rpc_error(None, err.code, &err.message));
     }
     let request: RpcRequest = match serde_json::from_value(input) {
         Ok(value) => value,
-        Err(err) => return json_rpc_http(None, rpc_error(None, -32700, &err.to_string())),
+        Err(err) => return json_rpc_http(None, rpc_error(None, -32600, &err.to_string())),
     };
 
     let session_id = header_text(&headers, MCP_SESSION_ID);
@@ -112,19 +137,23 @@ pub async fn mcp_post(
     }
     if request.method != "initialize" {
         let id = session_id.as_deref().unwrap();
-        let sessions = state.mcp.sessions.lock().await;
-        let Some(session) = sessions.get(id) else {
+        let mut sessions = state.mcp.sessions.lock().await;
+        prune_expired_sessions(&mut sessions);
+        let Some(session) = sessions.get_mut(id) else {
             return (StatusCode::NOT_FOUND, "unknown MCP session").into_response();
         };
         if let Err(err) = validate_session_protocol(session, &headers) {
             return err.into_response();
         }
+        session.last_used = Instant::now();
     }
 
     let is_notification = request.id.is_none();
     let result = handle_rpc(&state, session_id.as_deref(), &request).await;
+    if is_notification {
+        return StatusCode::ACCEPTED.into_response();
+    }
     match result {
-        Ok(_) if is_notification => StatusCode::ACCEPTED.into_response(),
         Ok(Some((reply, new_session_id))) => {
             let mut response = json_rpc_http(request.id, reply);
             if let Some(id) = new_session_id {
@@ -142,16 +171,42 @@ pub async fn mcp_post(
     }
 }
 
+pub async fn mcp_delete(State(state): State<Arc<AppState>>, headers: HeaderMap) -> Response {
+    if let Err(err) = authorize_mcp(&state, &headers) {
+        return err.into_response();
+    }
+    let Some(session_id) = header_text(&headers, MCP_SESSION_ID) else {
+        return (StatusCode::BAD_REQUEST, "missing MCP-Session-Id").into_response();
+    };
+    let mut sessions = state.mcp.sessions.lock().await;
+    if sessions.remove(&session_id).is_some() {
+        StatusCode::NO_CONTENT.into_response()
+    } else {
+        (StatusCode::NOT_FOUND, "unknown MCP session").into_response()
+    }
+}
+
 async fn handle_rpc(
     state: &Arc<AppState>,
     session_id: Option<&str>,
     request: &RpcRequest,
 ) -> Result<Option<(Value, Option<String>)>> {
+    if !matches!(
+        request.method.as_str(),
+        "initialize" | "notifications/initialized" | "ping"
+    ) {
+        require_initialized(state, session_id).await?;
+    }
     match request.method.as_str() {
         "initialize" => {
             let protocol_version = requested_protocol_version(&request.params);
             let id = id::session_id().map_err(|err| AppError::BadRequest(err.to_string()))?;
-            state.mcp.sessions.lock().await.insert(
+            let mut sessions = state.mcp.sessions.lock().await;
+            prune_expired_sessions(&mut sessions);
+            if sessions.len() >= MAX_SESSIONS {
+                return Err(AppError::Conflict("too many active MCP sessions".into()));
+            }
+            sessions.insert(
                 id.clone(),
                 McpSession {
                     protocol_version: protocol_version.clone(),
@@ -227,17 +282,24 @@ async fn handle_rpc(
         ))),
         "resources/read" => {
             let uri = required_string(&request.params, "uri")?;
-            let output = read_resource(state, &uri).await?;
+            let output = read_resource(state, session_id, &uri).await?;
             Ok(Some((rpc_result(request.id.clone(), output), None)))
         }
         "resources/subscribe" => {
             let uri = required_string(&request.params, "uri")?;
-            validate_subscribable_resource(&uri)?;
+            validate_session_resource(state, session_id, &uri).await?;
             let id = require_session_id(session_id)?;
             let mut sessions = state.mcp.sessions.lock().await;
             let session = sessions
                 .get_mut(id)
                 .ok_or_else(|| AppError::NotFound("unknown MCP session".into()))?;
+            if !session.subscriptions.contains(&uri)
+                && session.subscriptions.len() >= MAX_SUBSCRIPTIONS_PER_SESSION
+            {
+                return Err(AppError::Conflict(
+                    "too many MCP resource subscriptions for session".into(),
+                ));
+            }
             session.subscriptions.insert(uri);
             Ok(Some((rpc_result(request.id.clone(), json!({})), None)))
         }
@@ -262,6 +324,21 @@ async fn handle_rpc(
     }
 }
 
+async fn require_initialized(state: &Arc<AppState>, session_id: Option<&str>) -> Result<()> {
+    let id = require_session_id(session_id)?;
+    let sessions = state.mcp.sessions.lock().await;
+    let session = sessions
+        .get(id)
+        .ok_or_else(|| AppError::NotFound("unknown MCP session".into()))?;
+    if session.initialized {
+        Ok(())
+    } else {
+        Err(AppError::BadRequest(
+            "send notifications/initialized before using MCP tools or resources".into(),
+        ))
+    }
+}
+
 async fn call_tool(
     state: &Arc<AppState>,
     session_id: Option<&str>,
@@ -270,7 +347,26 @@ async fn call_tool(
 ) -> Result<Value> {
     match name {
         "agent_mail_start" => {
-            let role = required_string(&args, "role")?;
+            let role = required_string(&args, "role")?.trim().to_string();
+            let id = require_session_id(session_id)?;
+            let mut sessions = state.mcp.sessions.lock().await;
+            let mcp_session = sessions
+                .get_mut(id)
+                .ok_or_else(|| AppError::NotFound("unknown MCP session".into()))?;
+            if let (Some(identity), Some(existing_role)) =
+                (&mcp_session.identity, &mcp_session.role)
+            {
+                if existing_role != &role {
+                    return Err(AppError::Conflict(format!(
+                        "MCP session already started as role {existing_role:?}"
+                    )));
+                }
+                return Ok(serde_json::to_value(crate::domain::Session {
+                    identity: identity.clone(),
+                    role: existing_role.clone(),
+                })
+                .unwrap());
+            }
             let session = state
                 .store
                 .start(StartParticipant {
@@ -278,18 +374,6 @@ async fn call_tool(
                     role: role.clone(),
                 })
                 .await?;
-            let id = require_session_id(session_id)?;
-            let mut sessions = state.mcp.sessions.lock().await;
-            let mcp_session = sessions
-                .get_mut(id)
-                .ok_or_else(|| AppError::NotFound("unknown MCP session".into()))?;
-            if let Some(existing_role) = &mcp_session.role {
-                if existing_role != &session.role {
-                    return Err(AppError::Conflict(format!(
-                        "MCP session already started as role {existing_role:?}"
-                    )));
-                }
-            }
             mcp_session.identity = Some(session.identity.clone());
             mcp_session.role = Some(session.role.clone());
             Ok(serde_json::to_value(session).unwrap())
@@ -317,6 +401,7 @@ async fn call_tool(
                     to,
                     subject,
                     body,
+                    idempotency_key: String::new(),
                 })
                 .await?;
             notify_matching_inboxes(state, &message.project).await;
@@ -355,12 +440,18 @@ async fn resource_list(state: &Arc<AppState>, session_id: Option<&str>) -> Resul
     Ok(json!({ "resources": resources }))
 }
 
-async fn read_resource(state: &Arc<AppState>, uri: &str) -> Result<Value> {
+async fn read_resource(
+    state: &Arc<AppState>,
+    session_id: Option<&str>,
+    uri: &str,
+) -> Result<Value> {
     let value = if uri == "agent-mail://projects" {
         json!({ "projects": state.store.projects().await? })
     } else if let Some((project, identity)) = parse_inbox_uri(uri)? {
+        require_resource_identity(state, session_id, &identity).await?;
         serde_json::to_value(state.store.inbox(&project, &identity).await?).unwrap()
     } else if let Some((project, mail_id, identity)) = parse_message_uri(uri)? {
+        require_resource_identity(state, session_id, &identity).await?;
         serde_json::to_value(state.store.message(&project, &mail_id, &identity).await?).unwrap()
     } else {
         return Err(AppError::NotFound(format!("unknown resource URI {uri:?}")));
@@ -466,24 +557,29 @@ async fn session_participant(
     }
 }
 
-async fn notify_matching_inboxes(state: &Arc<AppState>, project: &str) {
+pub(crate) async fn notify_matching_inboxes(state: &Arc<AppState>, project: &str) {
     let subscriptions = subscribed_uris(state).await;
     for uri in subscriptions {
-        if let Ok(Some((sub_project, _))) = parse_inbox_uri(&uri) {
-            if sub_project == project {
-                notify_resource(state, &uri).await;
-            }
+        if let Ok(Some((sub_project, _))) = parse_inbox_uri(&uri)
+            && sub_project == project
+        {
+            notify_resource(state, &uri).await;
         }
     }
 }
 
-async fn notify_matching_message_resources(state: &Arc<AppState>, project: &str, mail_id: &str) {
+pub(crate) async fn notify_matching_message_resources(
+    state: &Arc<AppState>,
+    project: &str,
+    mail_id: &str,
+) {
     let subscriptions = subscribed_uris(state).await;
     for uri in subscriptions {
-        if let Ok(Some((sub_project, sub_mail_id, _))) = parse_message_uri(&uri) {
-            if sub_project == project && sub_mail_id == mail_id {
-                notify_resource(state, &uri).await;
-            }
+        if let Ok(Some((sub_project, sub_mail_id, _))) = parse_message_uri(&uri)
+            && sub_project == project
+            && sub_mail_id == mail_id
+        {
+            notify_resource(state, &uri).await;
         }
     }
 }
@@ -496,7 +592,7 @@ async fn subscribed_uris(state: &Arc<AppState>) -> HashSet<String> {
         .collect()
 }
 
-async fn notify_resource(state: &Arc<AppState>, uri: &str) {
+pub(crate) async fn notify_resource(state: &Arc<AppState>, uri: &str) {
     let notification = json!({
         "jsonrpc": "2.0",
         "method": "notifications/resources/updated",
@@ -504,15 +600,15 @@ async fn notify_resource(state: &Arc<AppState>, uri: &str) {
     });
     let mut sessions = state.mcp.sessions.lock().await;
     for session in sessions.values_mut() {
-        if session.subscriptions.contains(uri) || uri == "agent-mail://projects" {
-            if let Some(stream) = &session.stream {
-                let _ = stream.send(notification.clone());
-            }
+        if (session.subscriptions.contains(uri) || uri == "agent-mail://projects")
+            && let Some(stream) = &session.stream
+        {
+            let _ = stream.try_send(notification.clone());
         }
     }
 }
 
-async fn notify_list_changed(state: &Arc<AppState>) {
+pub(crate) async fn notify_list_changed(state: &Arc<AppState>) {
     let notification = json!({
         "jsonrpc": "2.0",
         "method": "notifications/resources/list_changed"
@@ -520,21 +616,40 @@ async fn notify_list_changed(state: &Arc<AppState>) {
     let mut sessions = state.mcp.sessions.lock().await;
     for session in sessions.values_mut() {
         if let Some(stream) = &session.stream {
-            let _ = stream.send(notification.clone());
+            let _ = stream.try_send(notification.clone());
         }
     }
 }
 
-fn validate_subscribable_resource(uri: &str) -> Result<()> {
-    if uri == "agent-mail://projects"
-        || parse_inbox_uri(uri)?.is_some()
-        || parse_message_uri(uri)?.is_some()
-    {
+async fn validate_session_resource(
+    state: &Arc<AppState>,
+    session_id: Option<&str>,
+    uri: &str,
+) -> Result<()> {
+    if uri == "agent-mail://projects" {
+        return Ok(());
+    }
+    if let Some((_, identity)) = parse_inbox_uri(uri)? {
+        return require_resource_identity(state, session_id, &identity).await;
+    }
+    if let Some((_, _, identity)) = parse_message_uri(uri)? {
+        return require_resource_identity(state, session_id, &identity).await;
+    }
+    Err(AppError::BadRequest(format!(
+        "resource is not subscribable: {uri}"
+    )))
+}
+
+async fn require_resource_identity(
+    state: &Arc<AppState>,
+    session_id: Option<&str>,
+    requested_identity: &str,
+) -> Result<()> {
+    let (identity, _) = session_participant(state, session_id).await?;
+    if identity == requested_identity {
         Ok(())
     } else {
-        Err(AppError::BadRequest(format!(
-            "resource is not subscribable: {uri}"
-        )))
+        Err(AppError::Forbidden)
     }
 }
 
@@ -571,7 +686,7 @@ fn parse_message_uri(uri: &str) -> Result<Option<(String, String, String)>> {
     )))
 }
 
-fn inbox_uri(project: &str, identity: &str) -> String {
+pub(crate) fn inbox_uri(project: &str, identity: &str) -> String {
     format!(
         "agent-mail://projects/{}/inbox?identity={}",
         encode_component(project),
@@ -713,15 +828,25 @@ fn validate_rpc_shape(input: &Value) -> std::result::Result<(), RpcShapeError> {
             message: "JSON-RPC request must include jsonrpc \"2.0\"".into(),
         });
     }
-    if let Some(id) = object.get("id") {
-        if !(id.is_string() || id.is_number()) {
-            return Err(RpcShapeError {
-                code: -32600,
-                message: "JSON-RPC id must be a string or number".into(),
-            });
-        }
+    if object.get("method").and_then(Value::as_str).is_none() {
+        return Err(RpcShapeError {
+            code: -32600,
+            message: "JSON-RPC request must include a string method".into(),
+        });
+    }
+    if let Some(id) = object.get("id")
+        && !(id.is_string() || id.is_number())
+    {
+        return Err(RpcShapeError {
+            code: -32600,
+            message: "JSON-RPC id must be a string or number".into(),
+        });
     }
     Ok(())
+}
+
+fn prune_expired_sessions(sessions: &mut HashMap<String, McpSession>) {
+    sessions.retain(|_, session| session.last_used.elapsed() <= SESSION_IDLE_TTL);
 }
 
 fn requested_protocol_version(params: &Value) -> String {
@@ -745,5 +870,33 @@ fn validate_session_protocol(session: &McpSession, headers: &HeaderMap) -> Resul
         Err(AppError::BadRequest(
             "unsupported MCP-Protocol-Version for session".into(),
         ))
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn validates_json_rpc_shape_and_error_classification() {
+        assert!(validate_rpc_shape(&json!({"jsonrpc":"2.0","method":"ping"})).is_ok());
+        assert_eq!(
+            validate_rpc_shape(&json!({"jsonrpc":"2.0"}))
+                .unwrap_err()
+                .code,
+            -32600
+        );
+        assert_eq!(
+            validate_rpc_shape(&json!({"jsonrpc":"2.0","method":1}))
+                .unwrap_err()
+                .code,
+            -32600
+        );
+        assert_eq!(
+            validate_rpc_shape(&json!({"jsonrpc":"2.0","method":"ping","id":null}))
+                .unwrap_err()
+                .code,
+            -32600
+        );
     }
 }

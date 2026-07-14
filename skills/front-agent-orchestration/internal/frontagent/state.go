@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"io"
 	"os"
 	"path/filepath"
 	"sort"
@@ -28,7 +29,7 @@ func saveState(root string, st state) error {
 	if err != nil {
 		return err
 	}
-	if err := os.MkdirAll(dir, 0700); err != nil {
+	if err := ensurePrivateDir(dir); err != nil {
 		return err
 	}
 	raw, err := json.MarshalIndent(st, "", "  ")
@@ -75,7 +76,14 @@ func selectState(root, identity, mode string, requirePaired bool) (state, error)
 		if err := validateIdentity(identity); err != nil {
 			return state{}, err
 		}
-		return loadState(filepath.Join(dir, identity+".json"), mode, requirePaired)
+		st, err := loadState(filepath.Join(dir, identity+".json"), mode, requirePaired)
+		if err != nil {
+			return state{}, err
+		}
+		if st.Identity != identity {
+			return state{}, fmt.Errorf("front-agent state file for %q contains identity %q", identity, st.Identity)
+		}
+		return st, nil
 	}
 	entries, err := os.ReadDir(dir)
 	if err != nil {
@@ -106,9 +114,18 @@ func selectState(root, identity, mode string, requirePaired bool) (state, error)
 }
 
 func loadState(path, mode string, requirePaired bool) (state, error) {
-	raw, err := os.ReadFile(path)
+	file, err := openPrivateRegularFileForRead(path)
 	if err != nil {
 		return state{}, err
+	}
+	defer file.Close()
+	const maxStateBytes = 64 << 10
+	raw, err := io.ReadAll(io.LimitReader(file, maxStateBytes+1))
+	if err != nil {
+		return state{}, err
+	}
+	if len(raw) > maxStateBytes {
+		return state{}, fmt.Errorf("front-agent state file is too large: %s", path)
 	}
 	var st state
 	if err := json.Unmarshal(raw, &st); err != nil {
@@ -122,6 +139,9 @@ func loadState(path, mode string, requirePaired bool) (state, error) {
 	}
 	if err := validateIdentity(st.Identity); err != nil {
 		return state{}, err
+	}
+	if base := strings.TrimSuffix(filepath.Base(path), filepath.Ext(path)); base != st.Identity {
+		return state{}, fmt.Errorf("front-agent state filename %q does not match identity %q", base, st.Identity)
 	}
 	if st.PeerIdentity != "" {
 		if err := validateIdentity(st.PeerIdentity); err != nil {
@@ -168,6 +188,14 @@ func validateModeRole(st state) error {
 func validateIdentity(identity string) error {
 	if identity == "" {
 		return errors.New("front-agent identity is required")
+	}
+	if len(identity) > 128 {
+		return fmt.Errorf("front-agent identity is too long")
+	}
+	for _, ch := range identity {
+		if !((ch >= 'a' && ch <= 'z') || (ch >= 'A' && ch <= 'Z') || (ch >= '0' && ch <= '9') || ch == '-' || ch == '_') {
+			return fmt.Errorf("unsafe front-agent identity %q", identity)
+		}
 	}
 	if strings.ContainsAny(identity, `/\`) || identity == "." || identity == ".." || strings.Contains(identity, "..") {
 		return fmt.Errorf("unsafe front-agent identity %q", identity)

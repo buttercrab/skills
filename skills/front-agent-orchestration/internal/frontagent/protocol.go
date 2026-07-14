@@ -2,6 +2,7 @@ package frontagent
 
 import (
 	"fmt"
+	"io"
 	"strings"
 
 	"gopkg.in/yaml.v3"
@@ -155,7 +156,31 @@ func validateMessageBody(body, fromRole, respondsTo string) error {
 	if requiresHumanConfirmation(fromRole) && bodyScalar(body, "human_confirmed") != "true" {
 		return fmt.Errorf("%s from gateway requires human_confirmed: true", method)
 	}
+	switch method {
+	case "question":
+		if strings.TrimSpace(bodyScalar(body, "question")) == "" {
+			return fmt.Errorf("question requires a non-empty question field")
+		}
+	case "answer":
+		if strings.TrimSpace(bodyScalar(body, "answer")) == "" {
+			return fmt.Errorf("answer requires a non-empty answer field")
+		}
+	case "update":
+		status := bodyScalar(body, "status")
+		if !allowedUpdateStatus(status) {
+			return fmt.Errorf("update status %q is invalid; use accepted, progress, blocked, complete, failed, or cancelled", status)
+		}
+	}
 	return nil
+}
+
+func allowedUpdateStatus(status string) bool {
+	switch status {
+	case "accepted", "progress", "blocked", "complete", "failed", "cancelled":
+		return true
+	default:
+		return false
+	}
 }
 
 func validateOriginalQuestion(meta map[string]string, body string, st state) error {
@@ -196,34 +221,53 @@ func requiresHumanConfirmation(fromRole string) bool {
 }
 
 func validateProtocolBodyFormat(body string) error {
-	text := strings.TrimSpace(body)
-	if !strings.HasPrefix(text, "```yaml\n") {
-		return fmt.Errorf("protocol body must be fenced YAML starting with ```yaml")
-	}
-	if !strings.HasSuffix(text, "\n```") {
-		return fmt.Errorf("protocol body must end with closing YAML fence")
-	}
-	payload := strings.TrimSuffix(strings.TrimPrefix(text, "```yaml\n"), "\n```")
-	if strings.Contains(payload, "```") {
-		return fmt.Errorf("protocol body must not contain nested fences")
-	}
-	var node yaml.Node
-	if err := yaml.Unmarshal([]byte(payload), &node); err != nil {
-		return fmt.Errorf("protocol body must contain valid YAML: %w", err)
-	}
-	if len(node.Content) != 1 || node.Content[0].Kind != yaml.MappingNode {
-		return fmt.Errorf("protocol body must be a YAML mapping")
+	mapping, err := protocolMapping(body)
+	if err != nil {
+		return err
 	}
 	seen := map[string]bool{}
-	mapping := node.Content[0]
 	for i := 0; i < len(mapping.Content); i += 2 {
-		key := mapping.Content[i].Value
+		keyNode := mapping.Content[i]
+		if keyNode.Kind != yaml.ScalarNode || keyNode.Tag != "!!str" {
+			return fmt.Errorf("protocol body keys must be strings")
+		}
+		key := keyNode.Value
 		if seen[key] {
 			return fmt.Errorf("protocol body contains duplicate key %q", key)
 		}
 		seen[key] = true
 	}
 	return nil
+}
+
+func protocolMapping(body string) (*yaml.Node, error) {
+	text := strings.TrimSpace(body)
+	if !strings.HasPrefix(text, "```yaml\n") {
+		return nil, fmt.Errorf("protocol body must be fenced YAML starting with ```yaml")
+	}
+	if !strings.HasSuffix(text, "\n```") {
+		return nil, fmt.Errorf("protocol body must end with closing YAML fence")
+	}
+	payload := strings.TrimSuffix(strings.TrimPrefix(text, "```yaml\n"), "\n```")
+	if strings.Contains(payload, "```") {
+		return nil, fmt.Errorf("protocol body must not contain nested fences")
+	}
+	decoder := yaml.NewDecoder(strings.NewReader(payload))
+	var node yaml.Node
+	if err := decoder.Decode(&node); err != nil {
+		return nil, fmt.Errorf("protocol body must contain valid YAML: %w", err)
+	}
+	var extra yaml.Node
+	if err := decoder.Decode(&extra); err != io.EOF {
+		if err == nil {
+			return nil, fmt.Errorf("protocol body must contain exactly one YAML document")
+		}
+		return nil, fmt.Errorf("protocol body must contain valid YAML: %w", err)
+	}
+	if len(node.Content) != 1 || node.Content[0].Kind != yaml.MappingNode {
+		return nil, fmt.Errorf("protocol body must be a YAML mapping")
+	}
+	return node.Content[0], nil
 }
 
 func roleName(st state) string {
@@ -241,18 +285,15 @@ func peerRoleName(st state) string {
 }
 
 func bodyScalar(body, key string) string {
-	prefix := key + ":"
-	text := strings.TrimSpace(body)
-	if strings.HasPrefix(text, "```yaml\n") && strings.HasSuffix(text, "\n```") {
-		text = strings.TrimSuffix(strings.TrimPrefix(text, "```yaml\n"), "\n```")
+	mapping, err := protocolMapping(body)
+	if err != nil {
+		return ""
 	}
-	for _, line := range strings.Split(text, "\n") {
-		line = strings.TrimSpace(line)
-		if line == "" || strings.HasPrefix(line, "```") || strings.HasPrefix(line, "#") {
-			continue
-		}
-		if value, ok := strings.CutPrefix(line, prefix); ok {
-			return strings.Trim(strings.TrimSpace(value), `"'`)
+	for i := 0; i < len(mapping.Content); i += 2 {
+		keyNode := mapping.Content[i]
+		valueNode := mapping.Content[i+1]
+		if keyNode.Kind == yaml.ScalarNode && keyNode.Tag == "!!str" && keyNode.Value == key && valueNode.Kind == yaml.ScalarNode {
+			return valueNode.Value
 		}
 	}
 	return ""

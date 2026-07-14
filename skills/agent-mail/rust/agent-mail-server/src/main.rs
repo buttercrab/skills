@@ -23,12 +23,14 @@ async fn main() -> anyhow::Result<()> {
         )
         .init();
     let config = Config::from_env();
+    config.validate()?;
     let store = Store::connect(&config.database_url)
         .await
         .context("connect to postgres and migrate schema")?;
     let app = http::router(http::AppState {
         store,
         token: config.token,
+        credential_admin_token: config.credential_admin_token,
         mcp: mcp::McpHub::default(),
     })
     .layer(TraceLayer::new_for_http());

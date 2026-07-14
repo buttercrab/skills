@@ -11,7 +11,7 @@ $front-agent-orchestration gateway steady-path-461 --root "/repo"
 
 Pairing waiter is detached; gateway should pair without another main-side command.
 After pairing, main should run:
-front-agent listen --identity steady-path-461 --root "/repo"
+"$FRONT_AGENT" listen --identity steady-path-461 --root "/repo"
 ```
 
 Good because main starts the waiter, gives gateway the tokenless command, and immediately listens after pairing.
@@ -54,10 +54,11 @@ from_role: main
 to_role: gateway
 summary: "Choose invalid input behavior."
 question: "Should invalid input be rejected inline or accepted with a warning?"
-default_if_timeout: "Reject inline."
 ```
 
 Good because main asks the human through gateway instead of asking directly in the main session.
+
+There is no automatic timeout decision. Gateway must obtain an explicit human answer.
 
 ## Good Gateway Answer
 
@@ -87,11 +88,13 @@ tests:
 
 Good because gateway can relay the useful result without exposing raw implementation chatter.
 
+`complete`, `failed`, and `cancelled` are terminal statuses. `accepted`, `progress`, and `blocked` are nonterminal.
+
 ## Bad Competing Listener
 
 ```text
-front-agent listen --identity steady-path-461 --root "/repo"
-front-agent listen --identity steady-path-461 --root "/repo"
+"$FRONT_AGENT" listen --identity steady-path-461 --root "/repo"
+"$FRONT_AGENT" listen --identity steady-path-461 --root "/repo"
 ```
 
 Bad because each identity has a single listener owner. The second command should fail clearly.

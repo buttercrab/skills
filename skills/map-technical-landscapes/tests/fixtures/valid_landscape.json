@@ -1,0 +1,140 @@
+{
+  "schema_version": "map-technical-landscapes/v2",
+  "scope": {
+    "question": "Which systems fit the declared scope?",
+    "unit_of_analysis": "system",
+    "frozen_at": "2026-07-12T12:00:00+09:00",
+    "inclusion_rules": ["Public technical evidence exists"],
+    "exclusion_rules": ["No technical evidence exists"],
+    "stopping_rule": {
+      "method": "Cover both query and source families, then require two no-new-candidate searches",
+      "required_query_families": ["name", "capability"],
+      "required_source_families": ["papers", "repositories"],
+      "minimum_completed_searches": 2,
+      "minimum_consecutive_no_new_candidates": 2
+    }
+  },
+  "field_catalog": [
+    {"id": "latency", "label": "Latency", "value_type": "number", "required": true}
+  ],
+  "sources": [
+    {
+      "id": "source-paper",
+      "title": "Primary paper",
+      "source_class": "primary",
+      "locator": {"type": "doi", "value": "10.1234/example.1"},
+      "accessed_at": "2026-07-12T12:00:00+09:00",
+      "access_status": "accessible",
+      "version_context": "version 1",
+      "equivalence_group": "paper-one"
+    },
+    {
+      "id": "source-repo",
+      "title": "Official repository",
+      "source_class": "primary",
+      "locator": {"type": "url", "value": "https://example.com/repository"},
+      "accessed_at": "2026-07-12T12:00:00+09:00",
+      "access_status": "accessible",
+      "version_context": null,
+      "equivalence_group": "repository-one"
+    }
+  ],
+  "candidates": [
+    {
+      "id": "system-one",
+      "name": "System One",
+      "aliases": [],
+      "status": "included",
+      "exclusion_reason": null,
+      "exclusion_claim_ids": [],
+      "comparison": {
+        "latency": {
+          "status": "observed",
+          "value": 12.5,
+          "claim_ids": ["claim-latency"],
+          "gap_ids": [],
+          "note": null
+        }
+      },
+      "technique_ids": ["streaming"]
+    }
+  ],
+  "discovery_records": [
+    {
+      "id": "discovery-system-one",
+      "observed_name": "System One",
+      "resolution": "canonical",
+      "candidate_ids": ["system-one"],
+      "reason": "The official paper identifies the system.",
+      "source_ids": ["source-paper"]
+    }
+  ],
+  "identity_decisions": [],
+  "candidate_relationships": [],
+  "claims": [
+    {
+      "id": "claim-latency",
+      "candidate_ids": ["system-one"],
+      "field_id": "latency",
+      "statement": "System One reports latency of 12.5 milliseconds.",
+      "epistemic_status": "observed",
+      "source_ids": ["source-paper"],
+      "source_strength": "primary"
+    }
+  ],
+  "taxonomy": {
+    "techniques": [
+      {
+        "id": "streaming",
+        "name": "Streaming",
+        "description": "Processes input incrementally.",
+        "candidate_ids": ["system-one"],
+        "claim_ids": ["claim-latency"]
+      }
+    ],
+    "unclassified": []
+  },
+  "coverage": {
+    "searches": [
+      {
+        "id": "search-name-paper",
+        "channel": "web",
+        "query_family": "name",
+        "source_family": "papers",
+        "query": "system name paper",
+        "status": "completed",
+        "started_at": "2026-07-12T12:10:00+09:00",
+        "hit_count": 0,
+        "new_candidate_ids": [],
+        "note": null
+      },
+      {
+        "id": "search-capability-repo",
+        "channel": "web",
+        "query_family": "capability",
+        "source_family": "repositories",
+        "query": "system capability repository",
+        "status": "completed",
+        "started_at": "2026-07-12T12:20:00+09:00",
+        "hit_count": 0,
+        "new_candidate_ids": [],
+        "note": null
+      }
+    ],
+    "counts": {
+      "discovered_records": 1,
+      "canonical_candidates": 1,
+      "merged_records": 0,
+      "included": 1,
+      "excluded": 0,
+      "unresolved_records": 0
+    },
+    "gaps": [],
+    "stop_assessment": {
+      "met": true,
+      "search_ids": ["search-name-paper", "search-capability-repo"],
+      "note": "All declared families are covered and the final two searches found no new candidates."
+    }
+  },
+  "summary": {"mode": "neutral", "neutral_summary": "One included system was found."}
+}

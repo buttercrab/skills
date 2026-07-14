@@ -2,6 +2,16 @@
 
 Use these as starting points for subagents. Adapt paths, commands, and acceptance gates to the current task. Do not include private conclusions or desired answers.
 
+Every reviewer must report:
+
+- artifacts, commands, and real surfaces inspected;
+- access failures and uninspected scope;
+- findings separated into observed evidence, inference, and unknowns;
+- severity, impact, concrete fix, and a verification scenario for each finding; and
+- an explicit verdict against the assigned gate without treating missing evidence as a pass.
+
+Screenshots can prove visible state but not interaction behavior. Logs, summaries, and AI judgments do not replace available deterministic checks. If the assigned evidence is insufficient, return `unverified` and state what receipt is missing.
+
 ## Gap Planner
 
 ```text

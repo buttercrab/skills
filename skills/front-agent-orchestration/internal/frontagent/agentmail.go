@@ -2,24 +2,30 @@ package frontagent
 
 import (
 	"bytes"
+	"context"
 	"crypto/sha256"
 	"encoding/hex"
 	"encoding/json"
 	"errors"
 	"fmt"
 	"io"
+	"net"
 	"net/http"
 	"net/url"
 	"os"
 	"path/filepath"
 	"regexp"
 	"sort"
+	"strconv"
 	"strings"
 	"sync"
 	"time"
 )
 
-var mailIDPattern = regexp.MustCompile(`mail-[0-9]{8}-[0-9]{6}-[a-f0-9]{8,16}`)
+var (
+	mailIDPattern      = regexp.MustCompile(`mail-[0-9]{8}-[0-9]{6}-[a-f0-9]{8,16}`)
+	mailIDExactPattern = regexp.MustCompile(`^mail-[0-9]{8}-[0-9]{6}-[a-f0-9]{8,16}$`)
+)
 
 const (
 	frontAgentEnvelopeStart = "--- front-agent-meta ---"
@@ -27,8 +33,9 @@ const (
 )
 
 type mailSession struct {
-	Identity string `json:"identity"`
-	Role     string `json:"role"`
+	Identity         string `json:"identity"`
+	Role             string `json:"role"`
+	ParticipantToken string `json:"participant_token"`
 }
 
 type mailMessage struct {
@@ -51,6 +58,7 @@ type mailInbox struct {
 	Role        string        `json:"role"`
 	UnreadCount int           `json:"unread_count"`
 	Messages    []mailMessage `json:"messages"`
+	NextCursor  string        `json:"next_cursor,omitempty"`
 }
 
 type envelope struct {
@@ -66,6 +74,9 @@ func runMail(stdin string, args ...any) (string, error) {
 		return "", errors.New("missing mail command")
 	}
 	if strings.TrimSpace(os.Getenv("FRONT_AGENT_MAIL_BACKEND")) == "memory" {
+		if os.Getenv("FRONT_AGENT_MEMORY_SHARED") == "1" {
+			return sharedMemoryRunMail(stdin, flat)
+		}
 		return memoryRunMail(stdin, flat)
 	}
 	client, err := newAgentMailClient()
@@ -93,28 +104,34 @@ type agentMailClient struct {
 }
 
 func newAgentMailClient() (*agentMailClient, error) {
-	baseURL := firstEnv("AGENT_MAIL_URL", "AGENT_MAIL_BASE_URL", "PUBLIC_URL")
+	baseURL := strings.TrimSpace(os.Getenv("AGENT_MAIL_URL"))
 	if baseURL == "" {
-		baseURL = "https://agent-mail.cc"
+		return nil, errors.New("AGENT_MAIL_URL is required for Agent Mail HTTP")
+	}
+	parsed, err := url.Parse(baseURL)
+	if err != nil || parsed.Hostname() == "" || parsed.User != nil || parsed.RawQuery != "" || parsed.Fragment != "" {
+		return nil, errors.New("AGENT_MAIL_URL must be an absolute Agent Mail base URL without credentials, query, or fragment")
+	}
+	if parsed.Scheme != "https" {
+		hostIP := net.ParseIP(parsed.Hostname())
+		if parsed.Scheme != "http" || (parsed.Hostname() != "localhost" && (hostIP == nil || !hostIP.IsLoopback())) {
+			return nil, errors.New("AGENT_MAIL_URL must use https; http is allowed only for a loopback test server")
+		}
 	}
 	token := strings.TrimSpace(os.Getenv("AGENT_MAIL_TOKEN"))
 	if token == "" {
 		return nil, errors.New("AGENT_MAIL_TOKEN is required for Agent Mail HTTP")
 	}
 	return &agentMailClient{
-		baseURL:    strings.TrimRight(baseURL, "/"),
-		token:      token,
-		httpClient: &http.Client{Timeout: 15 * time.Second},
+		baseURL: strings.TrimRight(baseURL, "/"),
+		token:   token,
+		httpClient: &http.Client{
+			Timeout: 15 * time.Second,
+			CheckRedirect: func(*http.Request, []*http.Request) error {
+				return http.ErrUseLastResponse
+			},
+		},
 	}, nil
-}
-
-func firstEnv(names ...string) string {
-	for _, name := range names {
-		if value := strings.TrimSpace(os.Getenv(name)); value != "" {
-			return value
-		}
-	}
-	return ""
 }
 
 func (c *agentMailClient) run(stdin string, args []string) (string, error) {
@@ -128,6 +145,12 @@ func (c *agentMailClient) run(stdin string, args []string) (string, error) {
 		if err != nil {
 			return "", err
 		}
+		if session.Role != role {
+			return "", errors.New("Agent Mail participant role does not match requested role")
+		}
+		if err := saveParticipantCredential(argValue(args, "--root"), session); err != nil {
+			return "", err
+		}
 		return fmt.Sprintf("identity: %s\nrole: %s\n", session.Identity, session.Role), nil
 	case "send":
 		root := argValue(args, "--root")
@@ -138,16 +161,29 @@ func (c *agentMailClient) run(stdin string, args []string) (string, error) {
 		if err := c.ensureProject(project, root); err != nil {
 			return "", err
 		}
-		msg, err := c.send(project, argValue(args, "--identity"), argValue(args, "--to"), argValue(args, "--subject"), envelope{
+		identity := argValue(args, "--identity")
+		participantToken, err := loadParticipantToken(root, identity)
+		if err != nil {
+			return "", err
+		}
+		env := envelope{
 			Type:       argValue(args, "--type"),
 			Contract:   argValue(args, "--contract"),
 			RespondsTo: argValue(args, "--responds-to"),
 			Body:       stdin,
-		})
+		}
+		idempotencyKey, releaseSend, err := prepareIdempotentSend(root, identity, argValue(args, "--to"), argValue(args, "--subject"), env)
 		if err != nil {
 			return "", err
 		}
-		_ = cacheMail(root, msg)
+		defer releaseSend()
+		msg, err := c.send(project, identity, participantToken, argValue(args, "--to"), argValue(args, "--subject"), idempotencyKey, env)
+		if err != nil {
+			return "", err
+		}
+		if err := cacheMail(root, msg); err != nil {
+			return "", err
+		}
 		return fmt.Sprintf("id: %s\n%s\n", msg.ID, msg.ID), nil
 	case "inbox":
 		return c.inboxText(args)
@@ -163,37 +199,53 @@ func (c *agentMailClient) run(stdin string, args []string) (string, error) {
 
 func (c *agentMailClient) startParticipant(role string) (mailSession, error) {
 	var session mailSession
-	return session, c.postJSON("/v1/participants/start", map[string]string{"role": role}, &session)
+	return session, c.postJSON("/v1/participants/start", map[string]string{"role": role}, &session, c.token)
 }
 
 func (c *agentMailClient) ensureProject(alias, root string) error {
+	return c.ensureProjectContext(context.Background(), alias, root)
+}
+
+func (c *agentMailClient) ensureProjectContext(ctx context.Context, alias, root string) error {
 	projectRoot, err := projectRoot(root)
 	if err != nil {
 		return err
 	}
 	var out map[string]any
-	return c.postJSON("/v1/projects", map[string]string{"alias": alias, "root": projectRoot}, &out)
+	return c.postJSONContext(ctx, "/v1/projects", map[string]string{"alias": alias, "root": projectRoot}, &out, c.token)
 }
 
-func (c *agentMailClient) send(project, identity, to, subject string, env envelope) (mailMessage, error) {
+func (c *agentMailClient) send(project, identity, participantToken, to, subject, idempotencyKey string, env envelope) (mailMessage, error) {
 	if identity == "" {
 		return mailMessage{}, errors.New("send requires --identity")
 	}
 	if to == "" {
 		return mailMessage{}, errors.New("send requires --to")
 	}
+	subject = strings.TrimSpace(subject)
 	if subject == "" {
 		return mailMessage{}, errors.New("send requires --subject")
 	}
+	if strings.ContainsAny(subject, "\r\n") {
+		return mailMessage{}, errors.New("subject must not contain newlines")
+	}
 	var msg mailMessage
 	err := c.postJSON("/v1/messages", map[string]string{
-		"sender_identity": identity,
 		"project":         project,
 		"to_kind":         "identity",
 		"to":              to,
 		"subject":         subject,
 		"body":            encodeEnvelope(env),
-	}, &msg)
+		"idempotency_key": idempotencyKey,
+	}, &msg, participantToken)
+	if err == nil {
+		if msg.SenderIdentity != identity || msg.Recipient != to || msg.Subject != subject || msg.Body != encodeEnvelope(env) {
+			return mailMessage{}, errors.New("Agent Mail response does not match authenticated send")
+		}
+		if msg.Project != "" && msg.Project != project {
+			return mailMessage{}, errors.New("Agent Mail response project does not match send project")
+		}
+	}
 	return msg, err
 }
 
@@ -203,58 +255,111 @@ func (c *agentMailClient) inboxText(args []string) (string, error) {
 	if err != nil {
 		return "", err
 	}
-	if err := c.ensureProject(project, root); err != nil {
-		return "", err
-	}
 	identity := argValue(args, "--identity")
 	if identity == "" {
 		return "", errors.New("inbox requires --identity")
 	}
+	participantToken, err := loadParticipantToken(root, identity)
+	if err != nil {
+		return "", err
+	}
 	timeout := parseTimeout(args)
-	deadline := time.Now().Add(timeout)
+	waiting := hasArg(args, "--wait")
+	if waiting && timeout <= 0 {
+		return "", errors.New("timed out waiting for matching mail")
+	}
+	requestBudget := timeout
+	if !waiting {
+		requestBudget = 15 * time.Second
+	}
+	ctx, cancel := context.WithTimeout(context.Background(), requestBudget)
+	defer cancel()
+	if err := c.ensureProjectContext(ctx, project, root); err != nil {
+		if waiting && errors.Is(err, context.DeadlineExceeded) {
+			return "", errors.New("timed out waiting for matching mail")
+		}
+		return "", err
+	}
+	const maxPagesPerPoll = 10
 	for {
-		out, found, err := c.filteredInbox(project, identity, args)
-		if err != nil {
-			return "", err
+		var collected strings.Builder
+		foundAny := false
+		cursor := ""
+		for page := 0; page < maxPagesPerPoll; page++ {
+			out, found, nextCursor, err := c.filteredInbox(ctx, project, identity, participantToken, cursor, args)
+			if err != nil {
+				if waiting && errors.Is(err, context.DeadlineExceeded) {
+					return "", errors.New("timed out waiting for matching mail")
+				}
+				return "", err
+			}
+			if found {
+				foundAny = true
+				collected.WriteString(out)
+			}
+			if nextCursor == "" {
+				cursor = ""
+				break
+			}
+			cursor = nextCursor
+			if page == maxPagesPerPoll-1 {
+				if foundAny {
+					return collected.String(), nil
+				}
+				return "", fmt.Errorf("inbox scan exceeded %d pages; drain or archive unrelated unread mail", maxPagesPerPoll)
+			}
 		}
-		if found || !hasArg(args, "--wait") {
-			return out, nil
+		if foundAny || !waiting {
+			return collected.String(), nil
 		}
-		if timeout <= 0 || time.Now().After(deadline) {
+		if ctx.Err() != nil {
 			return "", errors.New("timed out waiting for matching mail")
 		}
 		sleep := 200 * time.Millisecond
-		if remaining := time.Until(deadline); remaining < sleep {
-			sleep = remaining
+		if deadline, ok := ctx.Deadline(); ok {
+			if remaining := time.Until(deadline); remaining < sleep {
+				sleep = remaining
+			}
 		}
 		if sleep <= 0 {
 			return "", errors.New("timed out waiting for matching mail")
 		}
-		time.Sleep(sleep)
+		timer := time.NewTimer(sleep)
+		select {
+		case <-ctx.Done():
+			timer.Stop()
+			return "", errors.New("timed out waiting for matching mail")
+		case <-timer.C:
+		}
 	}
 }
 
-func (c *agentMailClient) filteredInbox(project, identity string, args []string) (string, bool, error) {
+func (c *agentMailClient) filteredInbox(ctx context.Context, project, identity, participantToken, cursor string, args []string) (string, bool, string, error) {
 	var inbox mailInbox
-	path := fmt.Sprintf("/v1/projects/%s/participants/%s/inbox", url.PathEscape(project), url.PathEscape(identity))
-	if err := c.getJSON(path, &inbox); err != nil {
-		return "", false, err
+	query := url.Values{}
+	query.Set("limit", "100")
+	if cursor != "" {
+		query.Set("cursor", cursor)
+	}
+	path := fmt.Sprintf("/v1/projects/%s/participants/%s/inbox?%s", url.PathEscape(project), url.PathEscape(identity), query.Encode())
+	if err := c.getJSONContext(ctx, path, &inbox, participantToken); err != nil {
+		return "", false, "", err
 	}
 	var buf strings.Builder
 	found := false
 	for _, msg := range inbox.Messages {
-		full, err := c.readMessage(project, msg.ID, identity)
+		full, err := c.readMessageContext(ctx, project, msg.ID, identity, participantToken)
 		if err != nil {
-			return "", false, err
+			return "", false, "", err
 		}
 		meta := messageMeta(full)
 		if !matchesFilters(meta, args) {
 			continue
 		}
 		found = true
-		fmt.Fprintf(&buf, "%s\t%s\t%s\n", full.ID, full.SenderIdentity, full.Subject)
+		fmt.Fprintf(&buf, "%s\t%s\n", full.ID, full.SenderIdentity)
 	}
-	return buf.String(), found, nil
+	return buf.String(), found, inbox.NextCursor, nil
 }
 
 func (c *agentMailClient) readText(id string, args []string) (string, error) {
@@ -267,7 +372,11 @@ func (c *agentMailClient) readText(id string, args []string) (string, error) {
 	if identity == "" {
 		return "", errors.New("read requires --identity")
 	}
-	msg, err := c.readMessage(project, id, identity)
+	participantToken, err := loadParticipantToken(root, identity)
+	if err != nil {
+		return "", err
+	}
+	msg, err := c.readMessage(project, id, identity, participantToken)
 	if err != nil && hasArg(args, "--force") {
 		msg, err = readCachedMail(root, id)
 	}
@@ -276,55 +385,70 @@ func (c *agentMailClient) readText(id string, args []string) (string, error) {
 	}
 	text := renderMessage(msg)
 	if !hasArg(args, "--no-mark-read") {
-		if markErr := c.markRead(project, id, identity); markErr != nil {
+		if markErr := c.markRead(project, id, identity, participantToken); markErr != nil {
 			return "", markErr
 		}
 	}
 	return text, nil
 }
 
-func (c *agentMailClient) readMessage(project, id, identity string) (mailMessage, error) {
+func (c *agentMailClient) readMessage(project, id, identity, participantToken string) (mailMessage, error) {
+	return c.readMessageContext(context.Background(), project, id, identity, participantToken)
+}
+
+func (c *agentMailClient) readMessageContext(ctx context.Context, project, id, identity, participantToken string) (mailMessage, error) {
 	var msg mailMessage
 	path := fmt.Sprintf("/v1/projects/%s/messages/%s?identity=%s", url.PathEscape(project), url.PathEscape(id), url.QueryEscape(identity))
-	err := c.getJSON(path, &msg)
+	err := c.getJSONContext(ctx, path, &msg, participantToken)
 	return msg, err
 }
 
-func (c *agentMailClient) markRead(project, id, identity string) error {
+func (c *agentMailClient) markRead(project, id, identity, participantToken string) error {
 	var out map[string]any
 	path := fmt.Sprintf("/v1/projects/%s/messages/%s/read", url.PathEscape(project), url.PathEscape(id))
-	return c.postJSON(path, map[string]string{"identity": identity}, &out)
+	return c.postJSON(path, map[string]string{"identity": identity}, &out, participantToken)
 }
 
-func (c *agentMailClient) getJSON(path string, out any) error {
-	req, err := http.NewRequest(http.MethodGet, c.baseURL+path, nil)
+func (c *agentMailClient) getJSON(path string, out any, token string) error {
+	return c.getJSONContext(context.Background(), path, out, token)
+}
+
+func (c *agentMailClient) getJSONContext(ctx context.Context, path string, out any, token string) error {
+	req, err := http.NewRequestWithContext(ctx, http.MethodGet, c.baseURL+path, nil)
 	if err != nil {
 		return err
 	}
-	return c.do(req, out)
+	return c.do(req, out, token)
 }
 
-func (c *agentMailClient) postJSON(path string, in, out any) error {
+func (c *agentMailClient) postJSON(path string, in, out any, token string) error {
+	return c.postJSONContext(context.Background(), path, in, out, token)
+}
+
+func (c *agentMailClient) postJSONContext(ctx context.Context, path string, in, out any, token string) error {
 	raw, err := json.Marshal(in)
 	if err != nil {
 		return err
 	}
-	req, err := http.NewRequest(http.MethodPost, c.baseURL+path, bytes.NewReader(raw))
+	req, err := http.NewRequestWithContext(ctx, http.MethodPost, c.baseURL+path, bytes.NewReader(raw))
 	if err != nil {
 		return err
 	}
 	req.Header.Set("Content-Type", "application/json")
-	return c.do(req, out)
+	return c.do(req, out, token)
 }
 
-func (c *agentMailClient) do(req *http.Request, out any) error {
-	req.Header.Set("Authorization", "Bearer "+c.token)
+func (c *agentMailClient) do(req *http.Request, out any, token string) error {
+	if strings.TrimSpace(token) == "" {
+		return errors.New("Agent Mail authorization credential is missing")
+	}
+	req.Header.Set("Authorization", "Bearer "+token)
 	resp, err := c.httpClient.Do(req)
 	if err != nil {
 		return err
 	}
 	defer resp.Body.Close()
-	raw, err := io.ReadAll(resp.Body)
+	raw, err := io.ReadAll(io.LimitReader(resp.Body, 2<<20))
 	if err != nil {
 		return err
 	}
@@ -454,7 +578,7 @@ func renderMessage(msg mailMessage) string {
 	fmt.Fprintln(&b, "---")
 	for _, key := range keys {
 		if value := meta[key]; value != "" {
-			fmt.Fprintf(&b, "%s: %s\n", key, value)
+			fmt.Fprintf(&b, "%s: %s\n", key, strconv.Quote(value))
 		}
 	}
 	fmt.Fprintln(&b, "---")
@@ -480,7 +604,29 @@ func firstMailID(text string) (string, error) {
 	if id == "" {
 		return "", errors.New("no mail id found in output")
 	}
+	if err := validateMailID(id); err != nil {
+		return "", err
+	}
 	return id, nil
+}
+
+func inboxMailIDs(text string) []string {
+	var ids []string
+	for _, line := range strings.Split(text, "\n") {
+		field, _, _ := strings.Cut(line, "\t")
+		field = strings.TrimSpace(field)
+		if validateMailID(field) == nil {
+			ids = append(ids, field)
+		}
+	}
+	return ids
+}
+
+func validateMailID(id string) error {
+	if !mailIDExactPattern.MatchString(id) {
+		return fmt.Errorf("invalid Agent Mail message id %q", id)
+	}
+	return nil
 }
 
 func readMailMeta(id, identity, root string) (map[string]string, error) {
@@ -515,8 +661,13 @@ func readMailMetaFromText(text string) (map[string]string, string) {
 		}
 		key = strings.TrimSpace(key)
 		value = strings.TrimSpace(value)
+		if unquoted, err := strconv.Unquote(value); err == nil {
+			value = unquoted
+		}
 		if key != "" {
-			meta[key] = value
+			if _, duplicate := meta[key]; !duplicate {
+				meta[key] = value
+			}
 		}
 	}
 	return meta, strings.Join(lines[bodyStart:], "\n")
@@ -548,26 +699,72 @@ func projectAlias(root string) (string, error) {
 }
 
 func cacheMail(root string, msg mailMessage) error {
+	if err := validateMailID(msg.ID); err != nil {
+		return err
+	}
+	env := decodeEnvelope(msg.Body)
+	if env.Contract != contractMessage || bodyScalar(env.Body, "method") != "question" {
+		return nil
+	}
 	dir, err := mailCacheDir(root)
 	if err != nil {
 		return err
 	}
-	if err := os.MkdirAll(dir, 0700); err != nil {
+	stateDir, err := stateRoot(root)
+	if err != nil {
+		return err
+	}
+	if err := ensurePrivateDir(stateDir); err != nil {
+		return err
+	}
+	if err := ensurePrivateDir(dir); err != nil {
 		return err
 	}
 	raw, err := json.MarshalIndent(msg, "", "  ")
 	if err != nil {
 		return err
 	}
-	return os.WriteFile(filepath.Join(dir, msg.ID+".json"), append(raw, '\n'), 0600)
+	tmp, err := os.CreateTemp(dir, "."+msg.ID+".*.tmp")
+	if err != nil {
+		return err
+	}
+	tmpPath := tmp.Name()
+	defer os.Remove(tmpPath)
+	if err := tmp.Chmod(0600); err != nil {
+		_ = tmp.Close()
+		return err
+	}
+	if _, err := tmp.Write(append(raw, '\n')); err != nil {
+		_ = tmp.Close()
+		return err
+	}
+	if err := tmp.Sync(); err != nil {
+		_ = tmp.Close()
+		return err
+	}
+	if err := tmp.Close(); err != nil {
+		return err
+	}
+	if err := os.Rename(tmpPath, filepath.Join(dir, msg.ID+".json")); err != nil {
+		return err
+	}
+	return pruneMailCache(dir, 256)
 }
 
 func readCachedMail(root, id string) (mailMessage, error) {
+	if err := validateMailID(id); err != nil {
+		return mailMessage{}, err
+	}
 	dir, err := mailCacheDir(root)
 	if err != nil {
 		return mailMessage{}, err
 	}
-	raw, err := os.ReadFile(filepath.Join(dir, id+".json"))
+	file, err := openPrivateFile(filepath.Join(dir, id+".json"), os.O_RDONLY)
+	if err != nil {
+		return mailMessage{}, err
+	}
+	defer file.Close()
+	raw, err := io.ReadAll(io.LimitReader(file, 2<<20))
 	if err != nil {
 		return mailMessage{}, err
 	}
@@ -575,7 +772,40 @@ func readCachedMail(root, id string) (mailMessage, error) {
 	if err := json.Unmarshal(raw, &msg); err != nil {
 		return mailMessage{}, err
 	}
+	if msg.ID != id {
+		return mailMessage{}, fmt.Errorf("cached message id %q does not match requested id %q", msg.ID, id)
+	}
 	return msg, nil
+}
+
+func pruneMailCache(dir string, keep int) error {
+	entries, err := os.ReadDir(dir)
+	if err != nil {
+		return err
+	}
+	type cachedFile struct {
+		name    string
+		modTime time.Time
+	}
+	var files []cachedFile
+	for _, entry := range entries {
+		if entry.IsDir() || !strings.HasSuffix(entry.Name(), ".json") {
+			continue
+		}
+		info, err := entry.Info()
+		if err != nil {
+			return err
+		}
+		files = append(files, cachedFile{name: entry.Name(), modTime: info.ModTime()})
+	}
+	sort.Slice(files, func(i, j int) bool { return files[i].modTime.Before(files[j].modTime) })
+	for len(files) > keep {
+		if err := os.Remove(filepath.Join(dir, files[0].name)); err != nil {
+			return err
+		}
+		files = files[1:]
+	}
+	return nil
 }
 
 func mailCacheDir(root string) (string, error) {
@@ -619,6 +849,10 @@ func memoryRunMail(stdin string, args []string) (string, error) {
 		if sender == "" {
 			return "", errors.New("send requires --identity")
 		}
+		subject := argValue(args, "--subject")
+		if strings.ContainsAny(subject, "\r\n") {
+			return "", errors.New("subject must not contain newlines")
+		}
 		memoryMail.seq++
 		now := time.Now().UTC()
 		msg := mailMessage{
@@ -628,7 +862,7 @@ func memoryRunMail(stdin string, args []string) (string, error) {
 			SenderRole:     memoryMail.participants[sender],
 			RecipientKind:  "identity",
 			Recipient:      argValue(args, "--to"),
-			Subject:        argValue(args, "--subject"),
+			Subject:        subject,
 			Body: encodeEnvelope(envelope{
 				Type:       argValue(args, "--type"),
 				Contract:   argValue(args, "--contract"),
@@ -639,7 +873,9 @@ func memoryRunMail(stdin string, args []string) (string, error) {
 			CreatedAtNS: now.UnixNano(),
 		}
 		memoryMail.messages = append(memoryMail.messages, msg)
-		_ = cacheMail(argValue(args, "--root"), msg)
+		if err := cacheMail(argValue(args, "--root"), msg); err != nil {
+			return "", err
+		}
 		return fmt.Sprintf("id: %s\n%s\n", msg.ID, msg.ID), nil
 	case "inbox":
 		return memoryInboxText(args)
@@ -703,7 +939,7 @@ func memoryFilteredInbox(args []string) (string, bool, error) {
 	})
 	var b strings.Builder
 	for _, msg := range matches {
-		fmt.Fprintf(&b, "%s\t%s\t%s\n", msg.ID, msg.SenderIdentity, msg.Subject)
+		fmt.Fprintf(&b, "%s\t%s\n", msg.ID, msg.SenderIdentity)
 	}
 	return b.String(), len(matches) > 0, nil
 }
@@ -730,9 +966,11 @@ func memoryReadText(id string, args []string) (string, error) {
 		}
 		return renderMessage(msg), nil
 	}
-	msg, err := readCachedMail(root, id)
-	if err != nil {
-		return "", fmt.Errorf("unknown message %s", id)
+	if hasArg(args, "--force") {
+		msg, err := readCachedMail(root, id)
+		if err == nil {
+			return renderMessage(msg), nil
+		}
 	}
-	return renderMessage(msg), nil
+	return "", fmt.Errorf("unknown message %s", id)
 }

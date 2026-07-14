@@ -1,0 +1,259 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://local.invalid/map-technical-landscapes/v2/landscape.schema.json",
+  "title": "Map Technical Landscapes v2",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version", "scope", "field_catalog", "sources", "candidates",
+    "discovery_records", "identity_decisions", "candidate_relationships",
+    "claims", "taxonomy", "coverage", "summary"
+  ],
+  "properties": {
+    "schema_version": {"const": "map-technical-landscapes/v2"},
+    "scope": {"$ref": "#/$defs/scope"},
+    "field_catalog": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/field"}},
+    "sources": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/source"}},
+    "candidates": {"type": "array", "items": {"$ref": "#/$defs/candidate"}},
+    "discovery_records": {"type": "array", "items": {"$ref": "#/$defs/discovery"}},
+    "identity_decisions": {"type": "array", "items": {"$ref": "#/$defs/identityDecision"}},
+    "candidate_relationships": {"type": "array", "items": {"$ref": "#/$defs/candidateRelationship"}},
+    "claims": {"type": "array", "items": {"$ref": "#/$defs/claim"}},
+    "taxonomy": {"$ref": "#/$defs/taxonomy"},
+    "coverage": {"$ref": "#/$defs/coverage"},
+    "summary": {
+      "oneOf": [
+        {"$ref": "#/$defs/neutralSummary"},
+        {"$ref": "#/$defs/decisionSummary"}
+      ]
+    }
+  },
+  "$defs": {
+    "id": {"type": "string", "pattern": "^[a-z][a-z0-9-]{0,63}$"},
+    "nonemptyString": {"type": "string", "minLength": 1, "pattern": "\\S"},
+    "timestamp": {
+      "type": "string",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(?:\\.\\d+)?(?:Z|[+-]\\d{2}:\\d{2})$"
+    },
+    "idArray": {"type": "array", "uniqueItems": true, "items": {"$ref": "#/$defs/id"}},
+    "nonemptyIdArray": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"$ref": "#/$defs/id"}},
+    "stringArray": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"$ref": "#/$defs/nonemptyString"}},
+    "scope": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["question", "unit_of_analysis", "frozen_at", "inclusion_rules", "exclusion_rules", "stopping_rule"],
+      "properties": {
+        "question": {"$ref": "#/$defs/nonemptyString"},
+        "unit_of_analysis": {"enum": ["paper", "model", "repository", "product", "system", "mixed"]},
+        "frozen_at": {"$ref": "#/$defs/timestamp"},
+        "inclusion_rules": {"$ref": "#/$defs/stringArray"},
+        "exclusion_rules": {"$ref": "#/$defs/stringArray"},
+        "stopping_rule": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["method", "required_query_families", "required_source_families", "minimum_completed_searches", "minimum_consecutive_no_new_candidates"],
+          "properties": {
+            "method": {"$ref": "#/$defs/nonemptyString"},
+            "required_query_families": {"type": "array", "minItems": 2, "uniqueItems": true, "items": {"$ref": "#/$defs/nonemptyString"}},
+            "required_source_families": {"type": "array", "minItems": 2, "uniqueItems": true, "items": {"$ref": "#/$defs/nonemptyString"}},
+            "minimum_completed_searches": {"type": "integer", "minimum": 1},
+            "minimum_consecutive_no_new_candidates": {"type": "integer", "minimum": 1}
+          }
+        }
+      }
+    },
+    "field": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "label", "value_type", "required"],
+      "properties": {
+        "id": {"$ref": "#/$defs/id"},
+        "label": {"$ref": "#/$defs/nonemptyString"},
+        "value_type": {"enum": ["string", "number", "boolean", "string-list"]},
+        "required": {"type": "boolean"}
+      }
+    },
+    "locator": {
+      "oneOf": [
+        {
+          "type": "object", "additionalProperties": false,
+          "required": ["type", "value"],
+          "properties": {"type": {"const": "url"}, "value": {"type": "string", "format": "uri"}}
+        },
+        {
+          "type": "object", "additionalProperties": false,
+          "required": ["type", "value"],
+          "properties": {"type": {"const": "file"}, "value": {"$ref": "#/$defs/nonemptyString"}}
+        },
+        {
+          "type": "object", "additionalProperties": false,
+          "required": ["type", "value"],
+          "properties": {"type": {"const": "doi"}, "value": {"type": "string", "pattern": "^10\\.\\d{4,9}/[^\\s]+$"}}
+        },
+        {
+          "type": "object", "additionalProperties": false,
+          "required": ["type", "repository", "rev"],
+          "properties": {
+            "type": {"const": "commit"},
+            "repository": {"type": "string", "format": "uri"},
+            "rev": {"type": "string", "pattern": "^(?:[0-9a-fA-F]{40}|[0-9a-fA-F]{64})$"}
+          }
+        }
+      ]
+    },
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "title", "source_class", "locator", "accessed_at", "access_status", "version_context", "equivalence_group"],
+      "properties": {
+        "id": {"$ref": "#/$defs/id"},
+        "title": {"$ref": "#/$defs/nonemptyString"},
+        "source_class": {"enum": ["primary", "secondary"]},
+        "locator": {"$ref": "#/$defs/locator"},
+        "accessed_at": {"$ref": "#/$defs/timestamp"},
+        "access_status": {"enum": ["accessible", "blocked", "unavailable"]},
+        "version_context": {"type": ["string", "null"], "pattern": "\\S"},
+        "equivalence_group": {"$ref": "#/$defs/id"}
+      }
+    },
+    "cell": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status", "value", "claim_ids", "gap_ids", "note"],
+      "properties": {
+        "status": {"enum": ["observed", "inferred", "unknown", "not-applicable"]},
+        "value": {},
+        "claim_ids": {"$ref": "#/$defs/idArray"},
+        "gap_ids": {"$ref": "#/$defs/idArray"},
+        "note": {"type": ["string", "null"]}
+      }
+    },
+    "candidate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "name", "aliases", "status", "exclusion_reason", "exclusion_claim_ids", "comparison", "technique_ids"],
+      "properties": {
+        "id": {"$ref": "#/$defs/id"},
+        "name": {"$ref": "#/$defs/nonemptyString"},
+        "aliases": {"type": "array", "uniqueItems": true, "items": {"$ref": "#/$defs/nonemptyString"}},
+        "status": {"enum": ["included", "excluded"]},
+        "exclusion_reason": {"type": ["string", "null"]},
+        "exclusion_claim_ids": {"$ref": "#/$defs/idArray"},
+        "comparison": {"type": "object", "additionalProperties": {"$ref": "#/$defs/cell"}},
+        "technique_ids": {"$ref": "#/$defs/idArray"}
+      }
+    },
+    "discovery": {
+      "type": "object", "additionalProperties": false,
+      "required": ["id", "observed_name", "resolution", "candidate_ids", "reason", "source_ids"],
+      "properties": {
+        "id": {"$ref": "#/$defs/id"}, "observed_name": {"$ref": "#/$defs/nonemptyString"},
+        "resolution": {"enum": ["canonical", "merged", "unresolved"]},
+        "candidate_ids": {"$ref": "#/$defs/idArray"}, "reason": {"$ref": "#/$defs/nonemptyString"},
+        "source_ids": {"$ref": "#/$defs/nonemptyIdArray"}
+      }
+    },
+    "identityDecision": {
+      "type": "object", "additionalProperties": false,
+      "required": ["observed_name", "decision", "canonical_candidate_ids", "reason", "source_ids"],
+      "properties": {
+        "observed_name": {"$ref": "#/$defs/nonemptyString"}, "decision": {"enum": ["merged", "kept-separate"]},
+        "canonical_candidate_ids": {"$ref": "#/$defs/nonemptyIdArray"}, "reason": {"$ref": "#/$defs/nonemptyString"},
+        "source_ids": {"$ref": "#/$defs/nonemptyIdArray"}
+      }
+    },
+    "candidateRelationship": {
+      "type": "object", "additionalProperties": false,
+      "required": ["id", "from_candidate_id", "to_candidate_id", "relationship", "reason", "source_ids"],
+      "properties": {
+        "id": {"$ref": "#/$defs/id"}, "from_candidate_id": {"$ref": "#/$defs/id"}, "to_candidate_id": {"$ref": "#/$defs/id"},
+        "relationship": {"enum": ["version", "mirror", "fork", "related"]}, "reason": {"$ref": "#/$defs/nonemptyString"},
+        "source_ids": {"$ref": "#/$defs/nonemptyIdArray"}
+      }
+    },
+    "claim": {
+      "type": "object", "additionalProperties": false,
+      "required": ["id", "candidate_ids", "field_id", "statement", "epistemic_status", "source_ids", "source_strength"],
+      "properties": {
+        "id": {"$ref": "#/$defs/id"}, "candidate_ids": {"$ref": "#/$defs/nonemptyIdArray"},
+        "field_id": {"anyOf": [{"$ref": "#/$defs/id"}, {"type": "null"}]}, "statement": {"$ref": "#/$defs/nonemptyString"},
+        "epistemic_status": {"enum": ["observed", "inferred"]}, "source_ids": {"$ref": "#/$defs/nonemptyIdArray"},
+        "source_strength": {"enum": ["primary", "secondary", "mixed"]}
+      }
+    },
+    "technique": {
+      "type": "object", "additionalProperties": false,
+      "required": ["id", "name", "description", "candidate_ids", "claim_ids"],
+      "properties": {
+        "id": {"$ref": "#/$defs/id"}, "name": {"$ref": "#/$defs/nonemptyString"},
+        "description": {"$ref": "#/$defs/nonemptyString"}, "candidate_ids": {"$ref": "#/$defs/nonemptyIdArray"},
+        "claim_ids": {"$ref": "#/$defs/nonemptyIdArray"}
+      }
+    },
+    "taxonomy": {
+      "type": "object", "additionalProperties": false, "required": ["techniques", "unclassified"],
+      "properties": {
+        "techniques": {"type": "array", "items": {"$ref": "#/$defs/technique"}},
+        "unclassified": {
+          "type": "array", "items": {
+            "type": "object", "additionalProperties": false, "required": ["candidate_id", "gap_id"],
+            "properties": {"candidate_id": {"$ref": "#/$defs/id"}, "gap_id": {"$ref": "#/$defs/id"}}
+          }
+        }
+      }
+    },
+    "search": {
+      "type": "object", "additionalProperties": false,
+      "required": ["id", "channel", "query_family", "source_family", "query", "status", "started_at", "hit_count", "new_candidate_ids", "note"],
+      "properties": {
+        "id": {"$ref": "#/$defs/id"}, "channel": {"$ref": "#/$defs/nonemptyString"},
+        "query_family": {"$ref": "#/$defs/nonemptyString"}, "source_family": {"$ref": "#/$defs/nonemptyString"},
+        "query": {"$ref": "#/$defs/nonemptyString"}, "status": {"enum": ["completed", "blocked", "failed"]},
+        "started_at": {"$ref": "#/$defs/timestamp"}, "hit_count": {"type": ["integer", "null"], "minimum": 0},
+        "new_candidate_ids": {"$ref": "#/$defs/idArray"}, "note": {"type": ["string", "null"]}
+      }
+    },
+    "gap": {
+      "type": "object", "additionalProperties": false,
+      "required": ["id", "kind", "description", "candidate_ids", "claim_ids", "source_ids", "search_ids", "field_ids"],
+      "properties": {
+        "id": {"$ref": "#/$defs/id"},
+        "kind": {"enum": ["unknown-field", "secondary-only-evidence", "blocked-search", "failed-search", "inaccessible-source", "taxonomy-unclassified", "coverage-other"]},
+        "description": {"$ref": "#/$defs/nonemptyString"}, "candidate_ids": {"$ref": "#/$defs/idArray"},
+        "claim_ids": {"$ref": "#/$defs/idArray"}, "source_ids": {"$ref": "#/$defs/idArray"},
+        "search_ids": {"$ref": "#/$defs/idArray"}, "field_ids": {"$ref": "#/$defs/idArray"}
+      }
+    },
+    "counts": {
+      "type": "object", "additionalProperties": false,
+      "required": ["discovered_records", "canonical_candidates", "merged_records", "included", "excluded", "unresolved_records"],
+      "properties": {
+        "discovered_records": {"type": "integer", "minimum": 0}, "canonical_candidates": {"type": "integer", "minimum": 0},
+        "merged_records": {"type": "integer", "minimum": 0}, "included": {"type": "integer", "minimum": 0},
+        "excluded": {"type": "integer", "minimum": 0}, "unresolved_records": {"type": "integer", "minimum": 0}
+      }
+    },
+    "coverage": {
+      "type": "object", "additionalProperties": false, "required": ["searches", "counts", "gaps", "stop_assessment"],
+      "properties": {
+        "searches": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/search"}},
+        "counts": {"$ref": "#/$defs/counts"}, "gaps": {"type": "array", "items": {"$ref": "#/$defs/gap"}},
+        "stop_assessment": {
+          "type": "object", "additionalProperties": false, "required": ["met", "search_ids", "note"],
+          "properties": {"met": {"type": "boolean"}, "search_ids": {"$ref": "#/$defs/nonemptyIdArray"}, "note": {"$ref": "#/$defs/nonemptyString"}}
+        }
+      }
+    },
+    "neutralSummary": {
+      "type": "object", "additionalProperties": false, "required": ["mode", "neutral_summary"],
+      "properties": {"mode": {"const": "neutral"}, "neutral_summary": {"$ref": "#/$defs/nonemptyString"}}
+    },
+    "decisionSummary": {
+      "type": "object", "additionalProperties": false, "required": ["mode", "decision_question", "recommendation", "rationale_claim_ids"],
+      "properties": {
+        "mode": {"const": "decision"}, "decision_question": {"$ref": "#/$defs/nonemptyString"},
+        "recommendation": {"$ref": "#/$defs/nonemptyString"}, "rationale_claim_ids": {"$ref": "#/$defs/nonemptyIdArray"}
+      }
+    }
+  }
+}

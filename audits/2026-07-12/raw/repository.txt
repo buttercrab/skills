@@ -1,0 +1,8 @@
+command_group=repository
+exit_status=0
+Backed up /var/folders/4h/k38n_xb92td630578dkppkn80000gn/T/tmp.F9Tp4j6dFe/home/.agents/skills/agent-mail to /var/folders/4h/k38n_xb92td630578dkppkn80000gn/T/tmp.F9Tp4j6dFe/home/.agents/skills/.backup-skills-install-20260712171234/agent-mail
+Installed repo skills into /var/folders/4h/k38n_xb92td630578dkppkn80000gn/T/tmp.F9Tp4j6dFe/home/.agents/skills and /var/folders/4h/k38n_xb92td630578dkppkn80000gn/T/tmp.F9Tp4j6dFe/home/.codex/skills.
+Installed repo skills into /var/folders/4h/k38n_xb92td630578dkppkn80000gn/T/tmp.F9Tp4j6dFe/home/.agents/skills and /var/folders/4h/k38n_xb92td630578dkppkn80000gn/T/tmp.F9Tp4j6dFe/home/.codex/skills.
+resource_inventory_rows=70
+fixture_ledger_rows=74
+repository checks passed

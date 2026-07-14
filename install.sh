@@ -5,6 +5,29 @@ REPO_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 REPO_SKILLS_DIR="${REPO_DIR}/skills"
 AGENT_SKILLS_DIR="${HOME}/.agents/skills"
 CODEX_SKILLS_DIR="${HOME}/.codex/skills"
+FRONT_AGENT_DIR="${REPO_SKILLS_DIR}/front-agent-orchestration"
+
+build_front_agent() {
+  local build_dir
+
+  if ! command -v go >/dev/null 2>&1; then
+    echo "Go is required to build front-agent before installing this skill repository." >&2
+    exit 1
+  fi
+
+  build_dir="$(mktemp -d)"
+  if ! (
+    cd "$FRONT_AGENT_DIR"
+    go build -o "$build_dir/front-agent-bin" ./cmd/front-agent
+  ); then
+    rm -rf "$build_dir"
+    echo "Failed to build front-agent; no skill links were changed." >&2
+    exit 1
+  fi
+  rm -rf "$build_dir"
+}
+
+build_front_agent
 
 mkdir -p "$AGENT_SKILLS_DIR" "$CODEX_SKILLS_DIR"
 
@@ -13,12 +36,7 @@ backup_existing() {
   local name="$2"
   local target="${target_dir}/${name}"
 
-  if [[ -L "$target" ]]; then
-    rm "$target"
-    return 0
-  fi
-
-  if [[ -e "$target" ]]; then
+  if [[ -e "$target" || -L "$target" ]]; then
     local backup_root="${target_dir}/.backup-skills-install-$(date +%Y%m%d%H%M%S)"
     mkdir -p "$backup_root"
     mv "$target" "$backup_root/${name}"
@@ -59,14 +77,5 @@ install_skills_to_dir() {
 
 install_skills_to_dir "$AGENT_SKILLS_DIR"
 install_skills_to_dir "$CODEX_SKILLS_DIR"
-
-if command -v go >/dev/null 2>&1; then
-  (
-    cd "${REPO_SKILLS_DIR}/front-agent-orchestration"
-    go build -o scripts/front-agent-bin ./cmd/front-agent
-  )
-else
-  echo "Go is not available; front-agent will fall back to go run only after Go is installed." >&2
-fi
 
 echo "Installed repo skills into ${AGENT_SKILLS_DIR} and ${CODEX_SKILLS_DIR}."

@@ -7,7 +7,7 @@ Use `us-west-2` for the Lightsail deployment.
 ## Runtime
 
 - Server: Rust `agent-mail-server`
-- Database: Lightsail managed PostgreSQL
+- Database: private AWS RDS PostgreSQL
 - Public endpoint: `https://agent-mail.cc`
 - Interfaces:
   - HTTPS JSON API with bearer-token authentication
@@ -21,7 +21,7 @@ Lightsail instance, us-west-2
   nginx for HTTPS and reverse proxy
   systemd unit
 
-Lightsail managed PostgreSQL, us-west-2
+Private AWS RDS PostgreSQL, us-west-2
   Agent Mail schema
   managed snapshots and restore
 ```
@@ -54,9 +54,13 @@ export AGENT_MAIL_DATABASE_URL='postgres://USER:PASSWORD@HOST:5432/DBNAME?sslmod
 export AGENT_MAIL_BIND='127.0.0.1:8787'
 export AGENT_MAIL_TOKEN='replace-with-random-token'
 export AGENT_MAIL_URL='https://agent-mail.cc'
+# Set only during an authorized legacy migration or credential rotation:
+# export AGENT_MAIL_CREDENTIAL_ADMIN_TOKEN='replace-with-separate-random-token'
 ```
 
-`AGENT_MAIL_TOKEN` is required. The server must not start in production without it.
+`AGENT_MAIL_TOKEN` is a required, non-empty service-administrator credential. The server must not start in production without it. Participant HTTP operations use separate one-time participant tokens returned by participant creation; do not share the administrator token with participants.
+
+Legacy participants created before participant-scoped credentials must be migrated deliberately. During a controlled window, set a separate `AGENT_MAIL_CREDENTIAL_ADMIN_TOKEN` that differs from `AGENT_MAIL_TOKEN`; startup rejects equal values. Restart the service, call `POST /v1/participants/{identity}/credential` with that bearer, store the returned participant token in a user-owned `0600` state file, then unset the credential-administration token and restart again. Rotation revokes the previous participant token immediately. The normal `AGENT_MAIL_TOKEN` is never accepted by the credential route.
 
 Run:
 
@@ -73,11 +77,11 @@ Before deploying, run:
 
 ```bash
 make build
-make test
+make check
 make real-test
 ```
 
-`make test` is a Rust compile/unit-test gate. The meaningful end-to-end gate is `make real-test`.
+`make check` runs formatting, clippy with warnings denied, and Rust unit tests. The meaningful end-to-end gate is `make real-test`.
 
 `make real-test` starts a real temporary PostgreSQL cluster, starts the Rust HTTP server, verifies bearer auth, sends cross-project mail, reads full message bodies, marks one project read, and verifies the other project remains unread.
 
@@ -86,7 +90,7 @@ The same gate also runs the MCP smoke test. That test verifies unauthorized MCP 
 After deployment, verify the public endpoint:
 
 ```bash
-curl -fsS https://agent-mail.cc/health
+curl -fsS https://agent-mail.cc/ready
 ```
 
 Also verify public MCP behavior through the Cloudflare/nginx edge, not only localhost. A valid public MCP smoke must cover:
@@ -98,9 +102,12 @@ Also verify public MCP behavior through the Cloudflare/nginx edge, not only loca
 - `resources/read` for inbox and full message body
 - `agent_mail_mark_read` followed by an empty inbox resource
 
-Run the public smoke script:
+The public smoke creates durable production participants, a project, a message, and a receipt. It has no automatic server-side cleanup. Run it only after explicit authorization and record the identifiers it prints:
 
 ```bash
+AGENT_MAIL_TOKEN="$AGENT_MAIL_TOKEN" \
+PUBLIC_IP="$PUBLIC_IP" \
+AGENT_MAIL_ALLOW_PRODUCTION_MUTATION=YES \
 make public-mcp-smoke
 ```
 

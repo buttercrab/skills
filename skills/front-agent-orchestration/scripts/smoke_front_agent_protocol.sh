@@ -2,39 +2,38 @@
 set -euo pipefail
 
 DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-REPO_DIR="$(cd "$DIR/../../.." && pwd)"
-ROOT="$(mktemp -d)"
-BIN="$ROOT/front-agent"
-
-if [[ -z "${AGENT_MAIL_TOKEN:-}" ]]; then
-  shopt -s nullglob
-  env_files=("$REPO_DIR"/.env/agent-mail/*.env)
-  shopt -u nullglob
-  if [[ "${#env_files[@]}" -gt 0 ]]; then
-    set -a
-    # shellcheck disable=SC1090
-    source "${env_files[0]}"
-    set +a
-  fi
-fi
-
-if [[ -z "${AGENT_MAIL_TOKEN:-}" ]]; then
-  echo "front-agent smoke skipped: AGENT_MAIL_TOKEN is not set"
-  exit 0
-fi
+ROOT=""
+waiter_pid=""
 
 cleanup() {
-  rm -rf "$ROOT"
+  if [[ -n "$waiter_pid" ]] && kill -0 "$waiter_pid" 2>/dev/null; then
+    kill "$waiter_pid" 2>/dev/null || true
+    for _ in {1..100}; do
+      kill -0 "$waiter_pid" 2>/dev/null || break
+      sleep 0.01
+    done
+  fi
+  [[ -z "$ROOT" ]] || rm -rf "$ROOT"
 }
 trap cleanup EXIT
+
+ROOT="$(mktemp -d)"
+BIN="$ROOT/front-agent"
+export FRONT_AGENT_MAIL_BACKEND=memory
+export FRONT_AGENT_MEMORY_SHARED=1
+unset AGENT_MAIL_TOKEN AGENT_MAIL_URL AGENT_MAIL_BASE_URL PUBLIC_URL
 
 go build -o "$BIN" "$DIR/../cmd/front-agent"
 
 main_log="$ROOT/main.log"
 gateway_log="$ROOT/gateway.log"
 
-"$BIN" main --root "$ROOT" >"$main_log" 2>&1
+if ! "$BIN" main --root "$ROOT" >"$main_log" 2>&1; then
+  cat "$main_log" >&2
+  exit 1
+fi
 main_id="$(awk '/Main identity:/ {print $3}' "$main_log")"
+waiter_pid="$(awk '/Detached pairing waiter PID:/ {print $5}' "$main_log")"
 if [[ -z "$main_id" ]]; then
   echo "main identity not found" >&2
   cat "$main_log" >&2
@@ -52,7 +51,10 @@ if [[ ! -f "$wait_lock" ]]; then
   exit 1
 fi
 
-"$BIN" gateway "$main_id" --root "$ROOT" --timeout 10s >"$gateway_log" 2>&1
+if ! "$BIN" gateway "$main_id" --root "$ROOT" --timeout 10s >"$gateway_log" 2>&1; then
+  cat "$gateway_log" >&2
+  exit 1
+fi
 gateway_id="$(awk '/Gateway identity:/ {print $3}' "$gateway_log")"
 if [[ -z "$gateway_id" ]]; then
   echo "gateway identity not found" >&2
@@ -102,10 +104,10 @@ listener_log="$ROOT/listener.log"
 listener_pid=$!
 listener_lock="$ROOT/.front-agent/listeners/$main_id.json"
 for _ in {1..100}; do
-  [[ -f "$listener_lock" ]] && break
+  grep -q "\"pid\": $listener_pid" "$listener_lock" 2>/dev/null && break
   sleep 0.01
 done
-if [[ ! -f "$listener_lock" ]]; then
+if ! grep -q "\"pid\": $listener_pid" "$listener_lock" 2>/dev/null; then
   echo "listener lock was not created" >&2
   cat "$listener_log" >&2 || true
   exit 1
@@ -120,5 +122,10 @@ if ! grep -q "already running" "$ROOT/duplicate-listener.err"; then
   exit 1
 fi
 wait "$listener_pid"
+
+if [[ -n "$waiter_pid" ]] && kill -0 "$waiter_pid" 2>/dev/null; then
+  echo "detached wait-ready process is still running after pairing" >&2
+  exit 1
+fi
 
 echo "front-agent smoke passed"

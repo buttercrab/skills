@@ -1,4 +1,4 @@
 interface:
   display_name: "Execute Goal Loop"
   short_description: "Goal loops with hard verification gates"
-  default_prompt: "Use $execute-goal-loop to set a hard goal, define completion metrics, iterate through plan/implement/verify/review loops, and stop only when done or genuinely blocked."
+  default_prompt: "Use $execute-goal-loop to define measurable gates, create a goal only when I explicitly request one, iterate through plan/implement/verify/review loops, and stop only when done or genuinely blocked."

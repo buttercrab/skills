@@ -2,15 +2,29 @@
 set -euo pipefail
 
 BASE_URL="https://agent-mail.cc"
+[[ "${AGENT_MAIL_ALLOW_PRODUCTION_MUTATION:-}" == "YES" ]] || {
+  echo "refusing persistent production smoke; set AGENT_MAIL_ALLOW_PRODUCTION_MUTATION=YES after authorization" >&2
+  exit 2
+}
 TOKEN="${AGENT_MAIL_TOKEN:?AGENT_MAIL_TOKEN is required}"
 PUBLIC_IP="${PUBLIC_IP:?PUBLIC_IP is required to verify private 8787 is not exposed}"
+python3 -c 'import ipaddress, sys; ipaddress.IPv4Address(sys.argv[1])' "$PUBLIC_IP" || {
+  echo "PUBLIC_IP must be a literal IPv4 address" >&2
+  exit 2
+}
 TMPDIR="$(mktemp -d /tmp/agent-mail-public-mcp-XXXXXX)"
-PROJECT="public-mcp-$(date +%Y%m%d%H%M%S)-$$"
-REVIEWER_ROLE="public-smoke-reviewer-$$"
-SENDER_ROLE="public-smoke-sender-$$"
+RUN_ID="$(python3 -c 'import secrets; print(secrets.token_hex(8))')"
+PROJECT="public-mcp-$RUN_ID"
+REVIEWER_ROLE="public-smoke-reviewer-$RUN_ID"
+SENDER_ROLE="public-smoke-sender-$RUN_ID"
+TEST_PASSED=0
 
 cleanup() {
   local status=$?
+  trap - EXIT
+  if [[ $status -eq 0 && $TEST_PASSED -ne 1 ]]; then
+    status=1
+  fi
   if [[ -n "${SSE_PID:-}" ]]; then
     kill "$SSE_PID" 2>/dev/null || true
     wait "$SSE_PID" 2>/dev/null || true
@@ -21,6 +35,7 @@ cleanup() {
     echo "tmpdir: $TMPDIR" >&2
     [[ -f "$TMPDIR/sse.log" ]] && cat "$TMPDIR/sse.log" >&2
   fi
+  exit "$status"
 }
 trap cleanup EXIT
 
@@ -162,7 +177,7 @@ tool_call() {
 print(json.dumps({"jsonrpc":"2.0","id":int(sys.argv[1]),"method":"tools/call","params":{"name":sys.argv[2],"arguments":json.loads(sys.argv[3])}}))' "$id" "$name" "$args")"
 }
 
-curl -fsS "$BASE_URL/health" | assert_json 'data["ok"] is True'
+curl -fsS "$BASE_URL/ready" | assert_json 'data["ok"] is True'
 
 unauth_status="$(curl -sS -o /dev/null -w "%{http_code}" -X POST -H "Content-Type: application/json" --data '{"jsonrpc":"2.0","id":1,"method":"initialize","params":{}}' "$BASE_URL/mcp")"
 [[ "$unauth_status" == "401" ]]
@@ -212,10 +227,24 @@ tool_call "$receiver_session" 10 agent_mail_mark_read "$(python3 -c 'import json
 wait_for_sse_uri "$message_uri"
 mcp_post "$receiver_session" "$(mcp_request resources/read 11 "$(python3 -c 'import json, sys; print(json.dumps({"uri":sys.argv[1]}))' "$inbox_uri")")" | assert_json 'json.loads(data["result"]["contents"][0]["text"])["unread_count"] == 0'
 
-origin_status="$(curl -m 3 -sS -o /dev/null -w "%{http_code}" "http://$PUBLIC_IP:8787/health" 2>/dev/null || true)"
-[[ "$origin_status" != "200" ]]
+if python3 - "$PUBLIC_IP" <<'PY'
+import socket
+import sys
 
+with socket.socket() as sock:
+    sock.settimeout(3)
+    if sock.connect_ex((sys.argv[1], 8787)) == 0:
+        raise SystemExit(0)
+raise SystemExit(1)
+PY
+then
+  echo "port 8787 is reachable on $PUBLIC_IP; refusing to pass isolation gate" >&2
+  exit 1
+fi
+
+TEST_PASSED=1
 echo "public mcp smoke passed"
 echo "project=$PROJECT"
 echo "receiver=$receiver_identity"
 echo "mail_id=$mail_id"
+echo "persistent production smoke artifacts have no automatic cleanup"

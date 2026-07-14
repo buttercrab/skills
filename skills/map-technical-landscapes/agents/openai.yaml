@@ -1,0 +1,4 @@
+interface:
+  display_name: "Map Technical Landscapes"
+  short_description: "Compare technical ecosystems with evidence"
+  default_prompt: "Use $map-technical-landscapes to build an evidence-backed comparison of this technical ecosystem."

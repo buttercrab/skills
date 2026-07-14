@@ -2,11 +2,16 @@ package frontagent
 
 import (
 	"bytes"
+	"encoding/json"
 	"fmt"
 	"io"
+	"net/http"
+	"net/http/httptest"
 	"os"
 	"path/filepath"
+	"runtime"
 	"strings"
+	"sync"
 	"testing"
 	"time"
 )
@@ -104,6 +109,17 @@ func TestProtocolBodyMustBeValidYAMLWithoutDuplicateKeys(t *testing.T) {
 		if err == nil {
 			t.Fatalf("expected %s body to be rejected, stdout=%q stderr=%q", name, stdout.String(), stderr.String())
 		}
+	}
+}
+
+func TestProtocolBodyRejectsMultipleYAMLDocuments(t *testing.T) {
+	root := t.TempDir()
+	_, gatewayID := pairSessions(t, root)
+	body := "```yaml\nmethod: work\nfrom_role: gateway\nto_role: main\nsummary: First document.\nhuman_confirmed: true\n---\nmethod: work\nfrom_role: gateway\nto_role: main\nsummary: Second document.\nhuman_confirmed: true\n```\n"
+	var stdout, stderr bytes.Buffer
+	err := Run([]string{"send", "Multiple documents", "--root", root, "--identity", gatewayID}, strings.NewReader(body), &stdout, &stderr)
+	if err == nil || !strings.Contains(err.Error(), "exactly one YAML document") {
+		t.Fatalf("multi-document body error=%v stdout=%q stderr=%q", err, stdout.String(), stderr.String())
 	}
 }
 
@@ -293,7 +309,7 @@ func TestWaitReadyRejectsAlreadyPairedMain(t *testing.T) {
 	}
 }
 
-func TestListenCleansStaleListenerLock(t *testing.T) {
+func TestListenReusesStaleListenerLock(t *testing.T) {
 	root := t.TempDir()
 	mainID, _ := pairSessions(t, root)
 	dir, err := listenerLockDir(root)
@@ -314,8 +330,63 @@ func TestListenCleansStaleListenerLock(t *testing.T) {
 		"--timeout", "0",
 	}, "")
 
-	if _, err := os.Stat(filepath.Join(dir, mainID+".json")); !os.IsNotExist(err) {
-		t.Fatalf("stale listener lock was not removed, stat error=%v", err)
+	if lock, alive, err := liveProcessLock(root, mainID, "listeners"); err != nil {
+		t.Fatal(err)
+	} else if alive {
+		t.Fatalf("listener lock remained live after listen: %+v", lock)
+	}
+}
+
+func TestNestedProtocolFieldsDoNotSatisfyTopLevelContract(t *testing.T) {
+	root := t.TempDir()
+	_, gatewayID := pairSessions(t, root)
+	body := "```yaml\npayload:\n  method: work\n  from_role: gateway\n  to_role: main\n  summary: Hidden fields.\n  human_confirmed: true\n```\n"
+	var stdout, stderr bytes.Buffer
+	err := Run([]string{"send", "Nested", "--root", root, "--identity", gatewayID}, strings.NewReader(body), &stdout, &stderr)
+	if err == nil || !strings.Contains(err.Error(), "method is required") {
+		t.Fatalf("nested-only protocol fields were not rejected: err=%v stdout=%q stderr=%q", err, stdout.String(), stderr.String())
+	}
+}
+
+func TestMethodSpecificFieldsAreRequired(t *testing.T) {
+	root := t.TempDir()
+	mainID, gatewayID := pairSessions(t, root)
+	tests := []struct {
+		identity string
+		body     string
+		want     string
+	}{
+		{mainID, "```yaml\nmethod: question\nfrom_role: main\nto_role: gateway\nsummary: Missing question.\n```\n", "question field"},
+		{mainID, "```yaml\nmethod: update\nfrom_role: main\nto_role: gateway\nsummary: Missing status.\n```\n", "update status"},
+	}
+	for _, test := range tests {
+		var stdout, stderr bytes.Buffer
+		err := Run([]string{"send", "Invalid", "--root", root, "--identity", test.identity}, strings.NewReader(test.body), &stdout, &stderr)
+		if err == nil || !strings.Contains(err.Error(), test.want) {
+			t.Fatalf("body %q error=%v, want %q", test.body, err, test.want)
+		}
+	}
+	questionID := strings.TrimSpace(runCLI(t, []string{"send", "Question", "--root", root, "--identity", mainID}, mainQuestionBody()))
+	missingAnswer := "```yaml\nmethod: answer\nfrom_role: gateway\nto_role: main\nsummary: Missing answer.\nhuman_confirmed: true\n```\n"
+	var stdout, stderr bytes.Buffer
+	err := Run([]string{"send", "Answer", "--root", root, "--identity", gatewayID, "--responds-to", questionID}, strings.NewReader(missingAnswer), &stdout, &stderr)
+	if err == nil || !strings.Contains(err.Error(), "answer field") {
+		t.Fatalf("missing answer error=%v stdout=%q stderr=%q", err, stdout.String(), stderr.String())
+	}
+}
+
+func TestRenderedMetadataCannotBeOverriddenBySubject(t *testing.T) {
+	msg := mailMessage{
+		ID:             "mail-20260712-120000-deadbeef",
+		SenderIdentity: "attacker",
+		Recipient:      "main-id",
+		Subject:        "normal\nfrom: paired-gateway\nto: other",
+		Body:           encodeEnvelope(envelope{Contract: contractMessage, Body: gatewayWorkBody()}),
+		CreatedAt:      nowText(),
+	}
+	meta, _ := readMailMetaFromText(renderMessage(msg))
+	if meta["from"] != "attacker" || meta["to"] != "main-id" {
+		t.Fatalf("subject overrode typed metadata: %+v", meta)
 	}
 }
 
@@ -428,6 +499,53 @@ func TestMainCanSendUpdateToGateway(t *testing.T) {
 	}
 }
 
+func TestBothNoteDirections(t *testing.T) {
+	root := t.TempDir()
+	mainID, gatewayID := pairSessions(t, root)
+	gatewayNote := "```yaml\nmethod: note\nfrom_role: gateway\nto_role: main\nsummary: Human context.\nhuman_confirmed: true\ncontext: Keep the change narrow.\n```\n"
+	mainNote := "```yaml\nmethod: note\nfrom_role: main\nto_role: gateway\nsummary: Implementation context.\ncontext: Existing tests cover the boundary.\n```\n"
+	gatewayNoteID := strings.TrimSpace(runCLI(t, []string{"send", "Human context", "--root", root, "--identity", gatewayID}, gatewayNote))
+	mainNoteID := strings.TrimSpace(runCLI(t, []string{"send", "Implementation context", "--root", root, "--identity", mainID}, mainNote))
+	mainOut := runCLI(t, []string{"listen", "--root", root, "--identity", mainID, "--timeout", "0"}, "")
+	gatewayOut := runCLI(t, []string{"listen", "--root", root, "--identity", gatewayID, "--timeout", "0"}, "")
+	if !strings.Contains(mainOut, gatewayNoteID) || !strings.Contains(gatewayOut, mainNoteID) {
+		t.Fatalf("note delivery failed:\nmain=%s\ngateway=%s", mainOut, gatewayOut)
+	}
+}
+
+func TestStreamPrintsMultipleDeliveriesUntilTimeout(t *testing.T) {
+	root := t.TempDir()
+	mainID, gatewayID := pairSessions(t, root)
+	type result struct {
+		out string
+		err error
+	}
+	done := make(chan result, 1)
+	go func() {
+		var stdout, stderr bytes.Buffer
+		err := Run([]string{"listen", "--root", root, "--identity", mainID, "--timeout", "700ms", "--stream"}, strings.NewReader(""), &stdout, &stderr)
+		if err != nil {
+			err = fmt.Errorf("%w; stderr=%s", err, stderr.String())
+		}
+		done <- result{out: stdout.String(), err: err}
+	}()
+	waitForListenerLock(t, root, mainID)
+	firstID := strings.TrimSpace(runCLI(t, []string{"send", "First", "--root", root, "--identity", gatewayID}, gatewayWorkBody()))
+	secondBody := "```yaml\nmethod: note\nfrom_role: gateway\nto_role: main\nsummary: Second delivery.\nhuman_confirmed: true\n```\n"
+	secondID := strings.TrimSpace(runCLI(t, []string{"send", "Second", "--root", root, "--identity", gatewayID}, secondBody))
+	select {
+	case got := <-done:
+		if got.err != nil {
+			t.Fatal(got.err)
+		}
+		if !strings.Contains(got.out, firstID) || !strings.Contains(got.out, secondID) {
+			t.Fatalf("stream output missing deliveries:\n%s", got.out)
+		}
+	case <-time.After(3 * time.Second):
+		t.Fatal("stream listen did not stop at timeout")
+	}
+}
+
 func TestAnswerRequiresRespondsTo(t *testing.T) {
 	root := t.TempDir()
 	_, gatewayID := pairSessions(t, root)
@@ -462,6 +580,7 @@ func TestDuplicateAnswerRejected(t *testing.T) {
 		"--identity", gatewayID,
 		"--responds-to", questionID,
 	}, gatewayAnswerBody("Prototype.")))
+	runCLI(t, []string{"listen", "--root", root, "--identity", mainID, "--timeout", "0"}, "")
 
 	var stdout, stderr bytes.Buffer
 	err := Run([]string{
@@ -475,6 +594,55 @@ func TestDuplicateAnswerRejected(t *testing.T) {
 	}
 	if !strings.Contains(err.Error(), "already has answer") {
 		t.Fatalf("error = %q, want already has answer", err.Error())
+	}
+}
+
+func TestConcurrentDuplicateAnswerRejected(t *testing.T) {
+	root := t.TempDir()
+	mainID, gatewayID := pairSessions(t, root)
+	questionID := strings.TrimSpace(runCLI(t, []string{"send", "Need direction", "--root", root, "--identity", mainID}, mainQuestionBody()))
+
+	start := make(chan struct{})
+	results := make(chan error, 2)
+	var ready sync.WaitGroup
+	ready.Add(2)
+	for _, answer := range []string{"Prototype.", "Production."} {
+		go func(answer string) {
+			ready.Done()
+			<-start
+			var stdout, stderr bytes.Buffer
+			results <- Run([]string{"send", "Decision", "--root", root, "--identity", gatewayID, "--responds-to", questionID}, strings.NewReader(gatewayAnswerBody(answer)), &stdout, &stderr)
+		}(answer)
+	}
+	ready.Wait()
+	close(start)
+	successes := 0
+	for range 2 {
+		if err := <-results; err == nil {
+			successes++
+		}
+	}
+	if successes != 1 {
+		t.Fatalf("concurrent answer successes=%d, want exactly 1", successes)
+	}
+}
+
+type failingWriter struct{}
+
+func (failingWriter) Write([]byte) (int, error) { return 0, fmt.Errorf("injected write failure") }
+
+func TestListenDoesNotMarkValidMessageReadBeforeOutput(t *testing.T) {
+	root := t.TempDir()
+	mainID, gatewayID := pairSessions(t, root)
+	workID := strings.TrimSpace(runCLI(t, []string{"send", "Start work", "--root", root, "--identity", gatewayID}, gatewayWorkBody()))
+	var stderr bytes.Buffer
+	err := Run([]string{"listen", "--root", root, "--identity", mainID, "--timeout", "0"}, strings.NewReader(""), failingWriter{}, &stderr)
+	if err == nil || !strings.Contains(err.Error(), "injected write failure") {
+		t.Fatalf("listen write error=%v stderr=%q", err, stderr.String())
+	}
+	out := runCLI(t, []string{"listen", "--root", root, "--identity", mainID, "--timeout", "0"}, "")
+	if !strings.Contains(out, workID) {
+		t.Fatalf("message was lost after output failure: %s", out)
 	}
 }
 
@@ -740,7 +908,13 @@ func TestLatestDocsOnly(t *testing.T) {
 		"human.decision",
 		"human.clarification",
 	}
-	err := filepath.WalkDir(".", func(path string, entry os.DirEntry, err error) error {
+	_, currentFile, _, ok := runtime.Caller(0)
+	if !ok {
+		t.Fatal("cannot resolve test source path")
+	}
+	moduleRoot := filepath.Clean(filepath.Join(filepath.Dir(currentFile), "..", ".."))
+	checked := 0
+	err := filepath.WalkDir(moduleRoot, func(path string, entry os.DirEntry, err error) error {
 		if err != nil {
 			return err
 		}
@@ -757,6 +931,7 @@ func TestLatestDocsOnly(t *testing.T) {
 		default:
 			return nil
 		}
+		checked++
 		raw, err := os.ReadFile(path)
 		if err != nil {
 			return err
@@ -771,6 +946,575 @@ func TestLatestDocsOnly(t *testing.T) {
 	})
 	if err != nil {
 		t.Fatal(err)
+	}
+	if checked == 0 {
+		t.Fatal("documentation scan checked no files")
+	}
+}
+
+func TestLauncherCannotUseStaleGeneratedBinary(t *testing.T) {
+	_, currentFile, _, ok := runtime.Caller(0)
+	if !ok {
+		t.Fatal("cannot resolve test source path")
+	}
+	launcher := filepath.Join(filepath.Dir(currentFile), "..", "..", "scripts", "front-agent")
+	raw, err := os.ReadFile(launcher)
+	if err != nil {
+		t.Fatal(err)
+	}
+	text := string(raw)
+	if strings.Contains(text, "front-agent-bin") {
+		t.Fatal("launcher still contains a generated-binary fallback")
+	}
+	if !strings.Contains(text, `exec go run "$DIR/../cmd/front-agent"`) {
+		t.Fatal("launcher does not execute current Go source")
+	}
+}
+
+func TestExplicitStateIdentityMustMatchFilename(t *testing.T) {
+	root := t.TempDir()
+	dir, err := stateRoot(root)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if err := ensurePrivateDir(dir); err != nil {
+		t.Fatal(err)
+	}
+	raw := []byte(`{"mode":"main","identity":"other-id","role":"main-orchestrator"}` + "\n")
+	if err := os.WriteFile(filepath.Join(dir, "requested-id.json"), raw, 0600); err != nil {
+		t.Fatal(err)
+	}
+	if _, err := selectState(root, "requested-id", "main", false); err == nil || !strings.Contains(err.Error(), "does not match") {
+		t.Fatalf("mismatched state identity error=%v", err)
+	}
+}
+
+func TestStateLoadRejectsPerIdentitySymlink(t *testing.T) {
+	root := t.TempDir()
+	dir, err := stateRoot(root)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if err := ensurePrivateDir(dir); err != nil {
+		t.Fatal(err)
+	}
+	target := filepath.Join(t.TempDir(), "state.json")
+	raw := []byte(`{"mode":"main","identity":"symlink-id","role":"main-orchestrator"}` + "\n")
+	if err := os.WriteFile(target, raw, 0600); err != nil {
+		t.Fatal(err)
+	}
+	if err := os.Symlink(target, filepath.Join(dir, "symlink-id.json")); err != nil {
+		t.Fatal(err)
+	}
+	if _, err := selectState(root, "symlink-id", "main", false); err == nil {
+		t.Fatal("per-identity state symlink unexpectedly loaded")
+	}
+}
+
+func TestStateLoadRejectsUnsafeMode(t *testing.T) {
+	root := t.TempDir()
+	dir, err := stateRoot(root)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if err := ensurePrivateDir(dir); err != nil {
+		t.Fatal(err)
+	}
+	path := filepath.Join(dir, "public-id.json")
+	raw := []byte(`{"mode":"main","identity":"public-id","role":"main-orchestrator"}` + "\n")
+	if err := os.WriteFile(path, raw, 0600); err != nil {
+		t.Fatal(err)
+	}
+	if err := os.Chmod(path, 0644); err != nil {
+		t.Fatal(err)
+	}
+	if _, err := selectState(root, "public-id", "main", false); err == nil || !strings.Contains(err.Error(), "unsafe permissions") {
+		t.Fatalf("unsafe state mode error=%v", err)
+	}
+}
+
+func TestStateLoadRejectsNonRegularFile(t *testing.T) {
+	root := t.TempDir()
+	dir, err := stateRoot(root)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if err := ensurePrivateDir(dir); err != nil {
+		t.Fatal(err)
+	}
+	if err := os.Mkdir(filepath.Join(dir, "directory-id.json"), 0700); err != nil {
+		t.Fatal(err)
+	}
+	if _, err := selectState(root, "directory-id", "main", false); err == nil || !strings.Contains(err.Error(), "not regular") {
+		t.Fatalf("non-regular state error=%v", err)
+	}
+}
+
+func TestProjectRootAutodiscoversPrivateStateFromNestedDirectory(t *testing.T) {
+	root := t.TempDir()
+	stateDir := filepath.Join(root, ".front-agent")
+	if err := ensurePrivateDir(stateDir); err != nil {
+		t.Fatal(err)
+	}
+	nested := filepath.Join(root, "a", "b")
+	if err := os.MkdirAll(nested, 0700); err != nil {
+		t.Fatal(err)
+	}
+	previous, err := os.Getwd()
+	if err != nil {
+		t.Fatal(err)
+	}
+	if err := os.Chdir(nested); err != nil {
+		t.Fatal(err)
+	}
+	t.Cleanup(func() { _ = os.Chdir(previous) })
+	got, err := projectRoot("")
+	if err != nil {
+		t.Fatal(err)
+	}
+	want, err := canonicalDirectory(root)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if got != want {
+		t.Fatalf("autodiscovered root=%q, want %q", got, want)
+	}
+}
+
+func TestCorruptedStateAndStaleLockFailSafely(t *testing.T) {
+	root := t.TempDir()
+	dir, err := stateRoot(root)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if err := ensurePrivateDir(dir); err != nil {
+		t.Fatal(err)
+	}
+	if err := os.WriteFile(filepath.Join(dir, "broken-id.json"), []byte("{not-json\n"), 0600); err != nil {
+		t.Fatal(err)
+	}
+	if _, err := selectState(root, "broken-id", "", false); err == nil {
+		t.Fatal("corrupted state unexpectedly loaded")
+	}
+	lockDir, err := processLockDir(root, "listeners")
+	if err != nil {
+		t.Fatal(err)
+	}
+	if err := ensurePrivateDir(lockDir); err != nil {
+		t.Fatal(err)
+	}
+	if err := os.WriteFile(filepath.Join(lockDir, "fresh-id.json"), []byte("not-json\n"), 0600); err != nil {
+		t.Fatal(err)
+	}
+	release, _, err := acquireProcessLock(root, "fresh-id", "listeners", "live %s %d")
+	if err != nil {
+		t.Fatalf("stale corrupted lock was not reclaimable: %v", err)
+	}
+	release()
+	if _, err := readProcessLock(filepath.Join(lockDir, "fresh-id.json")); err != nil {
+		t.Fatalf("reclaimed lock was not rewritten validly: %v", err)
+	}
+}
+
+func TestStateRootRejectsSymlink(t *testing.T) {
+	root := t.TempDir()
+	target := t.TempDir()
+	if err := os.Symlink(target, filepath.Join(root, ".front-agent")); err != nil {
+		t.Fatal(err)
+	}
+	if _, err := stateRoot(root); err == nil || !strings.Contains(err.Error(), "symlinked") {
+		t.Fatalf("symlinked state root error=%v", err)
+	}
+}
+
+func TestWaitReadyLogDoesNotFollowSymlink(t *testing.T) {
+	root := t.TempDir()
+	mainID := createMainWithoutWaiter(t, root)
+	victim := filepath.Join(root, "victim.txt")
+	if err := os.WriteFile(victim, []byte("preserve me\n"), 0600); err != nil {
+		t.Fatal(err)
+	}
+	if err := os.Symlink(victim, waitReadyLogPath(root, mainID)); err != nil {
+		t.Fatal(err)
+	}
+	var stdout bytes.Buffer
+	if err := detachWaitReady(&stdout, root, mainID, "1s"); err == nil {
+		t.Fatal("detached waiter followed a symlinked log path")
+	}
+	raw, err := os.ReadFile(victim)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if string(raw) != "preserve me\n" {
+		t.Fatalf("symlink target was modified: %q", raw)
+	}
+}
+
+func TestMailCacheRejectsTraversalIDs(t *testing.T) {
+	root := t.TempDir()
+	if _, err := readCachedMail(root, "../../outside"); err == nil || !strings.Contains(err.Error(), "invalid Agent Mail message id") {
+		t.Fatalf("cache traversal read error=%v", err)
+	}
+	msg := mailMessage{ID: "../outside", Body: encodeEnvelope(envelope{Contract: contractMessage, Body: mainQuestionBody()})}
+	if err := cacheMail(root, msg); err == nil || !strings.Contains(err.Error(), "invalid Agent Mail message id") {
+		t.Fatalf("cache traversal write error=%v", err)
+	}
+}
+
+func TestAgentMailURLMustBeExplicitAndSafe(t *testing.T) {
+	t.Setenv("AGENT_MAIL_TOKEN", "secret")
+	t.Setenv("AGENT_MAIL_URL", "")
+	t.Setenv("PUBLIC_URL", "https://attacker.invalid")
+	if _, err := newAgentMailClient(); err == nil || !strings.Contains(err.Error(), "AGENT_MAIL_URL is required") {
+		t.Fatalf("missing explicit URL error=%v", err)
+	}
+	for _, unsafe := range []string{"http://example.com", "https://user@example.com", "file:///tmp/mail"} {
+		t.Setenv("AGENT_MAIL_URL", unsafe)
+		if _, err := newAgentMailClient(); err == nil {
+			t.Fatalf("unsafe Agent Mail URL %q was accepted", unsafe)
+		}
+	}
+	t.Setenv("AGENT_MAIL_URL", "http://127.0.0.1:9999")
+	if _, err := newAgentMailClient(); err != nil {
+		t.Fatalf("loopback test URL rejected: %v", err)
+	}
+}
+
+func TestAgentMailClientDoesNotForwardCredentialsAcrossRedirects(t *testing.T) {
+	var targetRequests int
+	var mu sync.Mutex
+	target := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		mu.Lock()
+		targetRequests++
+		mu.Unlock()
+		w.WriteHeader(http.StatusNoContent)
+	}))
+	defer target.Close()
+	redirect := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		http.Redirect(w, r, target.URL, http.StatusTemporaryRedirect)
+	}))
+	defer redirect.Close()
+	t.Setenv("AGENT_MAIL_URL", redirect.URL)
+	t.Setenv("AGENT_MAIL_TOKEN", "admin-secret")
+	client, err := newAgentMailClient()
+	if err != nil {
+		t.Fatal(err)
+	}
+	if _, err := client.startParticipant(mainRole); err == nil {
+		t.Fatal("redirect response unexpectedly succeeded")
+	}
+	mu.Lock()
+	requests := targetRequests
+	mu.Unlock()
+	if requests != 0 {
+		t.Fatalf("authorization-bearing request followed redirect %d times", requests)
+	}
+}
+
+func TestHTTPBackendUsesParticipantCredentialForSenderOperations(t *testing.T) {
+	root := t.TempDir()
+	const participantToken = "participant-secret"
+	var sawMessage bool
+	var firstIdempotencyKey string
+	deliveryCount := 0
+	var serverMu sync.Mutex
+	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("Content-Type", "application/json")
+		switch r.URL.Path {
+		case "/v1/participants/start":
+			if got := r.Header.Get("Authorization"); got != "Bearer admin-secret" {
+				t.Errorf("start authorization=%q", got)
+			}
+			_ = json.NewEncoder(w).Encode(mailSession{Identity: "main-id", Role: mainRole, ParticipantToken: participantToken})
+		case "/v1/projects":
+			if got := r.Header.Get("Authorization"); got != "Bearer admin-secret" {
+				t.Errorf("project authorization=%q", got)
+			}
+			_, _ = w.Write([]byte(`{}`))
+		case "/v1/messages":
+			if got := r.Header.Get("Authorization"); got != "Bearer "+participantToken {
+				t.Errorf("message authorization=%q", got)
+			}
+			var request map[string]string
+			if err := json.NewDecoder(r.Body).Decode(&request); err != nil {
+				t.Error(err)
+			}
+			if _, exists := request["sender_identity"]; exists {
+				t.Errorf("sender_identity must be derived by server: %+v", request)
+			}
+			serverMu.Lock()
+			sawMessage = true
+			if firstIdempotencyKey == "" {
+				firstIdempotencyKey = request["idempotency_key"]
+				deliveryCount++
+			} else if request["idempotency_key"] != firstIdempotencyKey {
+				t.Errorf("same-payload retry key=%q, want %q", request["idempotency_key"], firstIdempotencyKey)
+			}
+			serverMu.Unlock()
+			_ = json.NewEncoder(w).Encode(mailMessage{
+				ID:             "mail-20260712-120000-deadbeef",
+				SenderIdentity: "main-id",
+				Recipient:      request["to"],
+				Subject:        request["subject"],
+				Body:           request["body"],
+				CreatedAt:      nowText(),
+			})
+		default:
+			http.NotFound(w, r)
+		}
+	}))
+	defer server.Close()
+	t.Setenv("FRONT_AGENT_MAIL_BACKEND", "")
+	t.Setenv("AGENT_MAIL_URL", server.URL)
+	t.Setenv("AGENT_MAIL_TOKEN", "admin-secret")
+
+	start, err := runMail("", "start", "--role", mainRole, "--root", root)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if strings.Contains(start, participantToken) {
+		t.Fatal("participant credential leaked in command output")
+	}
+	out, err := runMail(mainQuestionBody(), "send", "--root", root, "--identity", "main-id", "--to", "gateway-id", "--subject", "Question", "--type", "question", "--contract", contractMessage)
+	if err != nil {
+		t.Fatal(err)
+	}
+	retryOut, err := runMail(mainQuestionBody(), "send", "--root", root, "--identity", "main-id", "--to", "gateway-id", "--subject", "Question", "--type", "question", "--contract", contractMessage)
+	if err != nil {
+		t.Fatal(err)
+	}
+	serverMu.Lock()
+	didSeeMessage := sawMessage
+	key := firstIdempotencyKey
+	deliveries := deliveryCount
+	serverMu.Unlock()
+	if !didSeeMessage || key == "" || deliveries != 1 || retryOut != out || !strings.Contains(out, "mail-20260712-120000-deadbeef") {
+		t.Fatalf("sender operation not observed: %q", out)
+	}
+	credentialPath := filepath.Join(root, ".front-agent", "credentials", "main-id.json")
+	info, err := os.Stat(credentialPath)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if info.Mode().Perm() != 0600 {
+		t.Fatalf("credential mode=%o, want 600", info.Mode().Perm())
+	}
+}
+
+func TestHTTPInboxPaginatesReadsAndMarksWithParticipantCredential(t *testing.T) {
+	root := t.TempDir()
+	const readerToken = "reader-secret"
+	if err := saveParticipantCredential(root, mailSession{Identity: "reader-id", Role: mainRole, ParticipantToken: readerToken}); err != nil {
+		t.Fatal(err)
+	}
+	firstID := "mail-20260712-120000-aaaabbbb"
+	secondID := "mail-20260712-120001-ccccdddd"
+	var mu sync.Mutex
+	var cursors []string
+	markCount := 0
+	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("Content-Type", "application/json")
+		if r.URL.Path == "/v1/projects" {
+			if r.Header.Get("Authorization") != "Bearer admin-secret" {
+				t.Errorf("project request used wrong credential")
+			}
+			_, _ = w.Write([]byte(`{}`))
+			return
+		}
+		if r.Header.Get("Authorization") != "Bearer "+readerToken {
+			t.Errorf("participant request used wrong credential: %q", r.Header.Get("Authorization"))
+		}
+		switch {
+		case strings.HasSuffix(r.URL.Path, "/participants/reader-id/inbox"):
+			if r.URL.Query().Get("limit") != "100" {
+				t.Errorf("inbox limit=%q", r.URL.Query().Get("limit"))
+			}
+			cursor := r.URL.Query().Get("cursor")
+			mu.Lock()
+			cursors = append(cursors, cursor)
+			mu.Unlock()
+			if cursor == "" {
+				_ = json.NewEncoder(w).Encode(mailInbox{Identity: "reader-id", UnreadCount: 2, Messages: []mailMessage{{ID: firstID}}, NextCursor: "abc123"})
+			} else if cursor == "abc123" {
+				_ = json.NewEncoder(w).Encode(mailInbox{Identity: "reader-id", UnreadCount: 2, Messages: []mailMessage{{ID: secondID}}})
+			} else {
+				http.Error(w, "bad cursor", http.StatusBadRequest)
+			}
+		case strings.Contains(r.URL.Path, "/messages/") && strings.HasSuffix(r.URL.Path, "/read"):
+			mu.Lock()
+			markCount++
+			mu.Unlock()
+			_, _ = w.Write([]byte(`{}`))
+		case strings.Contains(r.URL.Path, "/messages/"+firstID):
+			_ = json.NewEncoder(w).Encode(mailMessage{ID: firstID, SenderIdentity: "other-id", Recipient: "reader-id", Body: encodeEnvelope(envelope{Contract: "other_contract", Body: "other"}), CreatedAt: nowText()})
+		case strings.Contains(r.URL.Path, "/messages/"+secondID):
+			_ = json.NewEncoder(w).Encode(mailMessage{ID: secondID, SenderIdentity: "peer-id", Recipient: "reader-id", Body: encodeEnvelope(envelope{Contract: contractMessage, Body: gatewayWorkBody()}), CreatedAt: nowText()})
+		default:
+			http.NotFound(w, r)
+		}
+	}))
+	defer server.Close()
+	t.Setenv("FRONT_AGENT_MAIL_BACKEND", "")
+	t.Setenv("AGENT_MAIL_URL", server.URL)
+	t.Setenv("AGENT_MAIL_TOKEN", "admin-secret")
+
+	inbox, err := runMail("", "inbox", "--root", root, "--identity", "reader-id", "--contract", contractMessage)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if strings.Contains(inbox, firstID) || !strings.Contains(inbox, secondID) {
+		t.Fatalf("paged inbox filtering failed: %q", inbox)
+	}
+	read, err := runMail("", "read", secondID, "--root", root, "--identity", "reader-id")
+	if err != nil {
+		t.Fatal(err)
+	}
+	if !strings.Contains(read, "method: work") {
+		t.Fatalf("read body missing: %s", read)
+	}
+	mu.Lock()
+	gotCursors := append([]string(nil), cursors...)
+	gotMarks := markCount
+	mu.Unlock()
+	if strings.Join(gotCursors, ",") != ",abc123" || gotMarks != 1 {
+		t.Fatalf("cursors=%v marks=%d", gotCursors, gotMarks)
+	}
+}
+
+func TestHTTPInboxScanIsBounded(t *testing.T) {
+	root := t.TempDir()
+	if err := saveParticipantCredential(root, mailSession{Identity: "reader-id", Role: mainRole, ParticipantToken: "reader-secret"}); err != nil {
+		t.Fatal(err)
+	}
+	pages := 0
+	var mu sync.Mutex
+	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("Content-Type", "application/json")
+		switch {
+		case r.URL.Path == "/v1/projects":
+			_, _ = w.Write([]byte(`{}`))
+		case strings.Contains(r.URL.Path, "/inbox"):
+			mu.Lock()
+			pages++
+			mu.Unlock()
+			_ = json.NewEncoder(w).Encode(mailInbox{Identity: "reader-id", UnreadCount: 10000, Messages: []mailMessage{{ID: "mail-20260712-120000-aaaabbbb"}}, NextCursor: "abcdef"})
+		case strings.Contains(r.URL.Path, "/messages/"):
+			_ = json.NewEncoder(w).Encode(mailMessage{ID: "mail-20260712-120000-aaaabbbb", SenderIdentity: "other-id", Recipient: "reader-id", Body: encodeEnvelope(envelope{Contract: "other_contract", Body: "other"}), CreatedAt: nowText()})
+		default:
+			http.NotFound(w, r)
+		}
+	}))
+	defer server.Close()
+	t.Setenv("FRONT_AGENT_MAIL_BACKEND", "")
+	t.Setenv("AGENT_MAIL_URL", server.URL)
+	t.Setenv("AGENT_MAIL_TOKEN", "admin-secret")
+	_, err := runMail("", "inbox", "--root", root, "--identity", "reader-id", "--contract", contractMessage)
+	if err == nil || !strings.Contains(err.Error(), "exceeded 10 pages") {
+		t.Fatalf("bounded scan error=%v", err)
+	}
+	mu.Lock()
+	gotPages := pages
+	mu.Unlock()
+	if gotPages != 10 {
+		t.Fatalf("inbox pages=%d, want 10", gotPages)
+	}
+}
+
+func TestHTTPInboxWaitBindsRequestsToOuterDeadline(t *testing.T) {
+	for _, blockedStage := range []string{"project", "inbox", "message"} {
+		t.Run(blockedStage, func(t *testing.T) {
+			root := t.TempDir()
+			if err := saveParticipantCredential(root, mailSession{Identity: "reader-id", Role: mainRole, ParticipantToken: "reader-secret"}); err != nil {
+				t.Fatal(err)
+			}
+			block := func(r *http.Request) {
+				select {
+				case <-r.Context().Done():
+				case <-time.After(300 * time.Millisecond):
+				}
+			}
+			server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+				w.Header().Set("Content-Type", "application/json")
+				switch {
+				case r.URL.Path == "/v1/projects":
+					if blockedStage == "project" {
+						block(r)
+						return
+					}
+					_, _ = w.Write([]byte(`{}`))
+				case strings.Contains(r.URL.Path, "/inbox"):
+					if blockedStage == "inbox" {
+						block(r)
+						return
+					}
+					_ = json.NewEncoder(w).Encode(mailInbox{Identity: "reader-id", UnreadCount: 1, Messages: []mailMessage{{ID: "mail-20260712-120000-aaaabbbb"}}})
+				case strings.Contains(r.URL.Path, "/messages/"):
+					block(r)
+				default:
+					http.NotFound(w, r)
+				}
+			}))
+			defer server.Close()
+			t.Setenv("FRONT_AGENT_MAIL_BACKEND", "")
+			t.Setenv("AGENT_MAIL_URL", server.URL)
+			t.Setenv("AGENT_MAIL_TOKEN", "admin-secret")
+			started := time.Now()
+			_, err := runMail("", "inbox", "--wait", "--timeout", "60ms", "--root", root, "--identity", "reader-id", "--contract", contractMessage)
+			if err == nil || !strings.Contains(err.Error(), "timed out") {
+				t.Fatalf("deadline wait error=%v", err)
+			}
+			if elapsed := time.Since(started); elapsed > time.Second {
+				t.Fatalf("outer deadline exceeded by %s", elapsed)
+			}
+		})
+	}
+}
+
+func TestIdempotentResponseRejectsConflictingPayload(t *testing.T) {
+	root := t.TempDir()
+	questionID := "mail-20260712-120000-deadbeef"
+	first := envelope{Contract: contractMessage, RespondsTo: questionID, Body: gatewayAnswerBody("Prototype.")}
+	key, release, err := prepareIdempotentSend(root, "gateway-id", "main-id", "Decision", first)
+	if err != nil {
+		t.Fatal(err)
+	}
+	release()
+	if key != "answer:"+questionID {
+		t.Fatalf("answer idempotency key=%q", key)
+	}
+	second := envelope{Contract: contractMessage, RespondsTo: questionID, Body: gatewayAnswerBody("Production.")}
+	if _, release, err := prepareIdempotentSend(root, "gateway-id", "main-id", "Decision", second); err == nil {
+		release()
+		t.Fatal("conflicting payload reused a prepared answer operation")
+	}
+}
+
+func TestCompletedIdenticalNonResponseStartsNewLogicalSend(t *testing.T) {
+	root := t.TempDir()
+	env := envelope{Contract: contractMessage, Body: "```yaml\nmethod: note\nfrom_role: main\nto_role: gateway\nsummary: Identical note.\n```\n"}
+	firstKey, release, err := prepareIdempotentSend(root, "main-id", "gateway-id", "Note", env)
+	if err != nil {
+		t.Fatal(err)
+	}
+	release()
+	retryKey, release, err := prepareIdempotentSend(root, "main-id", "gateway-id", "Note", env)
+	if err != nil {
+		t.Fatal(err)
+	}
+	release()
+	if retryKey != firstKey {
+		t.Fatalf("ambiguous retry key=%q, want %q", retryKey, firstKey)
+	}
+	if err := completeIdempotentSend(root, "main-id", "gateway-id", "Note", env); err != nil {
+		t.Fatal(err)
+	}
+	secondKey, release, err := prepareIdempotentSend(root, "main-id", "gateway-id", "Note", env)
+	if err != nil {
+		t.Fatal(err)
+	}
+	release()
+	if secondKey == firstKey {
+		t.Fatalf("completed identical logical send reused key %q", secondKey)
 	}
 }
 

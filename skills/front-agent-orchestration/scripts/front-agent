@@ -3,18 +3,8 @@ set -euo pipefail
 
 DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 export FRONT_AGENT_CMD="$DIR/front-agent"
-if [[ -x "$DIR/front-agent-bin" ]]; then
-  set +e
-  "$DIR/front-agent-bin" "$@"
-  status=$?
-  set -e
-  if [[ "$status" -ne 126 ]]; then
-    exit "$status"
-  fi
-fi
-
 if ! command -v go >/dev/null 2>&1; then
-  echo "front-agent-bin is missing or not executable, and Go is not available to run cmd/front-agent" >&2
+  echo "Go 1.22 or newer is required to run front-agent" >&2
   exit 127
 fi
 
