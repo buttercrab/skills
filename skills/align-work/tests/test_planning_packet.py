@@ -121,6 +121,16 @@ class PacketCase(unittest.TestCase):
             "current session user authorization",
         )
 
+    def execute_reusing_approval(self, packet):
+        return self.run_cli(
+            "transition",
+            packet,
+            *self.fence(packet),
+            "--to",
+            "executing",
+            "--reuse-approval",
+        )
+
     def test_init_validate_and_no_overwrite(self):
         packet = self.init()
         result = self.run_cli("validate", packet)
@@ -236,6 +246,65 @@ class PacketCase(unittest.TestCase):
         valid = self.run_cli("validate", packet)
         self.assertEqual(valid["status"], "executing")
         self.assertEqual(self.state(packet)["execution_head"], attempt["entry_hash"])
+
+    def test_approval_can_start_and_resume_without_a_second_user_event(self):
+        packet = self.init()
+        self.seal_for_approval(packet)
+        self.approve(packet)
+        approval_id = self.state(packet)["approval"]["id"]
+        self.execute_reusing_approval(packet)
+        self.assertEqual(
+            self.state(packet)["runtime_authorization_evidence"],
+            f"approval:{approval_id}",
+        )
+        self.run_cli("transition", packet, *self.fence(packet), "--to", "paused")
+        self.run_cli(
+            "transition", packet, *self.fence(packet), "--to", "executing",
+            "--reuse-approval",
+        )
+        resumed = self.state(packet)
+        self.assertEqual(resumed["status"], "executing")
+        self.assertEqual(resumed["runtime_authorization_evidence"], f"approval:{approval_id}")
+
+    def test_reuse_approval_rejects_conflicts_and_rollback(self):
+        packet = self.init()
+        self.seal_for_approval(packet)
+        self.approve(packet)
+        before = (packet / "state.json").read_bytes()
+        self.run_cli(
+            "transition", packet, *self.fence(packet), "--to", "executing",
+            "--reuse-approval", "--authorization-evidence", "duplicate event", code=3,
+        )
+        self.assertEqual((packet / "state.json").read_bytes(), before)
+
+        self.execute_reusing_approval(packet)
+        self.run_cli("transition", packet, *self.fence(packet), "--to", "needs_reapproval")
+        before = (packet / "state.json").read_bytes()
+        self.run_cli(
+            "transition", packet, *self.fence(packet), "--to", "executing",
+            "--rollback", "--partial-work-disposition", "roll back partial work",
+            "--reuse-approval", code=3,
+        )
+        self.assertEqual((packet / "state.json").read_bytes(), before)
+
+    def test_reused_approval_can_complete_a_verified_task(self):
+        packet = self.init()
+        self.seal_for_approval(packet)
+        self.approve(packet)
+        self.execute_reusing_approval(packet)
+        self.run_cli(
+            "record-attempt", packet, *self.fence(packet), "--step-id", "S1",
+            "--actor-id", "root", "--model", "strong-model", "--status", "passed",
+            "--action", "implemented approved work", "--verification", "implementation passed",
+        )
+        self.run_cli("transition", packet, *self.fence(packet), "--to", "verifying")
+        self.run_cli(
+            "record-attempt", packet, *self.fence(packet), "--step-id", "VERIFY",
+            "--actor-id", "root", "--model", "strong-model", "--status", "passed",
+            "--evidence", "required gates passed", "--verification", "verified current revision",
+        )
+        self.run_cli("transition", packet, *self.fence(packet), "--to", "complete")
+        self.assertEqual(self.state(packet)["status"], "complete")
 
     def test_stale_generation_and_wrong_owner_are_rejected(self):
         packet = self.init()

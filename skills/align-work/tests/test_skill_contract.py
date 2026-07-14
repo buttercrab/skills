@@ -87,6 +87,21 @@ class SkillContractCase(unittest.TestCase):
         self.assertLess(transition, revise)
         self.assertIn("Do not leave a digest-mismatched packet waiting on a reviewer", text)
 
+    def test_one_approval_envelope_contract(self):
+        skill = (SKILL / "SKILL.md").read_text()
+        packet = (SKILL / "references" / "packet-contract.md").read_text()
+        plan = (SKILL / "references" / "write-plan.md").read_text()
+        execute = (SKILL / "references" / "execute-approved-plan.md").read_text()
+        self.assertIn("one human approval per envelope", skill)
+        self.assertIn("do not ask a second", skill)
+        self.assertIn("trusted same-task continuity", packet)
+        self.assertIn("fresh Codex task", packet)
+        self.assertIn("--reuse-approval", packet)
+        self.assertIn("named fallback branches", plan)
+        self.assertIn("### Inside the envelope", execute)
+        self.assertIn("### Outside the envelope", execute)
+        self.assertIn("file-recorded approval alone is insufficient", execute)
+
     def test_required_resources_only(self):
         expected = {
             "SKILL.md",

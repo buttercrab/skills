@@ -386,7 +386,7 @@ def validate_state(state: dict, packet: Path) -> None:
     if state["status"] in {"approved", "executing", "verifying", "complete"} and state["approval"] is None and not state["rollback_mode"]:
         raise PacketError(EXIT_INVALID, "active or completed execution needs approval record", "approval object", None)
     if state["status"] in {"executing", "verifying"} and (not isinstance(state["runtime_authorization_evidence"], str) or not state["runtime_authorization_evidence"].strip()):
-        raise PacketError(EXIT_INVALID, "active execution needs current-session authorization evidence", "nonempty text", state["runtime_authorization_evidence"])
+        raise PacketError(EXIT_INVALID, "active execution needs runtime authorization evidence", "nonempty text", state["runtime_authorization_evidence"])
     parse_time(state["last_transition_at"], "last_transition_at")
     validate_approval(state)
 
@@ -820,6 +820,33 @@ def ensure_execution_file(packet: Path, state: dict) -> None:
         os.fsync(handle.fileno())
 
 
+def transition_authorization(state: dict, args, *, allow_reuse: bool, context: str) -> str:
+    if args.reuse_approval and args.authorization_evidence is not None:
+        raise PacketError(
+            EXIT_INVALID,
+            "approval reuse conflicts with fresh authorization evidence",
+            "exactly one of --reuse-approval or --authorization-evidence",
+            "both supplied",
+        )
+    if args.reuse_approval:
+        if not allow_reuse or state["approval"] is None or state["rollback_mode"]:
+            raise PacketError(
+                EXIT_INVALID,
+                "approval reuse needs a valid active approval outside rollback",
+                "valid approval and non-rollback execution",
+                {"approval": state["approval"], "rollback_mode": state["rollback_mode"]},
+            )
+        return "approval:" + state["approval"]["id"]
+    if not args.authorization_evidence or not args.authorization_evidence.strip():
+        raise PacketError(
+            EXIT_INVALID,
+            context,
+            "--authorization-evidence or --reuse-approval",
+            None,
+        )
+    return args.authorization_evidence.strip()
+
+
 def command_transition(args) -> None:
     packet = packet_path(args.packet)
     with packet_lock(packet):
@@ -828,6 +855,18 @@ def command_transition(args) -> None:
         guard(state, args)
         current = state["status"]
         target = args.to
+        authorization_transition = (
+            target == "executing" and current in {"approved", "needs_reapproval"}
+        ) or (
+            current in {"paused", "blocked"} and target in {"executing", "verifying"}
+        )
+        if (args.reuse_approval or args.authorization_evidence is not None) and not authorization_transition:
+            raise PacketError(
+                EXIT_INVALID,
+                "execution authorization flags are invalid for this transition",
+                "approved/needs_reapproval to executing or paused/blocked active resume",
+                f"{current}->{target}",
+            )
         if current in {"paused", "blocked"}:
             if target != state["resume_status"]:
                 raise PacketError(EXIT_INVALID, "paused/blocked may resume only to recorded status", state["resume_status"], target)
@@ -861,30 +900,40 @@ def command_transition(args) -> None:
             if current == "approved":
                 if args.rollback or args.partial_work_disposition:
                     raise PacketError(EXIT_INVALID, "rollback flags are valid only from needs_reapproval", "no rollback flags", current)
-                if not args.authorization_evidence or not args.authorization_evidence.strip():
-                    raise PacketError(EXIT_INVALID, "execution needs current-session authorization evidence", "--authorization-evidence", None)
-                state["runtime_authorization_evidence"] = args.authorization_evidence.strip()
+                state["runtime_authorization_evidence"] = transition_authorization(
+                    state,
+                    args,
+                    allow_reuse=True,
+                    context="execution needs current user authorization or trusted same-task approval reuse",
+                )
                 state["rollback_mode"] = False
             elif current == "needs_reapproval":
                 if (
                     not args.rollback
                     or not args.partial_work_disposition
                     or not args.partial_work_disposition.strip()
-                    or not args.authorization_evidence
-                    or not args.authorization_evidence.strip()
                 ):
                     raise PacketError(EXIT_INVALID, "needs_reapproval may execute only an authorized recorded rollback", "--rollback, --partial-work-disposition, and --authorization-evidence", None)
+                rollback_authorization = transition_authorization(
+                    state,
+                    args,
+                    allow_reuse=False,
+                    context="rollback needs current user authorization evidence",
+                )
                 state["runtime_authorization_evidence"] = (
-                    args.authorization_evidence.strip()
+                    rollback_authorization
                     + " | partial-work disposition: "
                     + args.partial_work_disposition.strip()
                 )
                 state["rollback_mode"] = True
             ensure_execution_file(packet, state)
         if current in {"paused", "blocked"} and target in {"executing", "verifying"}:
-            if not args.authorization_evidence or not args.authorization_evidence.strip():
-                raise PacketError(EXIT_INVALID, "resuming active work needs current-session authorization evidence", "--authorization-evidence", None)
-            state["runtime_authorization_evidence"] = args.authorization_evidence.strip()
+            state["runtime_authorization_evidence"] = transition_authorization(
+                state,
+                args,
+                allow_reuse=True,
+                context="resuming active work needs current user authorization or trusted same-task approval reuse",
+            )
         if target == "needs_reapproval":
             # A material discovery may happen after approval but before execution.
             # Create the ledger here as well so every needs-reapproval packet has
@@ -1066,6 +1115,7 @@ def build_parser() -> argparse.ArgumentParser:
     transition.add_argument("--authority")
     transition.add_argument("--approval-evidence")
     transition.add_argument("--authorization-evidence")
+    transition.add_argument("--reuse-approval", action="store_true")
     transition.add_argument("--partial-work-disposition")
     transition.add_argument("--rollback", action="store_true")
     transition.set_defaults(func=command_transition)

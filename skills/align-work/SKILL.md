@@ -33,15 +33,21 @@ Use `scripts/planning_packet.py`; do not hand-author `state.json`. Treat `facts.
 
 If the user forbids all file creation or edits, do not create `.planning/`. Ask permission for the durable packet only when it is necessary; if permission is denied, remain read-only and state that durable resume and implementation are unavailable.
 
-After compaction, interruption, coordinator transfer, or a fresh session, reconstruct task knowledge from the packet and revalidate volatile facts. A fresh session must ask the user to reauthorize before any mutation even if the packet records prior approval.
+After compaction, interruption, coordinator transfer, or a fresh task, reconstruct task knowledge from the packet and revalidate volatile facts. A valid approval remains usable across compaction, automatic continuation, and later turns in the same visible Codex task when packet identity, coordinator state, and the approved envelope still match. In a fresh Codex task, file-recorded approval alone is insufficient: an explicit user instruction to continue, resume, or implement is lightweight reauthorization; ask once only when the user has not supplied such direction.
+
+## Use one approval envelope
+
+Define the approval envelope as the outcome and scope, exact authority classes and surfaces, architecture and fallback bounds, security/privacy/trust boundary, cost or time ceiling, required verification strength, and rollback or partial-work rules. The normal prompt budget is one human approval per envelope. An unqualified approval of the presented implementation plan authorizes immediate execution; use the same user message for approval and execution authorization and do not ask a second “start?” question.
+
+Preauthorize bounded fallback branches when they are reasonably foreseeable. Retries, step reordering, reversible implementation mechanics inside approved paths, named fallbacks inside their bounds, stronger verification, and ordinary in-scope bug fixes stay inside the envelope. New authority or surfaces, unplanned outcome/scope/architecture, expanded risk or trust, cost above the ceiling, weaker required gates, or an unapproved partial-work disposition leave the envelope and require a new approval.
 
 ## Run the stages
 
 1. **Explore and align:** read [references/explore-and-align.md](references/explore-and-align.md). Explore discoverable reality while asking only decision-changing questions. Update the packet before sending the next question round.
 2. **Write the plan:** when no decision-changing question remains, read [references/write-plan.md](references/write-plan.md). Produce a self-contained plan with exact scope, authority, steps, gates, risks, and rollback.
 3. **Review when warranted:** read [references/review-plan.md](references/review-plan.md). Prefer fresh adversarial review for complex or risky plans; record why a simple plan skipped it.
-4. **Request approval:** seal the protected packet and show the user its revision, digest, and authority classes. Do not mutate product, repository, global, or external state before approval.
-5. **Execute and verify:** after current-session approval, read [references/execute-approved-plan.md](references/execute-approved-plan.md). Record attempts, use bounded delegation, stop for material changes, and complete only when required gates have receipts.
+4. **Request approval:** seal the protected packet and show the user its revision, digest, and authority classes. Do not mutate product, repository, global, or external state before approval. Unless the user explicitly limits approval to planning, treat approval as permission to execute immediately within the envelope.
+5. **Execute and verify:** after approval or explicit fresh-task reauthorization, read [references/execute-approved-plan.md](references/execute-approved-plan.md). Record attempts, use bounded delegation, stop for out-of-envelope changes, and complete only when required gates have receipts.
 
 ## Enforce hard boundaries
 
@@ -50,9 +56,9 @@ After compaction, interruption, coordinator transfer, or a fresh session, recons
 - Keep one active coordinator as the only canonical packet writer.
 - Use direct children only. Begin every child assignment with: `You are a direct child. Do not spawn or delegate to any other agent.` Treat attempted subdelegation as an invalid result. Prefer read-only isolation for exploration and review; otherwise hash canonical files before and after each child run and reject mutated results.
 - Ask the user only about decisions that can change outcome, scope, architecture, authority, safety, risk, acceptance criteria, or the plan. Discover safely inspectable facts instead.
-- Treat packet approval as nonportable evidence. Reconfirm authority in every fresh session.
+- Treat packet approval as nonportable evidence across Codex tasks. Within the same visible task, reuse a still-valid approval without another prompt. In a fresh task, treat the user's explicit continue/resume/implement instruction as reauthorization; otherwise ask one concise question.
 - Use cheap or fast models only for bounded, approved implementation. Use strong reasoning for alignment, planning, synthesis, adversarial review, high-risk work, and final verification.
-- If a protected file changes after approval, invalidate approval. For a material change, stop new mutation, preserve partial work and receipts, record rollback options, revise the packet, and request reapproval.
+- Freeze protected planning files after approval. Record in-envelope discoveries and mechanics in `execution.md`, not `facts.md`, `decisions.md`, or `plan.md`. If work leaves the envelope, stop new mutation, preserve partial work and receipts, record rollback options, revise the protected packet, and request reapproval. Unexpected protected-byte drift remains an integrity fault and invalidates approval.
 - Do not escalate to a plugin, hook, MCP server, custom runtime, publication, deployment, or other external action without new authority.
 - Before approval, prefer a read-only sandbox or read-only children. If the current surface still exposes write tools, record hashes for protected product/global surfaces and fail on unexpected mutation; instruction-level policy is not a technical sandbox.
 

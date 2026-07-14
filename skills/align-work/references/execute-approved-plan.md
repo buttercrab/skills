@@ -1,14 +1,15 @@
 # Execute an Approved Plan
 
-Read this reference only after current-session approval of the sealed packet or after fresh-session reauthorization.
+Read this reference only after approval of the sealed packet or an explicit fresh-task continue/resume/implement instruction.
 
 ## Start or resume
 
 1. Validate packet digest, state, coordinator epoch, and execution chain.
-2. Confirm current-session authority classes. File-recorded approval alone is insufficient in a fresh session.
+2. Confirm the approved envelope and continuity. Reuse approval without another prompt only inside the same visible Codex task; in a fresh task, the user's explicit continue/resume/implement instruction is reauthorization, while file-recorded approval alone is insufficient.
 3. Revalidate volatile facts and compare live state to the approved baseline.
 4. Reconcile incomplete attempts and choose the next eligible step.
-5. Transition to `executing` and record every attempt through the packet helper.
+5. Transition to `executing`. After an unqualified plan approval, use that same message as approval evidence and `--reuse-approval` for execution; do not ask “start?” again. After a fresh-task instruction or unexpected recovery, use that single current user message for every required authorization field instead of prompting twice.
+6. Record every attempt through the packet helper.
 
 ## Implement
 
@@ -18,16 +19,22 @@ Read this reference only after current-session approval of the sealed packet or 
 - Use cheap/fast models only for bounded approved implementation; record the actual model. Keep alignment, planning, review, high-risk work, synthesis, and final verification on a strong reasoning model.
 - Use `execute-goal-loop` only when the user explicitly requested or approved a persistent loop. Derive its objective and gates from the sealed packet; its state cannot broaden scope, replace packet gates, or mark packet completion.
 
-## Material discovery
+## Discoveries during execution
 
-If a material change appears:
+### Inside the envelope
+
+Continue without reapproval for retries, step reordering, reversible mechanics inside approved paths, named fallbacks inside their bounds, stronger verification, and ordinary in-scope bug fixes. Keep protected planning files frozen and record the discovery, action, and receipt in `execution.md`.
+
+### Outside the envelope
+
+If a discovery changes approved outcome or scope, selects an unplanned architecture, adds authority or surfaces, expands trust/security/privacy/risk, exceeds cost or time bounds, weakens required verification, or needs an unapproved partial-work disposition:
 
 1. Stop new product mutation. Preserve the diff and receipts; allow only read-only diagnosis and necessary safety containment.
 2. Immediately transition the packet to `needs_reapproval`. This clears stale approval before any more planning work.
 3. Record the discovery, partial effects, rollback options, and newly open questions in `facts.md` and `decisions.md`.
 4. Revise `plan.md`, then use guarded `repair` to acknowledge the intentional protected-file rewrite and return to `drafting` or `reviewing`. Do not leave a digest-mismatched packet waiting on a reviewer.
 5. Complete any required bounded review, reseal the packet with a new revision and digest, and return to `awaiting_approval`.
-6. Ask the user to approve the new digest and partial-work disposition or choose rollback. Never resume implementation from the superseded approval.
+6. Ask once for approval of the new envelope, digest, and partial-work disposition or for rollback. Never resume implementation from the superseded approval.
 
 ## Verify and complete
 

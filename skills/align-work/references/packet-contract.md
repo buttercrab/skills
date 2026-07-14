@@ -34,23 +34,26 @@ python3 scripts/planning_packet.py validate <packet>
 python3 scripts/planning_packet.py questions <packet> --expected-revision <n> --expected-epoch <n> --expected-generation <n> --coordinator-id <uuid> --set Q-001
 python3 scripts/planning_packet.py seal <packet> --expected-revision <n> --expected-epoch <n> --expected-generation <n> --coordinator-id <uuid> --status awaiting_approval --authority R,T
 python3 scripts/planning_packet.py transition <packet> --expected-revision <n> --expected-epoch <n> --expected-generation <n> --coordinator-id <uuid> --to approved --approval-id <uuid> --authority R,T --approval-evidence <text>
+python3 scripts/planning_packet.py transition <packet> --expected-revision <n> --expected-epoch <n> --expected-generation <n> --coordinator-id <uuid> --to executing --reuse-approval
 ```
 
-Use `handoff` for an orderly coordinator transfer. Use `recover` only after the user authorizes takeover from an unavailable coordinator. A handoff or recovery during active work pauses it, clears runtime authorization, and requires current-session authorization before resume. Use `repair` only when validation reports structural/digest invalidity; it clears approval and seals a new unapproved revision.
+Use `handoff` for an orderly coordinator transfer. Use `recover` only after the user authorizes takeover from an unavailable coordinator. A handoff or recovery during active work pauses it and clears runtime authorization. The same explicit user recovery/resume message may authorize both takeover and resume; never ask twice for that transition. Use `repair` only when validation reports structural/digest invalidity; it clears approval and seals a new unapproved revision.
 
 ## Approval
 
-Show the user the packet ID, repository root, exact revision, digest, and requested authority classes. Approval evidence in `state.json` is an audit record, not authenticated authority. A fresh human-facing coordinator must show this identity and ask the user to reauthorize before coordinator takeover or other mutation.
+Show the user the packet ID, repository root, exact revision, digest, requested authority classes, and a concise description of the approval envelope. A plain approval in direct response is sufficient; the user need not repeat the digest or classes. Unless the user explicitly says to approve without starting, use that same message to record approval and transition immediately to execution with `--reuse-approval`. Do not ask a second “start?” question.
+
+Approval evidence in `state.json` is an audit record, not authenticated authority. `--reuse-approval` is valid only for trusted same-task continuity: the same visible Codex task, a valid packet/approval identity, matching coordinator state, no open question, and no out-of-envelope discovery. The helper checks structure, not conversational continuity; the coordinator must enforce this boundary.
 
 ## Resume
 
 1. Validate packet structure, digest, and execution chain.
 2. Confirm the packet path and task ID; do not guess among multiple packets.
 3. Read volatile-fact recheck rules and `execution.md` without mutating; identify any incomplete pending attempt.
-4. In a fresh human-facing session, show packet identity and reconfirm authority.
-5. Only after reauthorization, acquire or recover coordinator ownership with the expected fencing epoch.
+4. Determine continuity. Compaction, automatic continuation, or a later turn in the same visible Codex task may reuse a valid approval without a prompt. A fresh Codex task requires an explicit user continue/resume/implement instruction; that instruction itself is reauthorization, so ask only when it is absent.
+5. Acquire, hand off, or recover coordinator ownership with the expected fencing epoch. Unexpected recovery still requires genuine user takeover authority, but the same user message may also authorize resume.
 6. Revalidate volatile facts and compare current repository/global state to the approved baseline.
-7. Reconcile incomplete attempts and select the next eligible plan step.
+7. Reconcile incomplete attempts and select the next eligible plan step. Use `--reuse-approval` only for trusted same-task continuity; otherwise pass the current user instruction as `--authorization-evidence`.
 
 If protected bytes disagree with the stored digest, stop ordinary mutation. Reconcile the ledgers, run guarded `repair`, and return to planning or review without approval.
 
