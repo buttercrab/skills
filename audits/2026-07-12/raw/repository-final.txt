@@ -1,4 +1,0 @@
-repository gates PASS links=7+7 inventory=7 no-go-refusal=PASS foreign-backup=PASS idempotence=PASS diff-check=PASS audited-cache-hygiene=PASS
-markdown relative links PASS checked=9 files=28 align-work=excluded
-audit ledger PASS inventory=7 reports=6 fixtures=74 front-scenarios=36 align-work=excluded
-align-work exclusion preservation PASS resources=15 audit-edits-reversed=5 concurrent-post-baseline-deltas=6 new-files=0
