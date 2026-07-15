@@ -866,20 +866,48 @@ def command_handoff(args) -> None:
         state = read_json(packet / "state.json")
         validate_packet(packet, state)
         guard(state, args)
+        if state["status"] in {"complete", "cancelled"}:
+            raise PacketError(EXIT_CONFLICT, "terminal packet cannot be handed off", "nonterminal packet", state["status"])
         new_id = as_uuid(args.to_coordinator_id, "to-coordinator-id") if args.to_coordinator_id else str(uuid.uuid4())
         old = dict(state["active_coordinator"])
         new = {"id": new_id, "epoch": old["epoch"] + 1}
         state["active_coordinator"] = new
         evidence = normalize_audit_evidence(args.evidence, "handoff evidence", required=False)
         state["coordinator_history"].append(coordinator_event("handoff", old, new, evidence, "orderly handoff"))
-        if state["status"] in {"executing", "verifying"}:
+        if state["status"] == "blocked":
+            state["status"] = "paused"
+        elif state["status"] != "paused":
             state["resume_status"] = state["status"]
             state["status"] = "paused"
         state["runtime_authorization_evidence"] = None
         bump_generation(state)
         validate_packet(packet, state)
         atomic_json(packet / "state.json", state)
-    success("handoff", packet=str(packet), coordinator=new)
+        approval = state.get("approval")
+        receipt = {
+            "schema_version": "packet-transfer-receipt/v1",
+            "receipt_id": str(uuid.uuid4()),
+            "packet_id": state["packet_id"],
+            "repository_root": state["repository_root"],
+            "packet_path": str(packet.relative_to(Path(state["repository_root"]))),
+            "packet_revision": state["packet_revision"],
+            "protected_digest": state["protected_digest"],
+            "approval_id": approval["id"] if isinstance(approval, dict) else None,
+            "old_coordinator": old,
+            "new_coordinator": new,
+            "state_generation": state["state_generation"],
+            "status": "paused",
+            "resume_status": state["resume_status"],
+            "runtime_authorization_cleared": True,
+            "execution_head": state["execution_head"],
+            "issued_at": now(),
+            "receipt_sha256": "",
+        }
+        receipt["receipt_sha256"] = hashlib.sha256(
+            b"packet-transfer-receipt/v1\0"
+            + canonical_json({key: value for key, value in receipt.items() if key != "receipt_sha256"})
+        ).hexdigest()
+    success("handoff", packet=str(packet), coordinator=new, transfer_receipt=receipt)
 
 
 def command_recover(args) -> None:

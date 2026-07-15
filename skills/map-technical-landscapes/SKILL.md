@@ -1,6 +1,6 @@
 ---
 name: map-technical-landscapes
-description: Systematically discover and compare an open-ended technical ecosystem of papers, models, repositories, products, frameworks, or systems. Use when the user needs canonicalization, a shared comparison schema, primary-source provenance, and explicit coverage and stopping accounting for a landscape, ecosystem map, state-of-the-art survey, comprehensive discovery, or decision research. Do not use for tutoring supplied sources, quick recommendations, fixed or already-bounded evidence reconciliation, OpenAI-only facts, single-link briefs, or implementation work; use brief-linked-evidence for bounded cross-provider evidence sets.
+description: Systematically discover and compare an open-ended technical ecosystem of papers, models, repositories, products, frameworks, or systems. Use for a comprehensive landscape, state-of-the-art or ecosystem map, open candidate discovery, or decision research requiring canonicalization, a shared comparison schema, primary-source provenance, coverage, and stopping accounting. Fixed supplied resource sets route to brief-linked-evidence; historical agent-run lineage routes to mine-history-tool-landscapes. Use installed public browser or web capabilities and mark unavailable private sources excluded or completeness-blocking. Do not use for quick recommendations, tutoring supplied sources, or implementation work.
 ---
 
 # Map Technical Landscapes
@@ -41,4 +41,22 @@ Read [references/landscape-schema.md](references/landscape-schema.md) before cre
 3. When structured output is produced, resolve this installed skill's directory from the loaded `SKILL.md`, then run `python3 <skill-directory>/scripts/validate_landscape.py landscape.json`. Fix every error before delivery; never resolve `scripts/` against the user's current project.
 4. Deliver scope and stopping rule, canonical inventory, alias decisions, comparison matrix, taxonomy, evidence-strength notes, coverage ledger, gaps, and either a decision brief or neutral synthesis.
 
-This skill owns open-ended candidate discovery, canonicalization, comparison, and stopping coverage. Use `brief-linked-evidence` when the candidate or evidence set is already bounded and the primary task is cross-provider conflict reconciliation or a provenance-aware brief; a completed landscape may be an input to that skill. Use `openai-docs` to acquire current OpenAI claims, `research-learning-session` for tutoring, and `wiki` for Cartesia wiki publication. Let an outer execution skill own delegation or completion loops. Do not mutate repositories, launch jobs, submit forms, or publish without authority.
+This skill owns open-ended candidate discovery, canonicalization, comparison, and stopping coverage. Use `brief-linked-evidence` when the candidate or evidence set is already bounded and the primary task is cross-provider conflict reconciliation or a provenance-aware brief; a completed landscape may be an input to that skill. Route historical Codex, Claude Code, agent, job, report, or cache lineage to `mine-history-tool-landscapes`. Check installed acquisition capabilities at runtime. Public sources may use another installed browser or web capability; unavailable private sources are excluded or make completeness blocked. Let an outer execution skill own delegation or completion loops. Do not mutate repositories, launch jobs, submit forms, or publish without authority.
+
+<!-- BEGIN GENERATED PORTFOLIO ROUTING v1 -->
+## Portfolio routing contract (generated)
+
+This block is generated from `tests/portfolio-routing-v1.json`; do not edit it by hand.
+
+- `skill`: "map-technical-landscapes"
+- `routing_role`: "research"
+- `portfolio_position`: "Open-ended technical ecosystem discovery, canonicalization, and comparison."
+- `positive_request_classes`: ["comprehensive technical landscape","state-of-the-art or ecosystem map","open candidate discovery","comparison with coverage and stopping accounting"]
+- `triggers`: ["The candidate universe is open-ended.","Discovery needs canonicalization, a shared schema, provenance, coverage, and a stopping rule."]
+- `exclusions`: ["fixed supplied resource reconciliation","historical agent-run lineage","quick recommendation","implementation work"]
+- `state_owner`: "Owns canonical candidate set, comparison schema, provenance, coverage, and stopping ledger."
+- `precedence`: ["Research routing is determined by source universe.","A later Brief may consume a completed landscape without changing original ownership."]
+- `legal_compositions`: [{"route":"brief-linked-evidence","relation":"content-owner"}]
+- `fallbacks`: [{"condition":"The source set is fixed.","route":"brief-linked-evidence","result":"Use bounded evidence synthesis."},{"condition":"The source universe is historical agent runs.","route":"mine-history-tool-landscapes","result":"Use history lineage and recurrence mining."},{"condition":"A public acquisition capability is unavailable.","route":"browser-web","result":"Use another installed public browser or web capability; otherwise mark coverage incomplete."},{"condition":"A private capability is unavailable.","route":"stop","result":"Exclude it or block completeness."}]
+- `forbidden_actions`: ["claim completeness without coverage and stopping proof","name unavailable routes as installed","own historical lineage","mutate or publish without authority"]
+<!-- END GENERATED PORTFOLIO ROUTING v1 -->

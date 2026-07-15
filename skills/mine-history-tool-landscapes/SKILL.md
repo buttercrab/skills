@@ -1,6 +1,6 @@
 ---
 name: mine-history-tool-landscapes
-description: Reconstruct provenance across multiple historical Codex, Claude Code, agent, report, job, cache, and tool runs, or mine independently rooted agent-run histories for recurring workflow and capability requirements. Use for cross-session lineage, root-intent recurrence, or history-derived create, extend, and reject recommendations. Do not use for current GPU or Slurm diagnosis, ordinary git archaeology, a single linked report, memory recall, current Codex product documentation, remote collection without source-specific authorization, or implementing an already specified skill.
+description: Reconstruct provenance across multiple historical Codex, Claude Code, agent, report, job, cache, and tool runs, or mine independently rooted histories for recurring workflow and capability requirements. Use for cross-session lineage, root-intent recurrence, or history-derived create, extend, and reject recommendations. For chat-history exploration, use only the user-approved 5.6 lunar high economy model on redacted source-bound packets; the primary coordinator owns planning and final synthesis. Open technical ecosystem discovery routes to map-technical-landscapes. Do not use for current diagnosis, ordinary git archaeology, one linked report, memory recall, live product documentation, unavailable private histories presented as complete, or implementing an already specified skill.
 ---
 
 # Mine History Tool Landscapes
@@ -12,6 +12,10 @@ Read [references/history-source-contract.md](references/history-source-contract.
 - Use **lineage mode** to reconstruct a specific session, run, job, report, or artifact across historical sources.
 - Use **capability mode** to find recurring workflows, tooling gaps, or skill opportunities.
 - Run both only when the user explicitly requests both outcomes.
+
+For chat-history exploration in this portfolio, the only approved economy model is the user-named `5.6 lunar high`. Do not substitute another model implicitly.
+
+Keep campaign planning, cross-packet synthesis, overlap adjudication, and final create, extend, or reject decisions with the primary coordinator.
 
 ## Establish the source universe
 
@@ -46,3 +50,21 @@ Read [references/history-source-contract.md](references/history-source-contract.
 5. Delete an index whose retention deadline has arrived. Hand approved requirements to `skill-creator`; do not author or install downstream skills here.
 
 Delegation is optional and needs independent user or host authority. If allowed, workers receive bounded redacted immutable packets and emit unique receipts; one reducer owns canonical outputs. Otherwise run single-process.
+
+<!-- BEGIN GENERATED PORTFOLIO ROUTING v1 -->
+## Portfolio routing contract (generated)
+
+This block is generated from `tests/portfolio-routing-v1.json`; do not edit it by hand.
+
+- `skill`: "mine-history-tool-landscapes"
+- `routing_role`: "research"
+- `portfolio_position`: "Historical agent-run lineage and recurring capability or workflow mining."
+- `positive_request_classes`: ["multiple Codex, Claude Code, agent, report, job, cache, or tool histories","root-intent recurrence","history-derived create, extend, or reject recommendations"]
+- `triggers`: ["The source universe consists of multiple historical agent-run or tool-run roots.","The task requires lineage reconstruction or recurring capability reduction."]
+- `exclusions`: ["current diagnosis","ordinary git archaeology","one linked report","memory recall","live product documentation","open ecosystem discovery","implementing an already specified skill"]
+- `state_owner`: "Owns source index, private semantic ledger, evidence acceptance, root-intent canonicalization, and capability reduction."
+- `precedence`: ["Only the user-named 5.6 lunar high economy model may explore redacted source-bound chat-history packets.","The primary coordinator owns planning, cross-packet synthesis, overlap adjudication, and final create, extend, or reject decisions."]
+- `legal_compositions`: [{"route":"skill-creator","relation":"mechanics"},{"route":"map-technical-landscapes","relation":"content-owner"}]
+- `fallbacks`: [{"condition":"The request is open-ended technical ecosystem discovery.","route":"map-technical-landscapes","result":"Use landscape mapping."},{"condition":"A private history source is unavailable or unauthorized.","route":"stop","result":"Exclude it and mark completeness, or stop when required."}]
+- `forbidden_actions`: ["substitute another exploration model implicitly","accept self-supplied semantic hashes","expose private history","use unbound model output as evidence","own implementation approval"]
+<!-- END GENERATED PORTFOLIO ROUTING v1 -->

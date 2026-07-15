@@ -1,4 +1,5 @@
+# portfolio-routing-v1-row-sha256: 890f2775d21de9daa70a2f2e1ea7cb9cd10e5ac55ca535e38b6a84950cce973d
 interface:
   display_name: "Map Technical Landscapes"
-  short_description: "Compare technical ecosystems with evidence"
-  default_prompt: "Use $map-technical-landscapes to build an evidence-backed comparison of this technical ecosystem."
+  short_description: "Map open technical ecosystems with coverage proof"
+  default_prompt: "Use $map-technical-landscapes for open-ended technical ecosystem discovery. Canonicalize candidates, prove coverage and stopping, and route fixed supplied sources or historical agent-run lineage to their owners."

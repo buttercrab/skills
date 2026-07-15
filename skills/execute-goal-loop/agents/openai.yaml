@@ -1,3 +1,4 @@
+# portfolio-routing-v1-row-sha256: 7053930db2a9ea336f8e39e97f2db33498430daca9527bf70afc14c63ca40aa7
 interface:
   display_name: "Execute Goal Loop"
   short_description: "Goal loops with hard verification gates"

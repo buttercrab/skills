@@ -1,0 +1,117 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:skills-portfolio:gate-approval:v1",
+  "title": "gate-approval/v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "receipt_type",
+    "schema_version",
+    "receipt_id",
+    "packet_id",
+    "packet_revision",
+    "protected_digest",
+    "repository_root",
+    "manifest_algorithm_version",
+    "timestamp",
+    "gate_id",
+    "profile",
+    "artifact_manifest_digest",
+    "approver_evidence",
+    "scope"
+  ],
+  "properties": {
+    "receipt_type": {"const": "gate-approval/v1"},
+    "schema_version": {"const": 1},
+    "receipt_id": {"type": "string", "format": "uuid"},
+    "packet_id": {"type": "string", "format": "uuid"},
+    "packet_revision": {"type": "integer", "minimum": 1},
+    "protected_digest": {"$ref": "#/$defs/hash"},
+    "repository_root": {"type": "string", "minLength": 1},
+    "manifest_algorithm_version": {"const": "portfolio-source-manifest/v1"},
+    "timestamp": {"type": "string", "format": "date-time"},
+    "gate_id": {"enum": ["A", "B", "C"]},
+    "profile": {
+      "enum": [
+        "authorized-delta",
+        "immutable-specification",
+        "immutable-evaluation-snapshot"
+      ]
+    },
+    "artifact_manifest_digest": {"$ref": "#/$defs/hash"},
+    "approver_evidence": {"type": "string", "minLength": 1},
+    "scope": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {"type": "string", "minLength": 1}
+    },
+    "authorized_delta_digest": {"$ref": "#/$defs/hash"},
+    "expected_postimage_digest": {"$ref": "#/$defs/hash"},
+    "trial_component": {"$ref": "#/$defs/component"},
+    "evaluation_component": {"$ref": "#/$defs/component"}
+  },
+  "allOf": [
+    {
+      "if": {"properties": {"gate_id": {"const": "A"}}, "required": ["gate_id"]},
+      "then": {
+        "properties": {"profile": {"const": "authorized-delta"}},
+        "oneOf": [
+          {
+            "required": ["authorized_delta_digest"],
+            "not": {"required": ["expected_postimage_digest"]}
+          },
+          {
+            "required": ["expected_postimage_digest"],
+            "not": {"required": ["authorized_delta_digest"]}
+          }
+        ],
+        "not": {
+          "anyOf": [
+            {"required": ["trial_component"]},
+            {"required": ["evaluation_component"]}
+          ]
+        }
+      }
+    },
+    {
+      "if": {"properties": {"gate_id": {"const": "B"}}, "required": ["gate_id"]},
+      "then": {
+        "properties": {"profile": {"const": "immutable-specification"}},
+        "not": {
+          "anyOf": [
+            {"required": ["authorized_delta_digest"]},
+            {"required": ["expected_postimage_digest"]},
+            {"required": ["trial_component"]},
+            {"required": ["evaluation_component"]}
+          ]
+        }
+      }
+    },
+    {
+      "if": {"properties": {"gate_id": {"const": "C"}}, "required": ["gate_id"]},
+      "then": {
+        "properties": {"profile": {"const": "immutable-evaluation-snapshot"}},
+        "required": ["trial_component", "evaluation_component"],
+        "not": {
+          "anyOf": [
+            {"required": ["authorized_delta_digest"]},
+            {"required": ["expected_postimage_digest"]}
+          ]
+        }
+      }
+    }
+  ],
+  "$defs": {
+    "hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "component": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "digest"],
+      "properties": {
+        "id": {"type": "string", "format": "uuid"},
+        "digest": {"$ref": "#/$defs/hash"}
+      }
+    }
+  }
+}

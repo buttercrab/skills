@@ -1,0 +1,104 @@
+{
+  "schema_version": "portfolio-routing-source-map/v1",
+  "canonical_owner": "tests/portfolio-routing-v1.json",
+  "editable_truths": [
+    "tests/portfolio-routing-v1.json"
+  ],
+  "mappings": [
+    {
+      "canonical_fields": [
+        "rows[].package_projection.frontmatter_description"
+      ],
+      "consumer": "skills/*/SKILL.md frontmatter description",
+      "validation": "exact-projection"
+    },
+    {
+      "canonical_fields": [
+        "rows[].package_projection.agent"
+      ],
+      "consumer": "skills/*/agents/openai.yaml interface and policy",
+      "validation": "exact-projection"
+    },
+    {
+      "canonical_fields": [
+        "rows[]"
+      ],
+      "consumer": "skills/*/agents/openai.yaml portfolio-routing-v1-row-sha256 comment",
+      "validation": "exact-row-digest"
+    },
+    {
+      "canonical_fields": [
+        "rows[].skill",
+        "rows[].routing_role",
+        "rows[].portfolio_position",
+        "rows[].positive_request_classes",
+        "rows[].triggers",
+        "rows[].exclusions",
+        "rows[].state_owner",
+        "rows[].precedence",
+        "rows[].legal_compositions",
+        "rows[].fallbacks",
+        "rows[].forbidden_actions"
+      ],
+      "consumer": "skills/*/SKILL.md delimited generated routing contract block",
+      "validation": "exact-projection-with-single-marker-pair"
+    },
+    {
+      "canonical_fields": [
+        "rows[].body_assertions"
+      ],
+      "consumer": "skills/*/SKILL.md authored compatibility assertions",
+      "validation": "required-and-forbidden-phrases"
+    },
+    {
+      "canonical_fields": [
+        "rows[].legal_compositions",
+        "rows[].fallbacks",
+        "portfolio_skills"
+      ],
+      "consumer": "all named routes in the routing contract",
+      "validation": "legal-route-reference"
+    },
+    {
+      "canonical_fields": [
+        "routing_cases"
+      ],
+      "consumer": "tests/portfolio-routing-cases-v1.json expected routes",
+      "validation": "exact-projection"
+    },
+    {
+      "canonical_fields": [
+        "routing_cases[].id",
+        "routing_cases[].kind",
+        "routing_cases[].family",
+        "routing_cases[].prompt"
+      ],
+      "consumer": "tests/portfolio-routing-prompts-v1.json raw trial inputs",
+      "validation": "raw-prompt-projection"
+    },
+    {
+      "canonical_fields": [
+        "routing_rubrics"
+      ],
+      "consumer": "tests/portfolio-routing-rubrics-v1.json evaluator-only policy",
+      "validation": "exact-projection"
+    },
+    {
+      "canonical_fields": [
+        "role_taxonomy",
+        "external_routes"
+      ],
+      "consumer": "Gate C trial-visible role grammar and external route profiles",
+      "validation": "exact-projection"
+    },
+    {
+      "canonical_fields": [
+        "rows[].legal_compositions",
+        "external_routes[].legal_compositions",
+        "role_taxonomy[].allowed_routes"
+      ],
+      "consumer": "directional routing composition validation",
+      "validation": "legal-route-reference"
+    }
+  ]
+}

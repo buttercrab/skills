@@ -31,4 +31,13 @@ Freeze `facts.md`, `decisions.md`, and `plan.md` after approval. Record in-envel
 
 ## Approval readiness
 
-Do not seal for approval until open decision-changing question IDs are empty, required gates have concrete receipts defined, and every envelope boundary is explicit. Ask once in plain language for the concrete outcome, actions, boundaries, and material effects. State that an unqualified approval starts execution immediately, so a second “start?” prompt is unnecessary. Never prescribe an exact reply or surface the sealed machine receipt unless the user requests it or integrity disambiguation requires it.
+Before sealing, preflight the plan against current reality:
+
+1. Verify every referenced path, symbol, command, entry point, and external surface that can be inspected safely.
+2. Check dependency order and ensure each step's prerequisites exist before that step executes.
+3. Map every requirement to at least one required gate and every gate to a concrete expected receipt.
+4. Confirm each command or interaction is realistic from the stated working directory and environment.
+5. Confirm the described approval scope covers every planned mutation and no step silently expands it.
+6. Simulate one representative path read-only when that is cheap and materially tests executability.
+
+Do not seal for approval until open decision-changing question IDs are empty, preflight defects are repaired, required gates have concrete receipts defined, and every scope, rollback, and external-effect boundary is explicit. Ask once in plain language for the concrete outcome, actions, boundaries, and material effects. State that an unqualified approval starts execution immediately, so a second “start?” prompt is unnecessary. Never prescribe an exact reply or surface the sealed machine receipt unless the user requests it or integrity disambiguation requires it.

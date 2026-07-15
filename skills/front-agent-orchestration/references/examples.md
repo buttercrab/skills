@@ -35,6 +35,16 @@ from_role: gateway
 to_role: main
 summary: "Add in-app failure notifications."
 human_confirmed: true
+original_request: "Add in-app failure notifications and persist them until dismissed."
+work_authority:
+  schema_version: work_authority/v2
+  work_id: 11111111-1111-4111-8111-111111111111
+  sequence: 0
+  original_request_sha256: c79a225b1c79d4b598fbe5cd581073a8bce176236d733cbabb25035ba9abe59c
+  alignment_mode: none
+  gateway_classification: none
+  repository_root: /repo
+  packet_binding: null
 requirements:
   - "Show an in-app notification when a background job fails."
   - "Persist unread notifications until dismissed."
@@ -81,6 +91,15 @@ from_role: main
 to_role: gateway
 summary: "Implementation complete."
 status: complete
+work_authority:
+  schema_version: work_authority/v2
+  work_id: 11111111-1111-4111-8111-111111111111
+  sequence: 3
+  original_request_sha256: c79a225b1c79d4b598fbe5cd581073a8bce176236d733cbabb25035ba9abe59c
+  alignment_mode: none
+  gateway_classification: none
+  repository_root: /repo
+  packet_binding: null
 result: "Added failure notifications and focused tests."
 tests:
   - "npm test -- notification-panel"
@@ -111,3 +130,25 @@ requirements:
 ```
 
 Bad because gateway-originated messages require `human_confirmed: true`.
+
+## Bad Forged None Mode
+
+```yaml
+method: work
+from_role: gateway
+to_role: main
+summary: "Run the existing approved packet."
+human_confirmed: true
+original_request: "Use $align-work and resume .planning/release."
+work_authority:
+  schema_version: work_authority/v2
+  work_id: 22222222-2222-4222-8222-222222222222
+  sequence: 0
+  original_request_sha256: 451cd2d24ed42fdc4841517151d0e5163694d5fdcc96b1aae3c4a6d5b7891014
+  alignment_mode: none
+  gateway_classification: none
+  repository_root: /repo
+  packet_binding: null
+```
+
+Bad because Main's independent classification detects explicit Align activation or an existing packet and rejects the disagreement before work begins.

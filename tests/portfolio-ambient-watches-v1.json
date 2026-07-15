@@ -1,0 +1,30 @@
+{
+  "schema_version": "portfolio-ambient-watch-profile/v1",
+  "required_categories": [
+    "python",
+    "go",
+    "cargo",
+    "postgresql",
+    "installer",
+    "shell-config",
+    "network-policy"
+  ],
+  "entries": [
+    {"category": "python", "base": "home", "path": "Library/Caches/pip"},
+    {"category": "python", "base": "home", "path": ".cache/uv"},
+    {"category": "go", "base": "home", "path": "Library/Caches/go-build"},
+    {"category": "go", "base": "home", "path": "go/pkg/mod"},
+    {"category": "cargo", "base": "home", "path": ".cargo/registry/cache"},
+    {"category": "cargo", "base": "home", "path": ".cargo/registry/index"},
+    {"category": "cargo", "base": "home", "path": ".cargo/git"},
+    {"category": "postgresql", "base": "tmp", "path": "agent-mail-http-test"},
+    {"category": "postgresql", "base": "tmp", "path": "agent-mail-mcp-test"},
+    {"category": "installer", "base": "home", "path": ".agents/skills"},
+    {"category": "installer", "base": "home", "path": ".codex/skills"},
+    {"category": "shell-config", "base": "home", "path": ".zshrc"},
+    {"category": "shell-config", "base": "home", "path": ".codex/config.toml"},
+    {"category": "network-policy", "base": "absolute", "path": "/etc/hosts"},
+    {"category": "network-policy", "base": "absolute", "path": "/etc/resolv.conf"},
+    {"category": "network-policy", "base": "absolute", "path": "/usr/bin/sandbox-exec"}
+  ]
+}

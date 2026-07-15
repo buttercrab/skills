@@ -17,7 +17,7 @@ cleanup() {
 }
 trap cleanup EXIT
 
-ROOT="$(mktemp -d)"
+ROOT="$(mktemp -d "${TMPDIR:-/tmp}/front-agent-smoke.XXXXXX")"
 BIN="$ROOT/front-agent"
 export FRONT_AGENT_MAIL_BACKEND=memory
 export FRONT_AGENT_MEMORY_SHARED=1

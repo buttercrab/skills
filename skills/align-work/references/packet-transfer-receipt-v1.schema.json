@@ -1,0 +1,78 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "packet-transfer-receipt-v1.schema.json",
+  "title": "Align packet transfer receipt v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "receipt_id",
+    "packet_id",
+    "repository_root",
+    "packet_path",
+    "packet_revision",
+    "protected_digest",
+    "approval_id",
+    "old_coordinator",
+    "new_coordinator",
+    "state_generation",
+    "status",
+    "resume_status",
+    "runtime_authorization_cleared",
+    "execution_head",
+    "issued_at",
+    "receipt_sha256"
+  ],
+  "properties": {
+    "schema_version": {"const": "packet-transfer-receipt/v1"},
+    "receipt_id": {"type": "string", "format": "uuid"},
+    "packet_id": {"type": "string", "format": "uuid"},
+    "repository_root": {"type": "string", "pattern": "^/.+"},
+    "packet_path": {"type": "string", "pattern": "^\\.planning/[a-z0-9][a-z0-9-]{0,63}$"},
+    "packet_revision": {"type": "integer", "minimum": 1},
+    "protected_digest": {"$ref": "#/$defs/hash"},
+    "approval_id": {
+      "oneOf": [
+        {"type": "null"},
+        {"type": "string", "format": "uuid"}
+      ]
+    },
+    "old_coordinator": {"$ref": "#/$defs/coordinator"},
+    "new_coordinator": {"$ref": "#/$defs/coordinator"},
+    "state_generation": {"type": "integer", "minimum": 1},
+    "status": {"const": "paused"},
+    "resume_status": {
+      "enum": [
+        "discovery",
+        "drafting",
+        "reviewing",
+        "awaiting_approval",
+        "approved",
+        "executing",
+        "needs_reapproval",
+        "verifying"
+      ]
+    },
+    "runtime_authorization_cleared": {"const": true},
+    "execution_head": {
+      "oneOf": [
+        {"type": "null"},
+        {"$ref": "#/$defs/hash"}
+      ]
+    },
+    "issued_at": {"type": "string", "format": "date-time"},
+    "receipt_sha256": {"$ref": "#/$defs/hash"}
+  },
+  "$defs": {
+    "hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "coordinator": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "epoch"],
+      "properties": {
+        "id": {"type": "string", "format": "uuid"},
+        "epoch": {"type": "integer", "minimum": 1}
+      }
+    }
+  }
+}

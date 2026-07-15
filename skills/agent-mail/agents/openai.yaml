@@ -1,7 +1,7 @@
+# portfolio-routing-v1-row-sha256: 3ed2a39943230ae3b2408543af249df4d8db3a4431da7d84a4ab793a5291a956
 interface:
   display_name: "Agent Mail"
   short_description: "Rust Postgres mailbox service with remote MCP resources"
   default_prompt: "Use $agent-mail for durable cross-session mailbox coordination. Prefer MCP session-bound identities and resources; do not use the service for routine current-task subagent messaging."
-
 policy:
   allow_implicit_invocation: true

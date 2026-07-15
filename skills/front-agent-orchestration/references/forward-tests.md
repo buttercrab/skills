@@ -38,3 +38,8 @@ Use fresh agents where possible. Do not give them hidden expected answers.
 34. Offline smoke safety: resolve `scripts/smoke_front_agent_protocol.sh` from the loaded skill directory and run that absolute path without credentials; confirm it passes using only the process-shared local backend, leaves no waiter process, and creates no live Agent Mail data.
 35. HTTP pagination: mock more than one inbox page, confirm the client passes each opaque `next_cursor` unchanged, enforces the 10-page bound, and applies one outer timeout to project creation, inbox pages, and per-message reads.
 36. Source freshness: confirm the launcher requires Go and runs source directly; no optional generated binary may shadow current code.
+37. Work authority closure: omit `alignment_mode`, add an unknown field, use an old unversioned work body, or mix null and packet fields; every message must fail before delivery.
+38. Independent classification: send forged `none` for explicit Align text and for a root with an active matching packet; Main's read-only helper must reject both.
+39. Fencing and replay: exercise valid packet acceptance, stale generation, wrong approval, cross-root packet, symlink packet, duplicate, reordered, cross-work, post-terminal, and coordinator-epoch updates.
+40. Cancellation: prove valid cancellation and an exact duplicate are idempotent; stale, post-terminal, cross-work, post-handoff, and invalidated-approval cancellations fail.
+41. Transfer: consume a helper-produced current `packet-transfer-receipt/v1`; reject fabricated, incomplete, cross-root, stale, or superseded receipts and label a receipt-free handoff informational.

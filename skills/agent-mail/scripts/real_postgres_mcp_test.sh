@@ -4,8 +4,22 @@ set -euo pipefail
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 TOKEN="mcp-test-token"
 CREDENTIAL_ADMIN_TOKEN="mcp-test-credential-admin-token"
-CARGO_TARGET_DIR="${CARGO_TARGET_DIR:-$ROOT/target}"
+if [[ "${HERMETIC_RUN_ACTIVE:-}" != "1" || -z "${RUN_ROOT:-}" ]]; then
+  echo "real PostgreSQL tests require tests/hermetic_run.sh and its RUN_ROOT" >&2
+  exit 2
+fi
+[[ -d "$RUN_ROOT" && ! -L "$RUN_ROOT" ]] || { echo "unsafe RUN_ROOT: $RUN_ROOT" >&2; exit 2; }
+RUN_ROOT="$(cd "$RUN_ROOT" && pwd -P)"
+CARGO_TARGET_DIR="${CARGO_TARGET_DIR:-$RUN_ROOT/cargo-target}"
+[[ "$CARGO_TARGET_DIR" == "$RUN_ROOT/"* ]] || { echo "CARGO_TARGET_DIR escaped RUN_ROOT" >&2; exit 2; }
+TEST_ROOT="$(mktemp -d "$RUN_ROOT/agent-mail-mcp.XXXXXX")"
+mkdir -m 700 "$TEST_ROOT/tmp"
+export TMPDIR="$TEST_ROOT/tmp"
 TEST_PASSED=0
+if [[ "${AGENT_MAIL_TEST_FAIL_AT:-}" == "before-postgres" ]]; then
+  echo "injected failure before PostgreSQL startup: $TEST_ROOT" >&2
+  exit 97
+fi
 if [[ -z "${POSTGRES_BIN:-}" ]]; then
   if command -v pg_config >/dev/null 2>&1; then
     POSTGRES_BIN="$(pg_config --bindir)"
@@ -19,10 +33,9 @@ fi
 for tool in initdb pg_ctl pg_isready createdb; do
   [[ -x "$POSTGRES_BIN/$tool" ]] || { echo "missing PostgreSQL tool: $POSTGRES_BIN/$tool" >&2; exit 2; }
 done
-TMPDIR="$(mktemp -d /tmp/agent-mail-mcp-test-XXXXXX)"
-PGDATA="$TMPDIR/pgdata"
-PGLOG="$TMPDIR/postgres.log"
-SERVERLOG="$TMPDIR/server.log"
+PGDATA="$TEST_ROOT/pgdata"
+PGLOG="$TEST_ROOT/postgres.log"
+SERVERLOG="$TEST_ROOT/server.log"
 
 cleanup() {
   local status=$?
@@ -42,25 +55,19 @@ cleanup() {
     "$POSTGRES_BIN/pg_ctl" -D "$PGDATA" -m fast stop >/dev/null 2>&1 || true
   fi
   if [[ $status -ne 0 ]]; then
-    echo "tmpdir: $TMPDIR" >&2
+    echo "test root: $TEST_ROOT" >&2
     echo "postgres log: $PGLOG" >&2
     echo "server log: $SERVERLOG" >&2
-    [[ -f "$TMPDIR/sse.log" ]] && cat "$TMPDIR/sse.log" >&2
-  else
-    rm -rf "$TMPDIR"
+    [[ -f "$PGLOG" ]] && tail -n 80 "$PGLOG" >&2
+    [[ -f "$SERVERLOG" ]] && tail -n 80 "$SERVERLOG" >&2
+    [[ -f "$TEST_ROOT/tmp/sse.log" ]] && tail -n 80 "$TEST_ROOT/tmp/sse.log" >&2
   fi
   exit "$status"
 }
 trap cleanup EXIT
 
 free_port() {
-  python3 - <<'PY'
-import socket
-s = socket.socket()
-s.bind(("127.0.0.1", 0))
-print(s.getsockname()[1])
-s.close()
-PY
+  python3 -c 'import socket; s = socket.socket(); s.bind(("127.0.0.1", 0)); print(s.getsockname()[1]); s.close()'
 }
 
 json_get() {
@@ -89,8 +96,7 @@ print(json.dumps(request))' "$@"
 wait_for_sse_uri() {
   local uri="$1"
   for _ in {1..100}; do
-    if python3 - "$TMPDIR/sse.log" "$uri" <<'PY'
-import json
+    if python3 -c 'import json
 import sys
 
 path, expected = sys.argv[1], sys.argv[2]
@@ -110,13 +116,9 @@ for line in lines:
         message = json.loads(payload)
     except json.JSONDecodeError:
         continue
-    if (
-        message.get("method") == "notifications/resources/updated"
-        and message.get("params", {}).get("uri") == expected
-    ):
+    if message.get("method") == "notifications/resources/updated" and message.get("params", {}).get("uri") == expected:
         raise SystemExit(0)
-raise SystemExit(1)
-PY
+raise SystemExit(1)' "$TMPDIR/sse.log" "$uri"
     then
       return 0
     fi
@@ -129,8 +131,7 @@ PY
 wait_for_sse_method() {
   local method="$1"
   for _ in {1..100}; do
-    if python3 - "$TMPDIR/sse.log" "$method" <<'PY'
-import json
+    if python3 -c 'import json
 import sys
 
 path, expected = sys.argv[1], sys.argv[2]
@@ -152,8 +153,7 @@ for line in lines:
         continue
     if message.get("method") == expected:
         raise SystemExit(0)
-raise SystemExit(1)
-PY
+raise SystemExit(1)' "$TMPDIR/sse.log" "$method"
     then
       return 0
     fi
@@ -237,8 +237,12 @@ PG_PORT="$(free_port)"
 HTTP_PORT="$(free_port)"
 
 "$POSTGRES_BIN/initdb" -D "$PGDATA" -A trust -U postgres >/dev/null
-"$POSTGRES_BIN/pg_ctl" -D "$PGDATA" -o "-h 127.0.0.1 -p $PG_PORT" -l "$PGLOG" start >/dev/null
+"$POSTGRES_BIN/pg_ctl" -D "$PGDATA" -o "-h 127.0.0.1 -p $PG_PORT -c unix_socket_directories=''" -l "$PGLOG" start >/dev/null
 POSTGRES_PID=1
+if [[ "${AGENT_MAIL_TEST_FAIL_AT:-}" == "after-postgres" ]]; then
+  echo "injected failure after PostgreSQL startup: $TEST_ROOT" >&2
+  exit 98
+fi
 for _ in {1..100}; do
   if "$POSTGRES_BIN/pg_isready" -h 127.0.0.1 -p "$PG_PORT" -U postgres >/dev/null 2>&1; then
     break
