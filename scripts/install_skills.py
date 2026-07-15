@@ -271,10 +271,7 @@ def discover_catalog(repo: Path) -> dict[str, Path]:
     return result
 
 
-def preflight_front_build(front: Path) -> None:
-    go = shutil.which("go")
-    if go is None:
-        raise InstallError("Go is required when front-agent-orchestration is selected")
+def preflight_front_build(front: Path, go: str) -> None:
     build_root = Path(tempfile.mkdtemp(prefix="skills-install-front-"))
     try:
         environment = os.environ.copy()
@@ -449,7 +446,20 @@ def install(args) -> int:
         if source.is_symlink() or not source.is_dir() or not (source / "SKILL.md").is_file():
             raise InstallError(f"selected source failed preflight: {source}")
     if "front-agent-orchestration" in selected:
-        preflight_front_build(catalog["front-agent-orchestration"])
+        go = shutil.which("go")
+        if go is None:
+            if selected == ["front-agent-orchestration"]:
+                raise InstallError(
+                    "cannot install front-agent-orchestration because Go was not found"
+                )
+            selected.remove("front-agent-orchestration")
+            print(
+                "Skipping front-agent-orchestration because Go was not found; "
+                "continuing with the other selected skills.",
+                file=sys.stderr,
+            )
+        else:
+            preflight_front_build(catalog["front-agent-orchestration"], go)
 
     home = canonical_absolute(os.environ.get("HOME", str(Path.home())), "HOME")
     agent_dir = canonical_absolute(

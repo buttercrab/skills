@@ -78,6 +78,11 @@ class InstallerTests(unittest.TestCase):
         environment["PATH"] = f"{binary}:{environment.get('PATH', '')}"
         return log
 
+    def remove_go(self, environment: dict):
+        binary = Path(environment["HOME"]) / "empty-bin"
+        binary.mkdir()
+        environment["PATH"] = str(binary)
+
     def assert_link(self, directory: Path, name: str):
         target = directory / name
         self.assertTrue(target.is_symlink(), target)
@@ -113,9 +118,7 @@ class InstallerTests(unittest.TestCase):
 
     def test_front_build_is_selected_and_preflighted_before_targets(self):
         environment, agent, codex, _ = self.fixture("no-front")
-        empty_path = Path(environment["HOME"]) / "empty-bin"
-        empty_path.mkdir()
-        environment["PATH"] = str(empty_path)
+        self.remove_go(environment)
         self.run_installer(["--only", "align-work"], environment=environment)
         self.assert_link(agent, "align-work")
 
@@ -131,6 +134,46 @@ class InstallerTests(unittest.TestCase):
         self.assertFalse(failed_agent.exists())
         self.assertFalse(failed_codex.exists())
 
+    def test_missing_go_skips_front_and_installs_other_selected_skills(self):
+        default, default_agent, default_codex, _ = self.fixture("missing-go-default")
+        self.remove_go(default)
+        result = self.run_installer(environment=default)
+        self.assertIn("Skipping front-agent-orchestration because Go was not found", result.stderr)
+        for name in CATALOG:
+            if name == "front-agent-orchestration":
+                self.assertFalse((default_agent / name).exists())
+                self.assertFalse((default_codex / name).exists())
+            else:
+                self.assert_link(default_agent, name)
+                self.assert_link(default_codex, name)
+
+        mixed, mixed_agent, mixed_codex, _ = self.fixture("missing-go-mixed")
+        self.remove_go(mixed)
+        result = self.run_installer(
+            ["--only", "align-work,front-agent-orchestration"],
+            environment=mixed,
+        )
+        self.assertIn("continuing with the other selected skills", result.stderr)
+        self.assert_link(mixed_agent, "align-work")
+        self.assert_link(mixed_codex, "align-work")
+        self.assertFalse((mixed_agent / "front-agent-orchestration").exists())
+        self.assertFalse((mixed_codex / "front-agent-orchestration").exists())
+
+    def test_missing_go_fails_when_front_is_the_only_selected_skill(self):
+        environment, agent, codex, _ = self.fixture("missing-go-front-only")
+        self.remove_go(environment)
+        result = self.run_installer(
+            ["--only", "front-agent-orchestration"],
+            environment=environment,
+            expected=1,
+        )
+        self.assertIn(
+            "cannot install front-agent-orchestration because Go was not found",
+            result.stderr,
+        )
+        self.assertFalse(agent.exists())
+        self.assertFalse(codex.exists())
+
     def test_default_install_all_and_excluded_front_needs_no_go(self):
         environment, agent, codex, _ = self.fixture("default")
         log = self.fake_go(environment)
@@ -141,9 +184,7 @@ class InstallerTests(unittest.TestCase):
             self.assert_link(codex, name)
 
         excluded, excluded_agent, excluded_codex, _ = self.fixture("excluded")
-        empty_path = Path(excluded["HOME"]) / "empty-bin"
-        empty_path.mkdir()
-        excluded["PATH"] = str(empty_path)
+        self.remove_go(excluded)
         self.run_installer(["--exclude", "front-agent-orchestration"], environment=excluded)
         self.assertFalse((excluded_agent / "front-agent-orchestration").exists())
         self.assertFalse((excluded_codex / "front-agent-orchestration").exists())

@@ -36,7 +36,7 @@ No arguments preserves install-all behavior. Selection is deterministic and acce
 ./install.sh --exclude front-agent-orchestration
 ```
 
-Python 3 is required. Go is required only when `front-agent-orchestration` is selected; that build is preflighted offline before either target changes. The installer rejects non-symlink targets and symlinked parent directories, takes one lock for both Agent and Codex targets, writes and fsyncs a recovery journal before mutation, and keeps replaced symlinks in same-filesystem backup directories. A handled failure rolls back both targets and preserves a failure journal; a later invocation recovers an interrupted journal before starting new work.
+Python 3 is required. Go is used only for the offline `front-agent-orchestration` build preflight. When Go is unavailable in a default or mixed selection, the installer skips that skill, reports the reason, and installs the remaining skills successfully. A Front-only selection still fails because no requested skill can be installed, and a build failure with Go present remains a hard preflight failure before either target changes. The installer rejects non-symlink targets and symlinked parent directories, takes one lock for both Agent and Codex targets, writes and fsyncs a recovery journal before mutation, and keeps replaced symlinks in same-filesystem backup directories. A handled failure rolls back both targets and preserves a failure journal; a later invocation recovers an interrupted journal before starting new work.
 
 Agent Mail also needs the remote MCP server installed by URL:
 
