@@ -28,6 +28,7 @@ class SkillContractCase(unittest.TestCase):
         self.assertGreaterEqual(len(short), 25)
         self.assertLessEqual(len(short), 64)
         self.assertIn("$align-work", data["interface"]["default_prompt"])
+        self.assertIn("plain-language approval request", data["interface"]["default_prompt"])
         self.assertIs(data["policy"]["allow_implicit_invocation"], True)
         for line in text.splitlines():
             if ":" in line and line.strip().split(":", 1)[0] in {"display_name", "short_description", "default_prompt"}:
@@ -69,16 +70,56 @@ class SkillContractCase(unittest.TestCase):
         text = (SKILL / "SKILL.md").read_text()
         self.assertIn("even if the requested action is clear and one-step", text)
 
-    def test_plan_never_embeds_its_own_sealed_identity(self):
+    def test_plan_keeps_machine_identity_internal(self):
         text = (SKILL / "references" / "write-plan.md").read_text()
-        self.assertIn("never insert them into protected `plan.md`", text)
+        self.assertIn("internal ledgers and machine state", text)
+        self.assertIn("Never prescribe an exact reply", text)
         self.assertNotIn("Populate revision", text)
 
-    def test_authority_classes_are_closed_and_documented(self):
+    def test_human_facing_approval_contract(self):
+        skill = (SKILL / "SKILL.md").read_text()
+        packet = (SKILL / "references" / "packet-contract.md").read_text()
+        execute = (SKILL / "references" / "execute-approved-plan.md").read_text()
+        self.assertIn("Keep audit receipts internal", skill)
+        self.assertIn("never prescribe an exact reply formula", skill)
+        self.assertIn("translate it under this current rule", packet)
+        self.assertIn("Keep the new machine receipt internal", execute)
+        self.assertNotIn("show the user its revision, digest, and authority classes", skill)
+        self.assertNotIn("Show the user the packet ID", packet)
+        self.assertNotIn("approval of the new envelope, digest", execute)
+
+    def test_new_plan_template_is_human_readable(self):
+        text = (SKILL / "assets" / "packet-templates" / "plan.md").read_text()
+        self.assertIn("<!-- Task ID:", text)
+        self.assertNotRegex(text, r"(?m)^Task ID:")
+        for heading in (
+            "## Current state and decisions",
+            "## Scope and boundaries",
+            "## Implementation approach",
+            "## Verification",
+            "## Approval scope",
+        ):
+            self.assertIn(heading, text)
+        for internal_prompt in (
+            "Consumed facts and decisions",
+            "stable step IDs",
+            "requested authority classes",
+            "display revision and digest",
+        ):
+            self.assertNotIn(internal_prompt, text)
+
+    def test_new_packets_use_plain_language_scope_and_legacy_codes_are_isolated(self):
         text = (SKILL / "references" / "packet-contract.md").read_text()
+        template = (SKILL / "assets" / "packet-templates" / "state.json").read_text()
+        self.assertIn("Schema version 2 is the default", text)
+        self.assertIn("### Legacy schema version 1", text)
+        self.assertIn('"schema_version": 2', template)
+        self.assertNotIn("requested_authority_classes", template)
         for family in ("P", "R", "T", "I", "G", "E", "D"):
-            self.assertRegex(text, rf"- `{family}`:")
-        self.assertIn("helper rejects unknown class syntax", text)
+            self.assertRegex(text, rf"`{family}`")
+        normal, legacy = text.split("### Legacy schema version 1", 1)
+        self.assertNotIn("--authority", normal)
+        self.assertIn("--authority", legacy)
 
     def test_material_change_clears_approval_before_replanning(self):
         text = (SKILL / "references" / "execute-approved-plan.md").read_text()

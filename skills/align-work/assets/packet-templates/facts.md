@@ -8,7 +8,7 @@ Created: {{CREATED_AT}}
 
 ## Observed facts
 
-Record stable `F-###` entries with observation, evidence locator or command and observed result, verification time, volatility, and recheck rule.
+Record stable `F-###` entries with observation, evidence locator or command and observed result, verification time, volatility, and recheck rule. These IDs are internal recovery aids; do not copy them into normal user messages or require the readable plan to enumerate them.
 
 ## Inferences
 

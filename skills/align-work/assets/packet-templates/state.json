@@ -1,5 +1,5 @@
 {
-  "schema_version": 1,
+  "schema_version": 2,
   "packet_id": "{{PACKET_ID}}",
   "repository_root": "{{REPOSITORY_ROOT}}",
   "task_id": "{{TASK_ID}}",
@@ -14,7 +14,6 @@
   "coordinator_history": [],
   "state_generation": 0,
   "resume_status": null,
-  "requested_authority_classes": [],
   "runtime_authorization_evidence": null,
   "rollback_mode": false,
   "execution_head": null,

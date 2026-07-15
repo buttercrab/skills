@@ -31,6 +31,7 @@ MARKER_RE = re.compile(r"^<!-- align-work-attempt (\{.*\}) -->$")
 TEMPLATE_RE = re.compile(r"\{\{[^{}]+\}\}")
 AUTHORITY_CLASS_RE = re.compile(r"^(?:P|R|T|I|G|E|D)(?:[0-9]+)?$")
 DRAFT_MARKER = "<!-- align-work-required-content -->"
+MAX_AUDIT_EVIDENCE_LENGTH = 256
 
 PROTECTED = ("decisions.md", "facts.md", "plan.md")
 STATUSES = {
@@ -50,7 +51,8 @@ STATUSES = {
 }
 EXECUTION_STATUSES = {"executing", "verifying", "needs_reapproval", "blocked", "complete"}
 ATTEMPT_STATUSES = {"started", "passed", "failed", "blocked", "rolled_back", "skipped"}
-STATE_FIELDS = {
+SUPPORTED_SCHEMA_VERSIONS = {1, 2}
+COMMON_STATE_FIELDS = {
     "schema_version",
     "packet_id",
     "repository_root",
@@ -63,7 +65,6 @@ STATE_FIELDS = {
     "coordinator_history",
     "state_generation",
     "resume_status",
-    "requested_authority_classes",
     "runtime_authorization_evidence",
     "rollback_mode",
     "execution_head",
@@ -71,17 +72,24 @@ STATE_FIELDS = {
     "approval",
     "last_transition_at",
 }
-APPROVAL_FIELDS = {
+STATE_FIELDS_BY_VERSION = {
+    1: COMMON_STATE_FIELDS | {"requested_authority_classes"},
+    2: COMMON_STATE_FIELDS,
+}
+COMMON_APPROVAL_FIELDS = {
     "id",
     "packet_id",
     "repository_root",
     "packet_revision",
     "protected_digest",
-    "authority_classes",
     "portable",
     "user_evidence",
     "recorded_at",
     "partial_work_disposition",
+}
+APPROVAL_FIELDS_BY_VERSION = {
+    1: COMMON_APPROVAL_FIELDS | {"authority_classes"},
+    2: COMMON_APPROVAL_FIELDS,
 }
 COORDINATOR_EVENT_FIELDS = {"event", "from", "to", "recorded_at", "evidence", "disposition"}
 ATTEMPT_FIELDS = {
@@ -162,6 +170,35 @@ def parse_classes(value: str | None) -> list[str]:
     if invalid:
         raise PacketError(EXIT_INVALID, "unknown authority class", AUTHORITY_CLASS_RE.pattern, invalid)
     return sorted(items)
+
+
+def normalize_audit_evidence(value: str | None, field: str, *, required: bool = True) -> str | None:
+    if value is None:
+        if required:
+            raise PacketError(EXIT_INVALID, f"{field} is required", "concise single-line text", None)
+        return None
+    text = value.strip()
+    if not text:
+        raise PacketError(EXIT_INVALID, f"{field} must be nonempty", "concise single-line text", "empty")
+    if len(text) > MAX_AUDIT_EVIDENCE_LENGTH:
+        raise PacketError(
+            EXIT_INVALID,
+            f"{field} is too long",
+            f"at most {MAX_AUDIT_EVIDENCE_LENGTH} characters",
+            {"length": len(text)},
+        )
+    if text.splitlines() != [text] or any(ord(character) < 0x20 or ord(character) == 0x7F for character in text):
+        raise PacketError(EXIT_INVALID, f"{field} must be single-line text", "no line separators or control characters", "unsafe whitespace")
+    return text
+
+
+def value_shape(value: object) -> dict:
+    summary = {"type": type(value).__name__}
+    if isinstance(value, dict):
+        summary["fields"] = sorted(map(str, value))
+    elif isinstance(value, (str, list, tuple, set, bytes)):
+        summary["length"] = len(value)
+    return summary
 
 
 def success(command: str, **fields) -> None:
@@ -334,12 +371,16 @@ def _validate_coordinator_history(events: object, active: object) -> None:
 
 
 def validate_state(state: dict, packet: Path) -> None:
-    unknown = set(state) - STATE_FIELDS
-    missing = STATE_FIELDS - set(state)
+    if not isinstance(state, dict):
+        raise PacketError(EXIT_INVALID, "state must be an object", "JSON object", value_shape(state))
+    schema_version = state.get("schema_version")
+    if type(schema_version) is not int or schema_version not in SUPPORTED_SCHEMA_VERSIONS:
+        raise PacketError(EXIT_INVALID, "unsupported schema_version", sorted(SUPPORTED_SCHEMA_VERSIONS), schema_version)
+    expected_fields = STATE_FIELDS_BY_VERSION[schema_version]
+    unknown = set(state) - expected_fields
+    missing = expected_fields - set(state)
     if unknown or missing:
-        raise PacketError(EXIT_INVALID, "state fields do not match schema", sorted(STATE_FIELDS), {"missing": sorted(missing), "unknown": sorted(unknown)})
-    if type(state["schema_version"]) is not int or state["schema_version"] != 1:
-        raise PacketError(EXIT_INVALID, "unsupported schema_version", 1, state["schema_version"])
+        raise PacketError(EXIT_INVALID, "state fields do not match schema", sorted(expected_fields), {"missing": sorted(missing), "unknown": sorted(unknown)})
     as_uuid(state["packet_id"], "packet_id")
     expected_root = str(packet.parent.parent)
     if state["repository_root"] != expected_root:
@@ -366,9 +407,10 @@ def validate_state(state: dict, packet: Path) -> None:
         raise PacketError(EXIT_INVALID, "invalid resume_status", "safe status or null", state["resume_status"])
     if state["status"] not in {"paused", "blocked"} and state["resume_status"] is not None:
         raise PacketError(EXIT_INVALID, "resume_status only belongs to paused/blocked", None, state["resume_status"])
-    for field in ("requested_authority_classes",):
-        if not isinstance(state[field], list) or any(not isinstance(x, str) or not AUTHORITY_CLASS_RE.fullmatch(x) for x in state[field]) or sorted(set(state[field])) != state[field]:
-            raise PacketError(EXIT_INVALID, f"{field} must be sorted known authority classes", AUTHORITY_CLASS_RE.pattern, state[field])
+    if schema_version == 1:
+        authorities = state["requested_authority_classes"]
+        if not isinstance(authorities, list) or any(not isinstance(x, str) or not AUTHORITY_CLASS_RE.fullmatch(x) for x in authorities) or sorted(set(authorities)) != authorities:
+            raise PacketError(EXIT_INVALID, "requested_authority_classes must be sorted known authority classes", AUTHORITY_CLASS_RE.pattern, authorities)
     if state["runtime_authorization_evidence"] is not None and not isinstance(state["runtime_authorization_evidence"], str):
         raise PacketError(EXIT_INVALID, "runtime_authorization_evidence must be text or null", "string or null", state["runtime_authorization_evidence"])
     if not isinstance(state["rollback_mode"], bool):
@@ -395,8 +437,12 @@ def validate_approval(state: dict) -> None:
     approval = state["approval"]
     if approval is None:
         return
-    if not isinstance(approval, dict) or set(approval) != APPROVAL_FIELDS:
-        raise PacketError(EXIT_INVALID, "approval schema is invalid", sorted(APPROVAL_FIELDS), approval)
+    expected_fields = APPROVAL_FIELDS_BY_VERSION[state["schema_version"]]
+    if not isinstance(approval, dict) or set(approval) != expected_fields:
+        observed = {"type": type(approval).__name__}
+        if isinstance(approval, dict):
+            observed["fields"] = sorted(approval)
+        raise PacketError(EXIT_INVALID, "approval schema is invalid", sorted(expected_fields), observed)
     as_uuid(approval["id"], "approval.id")
     if approval["packet_id"] != state["packet_id"]:
         raise PacketError(EXIT_INVALID, "approval packet identity mismatch", state["packet_id"], approval["packet_id"])
@@ -408,26 +454,36 @@ def validate_approval(state: dict) -> None:
         raise PacketError(EXIT_INVALID, "approval digest is stale", state["protected_digest"], approval["protected_digest"])
     if approval["portable"] is not False:
         raise PacketError(EXIT_INVALID, "approval must be nonportable", False, approval["portable"])
-    authorities = approval["authority_classes"]
-    if not isinstance(authorities, list) or not authorities or sorted(set(authorities)) != authorities or any(not isinstance(x, str) or not AUTHORITY_CLASS_RE.fullmatch(x) for x in authorities):
-        raise PacketError(EXIT_INVALID, "approval authority must be sorted known values", AUTHORITY_CLASS_RE.pattern, authorities)
-    if authorities != state["requested_authority_classes"]:
-        raise PacketError(EXIT_INVALID, "approval authority differs from requested authority", state["requested_authority_classes"], authorities)
+    if state["schema_version"] == 1:
+        authorities = approval["authority_classes"]
+        if not isinstance(authorities, list) or not authorities or sorted(set(authorities)) != authorities or any(not isinstance(x, str) or not AUTHORITY_CLASS_RE.fullmatch(x) for x in authorities):
+            raise PacketError(EXIT_INVALID, "approval authority must be sorted known values", AUTHORITY_CLASS_RE.pattern, authorities)
+        if authorities != state["requested_authority_classes"]:
+            raise PacketError(EXIT_INVALID, "approval authority differs from requested authority", state["requested_authority_classes"], authorities)
     if not isinstance(approval["user_evidence"], str) or not approval["user_evidence"].strip():
-        raise PacketError(EXIT_INVALID, "approval needs user evidence", "nonempty text", approval["user_evidence"])
+        raise PacketError(EXIT_INVALID, "approval needs user evidence", "nonempty text", value_shape(approval["user_evidence"]))
     if approval["partial_work_disposition"] is not None and (
         not isinstance(approval["partial_work_disposition"], str)
         or not approval["partial_work_disposition"].strip()
     ):
-        raise PacketError(EXIT_INVALID, "partial_work_disposition must be nonempty text or null", "nonempty string or null", approval["partial_work_disposition"])
+        raise PacketError(EXIT_INVALID, "partial_work_disposition must be nonempty text or null", "nonempty string or null", value_shape(approval["partial_work_disposition"]))
     parse_time(approval["recorded_at"], "approval.recorded_at")
 
 
 def validate_markdown(packet: Path, state: dict) -> None:
     requirements = {
-        "facts.md": ("# Facts:", "## Observed facts", "## Inferences", "## Unknowns"),
-        "decisions.md": ("# Decisions:", "## Confirmed decisions", "## Open questions", "## Alignment rounds"),
-        "plan.md": ("# Plan:", "## Outcome", "## Consumed facts and decisions", "## Scope and authority", "## Implementation sequence", "## Acceptance gates", "## Risks and rollback", "## Approval"),
+        "facts.md": (("# Facts:",), ("## Observed facts",), ("## Inferences",), ("## Unknowns",)),
+        "decisions.md": (("# Decisions:",), ("## Confirmed decisions",), ("## Open questions",), ("## Alignment rounds",)),
+        "plan.md": (
+            ("# Plan:",),
+            ("## Outcome",),
+            ("## Current state and decisions", "## Consumed facts and decisions"),
+            ("## Scope and boundaries", "## Scope and authority"),
+            ("## Implementation approach", "## Implementation sequence"),
+            ("## Verification", "## Acceptance gates"),
+            ("## Risks and rollback",),
+            ("## Approval scope", "## Approval"),
+        ),
     }
     task_marker = f"Task ID: `{state['task_id']}`"
     for name, headings in requirements.items():
@@ -438,22 +494,27 @@ def validate_markdown(packet: Path, state: dict) -> None:
             raise PacketError(EXIT_INVALID, "protected file contains unresolved template marker", "no {{...}} marker", name)
         if task_marker not in text:
             raise PacketError(EXIT_INVALID, "protected file task ID mismatch", task_marker, name)
-        for heading in headings:
-            if heading == "## Open questions" and not state["open_question_ids"]:
+        for alternatives in headings:
+            if "## Open questions" in alternatives and not state["open_question_ids"]:
                 continue
-            if heading.startswith("## "):
-                label = re.escape(heading.removeprefix("## "))
-                label_patterns = {
-                    "## Inferences": r"(?:Inferences|Design inferences)(?:\s+[^\n]*)?",
-                    "## Unknowns": r"(?:Unknowns|Known unknowns)(?:\s+[^\n]*)?",
-                    "## Alignment rounds": r"(?:Alignment rounds|Alignment-round ledger)(?:\s+[^\n]*)?",
-                }
-                suffix = label_patterns.get(heading, rf"{label}(?:\s+[^\n]*)?")
-                pattern = rf"(?m)^## (?:[0-9]+\. )?{suffix}$"
-            else:
-                pattern = rf"(?m)^{re.escape(heading)}(?:\s+[^\n]*)?$"
-            if not re.search(pattern, text):
-                raise PacketError(EXIT_INVALID, "protected file lacks required heading", heading, name)
+            found = False
+            for heading in alternatives:
+                if heading.startswith("## "):
+                    label = re.escape(heading.removeprefix("## "))
+                    label_patterns = {
+                        "## Inferences": r"(?:Inferences|Design inferences)(?:\s+[^\n]*)?",
+                        "## Unknowns": r"(?:Unknowns|Known unknowns)(?:\s+[^\n]*)?",
+                        "## Alignment rounds": r"(?:Alignment rounds|Alignment-round ledger)(?:\s+[^\n]*)?",
+                    }
+                    suffix = label_patterns.get(heading, rf"{label}(?:\s+[^\n]*)?")
+                    pattern = rf"(?m)^## (?:[0-9]+\. )?{suffix}$"
+                else:
+                    pattern = rf"(?m)^{re.escape(heading)}(?:\s+[^\n]*)?$"
+                if re.search(pattern, text):
+                    found = True
+                    break
+            if not found:
+                raise PacketError(EXIT_INVALID, "protected file lacks required heading", list(alternatives), name)
 
 
 def canonical_json(value: dict) -> bytes:
@@ -468,7 +529,7 @@ def attempt_hash(payload: dict) -> str:
 
 def validate_attempt_record(record: object) -> dict:
     if not isinstance(record, dict) or set(record) != ATTEMPT_FIELDS:
-        raise PacketError(EXIT_INVALID, "execution record schema is invalid", sorted(ATTEMPT_FIELDS), record)
+        raise PacketError(EXIT_INVALID, "execution record schema is invalid", sorted(ATTEMPT_FIELDS), value_shape(record))
     as_uuid(record["attempt_id"], "attempt_id")
     as_uuid(record["packet_id"], "attempt.packet_id")
     if type(record["packet_revision"]) is not int or record["packet_revision"] < 1:
@@ -501,6 +562,31 @@ def validate_attempt_record(record: object) -> dict:
     if not isinstance(record["entry_hash"], str) or not HEX_RE.fullmatch(record["entry_hash"]):
         raise PacketError(EXIT_INVALID, "execution entry_hash is invalid", "SHA-256", record["entry_hash"])
     return record
+
+
+def markdown_text(value: str) -> str:
+    compact = " ".join(value.split())
+    return compact.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
+
+
+def render_attempt_markdown(record: dict) -> str:
+    title = markdown_text(record["actions"][0]) if record["actions"] else "Execution attempt"
+    status = record["status"].replace("_", " ").capitalize()
+    lines = ["", f"## {title}", "", f"- Status: **{status}**"]
+    sections = (
+        ("Actions", record["actions"]),
+        ("Changes", record["mutations"]),
+        ("Evidence", record["evidence"]),
+    )
+    for heading, values in sections:
+        if values:
+            lines.extend(("", f"### {heading}", ""))
+            lines.extend(f"- {markdown_text(value)}" for value in values)
+    if record["verification"]:
+        lines.extend(("", "### Verification", "", markdown_text(record["verification"])))
+    if record["disposition"]:
+        lines.extend(("", "### Disposition", "", markdown_text(record["disposition"])))
+    return "\n".join(lines) + "\n\n"
 
 
 def parse_execution(packet: Path, state: dict, enforce_head: bool = True) -> tuple[list[dict], str | None]:
@@ -623,7 +709,7 @@ def command_init(args) -> None:
         for name in ("facts.md", "decisions.md", "plan.md"):
             (packet / name).write_text(render_template(name, values), encoding="utf-8")
         state = {
-            "schema_version": 1,
+            "schema_version": 2,
             "packet_id": packet_id,
             "repository_root": str(repo),
             "task_id": args.task_id,
@@ -635,7 +721,6 @@ def command_init(args) -> None:
             "coordinator_history": [],
             "state_generation": 0,
             "resume_status": None,
-            "requested_authority_classes": [],
             "runtime_authorization_evidence": None,
             "rollback_mode": False,
             "execution_head": None,
@@ -673,23 +758,41 @@ def command_seal(args) -> None:
             raise PacketError(EXIT_INVALID, "protected files still contain required-content markers", "remove markers after authoring real content", incomplete)
         if args.status not in {"drafting", "reviewing", "awaiting_approval"}:
             raise PacketError(EXIT_INVALID, "seal target must be a planning state", ["drafting", "reviewing", "awaiting_approval"], args.status)
-        authorities = parse_classes(args.authority)
+        authorities = None
+        if state["schema_version"] == 1:
+            authorities = parse_classes(args.authority)
+        elif args.authority is not None:
+            raise PacketError(
+                EXIT_INVALID,
+                "--authority is valid only for legacy schema version 1 packets",
+                "omit --authority; version 2 approval scope comes from the sealed plan",
+                "legacy option supplied",
+            )
         if args.status == "awaiting_approval":
             if state["open_question_ids"]:
                 raise PacketError(EXIT_INVALID, "open questions block approval", [], state["open_question_ids"])
-            if not authorities:
+            if state["schema_version"] == 1 and not authorities:
                 raise PacketError(EXIT_INVALID, "awaiting approval requires authority classes", "nonempty --authority", authorities)
         state["packet_revision"] += 1
         state["protected_digest"] = compute_digest(packet)
         state["status"] = args.status
-        state["requested_authority_classes"] = authorities
+        if state["schema_version"] == 1:
+            state["requested_authority_classes"] = authorities
         state["approval"] = None
         state["runtime_authorization_evidence"] = None
         state["rollback_mode"] = False
         state["resume_status"] = None
         bump_generation(state)
         atomic_json(packet / "state.json", state)
-    success("seal", packet=str(packet), revision=state["packet_revision"], digest=state["protected_digest"], status=state["status"], authority=authorities)
+    result = {
+        "packet": str(packet),
+        "revision": state["packet_revision"],
+        "digest": state["protected_digest"],
+        "status": state["status"],
+    }
+    if state["schema_version"] == 1:
+        result["authority"] = authorities
+    success("seal", **result)
 
 
 def command_repair(args) -> None:
@@ -724,7 +827,8 @@ def command_repair(args) -> None:
         state["protected_digest"] = actual_digest
         state["status"] = args.status
         state["approval"] = None
-        state["requested_authority_classes"] = []
+        if state["schema_version"] == 1:
+            state["requested_authority_classes"] = []
         state["runtime_authorization_evidence"] = None
         state["rollback_mode"] = False
         state["resume_status"] = None
@@ -749,7 +853,8 @@ def command_claim(args) -> None:
         coordinator = as_uuid(args.coordinator_id, "coordinator-id") if args.coordinator_id else str(uuid.uuid4())
         new = {"id": coordinator, "epoch": 1}
         state["active_coordinator"] = new
-        state["coordinator_history"].append(coordinator_event("claim", None, new, args.evidence, "claimed unowned packet"))
+        evidence = normalize_audit_evidence(args.evidence, "claim evidence", required=False)
+        state["coordinator_history"].append(coordinator_event("claim", None, new, evidence, "claimed unowned packet"))
         bump_generation(state)
         atomic_json(packet / "state.json", state)
     success("claim", packet=str(packet), coordinator=new)
@@ -765,7 +870,8 @@ def command_handoff(args) -> None:
         old = dict(state["active_coordinator"])
         new = {"id": new_id, "epoch": old["epoch"] + 1}
         state["active_coordinator"] = new
-        state["coordinator_history"].append(coordinator_event("handoff", old, new, args.evidence, "orderly handoff"))
+        evidence = normalize_audit_evidence(args.evidence, "handoff evidence", required=False)
+        state["coordinator_history"].append(coordinator_event("handoff", old, new, evidence, "orderly handoff"))
         if state["status"] in {"executing", "verifying"}:
             state["resume_status"] = state["status"]
             state["status"] = "paused"
@@ -777,8 +883,7 @@ def command_handoff(args) -> None:
 
 
 def command_recover(args) -> None:
-    if not args.evidence.strip():
-        raise PacketError(EXIT_INVALID, "recover requires user takeover/reauthorization evidence", "nonempty --evidence", args.evidence)
+    evidence = normalize_audit_evidence(args.evidence, "recovery evidence")
     packet = packet_path(args.packet)
     with packet_lock(packet):
         state = read_json(packet / "state.json")
@@ -793,7 +898,7 @@ def command_recover(args) -> None:
         new_id = as_uuid(args.new_coordinator_id, "new-coordinator-id") if args.new_coordinator_id else str(uuid.uuid4())
         new = {"id": new_id, "epoch": old["epoch"] + 1}
         state["active_coordinator"] = new
-        state["coordinator_history"].append(coordinator_event("recover", old, new, args.evidence, "user-mediated recovery"))
+        state["coordinator_history"].append(coordinator_event("recover", old, new, evidence, "user-mediated recovery"))
         if state["status"] in {"executing", "verifying"}:
             state["resume_status"] = state["status"]
             state["status"] = "paused"
@@ -834,7 +939,11 @@ def transition_authorization(state: dict, args, *, allow_reuse: bool, context: s
                 EXIT_INVALID,
                 "approval reuse needs a valid active approval outside rollback",
                 "valid approval and non-rollback execution",
-                {"approval": state["approval"], "rollback_mode": state["rollback_mode"]},
+                {
+                    "approval_present": state["approval"] is not None,
+                    "rollback_mode": state["rollback_mode"],
+                    "status": state["status"],
+                },
             )
         return "approval:" + state["approval"]["id"]
     if not args.authorization_evidence or not args.authorization_evidence.strip():
@@ -844,7 +953,7 @@ def transition_authorization(state: dict, args, *, allow_reuse: bool, context: s
             "--authorization-evidence or --reuse-approval",
             None,
         )
-    return args.authorization_evidence.strip()
+    return normalize_audit_evidence(args.authorization_evidence, "authorization evidence")
 
 
 def command_transition(args) -> None:
@@ -877,25 +986,41 @@ def command_transition(args) -> None:
         if target == "approved":
             if not args.approval_id or not args.approval_evidence or not args.approval_evidence.strip():
                 raise PacketError(EXIT_INVALID, "approval transition needs ID and evidence", "--approval-id and --approval-evidence", None)
-            authorities = parse_classes(args.authority)
-            if authorities != state["requested_authority_classes"] or not authorities:
-                raise PacketError(EXIT_INVALID, "approved authority must equal requested authority", state["requested_authority_classes"], authorities)
+            authorities = None
+            if state["schema_version"] == 1:
+                authorities = (
+                    parse_classes(args.authority)
+                    if args.authority is not None
+                    else state["requested_authority_classes"]
+                )
+                if authorities != state["requested_authority_classes"] or not authorities:
+                    raise PacketError(EXIT_INVALID, "approved authority must equal requested authority", state["requested_authority_classes"], authorities)
+            elif args.authority is not None:
+                raise PacketError(
+                    EXIT_INVALID,
+                    "--authority is valid only for legacy schema version 1 packets",
+                    "omit --authority; version 2 approval scope comes from the sealed plan",
+                    "legacy option supplied",
+                )
             if current == "needs_reapproval" and (
                 not args.partial_work_disposition or not args.partial_work_disposition.strip()
             ):
                 raise PacketError(EXIT_INVALID, "reapproval requires partial-work disposition", "--partial-work-disposition", None)
-            state["approval"] = {
+            approval_evidence = normalize_audit_evidence(args.approval_evidence, "approval evidence")
+            approval = {
                 "id": as_uuid(args.approval_id, "approval-id"),
                 "packet_id": state["packet_id"],
                 "repository_root": state["repository_root"],
                 "packet_revision": state["packet_revision"],
                 "protected_digest": state["protected_digest"],
-                "authority_classes": authorities,
                 "portable": False,
-                "user_evidence": args.approval_evidence,
+                "user_evidence": approval_evidence,
                 "recorded_at": now(),
                 "partial_work_disposition": args.partial_work_disposition,
             }
+            if state["schema_version"] == 1:
+                approval["authority_classes"] = authorities
+            state["approval"] = approval
         if target == "executing":
             if current == "approved":
                 if args.rollback or args.partial_work_disposition:
@@ -958,7 +1083,15 @@ def command_transition(args) -> None:
                     and records[-1]["approval_id"] == state["approval"]["id"]
                 )
                 if state["rollback_mode"] or not current_receipt or records[-1]["status"] != "passed" or not records[-1]["verification"]:
-                    raise PacketError(EXIT_INVALID, "completion requires a current-revision passed verification receipt outside rollback", "last execution record matches packet identity/revision/digest and passed with verification text", records[-1] if records else None)
+                    latest = records[-1] if records else None
+                    observed = {
+                        "record_present": latest is not None,
+                        "identity_matches": current_receipt,
+                        "status": latest["status"] if latest is not None else None,
+                        "verification_present": bool(latest and latest["verification"]),
+                        "rollback_mode": state["rollback_mode"],
+                    }
+                    raise PacketError(EXIT_INVALID, "completion requires a current-revision passed verification receipt outside rollback", "last execution record matches packet identity/revision/digest and passed with verification text", observed)
             state["runtime_authorization_evidence"] = None
             if target == "cancelled":
                 state["rollback_mode"] = False
@@ -1028,8 +1161,7 @@ def command_record_attempt(args) -> None:
         entry = attempt_hash(payload)
         record = {**payload, "entry_hash": entry}
         validate_attempt_record(record)
-        title = f"\n## {args.step_id} — {args.status}\n\n"
-        details = f"- Attempt: `{payload['attempt_id']}`\n- Actor: `{args.actor_id}`\n- Model: `{args.model}`\n- Started: {started}\n- Ended: {ended}\n\n"
+        presentation = render_attempt_markdown(record)
         marker = "<!-- align-work-attempt " + canonical_json(record).decode("utf-8") + " -->\n"
         path = packet / "execution.md"
         state["pending_execution_hash"] = entry
@@ -1042,7 +1174,7 @@ def command_record_attempt(args) -> None:
             os.close(fd)
             raise PacketError(EXIT_UNSAFE, "execution ledger must be a single-link regular file", "regular file with link count 1", str(path))
         with os.fdopen(fd, "a", encoding="utf-8") as handle:
-            handle.write(title + details + marker)
+            handle.write(presentation + marker)
             handle.flush()
             os.fsync(handle.fileno())
         state["execution_head"] = entry
@@ -1080,7 +1212,7 @@ def build_parser() -> argparse.ArgumentParser:
         add_fence(item)
         item.add_argument("--status", required=True)
         if name == "seal":
-            item.add_argument("--authority")
+            item.add_argument("--authority", help=argparse.SUPPRESS)
         item.set_defaults(func=func)
 
     claim = sub.add_parser("claim")
@@ -1112,7 +1244,7 @@ def build_parser() -> argparse.ArgumentParser:
     add_fence(transition)
     transition.add_argument("--to", required=True, choices=sorted(STATUSES - {"invalid"}))
     transition.add_argument("--approval-id")
-    transition.add_argument("--authority")
+    transition.add_argument("--authority", help=argparse.SUPPRESS)
     transition.add_argument("--approval-evidence")
     transition.add_argument("--authorization-evidence")
     transition.add_argument("--reuse-approval", action="store_true")

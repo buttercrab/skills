@@ -34,7 +34,7 @@ If a discovery changes approved outcome or scope, selects an unplanned architect
 3. Record the discovery, partial effects, rollback options, and newly open questions in `facts.md` and `decisions.md`.
 4. Revise `plan.md`, then use guarded `repair` to acknowledge the intentional protected-file rewrite and return to `drafting` or `reviewing`. Do not leave a digest-mismatched packet waiting on a reviewer.
 5. Complete any required bounded review, reseal the packet with a new revision and digest, and return to `awaiting_approval`.
-6. Ask once for approval of the new envelope, digest, and partial-work disposition or for rollback. Never resume implementation from the superseded approval.
+6. Ask once in plain language for the changed actions, surfaces, effects, and partial-work disposition or for rollback. Keep the new machine receipt internal. Never resume implementation from the superseded approval.
 
 ## Verify and complete
 

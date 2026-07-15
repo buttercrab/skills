@@ -37,22 +37,29 @@ After compaction, interruption, coordinator transfer, or a fresh task, reconstru
 
 ## Use one approval envelope
 
-Define the approval envelope as the outcome and scope, exact authority classes and surfaces, architecture and fallback bounds, security/privacy/trust boundary, cost or time ceiling, required verification strength, and rollback or partial-work rules. The normal prompt budget is one human approval per envelope. An unqualified approval of the presented implementation plan authorizes immediate execution; use the same user message for approval and execution authorization and do not ask a second “start?” question.
+Define the approval envelope as the outcome and concrete scope, architecture and fallback bounds, security/privacy/trust boundary, cost or time ceiling, required verification strength, and rollback or partial-work rules. The normal prompt budget is one human approval per envelope. An unqualified approval of the presented implementation plan authorizes immediate execution; use the same user message for approval and execution authorization and do not ask a second “start?” question.
 
 Preauthorize bounded fallback branches when they are reasonably foreseeable. Retries, step reordering, reversible implementation mechanics inside approved paths, named fallbacks inside their bounds, stronger verification, and ordinary in-scope bug fixes stay inside the envelope. New authority or surfaces, unplanned outcome/scope/architecture, expanded risk or trust, cost above the ceiling, weaker required gates, or an unapproved partial-work disposition leave the envelope and require a new approval.
+
+## Keep audit receipts internal
+
+Present approval in plain language: state the intended outcome and next actions, what will and will not change, and any material external effect, risk, cost, or rollback implication. Ask one concise contextual question. Accept an unambiguous response such as “yes,” “approve,” or “go ahead”; never prescribe an exact reply formula.
+
+Do not normally show packet IDs, repository roots, revisions, digests, fact/decision/step IDs, approval IDs, execution hashes, or other machine receipts. Reveal the minimum needed only when the user requests audit details or an integrity ambiguity requires identifying the exact packet. This presentation rule overrides approval wording copied into older packets: translate legacy prose instead of repeating it.
 
 ## Run the stages
 
 1. **Explore and align:** read [references/explore-and-align.md](references/explore-and-align.md). Explore discoverable reality while asking only decision-changing questions. Update the packet before sending the next question round.
 2. **Write the plan:** when no decision-changing question remains, read [references/write-plan.md](references/write-plan.md). Produce a self-contained plan with exact scope, authority, steps, gates, risks, and rollback.
 3. **Review when warranted:** read [references/review-plan.md](references/review-plan.md). Prefer fresh adversarial review for complex or risky plans; record why a simple plan skipped it.
-4. **Request approval:** seal the protected packet and show the user its revision, digest, and authority classes. Do not mutate product, repository, global, or external state before approval. Unless the user explicitly limits approval to planning, treat approval as permission to execute immediately within the envelope.
+4. **Request approval:** seal the protected packet, then describe the concrete approval scope using the plain-language presentation rule above. Do not mutate product, repository, global, or external state before approval. Unless the user explicitly limits approval to planning, treat approval as permission to execute immediately within the envelope.
 5. **Execute and verify:** after approval or explicit fresh-task reauthorization, read [references/execute-approved-plan.md](references/execute-approved-plan.md). Record attempts, use bounded delegation, stop for out-of-envelope changes, and complete only when required gates have receipts.
 
 ## Enforce hard boundaries
 
 - Never rely on conversation history for a material fact, decision, authority, step, or gate.
 - Treat helper validation as structural integrity evidence, never proof of semantic completeness or authenticated human authority.
+- Keep machine receipts in the packet and helper output; do not copy them into normal user-facing status, approval, reapproval, resume, or completion messages.
 - Keep one active coordinator as the only canonical packet writer.
 - Use direct children only. Begin every child assignment with: `You are a direct child. Do not spawn or delegate to any other agent.` Treat attempted subdelegation as an invalid result. Prefer read-only isolation for exploration and review; otherwise hash canonical files before and after each child run and reject mutated results.
 - Ask the user only about decisions that can change outcome, scope, architecture, authority, safety, risk, acceptance criteria, or the plan. Discover safely inspectable facts instead.

@@ -56,6 +56,15 @@ class PacketCase(unittest.TestCase):
         )
         return Path(data["packet"])
 
+    def init_legacy(self, task="legacy-task"):
+        packet = self.init(task)
+        state = self.state(packet)
+        state["schema_version"] = 1
+        state["requested_authority_classes"] = []
+        (packet / "state.json").write_text(json.dumps(state))
+        self.run_cli("validate", packet)
+        return packet
+
     @staticmethod
     def state(packet):
         return json.loads((packet / "state.json").read_text())
@@ -91,8 +100,6 @@ class PacketCase(unittest.TestCase):
             *self.fence(packet),
             "--status",
             "awaiting_approval",
-            "--authority",
-            "R,T",
         )
 
     def approve(self, packet):
@@ -104,11 +111,38 @@ class PacketCase(unittest.TestCase):
             "approved",
             "--approval-id",
             str(uuid.uuid4()),
-            "--authority",
-            "R,T",
             "--approval-evidence",
             "current user approved exact digest",
         )
+
+    def seal_legacy_for_approval(self, packet):
+        self.complete_required_content(packet)
+        self.to_drafting(packet)
+        return self.run_cli(
+            "seal",
+            packet,
+            *self.fence(packet),
+            "--status",
+            "awaiting_approval",
+            "--authority",
+            "R,T",
+        )
+
+    def approve_legacy(self, packet, authority=None):
+        args = [
+            "transition",
+            packet,
+            *self.fence(packet),
+            "--to",
+            "approved",
+            "--approval-id",
+            str(uuid.uuid4()),
+            "--approval-evidence",
+            "current user approved exact digest",
+        ]
+        if authority is not None:
+            args.extend(("--authority", authority))
+        return self.run_cli(*args)
 
     def execute(self, packet):
         return self.run_cli(
@@ -135,7 +169,10 @@ class PacketCase(unittest.TestCase):
         packet = self.init()
         result = self.run_cli("validate", packet)
         self.assertEqual(result["status"], "discovery")
-        self.assertIsNone(self.state(packet)["protected_digest"])
+        state = self.state(packet)
+        self.assertEqual(state["schema_version"], 2)
+        self.assertNotIn("requested_authority_classes", state)
+        self.assertIsNone(state["protected_digest"])
         failure = self.run_cli(
             "init",
             "--repo",
@@ -150,25 +187,167 @@ class PacketCase(unittest.TestCase):
         packet = self.init()
         self.to_drafting(packet)
         self.run_cli(
+            "seal", packet, *self.fence(packet), "--status", "awaiting_approval", code=3,
+        )
+
+    def test_v2_state_approval_and_output_omit_legacy_class_fields(self):
+        packet = self.init()
+        sealed = self.seal_for_approval(packet)
+        self.assertNotIn("authority", sealed)
+        self.approve(packet)
+        state = self.state(packet)
+        self.assertNotIn("requested_authority_classes", state)
+        self.assertNotIn("authority_classes", state["approval"])
+        self.run_cli("validate", packet)
+
+    def test_schema_versions_reject_hybrid_field_sets(self):
+        packet = self.init()
+        state = self.state(packet)
+        state["requested_authority_classes"] = []
+        (packet / "state.json").write_text(json.dumps(state))
+        self.run_cli("validate", packet, code=3)
+
+        packet = self.init_legacy("legacy-missing-field")
+        state = self.state(packet)
+        del state["requested_authority_classes"]
+        (packet / "state.json").write_text(json.dumps(state))
+        self.run_cli("validate", packet, code=3)
+
+        packet = self.init("v2-hybrid-approval")
+        self.seal_for_approval(packet)
+        self.approve(packet)
+        state = self.state(packet)
+        state["approval"]["authority_classes"] = ["R"]
+        (packet / "state.json").write_text(json.dumps(state))
+        self.run_cli("validate", packet, code=3)
+
+        packet = self.init_legacy("v1-hybrid-approval")
+        self.seal_legacy_for_approval(packet)
+        self.approve_legacy(packet)
+        state = self.state(packet)
+        del state["approval"]["authority_classes"]
+        (packet / "state.json").write_text(json.dumps(state))
+        self.run_cli("validate", packet, code=3)
+
+    def test_normal_cli_help_hides_legacy_authority_option(self):
+        for command in ("seal", "transition"):
+            result = subprocess.run(
+                [sys.executable, str(SCRIPT), command, "--help"],
+                text=True,
+                capture_output=True,
+                check=False,
+            )
+            self.assertEqual(result.returncode, 0, result.stderr)
+            self.assertNotIn("--authority", result.stdout)
+
+    def test_v2_rejects_legacy_authority_option_atomically(self):
+        packet = self.init()
+        self.complete_required_content(packet)
+        self.to_drafting(packet)
+        before = (packet / "state.json").read_bytes()
+        failure = self.run_cli(
             "seal", packet, *self.fence(packet), "--status", "awaiting_approval",
             "--authority", "R,T", code=3,
         )
+        self.assertIn("legacy schema version 1", failure["invariant"])
+        self.assertEqual((packet / "state.json").read_bytes(), before)
 
-    def test_numbered_hierarchical_plan_headings_are_valid(self):
+        self.run_cli("seal", packet, *self.fence(packet), "--status", "awaiting_approval")
+        before = (packet / "state.json").read_bytes()
+        failure = self.run_cli(
+            "transition", packet, *self.fence(packet), "--to", "approved",
+            "--approval-id", str(uuid.uuid4()), "--approval-evidence", "current user approved",
+            "--authority", "R,T", code=3,
+        )
+        self.assertIn("legacy schema version 1", failure["invariant"])
+        self.assertEqual((packet / "state.json").read_bytes(), before)
+
+    def test_legacy_v1_lifecycle_accepts_approval_without_repeated_flag(self):
+        packet = self.init_legacy()
+        sealed = self.seal_legacy_for_approval(packet)
+        self.assertEqual(sealed["authority"], ["R", "T"])
+        self.approve_legacy(packet)
+        state = self.state(packet)
+        self.assertEqual(state["approval"]["authority_classes"], ["R", "T"])
+        self.execute_reusing_approval(packet)
+        self.run_cli(
+            "record-attempt", packet, *self.fence(packet), "--step-id", "LEGACY-IMPLEMENT",
+            "--actor-id", "root", "--model", "strong-model", "--status", "passed",
+            "--verification", "legacy implementation passed",
+        )
+        self.run_cli("transition", packet, *self.fence(packet), "--to", "verifying")
+        self.run_cli(
+            "record-attempt", packet, *self.fence(packet), "--step-id", "LEGACY-VERIFY",
+            "--actor-id", "root", "--model", "strong-model", "--status", "passed",
+            "--evidence", "legacy gates passed", "--verification", "legacy packet verified",
+        )
+        self.run_cli("transition", packet, *self.fence(packet), "--to", "complete")
+        self.assertEqual(self.state(packet)["status"], "complete")
+
+    def test_legacy_v1_mismatch_repair_and_recovery_remain_supported(self):
+        packet = self.init_legacy("legacy-recovery")
+        self.seal_legacy_for_approval(packet)
+        before = (packet / "state.json").read_bytes()
+        self.run_cli(
+            "transition", packet, *self.fence(packet), "--to", "approved",
+            "--approval-id", str(uuid.uuid4()), "--approval-evidence", "current user approved",
+            "--authority", "R", code=3,
+        )
+        self.assertEqual((packet / "state.json").read_bytes(), before)
+        self.approve_legacy(packet)
+        self.execute(packet)
+        current = self.state(packet)
+        self.run_cli(
+            "recover", packet,
+            "--expected-revision", str(current["packet_revision"]),
+            "--expected-epoch", str(current["active_coordinator"]["epoch"]),
+            "--expected-generation", str(current["state_generation"]),
+            "--new-coordinator-id", str(uuid.uuid4()),
+            "--evidence", "user authorized legacy recovery",
+        )
+        self.run_cli(
+            "transition", packet, *self.fence(packet), "--to", "executing",
+            "--authorization-evidence", "current user resumed legacy execution",
+        )
+        self.run_cli("transition", packet, *self.fence(packet), "--to", "needs_reapproval")
+        with (packet / "plan.md").open("a") as handle:
+            handle.write("\nLegacy replan fixture.\n")
+        self.run_cli("repair", packet, *self.fence(packet), "--status", "drafting")
+        state = self.state(packet)
+        self.assertEqual(state["schema_version"], 1)
+        self.assertEqual(state["requested_authority_classes"], [])
+        self.run_cli("validate", packet)
+
+    def test_legacy_numbered_plan_headings_are_valid(self):
         packet = self.init()
         plan = (packet / "plan.md").read_text()
         replacements = {
             "## Outcome": "## 1. Outcome",
-            "## Consumed facts and decisions": "## 2. Consumed facts and decisions",
-            "## Scope and authority": "## 3. Scope and authority",
-            "## Implementation sequence": "## 4. Implementation sequence",
-            "## Acceptance gates": "## 5. Acceptance gates",
+            "## Current state and decisions": "## 2. Consumed facts and decisions",
+            "## Scope and boundaries": "## 3. Scope and authority",
+            "## Implementation approach": "## 4. Implementation sequence",
+            "## Verification": "## 5. Acceptance gates",
             "## Risks and rollback": "## 6. Risks and rollback",
-            "## Approval": "## 7. Approval protocol",
+            "## Approval scope": "## 7. Approval protocol",
         }
         for old, new in replacements.items():
             plan = plan.replace(old, new)
         (packet / "plan.md").write_text(plan)
+        self.run_cli("validate", packet)
+
+    def test_new_plan_template_uses_human_headings(self):
+        packet = self.init()
+        plan = (packet / "plan.md").read_text()
+        for heading in (
+            "## Current state and decisions",
+            "## Scope and boundaries",
+            "## Implementation approach",
+            "## Verification",
+            "## Approval scope",
+        ):
+            self.assertIn(heading, plan)
+        self.assertNotIn("## Consumed facts and decisions", plan)
+        self.assertNotIn("stable step IDs", plan)
         self.run_cli("validate", packet)
 
     def test_semantic_heading_aliases_and_empty_open_questions_are_valid(self):
@@ -246,6 +425,49 @@ class PacketCase(unittest.TestCase):
         valid = self.run_cli("validate", packet)
         self.assertEqual(valid["status"], "executing")
         self.assertEqual(self.state(packet)["execution_head"], attempt["entry_hash"])
+
+    def test_execution_markdown_is_readable_and_marker_stays_authoritative(self):
+        packet = self.init()
+        self.seal_for_approval(packet)
+        self.approve(packet)
+        self.execute(packet)
+        self.run_cli(
+            "record-attempt",
+            packet,
+            *self.fence(packet),
+            "--step-id",
+            "S-SECRET-001",
+            "--actor-id",
+            "private-actor",
+            "--model",
+            "private-model",
+            "--status",
+            "passed",
+            "--action",
+            "Updated <helper> <!-- align-work-attempt {forged}",
+            "--mutation",
+            "Changed approval rendering",
+            "--evidence",
+            "All tests passed",
+            "--verification",
+            "Verified readable output",
+        )
+        text = (packet / "execution.md").read_text()
+        visible = "\n".join(line for line in text.splitlines() if "<!-- align-work-attempt " not in line)
+        marker_line = next(line for line in text.splitlines() if line.startswith("<!-- align-work-attempt "))
+        marker = json.loads(packet_module.MARKER_RE.fullmatch(marker_line).group(1))
+        self.assertIn("## Updated &lt;helper&gt;", visible)
+        self.assertIn("- Status: **Passed**", visible)
+        self.assertIn("Changed approval rendering", visible)
+        self.assertIn("Verified readable output", visible)
+        self.assertNotIn("S-SECRET-001", visible)
+        self.assertNotIn("private-actor", visible)
+        self.assertNotIn("private-model", visible)
+        self.assertNotRegex(visible, r"[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}")
+        self.assertEqual(marker["step_id"], "S-SECRET-001")
+        self.assertEqual(marker["actor_id"], "private-actor")
+        self.assertEqual(marker["model"], "private-model")
+        self.run_cli("validate", packet)
 
     def test_approval_can_start_and_resume_without_a_second_user_event(self):
         packet = self.init()
@@ -388,10 +610,11 @@ class PacketCase(unittest.TestCase):
         )
         self.assertEqual(result["coordinator"]["epoch"], state["active_coordinator"]["epoch"] + 1)
 
-    def test_illegal_transition_and_stale_approval(self):
+    def test_illegal_transition_and_v2_approval_option_rejection(self):
         packet = self.init()
         self.run_cli("transition", packet, *self.fence(packet), "--to", "complete", code=3)
         self.seal_for_approval(packet)
+        before = (packet / "state.json").read_bytes()
         self.run_cli(
             "transition",
             packet,
@@ -406,6 +629,7 @@ class PacketCase(unittest.TestCase):
             "wrong authority",
             code=3,
         )
+        self.assertEqual((packet / "state.json").read_bytes(), before)
 
     def test_torn_execution_marker_is_rejected(self):
         packet = self.init()
@@ -608,7 +832,6 @@ class PacketCase(unittest.TestCase):
         self.run_cli("repair", packet, *self.fence(packet), "--status", "drafting")
         self.run_cli(
             "seal", packet, *self.fence(packet), "--status", "awaiting_approval",
-            "--authority", "R,T",
         )
         self.approve(packet)
         self.execute(packet)
@@ -672,8 +895,7 @@ class PacketCase(unittest.TestCase):
         with (packet / "execution.md").open("a") as handle:
             handle.write("\n<!-- align-work-attempt {torn\n")
         self.run_cli(
-            "seal", packet, *self.fence(packet), "--status", "awaiting_approval",
-            "--authority", "R,T", code=3,
+            "seal", packet, *self.fence(packet), "--status", "awaiting_approval", code=3,
         )
 
     def test_multiline_execution_identity_is_rejected_before_append(self):
@@ -719,10 +941,83 @@ class PacketCase(unittest.TestCase):
         before = (packet / "state.json").read_bytes()
         self.run_cli(
             "transition", packet, *self.fence(packet), "--to", "approved",
-            "--approval-id", str(uuid.uuid4()), "--authority", "R,T",
+            "--approval-id", str(uuid.uuid4()),
             "--approval-evidence", "   ", code=3,
         )
         self.assertEqual((packet / "state.json").read_bytes(), before)
+
+    def test_new_approval_evidence_is_concise_single_line_and_atomic(self):
+        packet = self.init()
+        self.seal_for_approval(packet)
+        before = (packet / "state.json").read_bytes()
+        for evidence in (
+            "first line\nsecond line",
+            "contains\ta control",
+            "x" * (packet_module.MAX_AUDIT_EVIDENCE_LENGTH + 1),
+        ):
+            failure = self.run_cli(
+                "transition",
+                packet,
+                *self.fence(packet),
+                "--to",
+                "approved",
+                "--approval-id",
+                str(uuid.uuid4()),
+                "--approval-evidence",
+                evidence,
+                code=3,
+            )
+            self.assertNotIn(evidence, json.dumps(failure))
+            self.assertEqual((packet / "state.json").read_bytes(), before)
+        self.run_cli(
+            "transition",
+            packet,
+            *self.fence(packet),
+            "--to",
+            "approved",
+            "--approval-id",
+            str(uuid.uuid4()),
+            "--approval-evidence",
+            "  사용자가 이 작업을 승인함  ",
+        )
+        self.assertEqual(self.state(packet)["approval"]["user_evidence"], "사용자가 이 작업을 승인함")
+
+    def test_approval_reuse_error_does_not_disclose_approval_object(self):
+        packet = self.init()
+        self.seal_for_approval(packet)
+        self.run_cli(
+            "transition",
+            packet,
+            *self.fence(packet),
+            "--to",
+            "approved",
+            "--approval-id",
+            str(uuid.uuid4()),
+            "--approval-evidence",
+            "sensitive approval reference",
+        )
+        saved_approval = self.state(packet)["approval"]
+        self.execute(packet)
+        self.run_cli("transition", packet, *self.fence(packet), "--to", "needs_reapproval")
+        state = self.state(packet)
+        state["approval"] = saved_approval
+        (packet / "state.json").write_text(json.dumps(state))
+        failure = self.run_cli(
+            "transition",
+            packet,
+            *self.fence(packet),
+            "--to",
+            "executing",
+            "--rollback",
+            "--partial-work-disposition",
+            "roll back partial work",
+            "--reuse-approval",
+            code=3,
+        )
+        serialized = json.dumps(failure)
+        self.assertNotIn("sensitive approval reference", serialized)
+        self.assertNotIn("user_evidence", serialized)
+        self.assertEqual(failure["observed"]["approval_present"], True)
 
     def test_whitespace_partial_disposition_is_rejected(self):
         packet = self.init()
@@ -732,7 +1027,7 @@ class PacketCase(unittest.TestCase):
         before = (packet / "state.json").read_bytes()
         self.run_cli(
             "transition", packet, *self.fence(packet), "--to", "approved",
-            "--approval-id", str(uuid.uuid4()), "--authority", "R,T",
+            "--approval-id", str(uuid.uuid4()),
             "--approval-evidence", "current user reapproved",
             "--partial-work-disposition", "   ", code=3,
         )
@@ -791,7 +1086,7 @@ class PacketCase(unittest.TestCase):
         self.run_cli("repair", packet, *self.fence(packet), "--status", "drafting", code=3)
         self.to_drafting(packet)
         self.run_cli(
-            "seal", packet, *self.fence(packet), "--status", "awaiting_approval", "--authority", "R,T"
+            "seal", packet, *self.fence(packet), "--status", "awaiting_approval"
         )
         self.approve(packet)
         self.execute(packet)
@@ -811,7 +1106,7 @@ class PacketCase(unittest.TestCase):
         (packet / "state.json").write_text(json.dumps(state))
         self.run_cli("validate", packet, code=3)
 
-        packet = self.init("authority-task")
+        packet = self.init_legacy("authority-task")
         self.complete_required_content(packet)
         self.to_drafting(packet)
         self.run_cli(

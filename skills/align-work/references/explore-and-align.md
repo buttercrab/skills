@@ -12,6 +12,8 @@ Read this reference during discovery and after new information reopens the probl
 6. Explore the new search space opened by the answer instead of immediately converging.
 7. Append an alignment-round entry with facts and decisions added, contrary evidence checked, remaining open question IDs, and advancement verdict.
 
+Ledger IDs are internal recovery aids. Ask and answer user-facing questions in ordinary language; do not make the user reference fact, decision, round, or question codes.
+
 For ambiguity-driven entry, do not declare alignment immediately after the first answer. Run another exploration/reflection pass and ask a second question round when any decision-changing space remains. Do not manufacture ceremonial questions: a round may close with no outgoing question when evidence or the user's answer genuinely eliminates the remaining decision space.
 
 ## Question discipline

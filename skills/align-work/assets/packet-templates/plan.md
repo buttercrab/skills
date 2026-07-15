@@ -1,6 +1,6 @@
 # Plan: {{TITLE}}
 
-Task ID: `{{TASK_ID}}`
+<!-- Task ID: `{{TASK_ID}}` -->
 
 Created: {{CREATED_AT}}
 
@@ -10,26 +10,26 @@ Created: {{CREATED_AT}}
 
 State the intended result and measurable completion definition.
 
-## Consumed facts and decisions
+## Current state and decisions
 
-List every fact and decision ID used, then restate all execution-relevant content.
+Restate the execution-relevant evidence, decisions, assumptions, and volatile rechecks in plain language. Do not list internal ledger IDs.
 
-## Scope and authority
+## Scope and boundaries
 
-Define in-scope surfaces, non-goals, preservation boundaries, and authority classes.
+Define concrete in-scope surfaces, non-goals, preservation boundaries, and external effects.
 
-## Implementation sequence
+## Implementation approach
 
-Give stable step IDs, dependencies, ownership, and exact files or systems.
+Use descriptive step titles and give dependencies, ownership, and exact files or systems. Keep machine step keys internal.
 
-## Acceptance gates
+## Verification
 
-Separate required gates from optional strengthening checks and name expected receipts.
+Separate required gates from optional strengthening checks and name the evidence that will demonstrate success.
 
 ## Risks and rollback
 
 Define material-change handling, failure behavior, and rollback.
 
-## Approval
+## Approval scope
 
-State the requested authority classes and what each permits. After sealing, display revision and digest from `state.json`; never add them to this protected file.
+Describe in plain language what approval permits and excludes. Keep packet identity, revision, and digest in machine state.

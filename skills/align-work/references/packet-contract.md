@@ -6,34 +6,30 @@ Read this reference before creating, resuming, sealing, approving, transitioning
 
 - `facts.md`: observed facts with stable IDs, exact evidence, verification time, volatility, and recheck rule. Keep inference and unknowns separate.
 - `decisions.md`: stable decision IDs, questions, meaningful options, user-confirmed choices, rationale, consequences, provenance, supersession, and alignment rounds.
-- `plan.md`: context-independent execution snapshot that lists consumed fact and decision IDs and restates everything needed to act.
+- `plan.md`: context-independent, human-readable execution snapshot that restates everything needed to act without requiring readers to decode ledger IDs.
 - `state.json`: machine state, random packet ID, canonical repository root, packet revision/digest, open questions, active coordinator/fencing epoch, approval evidence, and execution-chain head/pending hash. Never edit it manually.
 - `execution.md`: hash-chained attempt and resume ledger created when execution starts or when an approved packet first enters `needs_reapproval`.
 
 Protected files are `decisions.md`, `facts.md`, and `plan.md`. Sealing computes the documented SHA-256 digest over their exact bytes and clears prior approval. Approval also binds the packet ID and canonical repository root, so copying the packet to another repository is invalid.
 
-## Authority classes
+## Approval scope and schema versions
 
-Use only these class families; a numeric suffix narrows a family when the plan defines multiple separately approved surfaces:
+Schema version 2 is the default. It stores approval scope only in the protected plain-language plan and binds approval to that plan's digest. Its state and approval records contain no duplicate scope classification, and normal seal and approval commands take no scope-code flag.
 
-- `P`: planning-packet writes;
-- `R`: repository/product writes;
-- `T`: local tests, temporary state, and disposable fixtures;
-- `I`: local installation or link changes;
-- `G`: personal/global configuration;
-- `E`: external-service reads or writes;
-- `D`: publish, deploy, destructive, irreversible, or production action.
+Validation uses exact field sets for each schema version. Do not add version-1 fields to a version-2 packet or remove them from a version-1 packet. Do not migrate an existing packet merely to change its schema version.
 
-The protected plan must define the exact scope of every requested code such as `G1` or `E2`. The helper rejects unknown class syntax but validates structure only; it cannot authenticate a user event.
+### Legacy schema version 1
 
-## Core commands
+Version-1 packets retain `requested_authority_classes` in state and `authority_classes` in approval records. When resealing an existing version-1 packet, pass `--authority` with its intended comma-separated legacy values. Approval may omit the flag and reuse the list stored at seal time; if supplied, the list must match. The legacy parser accepts the families `P`, `R`, `T`, `I`, `G`, `E`, and `D`, each optionally followed by digits. This compatibility path exists only to resume old packets; do not use it for new work.
+
+## Core machine commands
 
 ```bash
 python3 scripts/planning_packet.py init --repo <repo> --task-id <slug> --title <title>
 python3 scripts/planning_packet.py validate <packet>
 python3 scripts/planning_packet.py questions <packet> --expected-revision <n> --expected-epoch <n> --expected-generation <n> --coordinator-id <uuid> --set Q-001
-python3 scripts/planning_packet.py seal <packet> --expected-revision <n> --expected-epoch <n> --expected-generation <n> --coordinator-id <uuid> --status awaiting_approval --authority R,T
-python3 scripts/planning_packet.py transition <packet> --expected-revision <n> --expected-epoch <n> --expected-generation <n> --coordinator-id <uuid> --to approved --approval-id <uuid> --authority R,T --approval-evidence <text>
+python3 scripts/planning_packet.py seal <packet> --expected-revision <n> --expected-epoch <n> --expected-generation <n> --coordinator-id <uuid> --status awaiting_approval
+python3 scripts/planning_packet.py transition <packet> --expected-revision <n> --expected-epoch <n> --expected-generation <n> --coordinator-id <uuid> --to approved --approval-id <uuid> --approval-evidence <text>
 python3 scripts/planning_packet.py transition <packet> --expected-revision <n> --expected-epoch <n> --expected-generation <n> --coordinator-id <uuid> --to executing --reuse-approval
 ```
 
@@ -41,9 +37,11 @@ Use `handoff` for an orderly coordinator transfer. Use `recover` only after the 
 
 ## Approval
 
-Show the user the packet ID, repository root, exact revision, digest, requested authority classes, and a concise description of the approval envelope. A plain approval in direct response is sufficient; the user need not repeat the digest or classes. Unless the user explicitly says to approve without starting, use that same message to record approval and transition immediately to execution with `--reuse-approval`. Do not ask a second “start?” question.
+After sealing, keep packet identity, repository root, revision, and digest in machine state. Ask for approval by describing the intended outcome and next actions, concrete write/read surfaces, exclusions, and any material external effect, risk, cost, or rollback implication. Do not normally expose machine receipts or ask the user to repeat them. Reveal only the minimum needed when the user requests audit details or an integrity ambiguity requires identifying the packet.
 
-Approval evidence in `state.json` is an audit record, not authenticated authority. `--reuse-approval` is valid only for trusted same-task continuity: the same visible Codex task, a valid packet/approval identity, matching coordinator state, no open question, and no out-of-envelope discovery. The helper checks structure, not conversational continuity; the coordinator must enforce this boundary.
+A plain, unambiguous approval in direct response is sufficient. Accept contextual language such as “yes,” “approve,” or “go ahead”; never prescribe an exact reply formula. Unless the user explicitly says to approve without starting, use that same message to record approval and transition immediately to execution with `--reuse-approval`. Do not ask a second “start?” question. If an older packet contains machine-oriented approval prose, translate it under this current rule instead of reproducing it.
+
+Approval evidence in `state.json` is an audit record, not authenticated authority. For new approvals, record a concise, non-sensitive, single-line reference to the user event rather than quoting the message. `--reuse-approval` is valid only for trusted same-task continuity: the same visible Codex task, a valid packet/approval identity, matching coordinator state, no open question, and no out-of-envelope discovery. The helper checks structure, not conversational continuity; the coordinator must enforce this boundary.
 
 ## Resume
 
