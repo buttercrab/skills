@@ -38,6 +38,10 @@ python3 scripts/planning_packet.py transition <packet> --expected-revision <n> -
 
 Use `handoff` for an orderly coordinator transfer. Use `recover` only after the user authorizes takeover from an unavailable coordinator. A handoff or recovery during active work pauses it, clears runtime authorization, and requires current-session authorization before resume. Use `repair` only when validation reports structural/digest invalidity; it clears approval and seals a new unapproved revision.
 
+Every `handoff` emits a closed `packet-transfer-receipt/v1` in its JSON result. The receipt binds repository and packet identity, revision and digest, approval, old and new coordinator fencing, resulting generation, paused and resume status, cleared runtime authority, and execution-chain head. Validate it against current reality with `scripts/work_authority.py validate-transfer`; a stale, fabricated, malformed, cross-root, or incomplete receipt never transfers authority.
+
+Front Agent work uses `work_authority/v1`. The gateway declares `packet` or `none` from the original request and local packet discovery. Main independently reclassifies the exact request and canonical root, then runs the helper read-only. Packet mode binds the current regular packet beneath `<root>/.planning`, packet and approval identity, authority classes, coordinator epoch/generation, lifecycle status, and execution head. Sequence zero requires `approved`; updates carry current fencing and a lifecycle-appropriate status. Front validates structure and replay order; Main revalidates current packet reality before each mutation boundary.
+
 ## Approval
 
 Show the user the packet ID, repository root, exact revision, digest, and requested authority classes. Approval evidence in `state.json` is an audit record, not authenticated authority. A fresh human-facing coordinator must show this identity and ask the user to reauthorize before coordinator takeover or other mutation.

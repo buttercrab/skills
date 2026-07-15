@@ -1,4 +1,5 @@
+# portfolio-routing-v1-row-sha256: def9c8f7cc125085bb4616180b3fa33f458c875af040dcc4041ad4f17a080547
 interface:
   display_name: "Linked Evidence Brief"
-  short_description: "Synthesize linked sources with provenance"
-  default_prompt: "Use $brief-linked-evidence to verify these linked sources and produce a provenance-aware brief."
+  short_description: "Synthesize fixed linked sources with provenance"
+  default_prompt: "Use $brief-linked-evidence for this fixed supplied source set. Preserve provenance and conflicts, use installed provider capabilities, and block or exclude unavailable private sources instead of inventing access."

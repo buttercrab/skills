@@ -12,11 +12,21 @@ from_role: gateway
 to_role: main
 summary: "Implement the approved change."
 human_confirmed: true
+original_request: "Implement the approved change without altering compatibility."
+work_authority:
+  schema_version: work_authority/v1
+  work_id: 11111111-1111-4111-8111-111111111111
+  sequence: 0
+  original_request_sha256: ab00ee28b9133d54db22ac9bf29b2f8dee6e02cf913dc2b4347b89335fcd097f
+  alignment_mode: none
+  gateway_classification: none
+  repository_root: /repo
+  packet_binding: null
 requirements:
   - "Keep the existing behavior unless specified."
 ```
 
-Do not include a protocol version field. The current protocol is defined by the CLI validator and the allowed method matrix below.
+Do not include a top-level protocol version field. `work` and `update` carry the independently versioned, closed `work_authority/v1` mapping described below.
 
 ## Methods
 
@@ -35,6 +45,12 @@ Gateway may send:
 Gateway-originated messages must include `human_confirmed: true`.
 
 Gateway may set that field only after presenting the exact intent or decision preview to the human and receiving explicit approval. Silence, an inferred preference, and timeout defaults are not approval.
+
+### Work authority
+
+Every `work` has exactly the common envelope fields, `human_confirmed`, `original_request`, `work_authority`, and optional string-list `requirements`, `constraints`, and `acceptance_criteria`. Its authority has `sequence: 0`, a unique UUID work ID, SHA-256 of the exact original request, canonical repository root, gateway classification, and `alignment_mode: packet | none`. Packet mode requires the exact packet, approval, authority-class, coordinator, generation, lifecycle, and execution-head fence. None mode requires `gateway_classification: none` and `packet_binding: null`.
+
+Every `update` has the common fields, `status`, and the same closed authority. Its sequence increases by exactly one. Exact duplicates are idempotent; changed duplicates, reordered updates, reused work IDs, cross-work returns, and updates after `complete`, `failed`, or `cancelled` are rejected. Packet acceptance binds `approved`, progress binds `executing` or `verifying`, cancellation binds `cancelled`, and completion binds `verifying`. Front enforces structure and local order; Main independently validates current packet reality with Align's read-only helper before acting.
 
 `question` requires a non-empty `question` field. `answer` requires a non-empty `answer` field. `update` requires one status:
 

@@ -585,6 +585,14 @@ func cmdSend(args []string, stdin io.Reader, stdout, stderr io.Writer) error {
 	if err := validateOutgoingBody(body, st, *respondsTo); err != nil {
 		return err
 	}
+	if err := validateWorkAuthorityRoot(body, *root); err != nil {
+		return err
+	}
+	commitWork, releaseWork, err := prepareWorkEvent(*root, st.Identity, body)
+	if err != nil {
+		return err
+	}
+	defer releaseWork()
 	sendArgs := []any{"send", "--to", st.PeerIdentity, "--subject", positional[0], "--identity", st.Identity, "--type", mailTypeForMethod(body), "--contract", contractMessage}
 	var releaseAnswer func()
 	if *respondsTo != "" {
@@ -635,7 +643,7 @@ func cmdSend(args []string, stdin io.Reader, stdout, stderr io.Writer) error {
 			return err
 		}
 	}
-	return nil
+	return commitWork()
 }
 
 func mailTypeForMethod(body string) string {
@@ -854,6 +862,13 @@ func printValidatedMessage(stdout, stderr io.Writer, st state, id, contract, roo
 		_, markErr := runMail("", "read", id, "--identity", st.Identity, rootArgs(root))
 		return false, markErr
 	}
+	commitWork, releaseWork, err := prepareWorkEvent(root, st.Identity, body)
+	if err != nil {
+		fmt.Fprintf(stderr, "Rejected %s: %v\n", id, err)
+		_, markErr := runMail("", "read", id, "--identity", st.Identity, rootArgs(root))
+		return false, markErr
+	}
+	defer releaseWork()
 	if _, err := io.WriteString(stdout, read); err != nil {
 		return false, err
 	}
@@ -861,6 +876,9 @@ func printValidatedMessage(stdout, stderr io.Writer, st state, id, contract, roo
 		if _, err := io.WriteString(stdout, "\n"); err != nil {
 			return false, err
 		}
+	}
+	if err := commitWork(); err != nil {
+		return false, err
 	}
 	if _, err := runMail("", "read", id, "--identity", st.Identity, rootArgs(root)); err != nil {
 		return false, err
@@ -873,6 +891,9 @@ func validateIncomingByContract(meta map[string]string, body string, st state, c
 		return fmt.Errorf("unsupported contract %q", contract)
 	}
 	if err := validateIncomingMessage(meta, body, st, meta["responds_to"]); err != nil {
+		return err
+	}
+	if err := validateWorkAuthorityRoot(body, root); err != nil {
 		return err
 	}
 	if bodyScalar(body, "method") != "answer" {

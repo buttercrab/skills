@@ -1,0 +1,261 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://local.invalid/history-index-v4.schema.json",
+  "title": "History index v4",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version", "index_id", "history_contract_id", "history_contract_sha256",
+    "created_at", "identity", "exact_file_set", "bindings", "lineage",
+    "lifecycle", "history_index_sha256"
+  ],
+  "properties": {
+    "schema_version": {"const": "history-index/v4"},
+    "index_id": {"$ref": "#/$defs/opaque_id"},
+    "history_contract_id": {"$ref": "#/$defs/uuid"},
+    "history_contract_sha256": {"$ref": "#/$defs/hash"},
+    "created_at": {"$ref": "#/$defs/timestamp"},
+    "identity": {
+      "type": "object", "additionalProperties": false,
+      "required": ["schema_version", "index_salt_receipt_sha256", "identity_key_receipt_sha256", "native_map_sha256", "native_hmac_set_sha256", "public_id_set_sha256"],
+      "properties": {
+        "schema_version": {"const": "history-identity/v2"},
+        "index_salt_receipt_sha256": {"$ref": "#/$defs/hash"},
+        "identity_key_receipt_sha256": {"$ref": "#/$defs/hash"},
+        "native_map_sha256": {"$ref": "#/$defs/hash"},
+        "native_hmac_set_sha256": {"$ref": "#/$defs/hash"},
+        "public_id_set_sha256": {"$ref": "#/$defs/hash"}
+      }
+    },
+    "exact_file_set": {
+      "type": "object", "additionalProperties": false,
+      "required": ["schema_version", "state", "directory_mode", "file_mode", "member_count", "members_sha256", "members"],
+      "properties": {
+        "schema_version": {"const": "history-private-file-set/v4"},
+        "state": {"enum": ["live", "tombstone"]},
+        "directory_mode": {"const": "0700"},
+        "file_mode": {"const": "0600"},
+        "member_count": {"type": "integer", "minimum": 10},
+        "members_sha256": {"$ref": "#/$defs/hash"},
+        "members": {
+          "type": "array", "minItems": 10,
+          "items": {
+            "type": "object", "additionalProperties": false,
+            "required": ["target_id", "relative_path", "role", "size", "content_sha256", "hash_kind", "mode", "nlink"],
+            "properties": {
+              "target_id": {"$ref": "#/$defs/opaque_id"},
+              "relative_path": {"oneOf": [{"type": "string", "pattern": "^[A-Za-z0-9_.-]+(?:/[A-Za-z0-9_.-]+)*$"}, {"type": "null"}]},
+              "role": {"$ref": "#/$defs/private_role"},
+              "size": {"oneOf": [{"type": "integer", "minimum": 0}, {"type": "null"}]},
+              "content_sha256": {"oneOf": [{"$ref": "#/$defs/hash"}, {"type": "null"}]},
+              "hash_kind": {"enum": ["normalized-manifest", "raw-bytes"]},
+              "mode": {"const": "0600"},
+              "nlink": {"const": 1}
+            },
+            "allOf": [{
+              "if": {"properties": {"role": {"const": "manifest"}}},
+              "then": {"properties": {"size": {"type": "null"}, "content_sha256": {"type": "null"}, "hash_kind": {"const": "normalized-manifest"}}},
+              "else": {"properties": {"size": {"type": "integer", "minimum": 0}, "content_sha256": {"$ref": "#/$defs/hash"}, "hash_kind": {"const": "raw-bytes"}}}
+            }]
+          }
+        }
+      },
+      "allOf": [{
+        "if": {"properties": {"state": {"const": "live"}}},
+        "then": {"properties": {"members": {"items": {"properties": {"relative_path": {"type": "string"}}}}}},
+        "else": {"properties": {"members": {"items": {"properties": {"relative_path": {"type": "null"}}}}}}
+      }]
+    },
+    "bindings": {
+      "type": "object", "additionalProperties": false,
+      "required": ["raw_source_manifest_sha256", "semantic_ledger_sha256", "native_lineage_closure_sha256", "exclusion_ledger_sha256", "corpus_sha256", "adapter_catalog_sha256", "specification_sha256"],
+      "properties": {
+        "raw_source_manifest_sha256": {"$ref": "#/$defs/hash"},
+        "semantic_ledger_sha256": {"$ref": "#/$defs/hash"},
+        "native_lineage_closure_sha256": {"$ref": "#/$defs/hash"},
+        "exclusion_ledger_sha256": {"$ref": "#/$defs/hash"},
+        "corpus_sha256": {"$ref": "#/$defs/hash"},
+        "adapter_catalog_sha256": {"$ref": "#/$defs/hash"},
+        "specification_sha256": {"$ref": "#/$defs/hash"}
+      }
+    },
+    "lineage": {
+      "type": "object", "additionalProperties": false,
+      "required": [
+        "platforms", "source_ids", "record_ids", "semantic_record_ids",
+        "excluded_record_ids", "nonsemantic_record_ids", "observation_ids",
+        "node_ids", "root_ids", "child_ids", "unresolved_ids", "excluded_ids",
+        "duplicate_export_ids", "nonsemantic_ids", "namespace_ids",
+        "project_family_ids", "edge_ids", "counts", "counts_sha256"
+      ],
+      "properties": {
+        "platforms": {"type": "array", "uniqueItems": true, "minItems": 2, "maxItems": 2, "items": {"enum": ["codex", "claude-code"]}},
+        "source_ids": {"$ref": "#/$defs/id_set"},
+        "record_ids": {"$ref": "#/$defs/id_set"},
+        "semantic_record_ids": {"$ref": "#/$defs/id_set"},
+        "excluded_record_ids": {"$ref": "#/$defs/id_set"},
+        "nonsemantic_record_ids": {"$ref": "#/$defs/id_set"},
+        "observation_ids": {"$ref": "#/$defs/observation_set"},
+        "node_ids": {"$ref": "#/$defs/id_set"},
+        "root_ids": {"$ref": "#/$defs/id_set"},
+        "child_ids": {"$ref": "#/$defs/id_set"},
+        "unresolved_ids": {"$ref": "#/$defs/id_set"},
+        "excluded_ids": {"$ref": "#/$defs/id_set"},
+        "duplicate_export_ids": {"$ref": "#/$defs/id_set"},
+        "nonsemantic_ids": {"$ref": "#/$defs/id_set"},
+        "namespace_ids": {"$ref": "#/$defs/id_set"},
+        "project_family_ids": {"$ref": "#/$defs/id_set"},
+        "edge_ids": {"$ref": "#/$defs/id_set"},
+        "counts": {
+          "type": "object", "additionalProperties": false,
+          "required": ["sources", "records", "semantic_records", "excluded_records", "nonsemantic_records", "observations", "nodes", "roots", "children", "unresolved", "excluded", "duplicate_exports", "nonsemantic", "namespaces", "project_families", "edges"],
+          "properties": {
+            "sources": {"type": "integer", "minimum": 0},
+            "records": {"type": "integer", "minimum": 0},
+            "semantic_records": {"type": "integer", "minimum": 0},
+            "excluded_records": {"type": "integer", "minimum": 0},
+            "nonsemantic_records": {"type": "integer", "minimum": 0},
+            "observations": {"type": "integer", "minimum": 0},
+            "nodes": {"type": "integer", "minimum": 0},
+            "roots": {"type": "integer", "minimum": 0},
+            "children": {"type": "integer", "minimum": 0},
+            "unresolved": {"type": "integer", "minimum": 0},
+            "excluded": {"type": "integer", "minimum": 0},
+            "duplicate_exports": {"type": "integer", "minimum": 0},
+            "nonsemantic": {"type": "integer", "minimum": 0},
+            "namespaces": {"type": "integer", "minimum": 0},
+            "project_families": {"type": "integer", "minimum": 0},
+            "edges": {"type": "integer", "minimum": 0}
+          }
+        },
+        "counts_sha256": {"$ref": "#/$defs/hash"}
+      }
+    },
+    "lifecycle": {
+      "type": "object", "additionalProperties": false,
+      "required": ["schema_version", "retention_disposition", "delete_by", "state", "transitions", "deletion_targets", "deletion_receipt"],
+      "properties": {
+        "schema_version": {"const": "history-private-lifecycle/v2"},
+        "retention_disposition": {"enum": ["delete-after-validation", "delete-by"]},
+        "delete_by": {"$ref": "#/$defs/timestamp"},
+        "state": {"enum": ["collecting", "live", "validation-complete", "expired", "deletion-pending", "deleted"]},
+        "transitions": {
+          "type": "array", "minItems": 1,
+          "items": {
+            "type": "object", "additionalProperties": false,
+            "required": ["from", "to", "at", "reason", "receipt_sha256"],
+            "properties": {
+              "from": {"enum": ["collecting", "live", "validation-complete", "expired", "deletion-pending"]},
+              "to": {"enum": ["live", "validation-complete", "expired", "deletion-pending", "deleted"]},
+              "at": {"$ref": "#/$defs/timestamp"},
+              "reason": {"enum": ["collection-complete", "validation-complete", "retention-expired", "deletion-required", "all-targets-absent"]},
+              "receipt_sha256": {"$ref": "#/$defs/hash"}
+            }
+          }
+        },
+        "deletion_targets": {
+          "type": "array", "minItems": 10,
+          "items": {
+            "type": "object", "additionalProperties": false,
+            "required": ["target_id", "relative_path_sha256", "role", "member_sha256", "hash_kind"],
+            "properties": {
+              "target_id": {"$ref": "#/$defs/opaque_id"},
+              "relative_path_sha256": {"$ref": "#/$defs/hash"},
+              "role": {"$ref": "#/$defs/private_role"},
+              "member_sha256": {"oneOf": [{"$ref": "#/$defs/hash"}, {"type": "null"}]},
+              "hash_kind": {"enum": ["normalized-manifest", "raw-bytes"]}
+            },
+            "allOf": [{
+              "if": {"properties": {"role": {"const": "manifest"}}},
+              "then": {"properties": {"member_sha256": {"type": "null"}, "hash_kind": {"const": "normalized-manifest"}}},
+              "else": {"properties": {"member_sha256": {"$ref": "#/$defs/hash"}, "hash_kind": {"const": "raw-bytes"}}}
+            }]
+          }
+        },
+        "deletion_receipt": {"oneOf": [{"$ref": "#/$defs/deletion_receipt"}, {"type": "null"}]}
+      },
+      "allOf": [
+        {
+          "if": {"properties": {"state": {"const": "deleted"}}},
+          "then": {"properties": {"deletion_receipt": {"$ref": "#/$defs/deletion_receipt"}}},
+          "else": {"properties": {"deletion_receipt": {"type": "null"}}}
+        }
+      ]
+    },
+    "history_index_sha256": {"$ref": "#/$defs/hash"}
+  },
+  "allOf": [{
+    "if": {"properties": {"lifecycle": {"properties": {"state": {"const": "deleted"}}}}},
+    "then": {"properties": {"exact_file_set": {"properties": {"state": {"const": "tombstone"}}}}},
+    "else": {"properties": {"exact_file_set": {"properties": {"state": {"const": "live"}}}}}
+  }],
+  "$defs": {
+    "hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "uuid": {"type": "string", "format": "uuid"},
+    "timestamp": {"type": "string", "format": "date-time"},
+    "opaque_id": {"type": "string", "pattern": "^[a-z][a-z0-9-]{2,31}-[0-9a-f]{32,64}$"},
+    "id_set": {"type": "array", "uniqueItems": true, "items": {"$ref": "#/$defs/opaque_id"}},
+    "observation_id": {"type": "string", "pattern": "^obs-[0-9a-f]{64}$"},
+    "observation_set": {"type": "array", "uniqueItems": true, "items": {"$ref": "#/$defs/observation_id"}},
+    "private_role": {"enum": ["manifest", "source-contract", "semantic-ledger", "exclusion-ledger", "native-map", "identity-salt", "identity-key", "identity-key-receipt", "adapter-catalog", "lifecycle", "declared-private-copy"]},
+    "deletion_receipt": {
+      "type": "object", "additionalProperties": false,
+      "required": ["schema_version", "receipt_id", "index_id", "predelete_members_sha256", "target_ids", "identity_material_target_ids", "targets", "transitions", "attempts", "post_delete_absent_target_ids", "destroyed_identity_material_target_ids", "post_delete_absence_sha256", "captured_at", "acquisition_receipt_sha256", "receipt_sha256"],
+      "properties": {
+        "schema_version": {"const": "history-private-deletion-receipt/v2"},
+        "receipt_id": {"$ref": "#/$defs/opaque_id"},
+        "index_id": {"$ref": "#/$defs/opaque_id"},
+        "predelete_members_sha256": {"$ref": "#/$defs/hash"},
+        "target_ids": {"$ref": "#/$defs/id_set"},
+        "identity_material_target_ids": {"$ref": "#/$defs/id_set"},
+        "targets": {
+          "type": "array", "minItems": 10,
+          "items": {
+            "type": "object", "additionalProperties": false,
+            "required": ["target_id", "role", "predelete_sha256", "predelete_size", "predelete_mode", "predelete_nlink"],
+            "properties": {
+              "target_id": {"$ref": "#/$defs/opaque_id"},
+              "role": {"$ref": "#/$defs/private_role"},
+              "predelete_sha256": {"$ref": "#/$defs/hash"},
+              "predelete_size": {"type": "integer", "minimum": 0},
+              "predelete_mode": {"const": "0600"},
+              "predelete_nlink": {"const": 1}
+            }
+          }
+        },
+        "transitions": {
+          "type": "array", "minItems": 3,
+          "items": {
+            "type": "object", "additionalProperties": false,
+            "required": ["from", "to", "at", "reason", "receipt_sha256"],
+            "properties": {
+              "from": {"enum": ["collecting", "live", "validation-complete", "expired", "deletion-pending"]},
+              "to": {"enum": ["live", "validation-complete", "expired", "deletion-pending", "deleted"]},
+              "at": {"$ref": "#/$defs/timestamp"},
+              "reason": {"enum": ["collection-complete", "validation-complete", "retention-expired", "deletion-required", "all-targets-absent"]},
+              "receipt_sha256": {"$ref": "#/$defs/hash"}
+            }
+          }
+        },
+        "attempts": {
+          "type": "array", "minItems": 10,
+          "items": {
+            "type": "object", "additionalProperties": false,
+            "required": ["target_id", "attempted_at", "result"],
+            "properties": {
+              "target_id": {"$ref": "#/$defs/opaque_id"},
+              "attempted_at": {"$ref": "#/$defs/timestamp"},
+              "result": {"const": "absent"}
+            }
+          }
+        },
+        "post_delete_absent_target_ids": {"$ref": "#/$defs/id_set"},
+        "destroyed_identity_material_target_ids": {"$ref": "#/$defs/id_set"},
+        "post_delete_absence_sha256": {"$ref": "#/$defs/hash"},
+        "captured_at": {"$ref": "#/$defs/timestamp"},
+        "acquisition_receipt_sha256": {"$ref": "#/$defs/hash"},
+        "receipt_sha256": {"$ref": "#/$defs/hash"}
+      }
+    }
+  }
+}

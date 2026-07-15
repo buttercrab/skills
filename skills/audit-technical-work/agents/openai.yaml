@@ -1,0 +1,5 @@
+# portfolio-routing-v1-row-sha256: 2e813398c1c45a99e2d414cf469ef13d09b64ca74ce4afd2ffe284ebaa16d4c0
+interface:
+  display_name: "Audit Technical Work"
+  short_description: "Audit technical claims against current evidence"
+  default_prompt: "Use $audit-technical-work to perform a bounded read-only audit of this technical claim."

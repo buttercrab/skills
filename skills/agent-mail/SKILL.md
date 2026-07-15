@@ -5,182 +5,57 @@ description: Use the Rust/PostgreSQL Agent Mail service for durable cross-sessio
 
 # Agent Mail
 
-Agent Mail is a Rust HTTP mailbox service backed by PostgreSQL. It also exposes a remote MCP Streamable HTTP endpoint. Use it for durable cross-session coordination, not routine logs or locks.
+Agent Mail is a durable Rust/PostgreSQL mailbox and remote MCP service. Use it for durable cross-session coordination, not routine logs or locks. Routine current-task subagent coordination belongs to built-in collaboration. Front Agent uses Agent Mail only when the user explicitly selected that gateway architecture.
 
-Resolve `AGENT_MAIL_SKILL_DIR` to the directory containing this `SKILL.md`; do not assume the caller's current working directory is this repository.
+Resolve `AGENT_MAIL_SKILL_DIR` to the directory containing this loaded `SKILL.md`; never assume the caller's current working directory is this repository.
 
-The supported v1 runtime is the Rust `agent-mail-server` with PostgreSQL. The deployed service runs on a Lightsail Nano app host in `us-west-2` against private AWS RDS PostgreSQL and is reached at:
+## Choose the interface
 
-```text
-https://agent-mail.cc
-```
+- For ordinary Codex mailbox work, prefer the installed Agent Mail MCP tools and resources. Start a session identity before sending or reading.
+- For service development, privileged HTTP work, credentials, local integration tests, or deployment, read [references/service-operations.md](references/service-operations.md) before acting.
+- For infrastructure changes, also read [docs/lightsail.md](docs/lightsail.md).
+- If the required durable service or authenticated capability is unavailable, report the missing capability. Do not silently replace durable coordination with ephemeral messaging.
 
-Use `https://agent-mail.cc` as the default `AGENT_MAIL_URL` for clients. The public edge is Cloudflare-proxied HTTPS on `agent-mail.cc`; nginx on the Lightsail Nano instance terminates the Cloudflare origin certificate and proxies to the Rust server on `127.0.0.1:8787`. Port `8787` is private and should not be exposed publicly.
-
-Build the server:
-
-```bash
-make -C "$AGENT_MAIL_SKILL_DIR" build
-```
-
-Run the server against PostgreSQL:
-
-```bash
-"$AGENT_MAIL_SKILL_DIR/target/debug/agent-mail-server" \
-  --database-url "$AGENT_MAIL_DATABASE_URL" \
-  --bind 127.0.0.1:8787 \
-  --token "$AGENT_MAIL_TOKEN"
-```
-
-Use `make -C "$AGENT_MAIL_SKILL_DIR" real-test` before deployment. It starts a real temporary PostgreSQL cluster and exercises both the JSON HTTP API and the MCP endpoint over localhost.
-
-The public smoke mutates production and leaves durable test artifacts. Run `make -C "$AGENT_MAIL_SKILL_DIR" public-mcp-smoke` only after explicit authorization, with `AGENT_MAIL_TOKEN`, `PUBLIC_IP`, and `AGENT_MAIL_ALLOW_PRODUCTION_MUTATION=YES` set. It exercises the public `https://agent-mail.cc/mcp` endpoint through Cloudflare/nginx, including the SSE notification stream and port-isolation gate.
-
-Check the deployed service:
-
-```bash
-curl -fsS https://agent-mail.cc/ready
-```
-
-## MCP
-
-The remote MCP endpoint is:
-
-```text
-https://agent-mail.cc/mcp
-```
-
-Codex should install it by URL, not by building a local shim:
+The remote MCP endpoint is `https://agent-mail.cc/mcp`. Install it by URL, not through a local shim:
 
 ```bash
 codex mcp add agent-mail --url https://agent-mail.cc/mcp --bearer-token-env-var AGENT_MAIL_TOKEN
 ```
 
-The Codex process must have `AGENT_MAIL_TOKEN` in its environment before it starts. Existing long-running Codex sessions may not discover a newly installed MCP server until restarted.
+## Mailbox workflow
 
-MCP uses the service-admin bearer on every request. `POST /mcp` handles JSON-RPC requests, `GET /mcp` is the SSE stream used for `notifications/resources/updated`, and `DELETE /mcp` terminates a session. Inbox and message resource identities must match the participant bound by `agent_mail_start`.
+1. Start or reuse the session-bound participant identity.
+2. Select the exact project namespace and recipient identity, role, or broadcast.
+3. For a mutation, state the intended durable message or read-state change and use a stable idempotency key when response loss could cause a retry.
+4. Read inboxes and full messages through resources. Reads do not mark mail read.
+5. Call the explicit mark-read mutation only when that state change is intended.
+6. Treat notifications as wake-up hints and the mailbox as authoritative durable state.
 
-MCP tools are only for mutations or session setup:
+Messages are coordination records, not locks, claims, approval, packet transfer, or exclusive assignment. Agent Mail owns mailbox transport and service data only. It never becomes the planning or approval workflow, and a mail message never substitutes for direct human authority.
 
-- `agent_mail_start(role)`: generate and bind this MCP session's participant identity.
-- `agent_mail_project_add(alias, root?)`: create or update a project namespace.
-- `agent_mail_send(project, to, subject, body)`: send from the session-bound identity.
-- `agent_mail_mark_read(project, mail_id)`: explicitly mark a delivered message read.
+## Safety
 
-Inbox and message reads are MCP resources, not tools:
-
-```text
-agent-mail://projects
-agent-mail://projects/{alias}/inbox?identity={identity}
-agent-mail://projects/{alias}/messages/{mail_id}?identity={identity}
-```
-
-Clients can subscribe to the inbox and message resources. New mail and explicit read-state changes emit `notifications/resources/updated`; subscriptions are live MCP hints, not a durable queue.
-
-## Privileged HTTP API
-
-`GET /live` checks only the process. `GET /health` and `GET /ready` check PostgreSQL readiness. All other endpoints require a bearer credential.
-
-Administrative endpoints use:
-
-```text
-Authorization: Bearer $AGENT_MAIL_TOKEN
-```
-
-The Rust server requires a non-empty service-admin token at startup; missing or empty `AGENT_MAIL_TOKEN` is a configuration error. Treat it as a privileged credential: it can create participants and projects and list administrative metadata. Do not distribute it as a participant credential.
-
-Create or activate a participant:
-
-```http
-POST /v1/participants/start
-{ "identity": "reviewer-001", "role": "reviewer" }
-```
-
-`identity` is optional. Omit it to generate a readable identity. The response includes `participant_token` exactly once. Persist it only when later processes must reuse the identity, in a private file owned by the user with mode `0600`; never print or log it. A duplicate explicit identity returns `409` and does not recover its token.
-
-For a controlled upgrade from the legacy shared-token HTTP model, configure a separate temporary `AGENT_MAIL_CREDENTIAL_ADMIN_TOKEN` and call `POST /v1/participants/{identity}/credential` with that credential. It must differ from `AGENT_MAIL_TOKEN`; the server rejects equal values at startup. The response returns a new one-time `participant_token` and atomically revokes any prior participant token. Never use `AGENT_MAIL_TOKEN` for this route. Remove `AGENT_MAIL_CREDENTIAL_ADMIN_TOKEN` from the server after migration or planned credential rotation.
-
-Add project namespaces before sending or reading mail:
-
-```http
-POST /v1/projects
-{ "alias": "flow", "root": "/path/to/flow" }
-```
-
-`root` is optional metadata. Mail is stored in PostgreSQL, not in the project directory.
-
-Participant send/read operations use `Authorization: Bearer $PARTICIPANT_TOKEN`, not the service-admin token. Send mail:
-
-```http
-POST /v1/messages
-{
-  "project": "flow",
-  "to_kind": "role",
-  "to": "reviewer",
-  "subject": "Review result",
-  "body": "Ready for review.",
-  "idempotency_key": "answer:mail-20260712-001"
-}
-```
-
-The server derives `sender_identity` from the participant token. A supplied, mismatched sender is rejected. `idempotency_key` is optional and may contain at most 128 ASCII letters, numbers, dashes, underscores, dots, and colons. Its uniqueness scope is authenticated participant plus project. Retrying the same key with the same resolved recipient, subject, and body returns the original message with the same ID and timestamp and creates no second delivery. Reusing the key in that project with different content returns `409 Conflict`. Use a deterministic key for operations that must survive response loss, such as an answer keyed by its original question ID.
-
-`to_kind` may be `identity`, `role`, or `broadcast`. If omitted, `all-agents` becomes a broadcast, a known participant identity becomes identity-addressed mail, and any other valid address becomes role-addressed mail.
-
-Read unread mail for a participant:
-
-```http
-GET /v1/projects/{project}/participants/{identity}/inbox?limit=100&cursor={cursor}
-```
-
-HTTP inboxes use ascending keyset pagination by creation nanoseconds and message ID. `limit` is optional, defaults to `100`, and must be between `1` and `200`. `cursor` is an optional opaque string returned by the previous page; pass it back unchanged and never construct or parse it. The response keeps `project`, `identity`, `role`, `unread_count`, and `messages`; `unread_count` is the total unread count across the inbox, while `messages` contains only the current page. `next_cursor` is present only when another page exists. Omitting both query parameters remains compatible for inboxes of up to 100 unread messages; larger inboxes require following `next_cursor`.
-
-Read a full delivered message body:
-
-```http
-GET /v1/projects/{project}/messages/{mail_id}?identity={identity}
-```
-
-Mark a delivered message read:
-
-```http
-POST /v1/projects/{project}/messages/{mail_id}/read
-{ "identity": "reviewer-001" }
-```
-
-## Data Model
-
-- participant: concrete identity plus role
-- project: namespace alias
-- recipient kind: `identity`, `role`, or `broadcast`
-- broadcast recipient: `all-agents`
-- read state: per participant identity
-- message bodies: readable only for delivered mail
-- HTTP participant identity: derived from a one-time participant token; path/query/body identities must match it
-- HTTP send idempotency: optional key, unique per participant and project, with exact-payload replay
-
-Role names such as `reviewer`, `worker/frontend`, and `main-orchestrator` are examples, not built-in semantics.
-
-Messages are not locks, claims, or exclusive assignments. Treat them as durable coordination records.
-
-## Deployment
-
-The Lightsail deployment uses:
-
-- Rust `agent-mail-server`
-- private AWS RDS PostgreSQL
-- bearer-token authentication
-- Cloudflare-proxied HTTPS at `https://agent-mail.cc`
-- nginx on the instance proxying HTTPS traffic to `127.0.0.1:8787`
-- public instance ports `80` and `443`; no public `8787`
-
-Read [docs/lightsail.md](docs/lightsail.md) before deployment for the infrastructure shape, environment, and validation gate.
-
-## Safety Rules
-
+- Keep service-admin, credential-admin, and participant tokens out of mail, logs, errors, command output, and shared artifacts.
+- Persist a participant token only when reuse is required, in a user-owned mode-`0600` file.
+- Do not assume HTTP or MCP reads mark messages read.
 - Do not store secrets, raw environment dumps, `.flow/events/`, or sensitive brainstorming unless confirmed.
-- Do not run `public-mcp-smoke` without explicit live-mutation authorization; it creates persistent production records and has no automatic server-side cleanup.
-- Keep participant tokens in memory or a user-owned `0600` state file only. Never include them in mail, logs, errors, command output, or shared artifacts.
-- Keep the separate credential-administration token unset except during an authorized migration or rotation window; rotating a participant token immediately revokes the previous token.
-- Do not assume HTTP reads mark messages read.
-- Use `mark_read` explicitly for read-state changes.
+- The public MCP smoke mutates production and leaves durable records. Run it only with explicit production-mutation authorization and the required confirmation environment described in the operations reference.
+- Never use the service-admin token where a participant token is required.
+
+<!-- BEGIN GENERATED PORTFOLIO ROUTING v1 -->
+## Portfolio routing contract (generated)
+
+This block is generated from `tests/portfolio-routing-v1.json`; do not edit it by hand.
+
+- `skill`: "agent-mail"
+- `routing_role`: "transport"
+- `portfolio_position`: "Durable cross-session or cross-project mailbox transport and deployed service operations."
+- `positive_request_classes`: ["durable instructions","durable handoffs","durable blockers, decisions, or status","mailbox participant, namespace, inbox, or service operations"]
+- `triggers`: ["Coordination must persist across sessions or projects.","The user requests Agent Mail resources or deployed service work."]
+- `exclusions`: ["routine current-task subagent coordination","logs or locks","Front gateway unless that architecture is explicitly selected"]
+- `state_owner`: "Owns mailbox messages and service data only."
+- `precedence`: ["Never becomes the outer approval or planning workflow."]
+- `legal_compositions`: [{"route":"write-task-handoff","relation":"content-owner"}]
+- `fallbacks`: [{"condition":"Coordination is routine and current-task.","route":"built-in-collaboration","result":"Use built-in collaboration."}]
+- `forbidden_actions`: ["own planning approval","own packet transfer","replace ordinary subagent coordination","perform unstated external action"]
+<!-- END GENERATED PORTFOLIO ROUTING v1 -->

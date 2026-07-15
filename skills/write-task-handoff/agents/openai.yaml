@@ -1,0 +1,5 @@
+# portfolio-routing-v1-row-sha256: 3e02ab4a275e87c4e777c5065f8d4239f388fee3bb67691e1402ea1e42ecffd1
+interface:
+  display_name: "Write Task Handoff"
+  short_description: "Export restartable handoffs without transferring authority"
+  default_prompt: "Use $write-task-handoff to create restartable handoff content or an informational export. Never mutate or transfer an Align packet; consume Align's helper-produced transfer receipt when an actual transfer has already occurred."

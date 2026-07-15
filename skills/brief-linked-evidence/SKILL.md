@@ -1,6 +1,6 @@
 ---
 name: brief-linked-evidence
-description: Orchestrate and reconcile a fixed set of linked resources across multiple provider types into a provenance-aware brief with normalized acquisition receipts, conflicts, uncertainty, exact locators, and a validated evidence ledger. Use for cross-provider synthesis or when the user explicitly requests conflict, provenance, uncertainty analysis, a structured evidence ledger, or a decision brief over supplied resources. Do not use for open-ended technical ecosystem discovery, cross-session or agent-run history lineage, routine single-link verification, explicit browser interaction, single-provider Slack, Notion, GitHub, or Calendar work, paper tutoring, OpenAI facts, Cartesia wiki authoring, or external actions.
+description: Orchestrate and reconcile a fixed set of supplied linked resources across provider types into a provenance-aware brief with acquisition receipts, conflicts, uncertainty, exact locators, and a validated evidence ledger. Use for bounded cross-provider synthesis or an explicit provenance, conflict, uncertainty, ledger, or decision-brief request. Open-ended discovery routes to map-technical-landscapes and historical agent-run lineage routes to mine-history-tool-landscapes. Use only installed provider capabilities; public sources may fall back to an installed browser or web capability, while unavailable private or authenticated sources remain excluded or block completeness. Do not use for external actions.
 ---
 
 # Brief Linked Evidence
@@ -14,7 +14,7 @@ description: Orchestrate and reconcile a fixed set of linked resources across mu
 5. If no provider connector exists, use permitted browser or web access only for public sources. For private or authenticated sources, report the blocker or ask the user to connect the appropriate app. Never substitute snippets or memory for inaccessible content.
 6. Record `acquired`, `blocked`, `failed`, or `not-attempted` for every requested source. Never imply access to blocked content.
 
-Use provider-specific workflows for single-provider requests. In particular, use meeting-prep for one Calendar event with nearby materials, Notion research for multiple Notion sources, browser control for explicit interaction, paper tutoring for teaching, `openai-docs` for OpenAI facts, and `wiki` for Cartesia publication.
+For a single-provider request, first check whether the matching provider capability is installed. Use it when available; otherwise use permitted browser or web access only for public sources, and block or exclude unavailable private sources. Keep explicit browser interaction, tutoring, OpenAI product facts, and publication with their installed domain capability when one is available.
 
 ## Normalize and reconcile
 
@@ -34,3 +34,21 @@ Use provider-specific workflows for single-provider requests. In particular, use
 4. Keep mixed read/action requests in two phases: this skill may produce the evidence brief; the action-specific capability owns any authorized mutation. Validation of a locally written authorization record never grants authority. Never represent an action as completed without an authorization anchored to an opaque user-request identifier and a provider receipt identifier whose completion time follows authorization.
 
 For open-ended discovery and comparison of a technical ecosystem, hand off to `map-technical-landscapes`. For lineage across historical Codex, Claude Code, agent, job, report, or cache runs, hand off to `mine-history-tool-landscapes`.
+
+<!-- BEGIN GENERATED PORTFOLIO ROUTING v1 -->
+## Portfolio routing contract (generated)
+
+This block is generated from `tests/portfolio-routing-v1.json`; do not edit it by hand.
+
+- `skill`: "brief-linked-evidence"
+- `routing_role`: "research"
+- `portfolio_position`: "Bounded cross-provider evidence synthesis over a fixed supplied source set."
+- `positive_request_classes`: ["fixed supplied linked resources","cross-provider provenance brief","conflict or uncertainty analysis","structured evidence ledger"]
+- `triggers`: ["The source universe is fixed before acquisition.","The user requests reconciliation, provenance, conflicts, uncertainty, or a decision brief."]
+- `exclusions`: ["open-ended ecosystem discovery","historical agent-run lineage","routine single-link verification","external mutation"]
+- `state_owner`: "Owns acquisition receipts, normalized evidence ledger, conflicts, uncertainty, and synthesis for the fixed set."
+- `precedence`: ["The source universe must be fixed before acquisition.","Provider capabilities own acquisition semantics only."]
+- `legal_compositions`: []
+- `fallbacks`: [{"condition":"A public source lacks a provider connector.","route":"browser-web","result":"Use an installed browser or web capability if permitted."},{"condition":"A private or authenticated source lacks a provider connector.","route":"stop","result":"Exclude that source or block completeness and ask for the capability."}]
+- `forbidden_actions`: ["expand into open-ended discovery","invent unavailable provider access","hide conflicts or provenance gaps","perform external actions"]
+<!-- END GENERATED PORTFOLIO ROUTING v1 -->

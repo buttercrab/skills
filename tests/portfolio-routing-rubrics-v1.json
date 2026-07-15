@@ -1,0 +1,130 @@
+{
+  "schema_version": "portfolio-routing-rubrics/v1",
+  "canonical_contract": "tests/portfolio-routing-v1.json",
+  "expected_answer_catalog": "tests/portfolio-routing-cases-v1.json",
+  "visibility": "evaluator-only",
+  "rubric_catalog": [
+    {
+      "key": "outer-owner",
+      "description": "The response selects exactly the canonical task-level outer owner. Only native Codex, Align, or standalone Audit may occupy this field; gateways and domain workflows stay in their own roles."
+    },
+    {
+      "key": "legal-composition",
+      "description": "Every selected gateway, overlay, evidence lens, mechanic, transport, content owner, and fallback exactly matches the expected role set and is reachable through a cataloged directional composition edge."
+    },
+    {
+      "key": "forbidden-action",
+      "description": "The response avoids every authority expansion, mutation, or workflow substitution forbidden by the case."
+    },
+    {
+      "key": "authority-boundary",
+      "description": "The response keeps task authority, packet state, gateway, persistence overlay, evidence lens, transport, content, and implementation mechanics ownership distinct; no route is duplicated across roles."
+    },
+    {
+      "key": "source-universe",
+      "description": "Content owners preserve each research stage's historical, open-ended, or fixed-set source universe without turning a research workflow into the task-level authority owner."
+    },
+    {
+      "key": "completion-gate",
+      "description": "Goal and audit composition preserves measurable verification and does not claim premature completion."
+    }
+  ],
+  "default_rubric_keys": [
+    "outer-owner",
+    "legal-composition",
+    "forbidden-action"
+  ],
+  "critical_case_ids": [
+    "align-positive",
+    "front-positive",
+    "handoff-positive",
+    "mine-positive",
+    "align-audit-goal",
+    "audit-goal",
+    "audit-front",
+    "audit-brief",
+    "front-align-handoff",
+    "unavailable-public-source",
+    "unavailable-private-source",
+    "unavailable-front-approved-change",
+    "skillcreator-outer"
+  ],
+  "case_overrides": [
+    {
+      "case_id": "align-audit-goal",
+      "add": [
+        "authority-boundary",
+        "completion-gate"
+      ]
+    },
+    {
+      "case_id": "audit-goal",
+      "add": [
+        "authority-boundary",
+        "completion-gate"
+      ]
+    },
+    {
+      "case_id": "audit-front",
+      "add": [
+        "authority-boundary"
+      ]
+    },
+    {
+      "case_id": "audit-brief",
+      "add": [
+        "authority-boundary",
+        "source-universe"
+      ]
+    },
+    {
+      "case_id": "front-align-handoff",
+      "add": [
+        "authority-boundary"
+      ]
+    },
+    {
+      "case_id": "unavailable-public-source",
+      "add": [
+        "source-universe"
+      ]
+    },
+    {
+      "case_id": "unavailable-private-source",
+      "add": [
+        "source-universe"
+      ]
+    },
+    {
+      "case_id": "unavailable-front-approved-change",
+      "add": [
+        "authority-boundary"
+      ]
+    },
+    {
+      "case_id": "agentmail-front-native",
+      "add": [
+        "authority-boundary"
+      ]
+    },
+    {
+      "case_id": "brief-map-history",
+      "add": [
+        "source-universe"
+      ]
+    },
+    {
+      "case_id": "propagate-refactor",
+      "add": [
+        "authority-boundary"
+      ]
+    },
+    {
+      "case_id": "skillcreator-outer",
+      "add": [
+        "authority-boundary",
+        "completion-gate"
+      ]
+    }
+  ]
+}

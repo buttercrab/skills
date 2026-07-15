@@ -1,11 +1,13 @@
 ---
 name: execute-goal-loop
-description: Use when the user explicitly asks Codex to set or execute a goal, loop or iterate until measurable gates pass, repeat plan/implement/verify/review cycles, use independent reviewers, or persist through an explicitly authorized commit, PR, merge, deploy, or submission. Do not use for ordinary bounded implementation merely because the user requests tests, quality, or end-to-end completion. For creating or updating skills, skill-creator owns skill mechanics; use this skill only as an explicitly requested execution-loop overlay.
+description: Use when the user explicitly asks Codex to set or execute a goal, persist or iterate until measurable gates pass, or repeat plan, implementation, verification, and review cycles under an explicit loop contract. Compose with align-work when unresolved decisions or human approval are required, and with domain skills for technical mechanics. This skill does not replace either. Do not auto-trigger for ordinary bounded implementation, a standalone review, tests or quality requests alone, or a one-off commit, push, pull request, merge, deploy, or submission. Delivery actions belong to this skill only when explicitly authorized inside an active goal loop. For skill work, skill-creator owns skill mechanics.
 ---
 
 # Execute Goal Loop
 
 Use this skill to turn an open-ended task into a hard execution contract with real evidence. The point is not to keep working forever; it is to make "done" measurable, attack the biggest remaining gap, verify honestly, and repeat until the goal is complete or genuinely blocked.
+
+Compose rather than compete. `align-work` owns unresolved decisions, durable plan approval, and reapproval; domain skills own technical mechanics; this skill owns explicit persistence and completion pressure. A goal cannot broaden the authority or scope owned by either.
 
 ## Goal Contract
 
@@ -92,8 +94,19 @@ Keep the user informed without treating status as completion.
 - Record exact commands/checks run and their outcomes.
 - Explain skipped optional checks and their residual risk. Treat an unavailable required gate as unpassed.
 - Preserve unrelated user changes in the worktree.
-- In read-only mode, do not edit, generate, stage, commit, publish, or submit; return findings, exact next edits, and verification gates.
+- In read-only mode, retain the `audit-technical-work` evidence-surface boundary even when that skill is not the outer workflow: do not edit, generate, stage, commit, publish, submit, run stateful tests, or make side-effectful external calls. Pure in-memory evaluation is allowed only when it creates no persistent cache, bytecode, artifact, or external effect. Return findings, exact next edits, and verification gates.
 - Never call a goal complete because time, tokens, or patience ran low.
+
+## Completion Audit
+
+Treat completion as unproven until a current requirement-to-receipt audit passes.
+
+1. Re-derive the complete requirement set from the current goal, user request, approved plan or packet, named artifacts, and any accepted material revisions.
+2. Give every required item a stable identifier and map it to authoritative current-state evidence at matching scope.
+3. Reject a receipt when it comes from a superseded plan or revision, observes state that has since changed materially, proves only a narrower layer, or substitutes a mock for required live behavior.
+4. Recheck volatile facts and cheap current-state gates immediately before completion.
+5. Mark each item `pass`, `fail`, or `incomplete`. Missing, uncertain, indirect, inaccessible, or unaccounted evidence is not a pass.
+6. Complete only when every required item passes, every blocking review finding is resolved or correctly refuted, and no required work remains.
 
 ## Completion Report
 
@@ -105,3 +118,21 @@ End with:
 - remaining risk or unrun checks,
 - publish/submission/merge status if applicable,
 - exact blocker and next required input if not complete.
+
+<!-- BEGIN GENERATED PORTFOLIO ROUTING v1 -->
+## Portfolio routing contract (generated)
+
+This block is generated from `tests/portfolio-routing-v1.json`; do not edit it by hand.
+
+- `skill`: "execute-goal-loop"
+- `routing_role`: "overlay"
+- `portfolio_position`: "Persistence and iteration overlay for explicit measurable goal loops."
+- `positive_request_classes`: ["explicit goal creation or execution","persist until measurable gates pass","repeat plan, implement, verify, and review cycles"]
+- `triggers`: ["The user explicitly asks to set or execute a goal.","The user explicitly requests persistence or iteration until measurable gates pass."]
+- `exclusions`: ["ordinary bounded work","standalone review or test","vague continue request","one-off delivery action"]
+- `state_owner`: "Owns goal progress and completion pressure only; never owns user authority, packet state, or domain state."
+- `precedence`: ["The selected outer workflow retains approval and mutation authority.","Domain skills retain technical mechanics."]
+- `legal_compositions`: [{"route":"skill-creator","relation":"mechanics"},{"route":"propagate-contract-changes","relation":"mechanics"},{"route":"refactor-by-invariant","relation":"mechanics"}]
+- `fallbacks`: [{"condition":"No explicit goal or loop contract exists.","route":"native-codex","result":"Use the applicable outer workflow without creating goal state."}]
+- `forbidden_actions`: ["expand scope","bypass approval gates","replace Align, Audit, or domain mechanics","mark incomplete work complete"]
+<!-- END GENERATED PORTFOLIO ROUTING v1 -->

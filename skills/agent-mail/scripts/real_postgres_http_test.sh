@@ -4,8 +4,22 @@ set -euo pipefail
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 TOKEN="real-test-token"
 CREDENTIAL_ADMIN_TOKEN="real-test-credential-admin-token"
-CARGO_TARGET_DIR="${CARGO_TARGET_DIR:-$ROOT/target}"
+if [[ "${HERMETIC_RUN_ACTIVE:-}" != "1" || -z "${RUN_ROOT:-}" ]]; then
+  echo "real PostgreSQL tests require tests/hermetic_run.sh and its RUN_ROOT" >&2
+  exit 2
+fi
+[[ -d "$RUN_ROOT" && ! -L "$RUN_ROOT" ]] || { echo "unsafe RUN_ROOT: $RUN_ROOT" >&2; exit 2; }
+RUN_ROOT="$(cd "$RUN_ROOT" && pwd -P)"
+CARGO_TARGET_DIR="${CARGO_TARGET_DIR:-$RUN_ROOT/cargo-target}"
+[[ "$CARGO_TARGET_DIR" == "$RUN_ROOT/"* ]] || { echo "CARGO_TARGET_DIR escaped RUN_ROOT" >&2; exit 2; }
+TEST_ROOT="$(mktemp -d "$RUN_ROOT/agent-mail-http.XXXXXX")"
+mkdir -m 700 "$TEST_ROOT/tmp"
+export TMPDIR="$TEST_ROOT/tmp"
 TEST_PASSED=0
+if [[ "${AGENT_MAIL_TEST_FAIL_AT:-}" == "before-postgres" ]]; then
+  echo "injected failure before PostgreSQL startup: $TEST_ROOT" >&2
+  exit 97
+fi
 if [[ -z "${POSTGRES_BIN:-}" ]]; then
   if command -v pg_config >/dev/null 2>&1; then
     POSTGRES_BIN="$(pg_config --bindir)"
@@ -19,10 +33,9 @@ fi
 for tool in initdb pg_ctl pg_isready createdb psql; do
   [[ -x "$POSTGRES_BIN/$tool" ]] || { echo "missing PostgreSQL tool: $POSTGRES_BIN/$tool" >&2; exit 2; }
 done
-TMPDIR="$(mktemp -d /tmp/agent-mail-real-test-XXXXXX)"
-PGDATA="$TMPDIR/pgdata"
-PGLOG="$TMPDIR/postgres.log"
-SERVERLOG="$TMPDIR/server.log"
+PGDATA="$TEST_ROOT/pgdata"
+PGLOG="$TEST_ROOT/postgres.log"
+SERVERLOG="$TEST_ROOT/server.log"
 
 cleanup() {
   local status=$?
@@ -38,23 +51,18 @@ cleanup() {
     "$POSTGRES_BIN/pg_ctl" -D "$PGDATA" -m fast stop >/dev/null 2>&1 || true
   fi
   if [[ $status -ne 0 ]]; then
+    echo "test root: $TEST_ROOT" >&2
     echo "postgres log: $PGLOG" >&2
     echo "server log: $SERVERLOG" >&2
-  else
-    rm -rf "$TMPDIR"
+    [[ -f "$PGLOG" ]] && tail -n 80 "$PGLOG" >&2
+    [[ -f "$SERVERLOG" ]] && tail -n 80 "$SERVERLOG" >&2
   fi
   exit "$status"
 }
 trap cleanup EXIT
 
 free_port() {
-  python3 - <<'PY'
-import socket
-s = socket.socket()
-s.bind(("127.0.0.1", 0))
-print(s.getsockname()[1])
-s.close()
-PY
+  python3 -c 'import socket; s = socket.socket(); s.bind(("127.0.0.1", 0)); print(s.getsockname()[1]); s.close()'
 }
 
 json_get() {
@@ -113,8 +121,12 @@ PG_PORT="$(free_port)"
 HTTP_PORT="$(free_port)"
 
 "$POSTGRES_BIN/initdb" -D "$PGDATA" -A trust -U postgres >/dev/null
-"$POSTGRES_BIN/pg_ctl" -D "$PGDATA" -o "-h 127.0.0.1 -p $PG_PORT" -l "$PGLOG" start >/dev/null
+"$POSTGRES_BIN/pg_ctl" -D "$PGDATA" -o "-h 127.0.0.1 -p $PG_PORT -c unix_socket_directories=''" -l "$PGLOG" start >/dev/null
 POSTGRES_PID=1
+if [[ "${AGENT_MAIL_TEST_FAIL_AT:-}" == "after-postgres" ]]; then
+  echo "injected failure after PostgreSQL startup: $TEST_ROOT" >&2
+  exit 98
+fi
 for _ in {1..100}; do
   if "$POSTGRES_BIN/pg_isready" -h 127.0.0.1 -p "$PG_PORT" -U postgres >/dev/null 2>&1; then
     break
@@ -123,44 +135,46 @@ for _ in {1..100}; do
 done
 "$POSTGRES_BIN/createdb" -h 127.0.0.1 -p "$PG_PORT" -U postgres agent_mail_real_test
 DATABASE_URL="postgres://postgres@127.0.0.1:$PG_PORT/agent_mail_real_test"
-"$POSTGRES_BIN/psql" "$DATABASE_URL" -v ON_ERROR_STOP=1 -q <<'SQL'
-CREATE TABLE participants (
-  identity TEXT PRIMARY KEY,
-  role TEXT NOT NULL,
-  created_at TEXT NOT NULL,
-  updated_at TEXT NOT NULL
-);
-CREATE TABLE projects (
-  alias TEXT PRIMARY KEY,
-  root TEXT NOT NULL DEFAULT '',
-  created_at TEXT NOT NULL
-);
-CREATE TABLE messages (
-  id TEXT PRIMARY KEY,
-  project_alias TEXT NOT NULL REFERENCES projects(alias) ON DELETE CASCADE,
-  sender_identity TEXT NOT NULL REFERENCES participants(identity),
-  sender_role TEXT NOT NULL,
-  recipient_kind TEXT NOT NULL CHECK (recipient_kind IN ('identity', 'role', 'broadcast')),
-  recipient TEXT NOT NULL,
-  subject TEXT NOT NULL,
-  body TEXT NOT NULL,
-  created_at TEXT NOT NULL,
-  created_at_ns BIGINT NOT NULL
-);
-CREATE TABLE receipts (
-  message_id TEXT NOT NULL REFERENCES messages(id) ON DELETE CASCADE,
-  identity TEXT NOT NULL REFERENCES participants(identity) ON DELETE CASCADE,
-  read_at TEXT NOT NULL,
-  PRIMARY KEY(message_id, identity)
-);
-INSERT INTO participants(identity, role, created_at, updated_at) VALUES
-  ('legacy-sender', 'legacy-sender', '2026-01-01T00:00:00.000000000Z', '2026-01-01T00:00:00.000000000Z'),
-  ('legacy-001', 'legacy', '2026-01-01T00:00:00.000000000Z', '2026-01-01T00:00:00.000000000Z');
-INSERT INTO projects(alias, root, created_at) VALUES
-  ('legacy', '/srv/legacy', '2026-01-01T00:00:00.000000000Z');
-INSERT INTO messages(id, project_alias, sender_identity, sender_role, recipient_kind, recipient, subject, body, created_at, created_at_ns) VALUES
-  ('mail-legacy-001', 'legacy', 'legacy-sender', 'legacy-sender', 'identity', 'legacy-001', 'Legacy mail', 'legacy body', '2026-01-01T00:00:00.000000000Z', 1);
-SQL
+SCHEMA_SQL="$TEST_ROOT/schema.sql"
+printf '%s\n' \
+  "CREATE TABLE participants (" \
+  "  identity TEXT PRIMARY KEY," \
+  "  role TEXT NOT NULL," \
+  "  created_at TEXT NOT NULL," \
+  "  updated_at TEXT NOT NULL" \
+  ");" \
+  "CREATE TABLE projects (" \
+  "  alias TEXT PRIMARY KEY," \
+  "  root TEXT NOT NULL DEFAULT ''," \
+  "  created_at TEXT NOT NULL" \
+  ");" \
+  "CREATE TABLE messages (" \
+  "  id TEXT PRIMARY KEY," \
+  "  project_alias TEXT NOT NULL REFERENCES projects(alias) ON DELETE CASCADE," \
+  "  sender_identity TEXT NOT NULL REFERENCES participants(identity)," \
+  "  sender_role TEXT NOT NULL," \
+  "  recipient_kind TEXT NOT NULL CHECK (recipient_kind IN ('identity', 'role', 'broadcast'))," \
+  "  recipient TEXT NOT NULL," \
+  "  subject TEXT NOT NULL," \
+  "  body TEXT NOT NULL," \
+  "  created_at TEXT NOT NULL," \
+  "  created_at_ns BIGINT NOT NULL" \
+  ");" \
+  "CREATE TABLE receipts (" \
+  "  message_id TEXT NOT NULL REFERENCES messages(id) ON DELETE CASCADE," \
+  "  identity TEXT NOT NULL REFERENCES participants(identity) ON DELETE CASCADE," \
+  "  read_at TEXT NOT NULL," \
+  "  PRIMARY KEY(message_id, identity)" \
+  ");" \
+  "INSERT INTO participants(identity, role, created_at, updated_at) VALUES" \
+  "  ('legacy-sender', 'legacy-sender', '2026-01-01T00:00:00.000000000Z', '2026-01-01T00:00:00.000000000Z')," \
+  "  ('legacy-001', 'legacy', '2026-01-01T00:00:00.000000000Z', '2026-01-01T00:00:00.000000000Z');" \
+  "INSERT INTO projects(alias, root, created_at) VALUES" \
+  "  ('legacy', '/srv/legacy', '2026-01-01T00:00:00.000000000Z');" \
+  "INSERT INTO messages(id, project_alias, sender_identity, sender_role, recipient_kind, recipient, subject, body, created_at, created_at_ns) VALUES" \
+  "  ('mail-legacy-001', 'legacy', 'legacy-sender', 'legacy-sender', 'identity', 'legacy-001', 'Legacy mail', 'legacy body', '2026-01-01T00:00:00.000000000Z', 1);" \
+  >"$SCHEMA_SQL"
+"$POSTGRES_BIN/psql" "$DATABASE_URL" -v ON_ERROR_STOP=1 -q -f "$SCHEMA_SQL"
 
 CARGO_TARGET_DIR="$CARGO_TARGET_DIR" cargo build --manifest-path "$ROOT/Cargo.toml" -p agent-mail-server >/dev/null
 if "$CARGO_TARGET_DIR/debug/agent-mail-server" \

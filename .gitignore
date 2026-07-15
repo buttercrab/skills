@@ -11,3 +11,4 @@ __pycache__/
 # Generated local binaries.
 skills/agent-mail/bin/
 skills/agent-mail/target/
+skills/front-agent-orchestration/scripts/front-agent-bin

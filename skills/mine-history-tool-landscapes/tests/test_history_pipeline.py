@@ -1,887 +1,430 @@
 from __future__ import annotations
 
-import copy
-import contextlib
-import hashlib
-import importlib.util
-import io
+from copy import deepcopy
 import json
 import os
+from pathlib import Path
+import shutil
+import subprocess
+import sys
 import tempfile
 import unittest
-from pathlib import Path
-from unittest import mock
 
 
 SKILL = Path(__file__).resolve().parents[1]
+SCRIPTS = SKILL / "scripts"
+REPO = SKILL.parents[1]
+GATE = REPO / ".planning" / "harden-skill-portfolio" / "gate-b-r2"
+POSITIVE = GATE / "fixtures" / "positive"
+AUTHORITY = GATE / "fixtures" / "authority"
+sys.path.insert(0, str(SCRIPTS))
+
+import history_v4
+import index_agent_history
+import normalize_codex_history
+import validate_history_v4
+from strict_json import StrictJSONError, canonical_bytes, loads_strict
 
 
-def load_module(name: str, path: Path):
-    spec = importlib.util.spec_from_file_location(name, path)
-    module = importlib.util.module_from_spec(spec)
-    assert spec.loader is not None
-    spec.loader.exec_module(module)
-    return module
+def load(name: str) -> dict:
+    return json.loads((POSITIVE / name).read_text(encoding="utf-8"))
 
 
-indexer = load_module("history_indexer", SKILL / "scripts" / "index_agent_history.py")
-validator = load_module("history_validator", SKILL / "scripts" / "validate_history_evidence.py")
+class HistoryV4PipelineTests(unittest.TestCase):
+    def test_all_successor_schemas_and_semantics_accept_positive_chain(self) -> None:
+        history = load("history-sources-v4.valid.json")
+        ledger = load("semantic-observation-ledger-v2.valid.json")
+        index = load("history-index-v4.valid.json")
+        reduction = load("capability-reduction-v3.valid.json")
+        evidence = load("history-evidence-v1.valid.json")
+        publication = load("history-publication-v3.valid.json")
+        for document in (history, ledger, index, reduction, evidence, publication):
+            history_v4.validate_schema(document)
+        history_v4.validate_ledger(ledger)
+        history_v4.validate_sources(history, ledger)
+        history_v4.validate_index(index, history, ledger)
+        history_v4.validate_reduction(reduction, index, ledger)
+        history_v4.validate_evidence(evidence, reduction, index, ledger)
+        history_v4.validate_publication(publication, evidence)
 
+    def test_strict_json_normalizes_values_and_rejects_key_collisions(self) -> None:
+        value = loads_strict('{"value":"e\\u0301"}')
+        self.assertEqual(canonical_bytes(value), '{"value":"é"}'.encode())
+        with self.assertRaisesRegex(StrictJSONError, "normalized JSON object key collision"):
+            loads_strict('{"é":1,"e\\u0301":2}')
+        with self.assertRaisesRegex(StrictJSONError, "duplicate JSON object key"):
+            loads_strict('{"x":1,"x":2}')
 
-def write_json(path: Path, value: object) -> None:
-    path.write_text(json.dumps(value, sort_keys=True), encoding="utf-8")
+    def test_per_index_identity_is_unlinkable_and_full_length(self) -> None:
+        key1, key2 = b"a" * 32, b"b" * 32
+        salt1, salt2 = b"c" * 32, b"d" * 32
+        native1 = history_v4.derive_native_hmac(key1, salt1, "codex", "session", "native")
+        native2 = history_v4.derive_native_hmac(key2, salt2, "codex", "session", "native")
+        public1 = history_v4.derive_public_id(key1, salt1, "session", "session", native1)
+        public2 = history_v4.derive_public_id(key2, salt2, "session", "session", native2)
+        self.assertNotEqual(native1, native2)
+        self.assertNotEqual(public1, public2)
+        self.assertRegex(public1, r"^session-[0-9a-f]{64}$")
 
+    def test_descriptor_read_rejects_symlink_hardlink_unsafe_mode_and_swap(self) -> None:
+        with tempfile.TemporaryDirectory() as raw:
+            root = Path(raw)
+            target = root / "source.json"
+            target.write_text("{}", encoding="utf-8")
+            target.chmod(0o600)
+            descriptor, payload = history_v4.acquire_file(root, "source.json", max_bytes=10)
+            self.assertEqual(payload, b"{}")
+            self.assertEqual(descriptor["nlink"], 1)
 
-def write_jsonl(path: Path, rows: list[dict]) -> None:
-    path.write_text("".join(json.dumps(row, sort_keys=True) + "\n" for row in rows), encoding="utf-8")
+            link = root / "link.json"
+            link.symlink_to(target)
+            with self.assertRaisesRegex(history_v4.HistoryV4Error, "E_DESCRIPTOR_SYMLINK"):
+                history_v4.acquire_file(root, "link.json", max_bytes=10)
 
+            hard = root / "hard.json"
+            os.link(target, hard)
+            with self.assertRaisesRegex(history_v4.HistoryV4Error, "E_DESCRIPTOR_HARD_LINK"):
+                history_v4.acquire_file(root, "source.json", max_bytes=10)
+            hard.unlink()
 
-def read_json(path: Path):
-    return json.loads(path.read_text(encoding="utf-8"))
+            target.chmod(0o666)
+            with self.assertRaisesRegex(history_v4.HistoryV4Error, "E_DESCRIPTOR_UNSAFE_MODE"):
+                history_v4.acquire_file(root, "source.json", max_bytes=10)
+            target.chmod(0o600)
 
+            def mutate(_: int) -> None:
+                target.write_text("changed", encoding="utf-8")
+                target.chmod(0o600)
 
-def read_jsonl(path: Path):
-    return [json.loads(line) for line in path.read_text(encoding="utf-8").splitlines() if line]
+            with self.assertRaisesRegex(history_v4.HistoryV4Error, "E_DESCRIPTOR_SWAP"):
+                history_v4.acquire_file(root, "source.json", max_bytes=20, post_read_hook=mutate)
 
-
-class HistoryPipelineTests(unittest.TestCase):
-    def setUp(self) -> None:
-        self.temp = tempfile.TemporaryDirectory(prefix="history-synthetic-")
-        self.base = Path(self.temp.name)
-        self.source_root = self.base / "sources"
-        self.source_root.mkdir()
-        self.source_path = self.source_root / "normalized.jsonl"
-        self.key = self.base / "id-key"
-        self.key.write_bytes(b"synthetic-key-material-32-bytes!!")
-        self.key.chmod(0o600)
-
-    def tearDown(self) -> None:
-        self.temp.cleanup()
-
-    def default_rows(self) -> list[dict]:
-        return [
-            {
-                "native_session_id": "hist-root-0001",
-                "native_aliases": ["hist-alias-0001"],
-                "started_at": "2026-01-01T00:00:00Z",
-                "role": "root",
-                "recurrence_class": "user-intent",
-                "classification_basis": "reducer-reviewed",
-                "namespace": "history-namespace",
-                "root_intent_hash": "a" * 16,
-                "project_family_hash": "b" * 16,
-                "source_locator": "root-locator",
-            },
-            {
-                "native_session_id": "hist-child-0001",
-                "native_parent_id": "hist-root-0001",
-                "started_at": "2026-01-01T00:01:00Z",
-                "role": "child",
-                "recurrence_class": "delegated",
-                "classification_basis": "native-metadata",
-                "namespace": "history-namespace",
-                "source_locator": "child-locator",
-            },
-            {
-                "native_session_id": "active-root-0001",
-                "started_at": "2026-02-01T00:00:00Z",
-                "role": "root",
-                "recurrence_class": "user-intent",
-                "classification_basis": "reducer-reviewed",
-                "namespace": "active-namespace",
-                "root_intent_hash": "c" * 16,
-                "project_family_hash": "d" * 16,
-                "source_locator": "active-locator",
-            },
-        ]
-
-    def source_contract(self, *, origin="local", state="frozen", authorization=None, cutoff="2026-02-01T00:00:00Z") -> dict:
-        if authorization is None:
-            authorization = {"kind": "local-default"}
-        return {
-            "schema_version": "history-sources/v2",
-            "cutoff_at": cutoff,
-            "cutoff_attestation": {
-                "kind": "pre-discovery",
-                "attested_at": "2026-02-02T00:00:00Z",
-                "authority": "synthetic-test",
-            },
-            "retention": {"disposition": "delete-after-validation"},
-            "sources": [
-                {
-                    "source_id": "local-source",
-                    "platform": "codex",
-                    "kind": "normalized-jsonl",
-                    "path": str(self.source_path),
-                    "authorized_root": str(self.source_root),
-                    "state": state,
-                    "origin": origin,
-                    "authorization": authorization,
-                }
-            ],
-        }
-
-    def campaign_contract(self, *, start="2026-02-01T00:00:00Z") -> dict:
-        return {
-            "schema_version": "active-campaign/v2",
-            "platform": "codex",
-            "root_native_id": "active-root-0001",
-            "root_aliases": [],
-            "campaign_start": start,
-        }
-
-    def build(self, *, rows=None, source=None, campaign=True, name="index") -> Path:
-        write_jsonl(self.source_path, rows or self.default_rows())
-        source_path = self.base / f"sources-{name}.json"
-        campaign_path = self.base / f"campaign-{name}.json"
-        write_json(source_path, source or self.source_contract())
-        if campaign:
-            write_json(campaign_path, self.campaign_contract())
-        out = self.base / name
-        indexer.build(source_path, campaign_path if campaign else None, self.key, out)
-        return out
-
-    def valid_lineage(self, index: Path):
-        roots = read_jsonl(index / "roots.jsonl")
-        children = read_jsonl(index / "children.jsonl")
-        root = roots[0]
-        child = children[0]
-        source = read_jsonl(index / "source-ledger.jsonl")[0]
-        locator_hash = hashlib.sha256(b"root-locator\0role").hexdigest()
-        evidence = {
-            "schema_version": "history-evidence/v2",
-            "mode": "lineage",
-            "artifacts": [],
-            "claims": [
-                {
-                    "id": "claim-root",
-                    "statement": "A historical root was observed.",
-                    "observed_at": "2026-02-02T00:00:00Z",
-                    "evidence": [
-                        {
-                            "evidence_type": "agent-history",
-                            "record_id": root["record_id"],
-                            "state": "frozen",
-                            "locator": {
-                                "field": "role",
-                                "ordinal": 1,
-                                "source_id": source["source_id"],
-                                "source_hash": source["snapshot_hash"],
-                                "locator_hash": locator_hash,
-                            },
-                        }
-                    ],
-                }
-            ],
-            "conflicts": [],
-            "recurrence": [
-                {
-                    "candidate_id": "candidate-one",
-                    "support_record_ids": [root["record_id"]],
-                    "root_intent_count": 1,
-                    "project_family_count": 1,
-                    "evidence_claim_ids": ["claim-root"],
-                }
-            ],
-            "lineage_scope": {
-                "target_record_ids": [root["record_id"]],
-                "target_artifact_ids": [],
-                "record_closure": sorted([root["record_id"], child["record_id"]]),
-            },
-            "lineage_edges": [
-                {
-                    "id": "edge-child",
-                    "from": {"kind": "record", "id": root["record_id"]},
-                    "to": {"kind": "record", "id": child["record_id"]},
-                    "edge_type": "native",
-                    "confidence": "high",
-                    "evidence_claim_ids": ["claim-root"],
-                }
-            ],
-        }
-        manifest = read_json(index / "manifest.json")
-        publication = {
-            "schema_version": "history-publication/v2",
-            "mode": "lineage",
-            "summary": "Synthetic historical lineage.",
-            "claim_ids": ["claim-root"],
-            "record_ids": [root["record_id"]],
-            "artifact_ids": [],
-            "counts": {
-                "roots": manifest["counts"]["included_roots"],
-                "children": manifest["counts"]["included_children"],
-                "unresolved": manifest["counts"]["included_unresolved"],
-                "excluded": manifest["counts"]["primary_exclusions"],
-                "project_families": manifest["counts"]["included_project_families"],
-            },
-            "source_manifest": [
-                {
-                    "source_id": source["source_id"],
-                    "snapshot_hash": source["snapshot_hash"],
-                    "state": source["state"],
-                    "origin": source["origin"],
-                }
-            ],
-            "provenance_ledger": [{"claim_id": "claim-root", "reference_count": 1}],
-            "state_labels": {"live": 0, "frozen": 1},
-            "lineage_scope": evidence["lineage_scope"],
-            "lineage_edge_ids": ["edge-child"],
-        }
-        return evidence, publication
-
-    def error_codes(self, index: Path, evidence: dict, publication: dict) -> set[str]:
-        return {error["code"] for error in validator.Validator(index, evidence, publication).validate()}
-
-    def test_valid_pipeline_and_strict_permissions(self):
-        index = self.build()
-        evidence, publication = self.valid_lineage(index)
-        self.assertEqual([], validator.Validator(index, evidence, publication).validate())
-        self.assertEqual(0o700, stat_mode(index))
-        self.assertEqual(0o600, stat_mode(index / "manifest.json"))
-        self.assertEqual(0o700, stat_mode(index / "private"))
-        self.assertEqual(0o600, stat_mode(index / "private" / "native-map.jsonl"))
-
-    def test_publication_redaction_rejects_security_payloads_and_keys(self):
-        index = self.build()
-        evidence, publication = self.valid_lineage(index)
-        payloads = [
-            ("github_pat_" + "A" * 24, "secret-leak"),
-            ("-----BEGIN PRIVATE KEY-----", "secret-leak"),
-            ("/secret", "path-leak"),
-            (r"\\server\share\file", "path-leak"),
-            ("hist-root-0001", "native-id-leak"),
-            ("data:text/plain;base64,U2Vuc2l0aXZl", "url-leak"),
-            ("custom-app:private-payload", "url-leak"),
-            ("x:sensitive-payload", "url-leak"),
-        ]
-        for payload, code in payloads:
-            with self.subTest(payload=payload):
-                candidate = copy.deepcopy(publication)
-                candidate["summary"] = payload
-                self.assertIn(code, self.error_codes(index, evidence, candidate))
-        candidate = copy.deepcopy(publication)
-        candidate["github_pat_" + "B" * 24] = "value"
-        codes = self.error_codes(index, evidence, candidate)
-        self.assertIn("schema-keys", codes)
-        self.assertIn("secret-leak", codes)
-
-    def test_manifest_paths_are_rejected_before_digest(self):
-        index = self.build()
-        evidence, publication = self.valid_lineage(index)
-        manifest = read_json(index / "manifest.json")
-        manifest["file_hashes"]["/dev/zero"] = "0" * 64
-        write_json(index / "manifest.json", manifest)
-        (index / "manifest.json").chmod(0o600)
-        with mock.patch.object(validator.Validator, "index_digest", side_effect=AssertionError("must not open")):
-            codes = self.error_codes(index, evidence, publication)
-        self.assertIn("index-file-set", codes)
-
-    def test_metadata_smuggling_and_symlink_source_are_rejected(self):
-        rows = self.default_rows()
-        rows[0]["native_session_id"] = "github_pat_" + "A" * 24
-        with self.assertRaises(indexer.ContractError):
-            self.build(rows=rows, name="smuggle")
-        write_jsonl(self.source_path, self.default_rows())
-        target = self.source_root / "target.jsonl"
-        self.source_path.replace(target)
-        self.source_path.symlink_to(target)
-        source_path = self.base / "symlink-source.json"
-        write_json(source_path, self.source_contract())
-        campaign_path = self.base / "symlink-campaign.json"
-        write_json(campaign_path, self.campaign_contract())
-        with self.assertRaises(indexer.ContractError):
-            indexer.build(source_path, campaign_path, self.key, self.base / "symlink-index")
-
-    def test_unhashable_alias_is_a_contract_error(self):
-        rows = self.default_rows()
-        rows[0]["native_aliases"] = [{"not": "a-string"}]
-        with self.assertRaises(indexer.ContractError):
-            self.build(rows=rows, name="bad-alias")
-
-    def test_post_cutoff_descendant_cannot_seed_namespace(self):
-        rows = [
-            {
-                "native_session_id": "historical-root-b",
-                "started_at": "2026-02-01T12:00:00Z",
-                "role": "root",
-                "recurrence_class": "user-intent",
-                "classification_basis": "reducer-reviewed",
-                "namespace": "namespace-b",
-                "root_intent_hash": "a" * 16,
-                "source_locator": "history-b",
-            },
-            {
-                "native_session_id": "active-root-0001",
-                "started_at": "2026-02-01T00:00:00Z",
-                "role": "root",
-                "recurrence_class": "user-intent",
-                "classification_basis": "reducer-reviewed",
-                "namespace": "namespace-a",
-                "root_intent_hash": "b" * 16,
-                "source_locator": "active-a",
-            },
-            {
-                "native_session_id": "after-cutoff-child",
-                "native_parent_id": "active-root-0001",
-                "started_at": "2026-02-03T00:00:00Z",
-                "role": "child",
-                "recurrence_class": "delegated",
-                "classification_basis": "native-metadata",
-                "namespace": "namespace-b",
-                "source_locator": "future-b",
-            },
-        ]
-        source = self.source_contract(cutoff="2026-02-02T00:00:00Z")
-        index = self.build(rows=rows, source=source, name="cutoff")
-        roots = read_jsonl(index / "roots.jsonl")
-        self.assertEqual(1, len(roots))
-        private = read_jsonl(index / "private" / "native-map.jsonl")
-        included_id = roots[0]["record_id"]
-        native = {row["record_id"]: row["native_session_id"] for row in private}
-        self.assertEqual("historical-root-b", native[included_id])
-
-    def test_campaign_chronology_and_key_permissions(self):
-        write_jsonl(self.source_path, self.default_rows())
-        source_path = self.base / "chronology-source.json"
-        write_json(source_path, self.source_contract())
-        campaign_path = self.base / "chronology-campaign.json"
-        write_json(campaign_path, self.campaign_contract(start="2026-02-01T00:00:01Z"))
-        with self.assertRaises(indexer.ContractError):
-            indexer.build(source_path, campaign_path, self.key, self.base / "chronology")
-        self.key.chmod(0o644)
-        with self.assertRaises(indexer.ContractError):
-            indexer.build(source_path, None, self.key, self.base / "bad-key")
-
-    def test_ids_are_salted_per_index(self):
-        first = self.build(name="first")
-        second = self.build(name="second")
-        first_root = read_jsonl(first / "roots.jsonl")[0]
-        second_root = read_jsonl(second / "roots.jsonl")[0]
-        self.assertNotEqual(first_root["record_id"], second_root["record_id"])
-        self.assertNotEqual(first_root["namespace_hash"], second_root["namespace_hash"])
-        self.assertNotEqual(first_root["root_intent_hash"], second_root["root_intent_hash"])
-
-    def test_remote_receipt_must_be_frozen_and_hash_bound(self):
-        source = self.source_contract(origin="remote-snapshot", state="live", authorization={"kind": "approved-snapshot"})
-        with self.assertRaises(indexer.ContractError):
-            self.build(source=source, name="remote-live")
-        source = self.source_contract(
-            origin="remote-snapshot",
-            state="frozen",
-            authorization={
-                "kind": "approved-snapshot",
-                "source_id": "local-source",
-                "snapshot_sha256": "0" * 64,
-                "approved_by": "synthetic-test",
-                "captured_at": "2026-02-01T23:59:59Z",
-                "approved_at": "2026-02-02T00:00:00Z",
-                "scope": "history-metadata",
-            },
-        )
-        with self.assertRaises(indexer.ContractError):
-            self.build(source=source, name="remote-hash")
-
-    def test_validator_inputs_reject_symlinks_special_files_and_oversize(self):
-        real = self.base / "evidence-real.json"
-        write_json(real, {"synthetic": True})
-        linked = self.base / "evidence-link.json"
-        linked.symlink_to(real)
-        with self.assertRaises(ValueError):
-            validator.read_json(linked)
-        with self.assertRaises(ValueError):
-            validator.read_json(self.source_root)
-        oversize = self.base / "oversize.json"
-        oversize.write_text(json.dumps({"payload": "x" * 128}), encoding="utf-8")
-        old_limit = validator.MAX_PUBLIC_INPUT_BYTES
-        try:
-            validator.MAX_PUBLIC_INPUT_BYTES = 64
-            with self.assertRaises(ValueError):
-                validator.read_json(oversize)
-        finally:
-            validator.MAX_PUBLIC_INPUT_BYTES = old_limit
-
-    def test_duplicate_json_keys_fail_closed_at_every_boundary(self):
-        rows = self.default_rows()
-        write_jsonl(self.source_path, rows)
-        source_doc = self.source_contract()
-        source_path = self.base / "duplicate-root-source.json"
-        root_duplicate = json.dumps(source_doc)[:-1] + ',"schema_version":"history-sources/v2"}'
-        source_path.write_text(root_duplicate, encoding="utf-8")
-        out = self.base / "duplicate-root-index"
-        argv = [
-            "index_agent_history.py",
-            "--source-contract",
-            str(source_path),
-            "--id-key-file",
-            str(self.key),
-            "--out",
-            str(out),
-        ]
-        capture = io.StringIO()
-        with mock.patch.object(indexer.sys, "argv", argv), contextlib.redirect_stdout(capture):
-            self.assertEqual(2, indexer.main())
-        self.assertFalse(out.exists())
-        self.assertFalse(json.loads(capture.getvalue())["ok"])
-
-        nested_path = self.base / "duplicate-nested-source.json"
-        nested_text = json.dumps(source_doc, sort_keys=True).replace(
-            '"authority": "synthetic-test"',
-            '"authority": "synthetic-test", "authority": "duplicate"',
-        )
-        nested_path.write_text(nested_text, encoding="utf-8")
-        with self.assertRaises(indexer.ContractError):
-            indexer.build(nested_path, None, self.key, self.base / "duplicate-nested-index")
-        self.assertFalse((self.base / "duplicate-nested-index").exists())
-
-        duplicate_row_path = self.source_root / "duplicate-row.jsonl"
-        duplicate_row_path.write_text(json.dumps(rows[0])[:-1] + ',"role":"root"}\n', encoding="utf-8")
-        row_source = self.source_contract()
-        row_source["sources"][0]["path"] = str(duplicate_row_path)
-        row_source_path = self.base / "duplicate-row-source.json"
-        write_json(row_source_path, row_source)
-        with self.assertRaises(indexer.ContractError):
-            indexer.build(row_source_path, None, self.key, self.base / "duplicate-row-index")
-        self.assertFalse((self.base / "duplicate-row-index").exists())
-
-        index = self.build(name="strict-json-index")
-        evidence, publication = self.valid_lineage(index)
-        evidence_path = self.base / "duplicate-evidence.json"
-        publication_path = self.base / "strict-publication.json"
-        evidence_path.write_text(json.dumps(evidence)[:-1] + ',"mode":"lineage"}', encoding="utf-8")
-        write_json(publication_path, publication)
-        capture = io.StringIO()
-        argv = ["validate_history_evidence.py", "--index", str(index), "--evidence", str(evidence_path), "--publication", str(publication_path)]
-        with mock.patch.object(validator.sys, "argv", argv), contextlib.redirect_stdout(capture):
-            self.assertEqual(2, validator.main())
-        self.assertEqual("read-error", json.loads(capture.getvalue())["errors"][0]["code"])
-
-        write_json(evidence_path, evidence)
-        publication_path.write_text(json.dumps(publication)[:-1] + ',"summary":"duplicate"}', encoding="utf-8")
-        capture = io.StringIO()
-        with mock.patch.object(validator.sys, "argv", argv), contextlib.redirect_stdout(capture):
-            self.assertEqual(2, validator.main())
-        self.assertEqual("read-error", json.loads(capture.getvalue())["errors"][0]["code"])
-
-        manifest_path = index / "manifest.json"
-        manifest = read_json(manifest_path)
-        manifest_path.write_text(json.dumps(manifest)[:-1] + ',"schema_version":"history-index/v2"}', encoding="utf-8")
-        manifest_path.chmod(0o600)
-        codes = self.error_codes(index, evidence, publication)
-        self.assertIn("index-read", codes)
-
-    def test_index_integrity_exclusion_and_permission_checks(self):
-        index = self.build()
-        evidence, publication = self.valid_lineage(index)
-        root_id = publication["record_ids"][0]
-        exclusions = read_jsonl(index / "exclusion-ledger.jsonl")
-        exclusions.append({"record_id": root_id, "reasons": ["after_cutoff"]})
-        write_jsonl(index / "exclusion-ledger.jsonl", exclusions)
-        (index / "exclusion-ledger.jsonl").chmod(0o600)
-        manifest = read_json(index / "manifest.json")
-        manifest["file_hashes"]["exclusion-ledger.jsonl"] = hashlib.sha256((index / "exclusion-ledger.jsonl").read_bytes()).hexdigest()
-        core = {key: value for key, value in manifest.items() if key != "corpus_hash"}
-        manifest["corpus_hash"] = hashlib.sha256(validator.canonical_json(core)).hexdigest()
-        write_json(index / "manifest.json", manifest)
-        (index / "manifest.json").chmod(0o600)
-        self.assertIn("included-and-excluded", self.error_codes(index, evidence, publication))
-        index.chmod(0o755)
-        self.assertIn("unsafe-permissions", self.error_codes(index, evidence, publication))
-
-    def test_private_observation_counts_reconcile_duplicates(self):
-        rows = self.default_rows()
-        rows.insert(1, copy.deepcopy(rows[0]))
-        index = self.build(rows=rows, name="duplicate-observation")
-        evidence, publication = self.valid_lineage(index)
-        private_path = index / "private" / "native-map.jsonl"
-        private_rows = read_jsonl(private_path)
-        duplicate_row = next(row for row in private_rows if len(row["observations"]) == 2)
-        duplicate_row["observations"].pop()
-        write_jsonl(private_path, private_rows)
-        private_path.chmod(0o600)
-        manifest = read_json(index / "manifest.json")
-        manifest["file_hashes"]["private/native-map.jsonl"] = hashlib.sha256(private_path.read_bytes()).hexdigest()
-        core = {key: value for key, value in manifest.items() if key != "corpus_hash"}
-        manifest["corpus_hash"] = hashlib.sha256(validator.canonical_json(core)).hexdigest()
-        write_json(index / "manifest.json", manifest)
-        (index / "manifest.json").chmod(0o600)
-        self.assertIn("accounting-mismatch", self.error_codes(index, evidence, publication))
-
-    def test_locator_must_match_observation(self):
-        index = self.build()
-        evidence, publication = self.valid_lineage(index)
-        evidence["claims"][0]["evidence"][0]["locator"]["ordinal"] = 999999
-        self.assertIn("unobserved-locator", self.error_codes(index, evidence, publication))
-        evidence, publication = self.valid_lineage(index)
-        evidence["claims"][0]["evidence"][0]["locator"]["field"] = "namespace"
-        self.assertIn("unobserved-locator", self.error_codes(index, evidence, publication))
-
-    def test_native_lineage_must_be_complete(self):
-        index = self.build()
-        evidence, publication = self.valid_lineage(index)
-        evidence["lineage_edges"] = []
-        publication["lineage_edge_ids"] = []
-        self.assertIn("lineage-mismatch", self.error_codes(index, evidence, publication))
-
-    def test_native_id_matching_required_schema_key_does_not_false_positive(self):
-        rows = self.default_rows()
-        rows[0]["native_session_id"] = "roots"
-        rows[0]["native_aliases"] = []
-        rows[1]["native_parent_id"] = "roots"
-        index = self.build(rows=rows, name="schema-key-native")
-        evidence, publication = self.valid_lineage(index)
-        self.assertEqual([], validator.Validator(index, evidence, publication).validate())
-
-    def test_deep_lineage_is_iterative(self):
-        rows = [
-            {
-                "native_session_id": "deep-root-0000",
-                "started_at": "2026-01-01T00:00:00Z",
-                "role": "root",
-                "recurrence_class": "user-intent",
-                "classification_basis": "reducer-reviewed",
-                "root_intent_hash": "a" * 16,
-                "source_locator": "deep-loc-0000",
-            }
-        ]
-        for index in range(1, 1100):
-            rows.append(
-                {
-                    "native_session_id": f"deep-child-{index:04d}",
-                    "native_parent_id": "deep-root-0000" if index == 1 else f"deep-child-{index - 1:04d}",
-                    "started_at": "2026-01-01T00:00:00Z",
-                    "role": "child",
-                    "recurrence_class": "delegated",
-                    "classification_basis": "native-metadata",
-                    "source_locator": f"deep-loc-{index:04d}",
-                }
+    def test_exact_bundle_rejects_copied_private_state_and_extra_file(self) -> None:
+        with tempfile.TemporaryDirectory() as raw:
+            root = Path(raw)
+            for name in ("one", "two"):
+                (root / name).write_text(name, encoding="utf-8")
+                (root / name).chmod(0o600)
+            with self.assertRaisesRegex(history_v4.HistoryV4Error, "E_PRIVATE_FILE_SET_MISMATCH"):
+                history_v4.acquire_exact_bundle(
+                    root, ["one"], max_file_bytes=10, max_total_bytes=20
+                )
+            (root / "two").unlink()
+            acquired = history_v4.acquire_exact_bundle(
+                root, ["one"], max_file_bytes=10, max_total_bytes=20
             )
-        rows.append(self.default_rows()[2])
-        index = self.build(rows=rows, name="deep-lineage")
-        self.assertEqual(1099, read_json(index / "manifest.json")["counts"]["included_children"])
+            self.assertEqual(acquired["one"][1], b"one")
 
-    def test_standalone_artifact_is_grounded_without_fake_record(self):
-        index = self.build(rows=[self.default_rows()[0]], campaign=False, name="artifact-index")
-        manifest = read_json(index / "manifest.json")
-        source = read_jsonl(index / "source-ledger.jsonl")[0]
-        artifact_hash = "e" * 64
-        evidence = {
-            "schema_version": "history-evidence/v2",
-            "mode": "lineage",
-            "artifacts": [
-                {
-                    "id": "artifact-one",
-                    "kind": "artifact",
-                    "state": "frozen",
-                    "snapshot_hash": artifact_hash,
-                    "observed_at": "2026-02-02T00:00:00Z",
-                }
-            ],
-            "claims": [
-                {
-                    "id": "claim-artifact",
-                    "statement": "A frozen artifact was observed.",
-                    "observed_at": "2026-02-02T00:00:00Z",
-                    "evidence": [
-                        {
-                            "evidence_type": "artifact",
-                            "artifact_id": "artifact-one",
-                            "state": "frozen",
-                            "locator": {"field": "metadata", "ordinal": 0, "snapshot_hash": artifact_hash},
-                        }
-                    ],
-                }
-            ],
-            "conflicts": [],
-            "recurrence": [],
-            "lineage_scope": {
-                "target_record_ids": [],
-                "target_artifact_ids": ["artifact-one"],
-                "record_closure": [],
+    def test_adapter_projection_redacts_every_native_value(self) -> None:
+        row = {
+            "type": "session_meta",
+            "timestamp": "2026-07-01T00:00:00Z",
+            "payload": {
+                "id": "native-session-secret",
+                "instructions": "Handle native-session-secret at https://private.invalid",
             },
-            "lineage_edges": [],
         }
-        publication = {
-            "schema_version": "history-publication/v2",
-            "mode": "lineage",
-            "summary": "Synthetic artifact evidence.",
-            "claim_ids": ["claim-artifact"],
-            "record_ids": [],
-            "artifact_ids": ["artifact-one"],
-            "counts": {
-                "roots": manifest["counts"]["included_roots"],
-                "children": manifest["counts"]["included_children"],
-                "unresolved": manifest["counts"]["included_unresolved"],
-                "excluded": manifest["counts"]["primary_exclusions"],
-                "project_families": manifest["counts"]["included_project_families"],
-            },
-            "source_manifest": [
-                {
-                    "source_id": source["source_id"],
-                    "snapshot_hash": source["snapshot_hash"],
-                    "state": source["state"],
-                    "origin": source["origin"],
-                }
-            ],
-            "provenance_ledger": [{"claim_id": "claim-artifact", "reference_count": 1}],
-            "state_labels": {"live": 0, "frozen": 1},
-            "lineage_scope": evidence["lineage_scope"],
-            "lineage_edge_ids": [],
-        }
-        self.assertEqual([], validator.Validator(index, evidence, publication).validate())
-        evidence["artifacts"].append(
-            {
-                "id": "artifact-ungrounded",
-                "kind": "artifact",
-                "state": "frozen",
-                "snapshot_hash": "c" * 64,
-                "observed_at": "2026-02-02T00:00:00Z",
-            }
+        payload = canonical_bytes(row) + b"\n"
+        projection = normalize_codex_history.project(
+            platform="codex",
+            source_id="source-" + "1" * 32,
+            descriptor={"sha256": history_v4.sha256_bytes(payload)},
+            payload=payload,
+            identity_key=b"k" * 32,
+            index_salt=b"s" * 32,
         )
-        evidence["lineage_scope"]["target_artifact_ids"].append("artifact-ungrounded")
-        self.assertIn("ungrounded-lineage-target", self.error_codes(index, evidence, publication))
-        evidence["lineage_scope"]["target_artifact_ids"].pop()
-        evidence["artifacts"].pop()
-        evidence["claims"][0]["evidence"][0]["locator"]["snapshot_hash"] = "f" * 64
-        self.assertIn("artifact-mismatch", self.error_codes(index, evidence, publication))
+        text = projection["records"][0]["redacted_text"]
+        self.assertNotIn("native-session-secret", text)
+        self.assertNotIn("https://", text)
+        self.assertIn("[REDACTED:NATIVE_ID]", text)
 
-    def test_optional_campaign_retention_and_source_bounds(self):
-        rows = [self.default_rows()[0]]
-        index = self.build(rows=rows, campaign=False, name="cutoff-only")
-        self.assertEqual("trusted-cutoff", read_json(index / "manifest.json")["exclusion_basis"])
-        source = self.source_contract()
-        source.pop("retention")
-        with self.assertRaises(indexer.ContractError):
-            self.build(rows=rows, source=source, campaign=False, name="no-retention")
-        old_limit = indexer.MAX_SOURCE_BYTES
-        try:
-            indexer.MAX_SOURCE_BYTES = 64
-            with self.assertRaises(indexer.ContractError):
-                self.build(rows=rows, campaign=False, name="oversize")
-        finally:
-            indexer.MAX_SOURCE_BYTES = old_limit
-
-    def test_aggregate_source_limits_and_in_place_mutation(self):
-        rows = [self.default_rows()[0]]
-        write_jsonl(self.source_path, rows)
-        source = self.source_contract()
-        second = copy.deepcopy(source["sources"][0])
-        second["source_id"] = "second-source"
-        source["sources"].append(second)
-        source_path = self.base / "many-sources.json"
-        write_json(source_path, source)
-        old_sources = indexer.MAX_SOURCES
-        try:
-            indexer.MAX_SOURCES = 1
-            with self.assertRaises(indexer.ContractError):
-                indexer.build(source_path, None, self.key, self.base / "many-index")
-        finally:
-            indexer.MAX_SOURCES = old_sources
-        old_total = indexer.MAX_TOTAL_SOURCE_BYTES
-        try:
-            indexer.MAX_TOTAL_SOURCE_BYTES = 10
-            with self.assertRaises(indexer.ContractError):
-                self.build(rows=rows, campaign=False, name="aggregate-bytes")
-        finally:
-            indexer.MAX_TOTAL_SOURCE_BYTES = old_total
-        write_jsonl(self.source_path, rows)
-        with self.assertRaises(indexer.ContractError):
-            with indexer.open_beneath(self.source_path, self.source_root) as handle:
-                handle.read()
-                self.source_path.write_text("{}\n", encoding="utf-8")
-
-    def test_workflow_duplicate_decisions_and_publication_completeness(self):
-        index = self.build()
-        evidence, publication = self.valid_lineage(index)
-        evidence["mode"] = "workflow-mining"
-        evidence.pop("lineage_scope")
-        evidence["capability_inventory"] = [
-            {"id": "cap-one", "name": "Capability", "kind": "skill", "snapshot_hash": "a" * 64}
-        ]
-        evidence["overlap_map"] = [
-            {
-                "id": "overlap-one",
-                "candidate_id": "candidate-one",
-                "matched_capability_ids": ["cap-one"],
-                "assessment": "partial",
-                "rationale": "Partial overlap.",
-                "evidence_claim_ids": ["claim-root"],
-            }
-        ]
-        decision = {
-            "candidate_id": "candidate-one",
-            "decision": "reject",
-            "recurrence_candidate_id": "candidate-one",
-            "overlap_id": "overlap-one",
-            "evidence_claim_ids": ["claim-root"],
+    def test_claude_leaf_uuid_is_inventoried_and_unknown_native_fields_fail_closed(self) -> None:
+        row = {
+            "type": "user",
+            "sessionId": "claude-session-secret",
+            "uuid": "claude-message-secret",
+            "leafUuid": "claude-leaf-secret",
+            "timestamp": "2026-07-01T00:00:00Z",
+            "message": {"content": "Review claude-leaf-secret."},
         }
-        evidence["decisions"] = [decision, copy.deepcopy(decision)]
-        publication["mode"] = "workflow-mining"
-        publication.pop("lineage_scope")
-        publication.pop("lineage_edge_ids")
-        publication["capability_ids"] = ["cap-one"]
-        publication["overlap_ids"] = ["overlap-one"]
-        publication["decision_candidate_ids"] = ["candidate-one"]
-        self.assertIn("duplicate-decision", self.error_codes(index, evidence, publication))
-        publication.pop("source_manifest")
-        self.assertIn("schema-keys", self.error_codes(index, evidence, publication))
-
-    def test_workflow_recurrence_candidate_cannot_be_orphaned(self):
-        index = self.build()
-        evidence, publication = self.valid_lineage(index)
-        evidence["mode"] = "workflow-mining"
-        evidence.pop("lineage_scope")
-        evidence["recurrence"].append(
-            {
-                "candidate_id": "orphan-candidate",
-                "support_record_ids": evidence["recurrence"][0]["support_record_ids"],
-                "root_intent_count": 1,
-                "project_family_count": 1,
-                "evidence_claim_ids": ["claim-root"],
-            }
+        payload = canonical_bytes(row) + b"\n"
+        projection = normalize_codex_history.project(
+            platform="claude-code",
+            source_id="source-" + "2" * 32,
+            descriptor={"sha256": history_v4.sha256_bytes(payload)},
+            payload=payload,
+            identity_key=b"k" * 32,
+            index_salt=b"s" * 32,
         )
-        evidence["capability_inventory"] = [
-            {"id": "cap-one", "name": "Capability", "kind": "skill", "snapshot_hash": "a" * 64}
-        ]
-        evidence["overlap_map"] = [
-            {
-                "id": "overlap-one",
-                "candidate_id": "candidate-one",
-                "matched_capability_ids": ["cap-one"],
-                "assessment": "partial",
-                "rationale": "Partial overlap.",
-                "evidence_claim_ids": ["claim-root"],
-            }
-        ]
-        evidence["decisions"] = [
-            {
-                "candidate_id": "candidate-one",
-                "decision": "reject",
-                "recurrence_candidate_id": "candidate-one",
-                "overlap_id": "overlap-one",
-                "evidence_claim_ids": ["claim-root"],
-            }
-        ]
-        publication["mode"] = "workflow-mining"
-        publication.pop("lineage_scope")
-        publication.pop("lineage_edge_ids")
-        publication["capability_ids"] = ["cap-one"]
-        publication["overlap_ids"] = ["overlap-one"]
-        publication["decision_candidate_ids"] = ["candidate-one"]
-        self.assertIn("orphan-candidate", self.error_codes(index, evidence, publication))
+        self.assertIn(
+            "claude-leaf-secret",
+            {item["native_value"] for item in projection["native_map"]},
+        )
+        self.assertNotIn(
+            "claude-leaf-secret", projection["records"][0]["redacted_text"]
+        )
 
-    def test_synthetic_roots_cannot_satisfy_create_threshold(self):
-        rows = []
-        for number, intent in enumerate(("1", "2", "3"), 1):
-            rows.append(
-                {
-                    "native_session_id": f"synthetic-root-{number}",
-                    "started_at": f"2026-01-0{number}T00:00:00Z",
-                    "role": "root",
-                    "recurrence_class": "synthetic",
-                    "classification_basis": "reducer-reviewed",
-                    "root_intent_hash": intent * 16,
-                    "source_locator": f"synthetic-locator-{number}",
-                }
+        hostile = deepcopy(row)
+        hostile["message"]["mysteryUuid"] = "uncataloged-native-secret"
+        with self.assertRaisesRegex(
+            history_v4.HistoryV4Error, "E_NATIVE_ID_INVENTORY_INCOMPLETE"
+        ):
+            normalize_codex_history.project(
+                platform="claude-code",
+                source_id="source-" + "2" * 32,
+                descriptor={"sha256": "0" * 64},
+                payload=canonical_bytes(hostile) + b"\n",
+                identity_key=b"k" * 32,
+                index_salt=b"s" * 32,
             )
-        rows.append(self.default_rows()[2])
-        index = self.build(rows=rows, name="synthetic-roots")
-        roots = read_jsonl(index / "roots.jsonl")
-        self.assertEqual([False, False, False], [row["eligible_for_recurrence"] for row in roots])
-        source = read_jsonl(index / "source-ledger.jsonl")[0]
-        claims = []
-        for ordinal, record in enumerate(sorted(roots, key=lambda row: row["started_at"]), 1):
-            claims.append(
-                {
-                    "id": f"claim-synthetic-{ordinal}",
-                    "statement": f"Synthetic observation {ordinal}.",
-                    "observed_at": "2026-02-02T00:00:00Z",
-                    "evidence": [
-                        {
-                            "evidence_type": "agent-history",
-                            "record_id": record["record_id"],
-                            "state": "frozen",
-                            "locator": {
-                                "field": "role",
-                                "ordinal": ordinal,
-                                "source_id": source["source_id"],
-                                "source_hash": source["snapshot_hash"],
-                                "locator_hash": hashlib.sha256(f"synthetic-locator-{ordinal}\0role".encode()).hexdigest(),
-                            },
-                        }
-                    ],
-                }
+
+    def test_allowed_history_tree_discovers_complete_jsonl_set(self) -> None:
+        with tempfile.TemporaryDirectory() as raw:
+            root = Path(raw)
+            (root / "sessions" / "2026").mkdir(parents=True)
+            (root / "archived_sessions").mkdir()
+            (root / "sessions" / "2026" / "one.jsonl").write_text("{}\n")
+            (root / "archived_sessions" / "two.jsonl").write_text("{}\n")
+            (root / "sessions" / "ignored.txt").write_text("ignored")
+            for path in root.rglob("*"):
+                if path.is_file():
+                    path.chmod(0o600)
+            acquired = history_v4.acquire_allowed_tree(
+                root,
+                ["sessions/**/*.jsonl", "archived_sessions/*.jsonl"],
+                max_file_bytes=1024,
+                max_total_bytes=2048,
             )
-        claim_ids = [claim["id"] for claim in claims]
-        evidence = {
-            "schema_version": "history-evidence/v2",
-            "mode": "workflow-mining",
-            "artifacts": [],
-            "claims": claims,
-            "conflicts": [],
-            "lineage_edges": [],
-            "recurrence": [
-                {
-                    "candidate_id": "synthetic-candidate",
-                    "support_record_ids": [row["record_id"] for row in roots],
-                    "root_intent_count": 3,
-                    "project_family_count": 0,
-                    "evidence_claim_ids": claim_ids,
-                }
-            ],
-            "capability_inventory": [
-                {"id": "cap-one", "name": "Capability", "kind": "skill", "snapshot_hash": "a" * 64}
-            ],
-            "overlap_map": [
-                {
-                    "id": "overlap-synthetic",
-                    "candidate_id": "synthetic-candidate",
-                    "matched_capability_ids": ["cap-one"],
-                    "assessment": "partial",
-                    "rationale": "Synthetic overlap.",
-                    "evidence_claim_ids": claim_ids,
-                }
-            ],
-            "decisions": [
-                {
-                    "candidate_id": "synthetic-candidate",
-                    "decision": "create",
-                    "recurrence_candidate_id": "synthetic-candidate",
-                    "overlap_id": "overlap-synthetic",
-                    "evidence_claim_ids": claim_ids,
-                }
-            ],
-        }
-        manifest = read_json(index / "manifest.json")
-        publication = {
-            "schema_version": "history-publication/v2",
-            "mode": "workflow-mining",
-            "summary": "Synthetic traffic classification check.",
-            "claim_ids": claim_ids,
-            "record_ids": [row["record_id"] for row in roots],
-            "artifact_ids": [],
-            "counts": {
-                "roots": manifest["counts"]["included_roots"],
-                "children": manifest["counts"]["included_children"],
-                "unresolved": manifest["counts"]["included_unresolved"],
-                "excluded": manifest["counts"]["primary_exclusions"],
-                "project_families": manifest["counts"]["included_project_families"],
-            },
-            "source_manifest": [
-                {"source_id": source["source_id"], "snapshot_hash": source["snapshot_hash"], "state": source["state"], "origin": source["origin"]}
-            ],
-            "provenance_ledger": [{"claim_id": claim_id, "reference_count": 1} for claim_id in sorted(claim_ids)],
-            "state_labels": {"live": 0, "frozen": 3},
-            "capability_ids": ["cap-one"],
-            "overlap_ids": ["overlap-synthetic"],
-            "decision_candidate_ids": ["synthetic-candidate"],
-        }
-        codes = self.error_codes(index, evidence, publication)
-        self.assertIn("ineligible-support", codes)
-        self.assertIn("insufficient-recurrence", codes)
+            self.assertEqual(
+                set(acquired),
+                {"sessions/2026/one.jsonl", "archived_sessions/two.jsonl"},
+            )
 
+    def test_raw_replay_rejects_changed_transcript_bytes(self) -> None:
+        history = load("history-sources-v4.valid.json")
+        ledger = load("semantic-observation-ledger-v2.valid.json")
+        evidence = load("history-evidence-v1.valid.json")
+        documents = {"history": history, "ledger": ledger, "evidence": evidence}
+        private = GATE / "fixtures" / "private-bundle"
+        native_map = json.loads((private / "native-map.json").read_text())["entries"]
+        key = (private / "identity-key").read_bytes()
+        salt = (private / "identity-salt").read_bytes()
+        old_codex = os.environ.get("CODEX_HOME")
+        old_claude = os.environ.get("CLAUDE_CONFIG_DIR")
+        with tempfile.TemporaryDirectory() as raw:
+            root = Path(raw)
+            codex_root = root / "codex"
+            claude_root = root / "claude"
+            codex_path = codex_root / "sessions" / "2026" / "07" / "codex.jsonl"
+            claude_path = claude_root / "projects" / "fixture" / "claude.jsonl"
+            codex_path.parent.mkdir(parents=True)
+            claude_path.parent.mkdir(parents=True)
+            shutil.copyfile(AUTHORITY / "raw" / "codex.jsonl", codex_path)
+            shutil.copyfile(AUTHORITY / "raw" / "claude-code.jsonl", claude_path)
+            codex_path.chmod(0o600)
+            claude_path.chmod(0o600)
+            os.environ["CODEX_HOME"] = str(codex_root)
+            os.environ["CLAUDE_CONFIG_DIR"] = str(claude_root)
+            try:
+                home = Path.home().resolve(strict=True)
+                by_platform = {item["platform"]: item for item in history["user_roots"]}
+                for platform in ("codex", "claude-code"):
+                    selected, receipt = history_v4.select_user_root(platform, home=home)
+                    expected = by_platform[platform]
+                    for field, value in receipt.items():
+                        if field != "captured_at":
+                            expected[field] = value
+                    allowlist = expected["relative_path_allowlist"]
+                    acquired = history_v4.acquire_allowed_tree(
+                        selected,
+                        allowlist,
+                        max_file_bytes=history["limits"]["max_file_bytes"],
+                        max_total_bytes=history["limits"]["max_total_bytes"],
+                    )
+                    self.assertEqual(len(acquired), 1)
+                    relative, (descriptor, _) = next(iter(acquired.items()))
+                    source = next(
+                        item for item in history["sources"] if item["platform"] == platform
+                    )
+                    source["relative_path_sha256"] = history_v4.sha256_bytes(
+                        relative.encode()
+                    )
+                    source["snapshot"] = descriptor
+                adapter_descriptor, _ = history_v4.acquire_file(
+                    SCRIPTS,
+                    "normalize_codex_history.py",
+                    max_bytes=history["limits"]["max_file_bytes"],
+                )
+                for adapter in history["adapter_catalog"]["adapters"]:
+                    adapter["implementation"] = adapter_descriptor
+                raw_receipt = evidence["bindings"]["raw_reopen_receipt"]
+                raw_receipt["source_descriptor_sha256s"] = sorted(
+                    item["snapshot"]["sha256"] for item in history["sources"]
+                )
+                body = history_v4.without(raw_receipt, "receipt_sha256", "descriptor")
+                raw_receipt["receipt_sha256"] = history_v4.D(
+                    "raw-reopen-receipt/v2", body
+                )
+                evidence["bindings"]["raw_reopen_receipt_sha256"] = raw_receipt[
+                    "receipt_sha256"
+                ]
+                native_values = validate_history_v4._replay_raw_sources(
+                    documents,
+                    key=key,
+                    salt=salt,
+                    private_native_map=native_map,
+                )
+                self.assertIn("codex-native-session-1", native_values)
 
-def stat_mode(path: Path) -> int:
-    return path.stat().st_mode & 0o777
+                codex_path.write_bytes(codex_path.read_bytes() + b" ")
+                codex_path.chmod(0o600)
+                with self.assertRaisesRegex(
+                    history_v4.HistoryV4Error, "E_RAW_SNAPSHOT_REBUILD_REQUIRED"
+                ):
+                    validate_history_v4._replay_raw_sources(
+                        documents,
+                        key=key,
+                        salt=salt,
+                        private_native_map=native_map,
+                    )
+            finally:
+                if old_codex is None:
+                    os.environ.pop("CODEX_HOME", None)
+                else:
+                    os.environ["CODEX_HOME"] = old_codex
+                if old_claude is None:
+                    os.environ.pop("CLAUDE_CONFIG_DIR", None)
+                else:
+                    os.environ["CLAUDE_CONFIG_DIR"] = old_claude
+
+    def test_active_campaign_platform_and_fixed_point_mutations_fail(self) -> None:
+        history = load("history-sources-v4.active-campaign.valid.json")
+        ledger = load("semantic-observation-ledger-v2.active-campaign.valid.json")
+        root_record_id = history["active_campaign"]["closure"]["root_ids"][0]
+        root_node = next(
+            item for item in ledger["native_nodes"] if item["record_id"] == root_record_id
+        )
+        history["active_campaign"]["root_native_hmac"] = root_node["native_hmac"]
+        history["active_campaign"]["namespace_hmacs"] = [
+            root_node["namespace_native_hmac"]
+        ]
+        history_v4.validate_active_campaign(history, ledger)
+        changed = deepcopy(history)
+        changed["active_campaign"]["platform"] = "unknown"
+        with self.assertRaisesRegex(history_v4.HistoryV4Error, "E_ACTIVE_CAMPAIGN_PLATFORM"):
+            history_v4.validate_active_campaign(changed, ledger)
+        changed = deepcopy(history)
+        changed["active_campaign"]["closure"]["excluded_record_ids"] = []
+        with self.assertRaisesRegex(history_v4.HistoryV4Error, "E_ACTIVE_CAMPAIGN_INCOMPLETE"):
+            history_v4.validate_active_campaign(changed, ledger)
+
+    def test_deleted_tombstone_validates_and_illegal_transition_fails(self) -> None:
+        history = load("history-sources-v4.valid.json")
+        ledger = load("semantic-observation-ledger-v2.valid.json")
+        deleted = load("history-index-v4.deleted.valid.json")
+        history_v4.validate_index(deleted, history, ledger)
+        changed = deepcopy(deleted)
+        changed["lifecycle"]["transitions"][1]["from"] = "collecting"
+        changed["history_index_sha256"] = history_v4.D(
+            "history-index/v4", history_v4.without(changed, "history_index_sha256")
+        )
+        with self.assertRaisesRegex(history_v4.HistoryV4Error, "E_LIFECYCLE_TRANSITION"):
+            history_v4.validate_index(changed, history, ledger)
+
+    def test_index_builder_materializes_and_reopens_exact_ten_member_bundle(self) -> None:
+        private = GATE / "fixtures" / "private-bundle"
+        temp_parent = Path(tempfile.gettempdir()).resolve()
+        with tempfile.TemporaryDirectory(dir=temp_parent) as raw:
+            root = Path(raw) / "input"
+            root.mkdir(mode=0o700)
+            sources = {
+                "sources.json": POSITIVE / "history-sources-v4.valid.json",
+                "semantic-ledger.json": POSITIVE / "semantic-observation-ledger-v2.valid.json",
+                "exclusion-ledger.json": private / "exclusion-ledger.json",
+                "native-map.json": private / "native-map.json",
+                "identity-salt": private / "identity-salt",
+                "identity-key": private / "identity-key",
+                "identity-key.receipt.json": private / "identity-key.receipt.json",
+                "adapter-catalog.json": private / "adapter-catalog.json",
+                "lifecycle.json": private / "lifecycle.json",
+            }
+            for name, source in sources.items():
+                shutil.copyfile(source, root / name)
+                (root / name).chmod(0o600)
+            (root / "index-template.json").write_text(
+                json.dumps({"created_at": "2026-07-01T00:00:00Z", "edge_ids": []}),
+                encoding="utf-8",
+            )
+            (root / "index-template.json").chmod(0o600)
+            out = Path(raw) / "output"
+            built = index_agent_history.build(
+                root,
+                out,
+                max_file_bytes=64 * 1024 * 1024,
+                max_total_bytes=256 * 1024 * 1024,
+            )
+            self.assertEqual(built["exact_file_set"]["member_count"], 10)
+            checked = index_agent_history.validate(
+                out,
+                max_file_bytes=64 * 1024 * 1024,
+                max_total_bytes=256 * 1024 * 1024,
+            )
+            self.assertEqual(checked["history_index_sha256"], built["history_index_sha256"])
+
+    def test_ordered_migration_precedes_schema_failure_and_raw_bypass(self) -> None:
+        documents = {
+            "history": {"schema_version": "history-sources/v3"},
+            "ledger": None,
+            "index": None,
+            "reduction": None,
+            "evidence": None,
+            "publication": None,
+        }
+        self.assertEqual(
+            history_v4.ordered_migration_diagnostic(
+                documents,
+                authoritative_raw_reopen=False,
+                exact_history_binding=False,
+                exact_model_available=False,
+            ),
+            "E_HISTORY_SOURCES_VERSION_UNSUPPORTED",
+        )
+        documents = {
+            "history": {"schema_version": "history-sources/v4", "raw_manifest": {"schema_version": "raw-source-manifest/v2"}},
+            "ledger": {"schema_version": "semantic-observation-ledger/v2"},
+            "index": {"schema_version": "history-index/v4"},
+            "reduction": {"schema_version": "capability-reduction/v3"},
+            "evidence": {"schema_version": "history-evidence/v1"},
+            "publication": {"schema_version": "history-publication/v3"},
+        }
+        self.assertEqual(
+            history_v4.ordered_migration_diagnostic(
+                documents,
+                authoritative_raw_reopen=False,
+                exact_history_binding=True,
+                exact_model_available=True,
+            ),
+            "E_RAW_REOPEN_REQUIRED",
+        )
+
+    def test_diagnostic_only_cli_is_non_authoritative_and_nonzero(self) -> None:
+        result = subprocess.run(
+            [
+                sys.executable,
+                "-B",
+                str(SCRIPTS / "validate_history_v4.py"),
+                "--bundle-root",
+                str(POSITIVE),
+                "--diagnostic-without-raw-reopen",
+            ],
+            text=True,
+            capture_output=True,
+            check=False,
+        )
+        self.assertEqual(result.returncode, 2)
+        value = json.loads(result.stdout)
+        self.assertFalse(value["authoritative"])
+        self.assertEqual(value["diagnostic"], "E_RAW_REOPEN_REQUIRED")
 
 
 if __name__ == "__main__":

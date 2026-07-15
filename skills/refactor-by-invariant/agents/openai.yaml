@@ -1,0 +1,5 @@
+# portfolio-routing-v1-row-sha256: 5df14ad56cae2fa935f54336d3e772047a7ee6d4efed2c96a15d31c2f39f18c9
+interface:
+  display_name: "Refactor by Invariant"
+  short_description: "Refactor ownership around explicit invariants"
+  default_prompt: "Use $refactor-by-invariant to restructure this code around its true invariant and canonical owner."

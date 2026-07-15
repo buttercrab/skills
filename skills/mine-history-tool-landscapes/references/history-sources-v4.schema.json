@@ -1,0 +1,345 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://local.invalid/history-sources-v4.schema.json",
+  "title": "History sources v4",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version", "contract_id", "index_id", "cutoff", "retention",
+    "limits", "specifications", "user_roots", "adapter_catalog",
+    "identity_policy", "active_campaign", "sources", "source_accounting",
+    "raw_manifest", "semantic_ledger", "exclusion_ledger", "corpus"
+  ],
+  "properties": {
+    "schema_version": {"const": "history-sources/v4"},
+    "contract_id": {"$ref": "#/$defs/uuid"},
+    "index_id": {"$ref": "#/$defs/opaque_id"},
+    "cutoff": {
+      "type": "object", "additionalProperties": false,
+      "required": ["inclusive_at", "attested_before_discovery", "authority_receipt_sha256"],
+      "properties": {
+        "inclusive_at": {"$ref": "#/$defs/timestamp"},
+        "attested_before_discovery": {"const": true},
+        "authority_receipt_sha256": {"$ref": "#/$defs/hash"}
+      }
+    },
+    "retention": {
+      "type": "object", "additionalProperties": false,
+      "required": ["disposition", "delete_by"],
+      "properties": {
+        "disposition": {"enum": ["delete-after-validation", "delete-by"]},
+        "delete_by": {"$ref": "#/$defs/timestamp"}
+      }
+    },
+    "limits": {
+      "type": "object", "additionalProperties": false,
+      "required": ["max_file_bytes", "max_total_bytes", "max_records", "max_text_bytes"],
+      "properties": {
+        "max_file_bytes": {"type": "integer", "minimum": 1},
+        "max_total_bytes": {"type": "integer", "minimum": 1},
+        "max_records": {"type": "integer", "minimum": 1},
+        "max_text_bytes": {"type": "integer", "minimum": 1}
+      }
+    },
+    "specifications": {
+      "type": "object", "additionalProperties": false,
+      "required": ["history_v4", "raw_snapshot_v2", "redaction_v2", "descriptor_file_v2"],
+      "properties": {
+        "history_v4": {"$ref": "#/$defs/hash"},
+        "raw_snapshot_v2": {"$ref": "#/$defs/hash"},
+        "redaction_v2": {"$ref": "#/$defs/hash"},
+        "descriptor_file_v2": {"$ref": "#/$defs/hash"}
+      }
+    },
+    "user_roots": {
+      "type": "array", "minItems": 2, "maxItems": 2,
+      "items": {"$ref": "#/$defs/user_root"}
+    },
+    "adapter_catalog": {"$ref": "#/$defs/adapter_catalog"},
+    "identity_policy": {
+      "type": "object", "additionalProperties": false,
+      "required": ["version", "index_salt_receipt_sha256", "identity_key_receipt_sha256", "hmac_algorithm", "native_domain", "public_id_domain"],
+      "properties": {
+        "version": {"const": "history-identity/v2"},
+        "index_salt_receipt_sha256": {"$ref": "#/$defs/hash"},
+        "identity_key_receipt_sha256": {"$ref": "#/$defs/hash"},
+        "hmac_algorithm": {"const": "hmac-sha256"},
+        "native_domain": {"const": "history-native-id/v2"},
+        "public_id_domain": {"const": "history-public-id/v2"}
+      }
+    },
+    "active_campaign": {
+      "oneOf": [
+        {
+          "type": "object", "additionalProperties": false,
+          "required": ["schema_version", "disposition", "basis", "authority_receipt_sha256"],
+          "properties": {
+            "schema_version": {"const": "active-campaign/v4"},
+            "disposition": {"const": "not-applicable"},
+            "basis": {"enum": ["cutoff-predates-campaign", "roots-cannot-contain-campaign"]},
+            "authority_receipt_sha256": {"$ref": "#/$defs/hash"}
+          }
+        },
+        {
+          "type": "object", "additionalProperties": false,
+          "required": ["schema_version", "disposition", "platform", "started_at", "root_native_hmac", "alias_hmacs", "namespace_hmacs", "identity_key_receipt_sha256", "closure"],
+          "properties": {
+            "schema_version": {"const": "active-campaign/v4"},
+            "disposition": {"const": "exclude"},
+            "platform": {"$ref": "#/$defs/platform"},
+            "started_at": {"$ref": "#/$defs/timestamp"},
+            "root_native_hmac": {"$ref": "#/$defs/hash"},
+            "alias_hmacs": {"$ref": "#/$defs/hash_set"},
+            "namespace_hmacs": {"$ref": "#/$defs/hash_set"},
+            "identity_key_receipt_sha256": {"$ref": "#/$defs/hash"},
+            "closure": {
+              "type": "object", "additionalProperties": false,
+              "required": ["root_ids", "descendant_ids", "namespace_record_ids", "excluded_record_ids", "reason_counts", "fixed_point_sha256"],
+              "properties": {
+                "root_ids": {"$ref": "#/$defs/id_set"},
+                "descendant_ids": {"$ref": "#/$defs/id_set"},
+                "namespace_record_ids": {"$ref": "#/$defs/id_set"},
+                "excluded_record_ids": {"$ref": "#/$defs/id_set"},
+                "reason_counts": {"$ref": "#/$defs/reason_counts"},
+                "fixed_point_sha256": {"$ref": "#/$defs/hash"}
+              }
+            }
+          }
+        }
+      ]
+    },
+    "sources": {
+      "type": "array", "minItems": 1,
+      "items": {
+        "type": "object", "additionalProperties": false,
+        "required": ["source_id", "platform", "kind", "user_root_id", "adapter_id", "adapter_version", "authorization_receipt_sha256", "relative_path_sha256", "snapshot", "parsed_record_count", "semantic_record_count", "nonsemantic_record_count", "excluded_record_count"],
+        "properties": {
+          "source_id": {"$ref": "#/$defs/opaque_id"},
+          "platform": {"$ref": "#/$defs/platform"},
+          "kind": {"enum": ["codex-session-jsonl", "codex-archived-session-jsonl", "claude-project-jsonl"]},
+          "user_root_id": {"$ref": "#/$defs/opaque_id"},
+          "adapter_id": {"enum": ["codex-history-jsonl", "claude-code-history-jsonl"]},
+          "adapter_version": {"const": "v2"},
+          "authorization_receipt_sha256": {"$ref": "#/$defs/hash"},
+          "relative_path_sha256": {"$ref": "#/$defs/hash"},
+          "snapshot": {"$ref": "#/$defs/descriptor"},
+          "parsed_record_count": {"type": "integer", "minimum": 0},
+          "semantic_record_count": {"type": "integer", "minimum": 0},
+          "nonsemantic_record_count": {"type": "integer", "minimum": 0},
+          "excluded_record_count": {"type": "integer", "minimum": 0}
+        }
+      }
+    },
+    "source_accounting": {
+      "type": "object", "additionalProperties": false,
+      "required": [
+        "schema_version", "source_ids", "source_count", "parsed_record_count",
+        "semantic_record_count", "nonsemantic_record_count",
+        "excluded_record_count", "source_accounting_sha256"
+      ],
+      "properties": {
+        "schema_version": {"const": "history-source-accounting/v4"},
+        "source_ids": {"$ref": "#/$defs/id_set"},
+        "source_count": {"type": "integer", "minimum": 1},
+        "parsed_record_count": {"type": "integer", "minimum": 0},
+        "semantic_record_count": {"type": "integer", "minimum": 0},
+        "nonsemantic_record_count": {"type": "integer", "minimum": 0},
+        "excluded_record_count": {"type": "integer", "minimum": 0},
+        "source_accounting_sha256": {"$ref": "#/$defs/hash"}
+      }
+    },
+    "raw_manifest": {
+      "allOf": [
+        {"$ref": "#/$defs/binding_count"},
+        {"properties": {"schema_version": {"const": "raw-source-manifest/v2"}}}
+      ]
+    },
+    "semantic_ledger": {
+      "type": "object", "additionalProperties": false,
+      "required": ["schema_version", "sha256", "native_lineage_closure_sha256", "count", "descriptor"],
+      "properties": {
+        "schema_version": {"const": "semantic-observation-ledger/v2"},
+        "sha256": {"$ref": "#/$defs/hash"},
+        "native_lineage_closure_sha256": {"$ref": "#/$defs/hash"},
+        "count": {"type": "integer", "minimum": 0},
+        "descriptor": {"$ref": "#/$defs/descriptor"}
+      }
+    },
+    "exclusion_ledger": {
+      "type": "object", "additionalProperties": false,
+      "required": ["schema_version", "sha256", "count", "reason_counts", "records", "descriptor"],
+      "properties": {
+        "schema_version": {"const": "history-exclusion-ledger/v2"},
+        "sha256": {"$ref": "#/$defs/hash"},
+        "count": {"type": "integer", "minimum": 0},
+        "reason_counts": {"$ref": "#/$defs/reason_counts"},
+        "records": {
+          "type": "array", "uniqueItems": true,
+          "items": {
+            "type": "object", "additionalProperties": false,
+            "required": ["record_id", "reason"],
+            "properties": {
+              "record_id": {"$ref": "#/$defs/opaque_id"},
+              "reason": {"enum": ["after_cutoff", "active_root", "active_descendant", "active_namespace"]}
+            }
+          }
+        },
+        "descriptor": {"$ref": "#/$defs/descriptor"}
+      }
+    },
+    "corpus": {
+      "type": "object", "additionalProperties": false,
+      "required": ["schema_version", "sha256", "observation_count", "root_count", "project_family_count"],
+      "properties": {
+        "schema_version": {"const": "history-corpus/v4"},
+        "sha256": {"$ref": "#/$defs/hash"},
+        "observation_count": {"type": "integer", "minimum": 0},
+        "root_count": {"type": "integer", "minimum": 0},
+        "project_family_count": {"type": "integer", "minimum": 0}
+      }
+    }
+  },
+  "$defs": {
+    "hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "uuid": {"type": "string", "format": "uuid"},
+    "timestamp": {"type": "string", "format": "date-time"},
+    "opaque_id": {"type": "string", "pattern": "^[a-z][a-z0-9-]{2,31}-[0-9a-f]{32,64}$"},
+    "platform": {"enum": ["codex", "claude-code"]},
+    "id_set": {"type": "array", "uniqueItems": true, "items": {"$ref": "#/$defs/opaque_id"}},
+    "hash_set": {"type": "array", "uniqueItems": true, "items": {"$ref": "#/$defs/hash"}},
+    "descriptor": {
+      "type": "object", "additionalProperties": false,
+      "required": ["schema_version", "root_authority_sha256", "relative_path_sha256", "device", "inode", "size", "mode", "uid", "nlink", "mtime_ns", "captured_at", "sha256", "open_flags"],
+      "properties": {
+        "schema_version": {"const": "descriptor-file/v2"},
+        "root_authority_sha256": {"$ref": "#/$defs/hash"},
+        "relative_path_sha256": {"$ref": "#/$defs/hash"},
+        "device": {"type": "integer", "minimum": 0},
+        "inode": {"type": "integer", "minimum": 1},
+        "size": {"type": "integer", "minimum": 0},
+        "mode": {"type": "string", "pattern": "^0[46][04][04]$"},
+        "uid": {"type": "integer", "minimum": 0},
+        "nlink": {"const": 1},
+        "mtime_ns": {"type": "integer", "minimum": 0},
+        "captured_at": {"$ref": "#/$defs/timestamp"},
+        "sha256": {"$ref": "#/$defs/hash"},
+        "open_flags": {"const": ["O_RDONLY", "O_CLOEXEC", "O_NOFOLLOW"]}
+      }
+    },
+    "user_root": {
+      "type": "object", "additionalProperties": false,
+      "required": ["root_id", "platform", "selection_basis", "effective_uid", "canonical_user_home_sha256", "environment_variable", "environment_present", "environment_value_sha256", "selected_root_sha256", "authority_receipt_sha256", "relative_path_allowlist"],
+      "properties": {
+        "root_id": {"$ref": "#/$defs/opaque_id"},
+        "platform": {"$ref": "#/$defs/platform"},
+        "selection_basis": {"enum": ["host-environment", "authenticated-user-home-default"]},
+        "effective_uid": {"type": "integer", "minimum": 0},
+        "canonical_user_home_sha256": {"$ref": "#/$defs/hash"},
+        "environment_variable": {"enum": ["CODEX_HOME", "CLAUDE_CONFIG_DIR"]},
+        "environment_present": {"type": "boolean"},
+        "environment_value_sha256": {"oneOf": [{"$ref": "#/$defs/hash"}, {"type": "null"}]},
+        "selected_root_sha256": {"$ref": "#/$defs/hash"},
+        "authority_receipt_sha256": {"$ref": "#/$defs/hash"},
+        "relative_path_allowlist": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "pattern": "^[A-Za-z0-9_*.-]+(?:/[A-Za-z0-9_*.-]+)*$"}}
+      }
+    },
+    "adapter_catalog": {
+      "type": "object", "additionalProperties": false,
+      "required": ["schema_version", "catalog_sha256", "descriptor", "adapters"],
+      "properties": {
+        "schema_version": {"const": "history-adapter-catalog/v2"},
+        "catalog_sha256": {"$ref": "#/$defs/hash"},
+        "descriptor": {"$ref": "#/$defs/descriptor"},
+        "adapters": {
+          "type": "array", "minItems": 2, "maxItems": 2,
+          "items": {
+            "type": "object", "additionalProperties": false,
+            "required": ["adapter_id", "version", "platform", "envelope_catalog", "envelope_catalog_sha256", "native_id_catalog", "native_id_catalog_sha256", "parser_spec_sha256", "canonicalizer_spec_sha256", "redaction_spec_sha256", "implementation", "callable_entrypoint", "fixture_sha256", "entry_sha256"],
+            "properties": {
+              "adapter_id": {"enum": ["codex-history-jsonl", "claude-code-history-jsonl"]},
+              "version": {"const": "v2"},
+              "platform": {"$ref": "#/$defs/platform"},
+              "envelope_catalog": {"$ref": "#/$defs/envelope_catalog"},
+              "envelope_catalog_sha256": {"$ref": "#/$defs/hash"},
+              "native_id_catalog": {"$ref": "#/$defs/native_id_catalog"},
+              "native_id_catalog_sha256": {"$ref": "#/$defs/hash"},
+              "parser_spec_sha256": {"$ref": "#/$defs/hash"},
+              "canonicalizer_spec_sha256": {"$ref": "#/$defs/hash"},
+              "redaction_spec_sha256": {"$ref": "#/$defs/hash"},
+              "implementation": {"$ref": "#/$defs/descriptor"},
+              "callable_entrypoint": {"type": "string", "pattern": "^[A-Za-z_][A-Za-z0-9_.:]*$"},
+              "fixture_sha256": {"$ref": "#/$defs/hash"},
+              "entry_sha256": {"$ref": "#/$defs/hash"}
+            }
+          }
+        }
+      }
+    },
+    "envelope_catalog": {
+      "type": "object", "additionalProperties": false,
+      "required": ["schema_version", "entries"],
+      "properties": {
+        "schema_version": {"const": "history-envelope-catalog/v2"},
+        "entries": {
+          "type": "array", "minItems": 1, "uniqueItems": true,
+          "items": {
+            "type": "object", "additionalProperties": false,
+            "required": ["envelope_type", "semantic_fields", "root_intent_fields", "parent_fields", "namespace_fields", "timestamp_fields"],
+            "properties": {
+                  "envelope_type": {"type": "string", "pattern": "^[a-z][a-z0-9_-]{1,63}$"},
+              "semantic_fields": {"$ref": "#/$defs/json_pointer_set"},
+              "root_intent_fields": {"$ref": "#/$defs/json_pointer_set"},
+              "parent_fields": {"$ref": "#/$defs/json_pointer_set"},
+              "namespace_fields": {"$ref": "#/$defs/json_pointer_set"},
+              "timestamp_fields": {"$ref": "#/$defs/json_pointer_set"}
+            }
+          }
+        }
+      }
+    },
+    "native_id_catalog": {
+      "type": "object", "additionalProperties": false,
+      "required": ["schema_version", "entries"],
+      "properties": {
+        "schema_version": {"const": "history-native-id-catalog/v2"},
+        "entries": {
+          "type": "array", "minItems": 1, "uniqueItems": true,
+          "items": {
+            "type": "object", "additionalProperties": false,
+            "required": ["id_type", "json_pointers", "lineage_role", "public_prefix"],
+            "properties": {
+              "id_type": {"enum": ["session", "message", "parent", "project", "tool", "user", "organization", "workspace", "namespace", "task", "thread", "run", "job", "artifact", "provider_specific"]},
+              "json_pointers": {"$ref": "#/$defs/json_pointer_set"},
+              "lineage_role": {"enum": ["node", "parent", "namespace", "project-family", "non-lineage"]},
+              "public_prefix": {"type": "string", "pattern": "^[a-z][a-z0-9-]{1,15}$"}
+            }
+          }
+        }
+      }
+    },
+    "json_pointer_set": {
+      "type": "array", "uniqueItems": true,
+      "items": {"type": "string", "pattern": "^(?:/(?:[^~/]|~0|~1)*)*$"}
+    },
+    "reason_counts": {
+      "type": "object", "additionalProperties": false,
+      "required": ["after_cutoff", "active_root", "active_descendant", "active_namespace"],
+      "properties": {
+        "after_cutoff": {"type": "integer", "minimum": 0},
+        "active_root": {"type": "integer", "minimum": 0},
+        "active_descendant": {"type": "integer", "minimum": 0},
+        "active_namespace": {"type": "integer", "minimum": 0}
+      }
+    },
+    "binding_count": {
+      "type": "object", "additionalProperties": false,
+      "required": ["schema_version", "sha256", "count", "descriptor"],
+      "properties": {
+        "schema_version": {"type": "string", "minLength": 3},
+        "sha256": {"$ref": "#/$defs/hash"},
+        "count": {"type": "integer", "minimum": 0},
+        "descriptor": {"$ref": "#/$defs/descriptor"}
+      }
+    }
+  }
+}

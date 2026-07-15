@@ -1,0 +1,1886 @@
+{
+  "schema_version": "portfolio-routing/v1",
+  "portfolio_id": "jaeyong-skills",
+  "canonical_owner": "tests/portfolio-routing-v1.json",
+  "generated_fields": [
+    "SKILL.md frontmatter.description",
+    "agents/openai.yaml interface",
+    "SKILL.md generated routing contract block",
+    "agents/openai.yaml routing row digest",
+    "routing case, prompt, and rubric catalogs"
+  ],
+  "portfolio_skills": [
+    "align-work",
+    "audit-technical-work",
+    "execute-goal-loop",
+    "front-agent-orchestration",
+    "agent-mail",
+    "write-task-handoff",
+    "propagate-contract-changes",
+    "refactor-by-invariant",
+    "brief-linked-evidence",
+    "map-technical-landscapes",
+    "mine-history-tool-landscapes"
+  ],
+  "role_taxonomy": [
+    {
+      "field": "outer_owner",
+      "relation": "outer",
+      "cardinality": "exactly-one",
+      "description": "The workflow that owns the task-level authority or read-only evidence envelope. It is exactly one of native Codex, Align, or Audit; a gateway, overlay, transport, content workflow, or domain mechanic never occupies this field.",
+      "allowed_routes": [
+        "native-codex",
+        "align-work",
+        "audit-technical-work"
+      ]
+    },
+    {
+      "field": "gateways",
+      "relation": "gateway",
+      "cardinality": "zero-or-more",
+      "description": "Human-facing interface layers. A gateway carries the conversation but does not replace the outer owner's authority, packet, or evidence contract.",
+      "allowed_routes": [
+        "front-agent-orchestration"
+      ]
+    },
+    {
+      "field": "overlays",
+      "relation": "overlay",
+      "cardinality": "zero-or-more",
+      "description": "Cross-cutting persistence or iteration loops that leave task authority and domain ownership unchanged.",
+      "allowed_routes": [
+        "execute-goal-loop"
+      ]
+    },
+    {
+      "field": "evidence_lenses",
+      "relation": "evidence-lens",
+      "cardinality": "zero-or-more",
+      "description": "Read-only review lenses nested under another outer owner. Audit appears here only when it supplies independent evidence without becoming a second outer workflow.",
+      "allowed_routes": [
+        "audit-technical-work"
+      ]
+    },
+    {
+      "field": "mechanics",
+      "relation": "mechanics",
+      "cardinality": "zero-or-more",
+      "description": "Technical implementation or package-authoring methods. Mechanics never own approval, task authority, gateways, transport, or produced content.",
+      "allowed_routes": [
+        "skill-creator",
+        "propagate-contract-changes",
+        "refactor-by-invariant"
+      ]
+    },
+    {
+      "field": "transports",
+      "relation": "transport",
+      "cardinality": "zero-or-more",
+      "description": "Message or coordination channels. A transport carries state or content but never owns approval or the content it carries.",
+      "allowed_routes": [
+        "agent-mail",
+        "built-in-collaboration"
+      ]
+    },
+    {
+      "field": "content_owners",
+      "relation": "content-owner",
+      "cardinality": "zero-or-more",
+      "description": "Workflows that own a produced handoff or research artifact and its source-universe semantics. They do not become the task-level authority envelope merely because they own content.",
+      "allowed_routes": [
+        "write-task-handoff",
+        "brief-linked-evidence",
+        "map-technical-landscapes",
+        "mine-history-tool-landscapes"
+      ]
+    },
+    {
+      "field": "fallbacks",
+      "relation": "fallback",
+      "cardinality": "zero-or-more",
+      "description": "Explicit substitutes or stop routes selected only when a requested primary capability is unavailable. Do not list the ordinary chosen route as a fallback.",
+      "allowed_routes": [
+        "built-in-collaboration",
+        "browser-web",
+        "stop"
+      ]
+    }
+  ],
+  "external_routes": [
+    {
+      "route": "native-codex",
+      "description": "The ordinary task-level workflow when no Align trigger applies and the task is not a standalone read-only technical audit.",
+      "legal_compositions": [
+        {
+          "route": "front-agent-orchestration",
+          "relation": "gateway"
+        },
+        {
+          "route": "execute-goal-loop",
+          "relation": "overlay"
+        },
+        {
+          "route": "audit-technical-work",
+          "relation": "evidence-lens"
+        },
+        {
+          "route": "skill-creator",
+          "relation": "mechanics"
+        },
+        {
+          "route": "propagate-contract-changes",
+          "relation": "mechanics"
+        },
+        {
+          "route": "refactor-by-invariant",
+          "relation": "mechanics"
+        },
+        {
+          "route": "agent-mail",
+          "relation": "transport"
+        },
+        {
+          "route": "built-in-collaboration",
+          "relation": "transport"
+        },
+        {
+          "route": "write-task-handoff",
+          "relation": "content-owner"
+        },
+        {
+          "route": "brief-linked-evidence",
+          "relation": "content-owner"
+        },
+        {
+          "route": "map-technical-landscapes",
+          "relation": "content-owner"
+        },
+        {
+          "route": "mine-history-tool-landscapes",
+          "relation": "content-owner"
+        },
+        {
+          "route": "browser-web",
+          "relation": "fallback"
+        },
+        {
+          "route": "stop",
+          "relation": "fallback"
+        }
+      ]
+    },
+    {
+      "route": "built-in-collaboration",
+      "description": "The current-task transport for routine subagent coordination; it is not a durable mailbox or Front gateway.",
+      "legal_compositions": []
+    },
+    {
+      "route": "browser-web",
+      "description": "A permitted public-source fallback when the preferred acquisition capability is unavailable; it never implies private access.",
+      "legal_compositions": []
+    },
+    {
+      "route": "stop",
+      "description": "Fail closed when a required private, authenticated, or explicitly approved architecture capability is unavailable.",
+      "legal_compositions": []
+    },
+    {
+      "route": "skill-creator",
+      "description": "The package-authoring mechanic for creating or updating skills and their metadata; it never owns the outer workflow or approval state, and package validation such as quick_validate never proves task-level completion by itself.",
+      "legal_compositions": []
+    }
+  ],
+  "precedence_rules": [
+    "A selected Front gateway owns the human-facing conversation but never supersedes Align packet ownership or the main agent's independent authority classification.",
+    "For technical work, Audit owns a standalone read-only audit, Align owns mutation when an Align trigger applies, and native Codex owns ordinary bounded work; Goal Loop may overlay any without changing authority.",
+    "Research routing follows source universe: historical agent-run lineage to Mine, open-ended ecosystem discovery to Map, and fixed supplied linked resources to Brief.",
+    "Mechanics routing follows the primary invariant: structured cross-surface contract propagation to Propagate and structural ownership simplification to Refactor; compose only as separately named slices.",
+    "Skill Creator is the package-authoring mechanic for skill or metadata changes and never becomes portfolio state owner.",
+    "Unavailable capabilities are never assumed: public sources may use an installed browser or web fallback, private sources remain excluded or block completeness, and routine current-task coordination uses built-in collaboration."
+  ],
+  "unavailable_capability_policy": [
+    "Check installed capability availability before naming or using a route.",
+    "For public resources, use another installed browser or web capability only when permitted.",
+    "For private or authenticated resources, exclude the source or block completeness until the required capability is available.",
+    "Do not silently change an explicitly approved Front Agent architecture; require user approval."
+  ],
+  "rows": [
+    {
+      "skill": "align-work",
+      "case_family": "align",
+      "routing_role": "outer",
+      "portfolio_position": "Outer alignment, approval, and durable planning-packet workflow for authority-sensitive coding work.",
+      "positive_request_classes": [
+        "explicit Align invocation",
+        "matching packet resume",
+        "decision-changing coding ambiguity",
+        "destructive or irreversible work",
+        "production, security, privacy, costly, or external mutation"
+      ],
+      "triggers": [
+        "The user explicitly invokes $align-work.",
+        "An existing matching Align packet must resume.",
+        "A material unresolved choice changes outcome, scope, architecture, authority, safety, or acceptance.",
+        "The work is destructive, irreversible, production-facing, security/privacy-sensitive, costly, or externally mutating."
+      ],
+      "exclusions": [
+        "ordinary clear bounded coding",
+        "simple answers",
+        "low-risk reversible mechanical edits",
+        "read-only technical audits"
+      ],
+      "fallbacks": [
+        {
+          "condition": "No Align trigger applies.",
+          "route": "native-codex",
+          "result": "Use the native bounded workflow."
+        },
+        {
+          "condition": "The request is a bounded read-only technical audit.",
+          "route": "audit-technical-work",
+          "result": "Audit owns the read-only outer contract."
+        }
+      ],
+      "state_owner": "Sole owner of Align packet state, coordinator fencing, approval, execution chain, guarded transfer, and recovery.",
+      "legal_compositions": [
+        {
+          "route": "front-agent-orchestration",
+          "relation": "gateway"
+        },
+        {
+          "route": "execute-goal-loop",
+          "relation": "overlay"
+        },
+        {
+          "route": "audit-technical-work",
+          "relation": "evidence-lens"
+        },
+        {
+          "route": "skill-creator",
+          "relation": "mechanics"
+        },
+        {
+          "route": "propagate-contract-changes",
+          "relation": "mechanics"
+        },
+        {
+          "route": "refactor-by-invariant",
+          "relation": "mechanics"
+        },
+        {
+          "route": "agent-mail",
+          "relation": "transport"
+        },
+        {
+          "route": "write-task-handoff",
+          "relation": "content-owner"
+        }
+      ],
+      "precedence": [
+        "Wins over domain mechanics when an Align trigger applies.",
+        "Under Front, Front remains the human gateway while Align retains exclusive packet ownership.",
+        "A goal loop never changes authority."
+      ],
+      "forbidden_actions": [
+        "delegate packet mutation to Front, Handoff, Goal Loop, or domain skills",
+        "infer external authority",
+        "downgrade explicit Align or matching packet state"
+      ],
+      "package_projection": {
+        "frontmatter_description": "Use as the outer alignment and approval workflow for coding work when the user explicitly invokes $align-work, an existing align-work packet must resume, scoped inspection finds unresolved decisions that materially change the accepted outcome, scope, architecture, authority, safety, or acceptance criteria, or work is destructive, irreversible, production-facing, security/privacy-sensitive, costly, or externally mutating. Align exclusively owns packet state, approval, guarded transfer, and recovery. Under front-agent-orchestration, Front remains the human gateway while Align retains packet ownership. Read-only audits route to audit-technical-work. Domain skills provide mechanics and execute-goal-loop may overlay persistence, but neither changes authority. Do not auto-trigger for ordinary clear bounded coding, simple answers, or low-risk mechanical edits.",
+        "agent": {
+          "display_name": "Align Work",
+          "short_description": "Align authority and approval before execution",
+          "default_prompt": "Use $align-work to resolve material decisions, own the planning packet and approval lifecycle, and execute only within the approved authority contract. Under Front Agent, keep Front as the gateway but retain Align packet ownership.",
+          "allow_implicit_invocation": true
+        }
+      },
+      "body_assertions": {
+        "required": [
+          "A selected Front Agent gateway owns the human-facing conversation, but `align-work` remains the exclusive owner of packet state, approval, guarded transfer, and recovery.",
+          "Never downgrade explicit `$align-work`, a matching packet, or another Align trigger because Front Agent is active."
+        ],
+        "forbidden": [
+          "An already-active Front Agent gateway owns human alignment and the only shared packet for its paired task"
+        ]
+      }
+    },
+    {
+      "skill": "audit-technical-work",
+      "case_family": "audit",
+      "routing_role": "outer",
+      "portfolio_position": "Outer read-only technical audit and completion-accounting contract.",
+      "positive_request_classes": [
+        "diagnosis",
+        "architecture or implementation review",
+        "gap audit",
+        "requirement-matched completion audit without fix authority"
+      ],
+      "triggers": [
+        "The user requests a bounded technical diagnosis or review without authorizing fixes.",
+        "Current authoritative evidence must be mapped to claims or requirements."
+      ],
+      "exclusions": [
+        "authorized implementation or repair",
+        "provider-specific pull request review",
+        "UI-only visual QA",
+        "an active outer Align or Goal review gate"
+      ],
+      "fallbacks": [
+        {
+          "condition": "The user authorizes fixes and an Align trigger applies.",
+          "route": "align-work",
+          "result": "Align owns approval and mutation."
+        },
+        {
+          "condition": "The user authorizes an ordinary bounded fix without an Align trigger.",
+          "route": "native-codex",
+          "result": "Use native bounded implementation."
+        }
+      ],
+      "state_owner": "Owns audit scope, finding severity, evidence mapping, dispositions, and pass/fail/incomplete accounting; owns no product state.",
+      "legal_compositions": [
+        {
+          "route": "front-agent-orchestration",
+          "relation": "gateway"
+        },
+        {
+          "route": "execute-goal-loop",
+          "relation": "overlay"
+        },
+        {
+          "route": "brief-linked-evidence",
+          "relation": "content-owner"
+        },
+        {
+          "route": "propagate-contract-changes",
+          "relation": "mechanics"
+        },
+        {
+          "route": "refactor-by-invariant",
+          "relation": "mechanics"
+        }
+      ],
+      "precedence": [
+        "Outer owner for standalone read-only technical audits.",
+        "Inside Align or Goal, supplies the evidence lens without creating a second outer workflow."
+      ],
+      "forbidden_actions": [
+        "implement fixes",
+        "mutate packet or product",
+        "claim proof outside inspected scope"
+      ],
+      "package_projection": {
+        "frontmatter_description": "Perform bounded, read-only technical audits that verify architecture, implementation, or completion claims against current authoritative evidence and return severity-ordered findings with exact locations, missing proof, and explicit dispositions. Use as the outer evidence-and-reporting contract when the user explicitly asks for diagnosis, technical review, gap audit, or requirement-matched completion audit without authorizing fixes. Combine it with a domain skill when that skill supplies the audit lens. audit-technical-work owns read-only scope and reporting, while the domain skill owns technical criteria. Do not auto-trigger for provider-specific pull request review, UI-only visual QA, an active execute-goal-loop review or completion gate, or an align-work plan review.",
+        "agent": {
+          "display_name": "Audit Technical Work",
+          "short_description": "Audit technical claims against current evidence",
+          "default_prompt": "Use $audit-technical-work to perform a bounded read-only audit of this technical claim.",
+          "allow_implicit_invocation": null
+        }
+      },
+      "body_assertions": {
+        "required": [
+          "Run a bounded audit without converting review authority into implementation authority."
+        ],
+        "forbidden": []
+      }
+    },
+    {
+      "skill": "execute-goal-loop",
+      "case_family": "goal",
+      "routing_role": "overlay",
+      "portfolio_position": "Persistence and iteration overlay for explicit measurable goal loops.",
+      "positive_request_classes": [
+        "explicit goal creation or execution",
+        "persist until measurable gates pass",
+        "repeat plan, implement, verify, and review cycles"
+      ],
+      "triggers": [
+        "The user explicitly asks to set or execute a goal.",
+        "The user explicitly requests persistence or iteration until measurable gates pass."
+      ],
+      "exclusions": [
+        "ordinary bounded work",
+        "standalone review or test",
+        "vague continue request",
+        "one-off delivery action"
+      ],
+      "fallbacks": [
+        {
+          "condition": "No explicit goal or loop contract exists.",
+          "route": "native-codex",
+          "result": "Use the applicable outer workflow without creating goal state."
+        }
+      ],
+      "state_owner": "Owns goal progress and completion pressure only; never owns user authority, packet state, or domain state.",
+      "legal_compositions": [
+        {
+          "route": "skill-creator",
+          "relation": "mechanics"
+        },
+        {
+          "route": "propagate-contract-changes",
+          "relation": "mechanics"
+        },
+        {
+          "route": "refactor-by-invariant",
+          "relation": "mechanics"
+        }
+      ],
+      "precedence": [
+        "The selected outer workflow retains approval and mutation authority.",
+        "Domain skills retain technical mechanics."
+      ],
+      "forbidden_actions": [
+        "expand scope",
+        "bypass approval gates",
+        "replace Align, Audit, or domain mechanics",
+        "mark incomplete work complete"
+      ],
+      "package_projection": {
+        "frontmatter_description": "Use when the user explicitly asks Codex to set or execute a goal, persist or iterate until measurable gates pass, or repeat plan, implementation, verification, and review cycles under an explicit loop contract. Compose with align-work when unresolved decisions or human approval are required, and with domain skills for technical mechanics. This skill does not replace either. Do not auto-trigger for ordinary bounded implementation, a standalone review, tests or quality requests alone, or a one-off commit, push, pull request, merge, deploy, or submission. Delivery actions belong to this skill only when explicitly authorized inside an active goal loop. For skill work, skill-creator owns skill mechanics.",
+        "agent": {
+          "display_name": "Execute Goal Loop",
+          "short_description": "Goal loops with hard verification gates",
+          "default_prompt": "Use $execute-goal-loop to define measurable gates, create a goal only when I explicitly request one, iterate through plan/implement/verify/review loops, and stop only when done or genuinely blocked.",
+          "allow_implicit_invocation": null
+        }
+      },
+      "body_assertions": {
+        "required": [
+          "A goal cannot broaden the authority or scope owned by either."
+        ],
+        "forbidden": []
+      }
+    },
+    {
+      "skill": "front-agent-orchestration",
+      "case_family": "front",
+      "routing_role": "gateway",
+      "portfolio_position": "Dedicated human-facing gateway for a separate main implementation agent.",
+      "positive_request_classes": [
+        "explicit gateway/main two-way orchestration through validated messages"
+      ],
+      "triggers": [
+        "The user explicitly requests a dedicated human gateway and separate main agent.",
+        "Validated two-way Front Agent messages are required."
+      ],
+      "exclusions": [
+        "routine built-in subagent delegation",
+        "direct Agent Mail without a human approval gateway"
+      ],
+      "fallbacks": [
+        {
+          "condition": "Required Front or Agent Mail capability is unavailable.",
+          "route": "stop",
+          "result": "Report the missing capability."
+        },
+        {
+          "condition": "The user approves an architecture change away from Front.",
+          "route": "built-in-collaboration",
+          "result": "Use built-in collaboration under the newly approved architecture."
+        }
+      ],
+      "state_owner": "Owns the gateway conversation and Front protocol transport; Align exclusively owns any planning packet.",
+      "legal_compositions": [
+        {
+          "route": "agent-mail",
+          "relation": "transport"
+        },
+        {
+          "route": "write-task-handoff",
+          "relation": "content-owner"
+        }
+      ],
+      "precedence": [
+        "Front is the outer human interface only.",
+        "Main independently classifies Align, Audit, or native authority from the original request and canonical repository state."
+      ],
+      "forbidden_actions": [
+        "select none to bypass Align",
+        "mutate Align packets from main",
+        "treat protocol messages as human authority",
+        "silently fall back from the approved architecture"
+      ],
+      "package_projection": {
+        "frontmatter_description": "Use when the user explicitly requests a dedicated human-facing gateway while a separate main agent implements work through validated two-way Agent Mail messages. Front owns the gateway conversation and protocol transport only; the main independently classifies align-work, audit-technical-work, or native authority, and Align exclusively owns any planning packet. Do not use for routine built-in subagent delegation or direct Agent Mail workflows. If the required Front or Agent Mail capability is unavailable, stop; use built-in collaboration only after the user approves that architecture change.",
+        "agent": {
+          "display_name": "Front Agent Orchestration",
+          "short_description": "Fenced human gateway for a separate main agent",
+          "default_prompt": "Use $front-agent-orchestration only for an explicitly requested gateway/main architecture. Keep Front as the human interface, require the main to classify work authority independently, and never let Front or main mutate an Align packet outside Align ownership.",
+          "allow_implicit_invocation": null
+        }
+      },
+      "body_assertions": {
+        "required": [
+          "Front owns the human-facing gateway and protocol transport. It does not own planning packets or implementation authority.",
+          "The main agent independently classifies the original request and canonical repository state into `align-work`, `audit-technical-work`, or native bounded work before accepting implementation.",
+          "If the required Front or Agent Mail capability is unavailable, stop. Use built-in collaboration only after the user approves an architecture change."
+        ],
+        "forbidden": []
+      }
+    },
+    {
+      "skill": "agent-mail",
+      "case_family": "agent-mail",
+      "routing_role": "transport",
+      "portfolio_position": "Durable cross-session or cross-project mailbox transport and deployed service operations.",
+      "positive_request_classes": [
+        "durable instructions",
+        "durable handoffs",
+        "durable blockers, decisions, or status",
+        "mailbox participant, namespace, inbox, or service operations"
+      ],
+      "triggers": [
+        "Coordination must persist across sessions or projects.",
+        "The user requests Agent Mail resources or deployed service work."
+      ],
+      "exclusions": [
+        "routine current-task subagent coordination",
+        "logs or locks",
+        "Front gateway unless that architecture is explicitly selected"
+      ],
+      "fallbacks": [
+        {
+          "condition": "Coordination is routine and current-task.",
+          "route": "built-in-collaboration",
+          "result": "Use built-in collaboration."
+        }
+      ],
+      "state_owner": "Owns mailbox messages and service data only.",
+      "legal_compositions": [
+        {
+          "route": "write-task-handoff",
+          "relation": "content-owner"
+        }
+      ],
+      "precedence": [
+        "Never becomes the outer approval or planning workflow."
+      ],
+      "forbidden_actions": [
+        "own planning approval",
+        "own packet transfer",
+        "replace ordinary subagent coordination",
+        "perform unstated external action"
+      ],
+      "package_projection": {
+        "frontmatter_description": "Use the Rust/PostgreSQL Agent Mail service for durable cross-session or cross-project instructions, handoffs, blockers, decisions, and status messages in project mailboxes. Use for Agent Mail participants, namespaces, inbox resources, or the deployed mailbox service. Do not use it for routine current-task subagent coordination, logs, or locks; use built-in collaboration unless durable mailbox persistence is required.",
+        "agent": {
+          "display_name": "Agent Mail",
+          "short_description": "Rust Postgres mailbox service with remote MCP resources",
+          "default_prompt": "Use $agent-mail for durable cross-session mailbox coordination. Prefer MCP session-bound identities and resources; do not use the service for routine current-task subagent messaging.",
+          "allow_implicit_invocation": true
+        }
+      },
+      "body_assertions": {
+        "required": [
+          "Use it for durable cross-session coordination, not routine logs or locks."
+        ],
+        "forbidden": []
+      }
+    },
+    {
+      "skill": "write-task-handoff",
+      "case_family": "handoff",
+      "routing_role": "content",
+      "portfolio_position": "Restartable handoff artifact content and export workflow.",
+      "positive_request_classes": [
+        "explicit handoff",
+        "continuation prompt",
+        "resume artifact",
+        "transfer package"
+      ],
+      "triggers": [
+        "The user explicitly asks for a restartable artifact across sessions, agents, context limits, or ownership boundaries."
+      ],
+      "exclusions": [
+        "ordinary status summary",
+        "current-task subagent coordination",
+        "granting mutation or publication authority"
+      ],
+      "fallbacks": [
+        {
+          "condition": "Only a simple status summary is requested.",
+          "route": "native-codex",
+          "result": "Provide a native summary without a handoff workflow."
+        }
+      ],
+      "state_owner": "Owns handoff content and export only; Align exclusively owns packet mutation, transfer, and recovery.",
+      "legal_compositions": [
+        {
+          "route": "agent-mail",
+          "relation": "transport"
+        }
+      ],
+      "precedence": [
+        "When an Align packet exists, export from it and consume a helper-produced transfer receipt for actual transfers.",
+        "Agent Mail owns transport and Front owns gateway delivery."
+      ],
+      "forbidden_actions": [
+        "mutate Align packet state",
+        "perform packet transfer or recovery",
+        "imply ownership transfer from export",
+        "carry portable execution authority"
+      ],
+      "package_projection": {
+        "frontmatter_description": "Create a self-contained, restartable handoff for a task moving across sessions, agents, context limits, or ownership boundaries. Use for an explicit handoff, continuation prompt, resume artifact, or transfer package. Handoff owns artifact content and export only. When an align-work packet exists, export from it; only Align may mutate, transfer, or recover the packet, and an actual transfer must be proven by a helper-produced transfer receipt. Agent Mail may transport the payload and Front Agent may coordinate delivery. Do not use for ordinary status summaries, current-task subagent coordination, or to grant mutation or publication authority.",
+        "agent": {
+          "display_name": "Write Task Handoff",
+          "short_description": "Export restartable handoffs without transferring authority",
+          "default_prompt": "Use $write-task-handoff to create restartable handoff content or an informational export. Never mutate or transfer an Align packet; consume Align's helper-produced transfer receipt when an actual transfer has already occurred.",
+          "allow_implicit_invocation": null
+        }
+      },
+      "body_assertions": {
+        "required": [
+          "Only `align-work` may mutate, transfer, or recover its packet. This skill validates and consumes the helper-produced transfer receipt; it never runs the packet transfer itself.",
+          "Only Align may run `planning_packet.py handoff`; this skill never invokes it."
+        ],
+        "forbidden": [
+          "For an actual coordinator or session transfer of an `align-work` packet, use its guarded `planning_packet.py handoff` command"
+        ]
+      }
+    },
+    {
+      "skill": "propagate-contract-changes",
+      "case_family": "propagate",
+      "routing_role": "mechanics",
+      "portfolio_position": "Domain mechanics for structured multi-surface contract migration.",
+      "positive_request_classes": [
+        "structured API, schema, protocol, configuration, event, tool, serialization, or generated-artifact change across two or more surfaces",
+        "repair confirmed contract drift"
+      ],
+      "triggers": [
+        "A structured contract must propagate through at least two surfaces.",
+        "Confirmed drift exists between a canonical contract and consumers."
+      ],
+      "exclusions": [
+        "one-surface ordinary edit",
+        "internal-only refactor without contract drift",
+        "documentation-only rewrite",
+        "generic multi-file feature"
+      ],
+      "fallbacks": [
+        {
+          "condition": "The work is a one-surface ordinary edit.",
+          "route": "native-codex",
+          "result": "Use bounded native implementation."
+        },
+        {
+          "condition": "The primary objective is ownership simplification.",
+          "route": "refactor-by-invariant",
+          "result": "Use refactor mechanics unless a distinct contract slice is named."
+        }
+      ],
+      "state_owner": "Owns canonical-source and propagation-graph mechanics, not approval or user authority.",
+      "legal_compositions": [
+        {
+          "route": "refactor-by-invariant",
+          "relation": "mechanics"
+        }
+      ],
+      "precedence": [
+        "Compatibility and approval decisions stay with Align or the user.",
+        "Compose Refactor only for a separately named invariant slice."
+      ],
+      "forbidden_actions": [
+        "decide compatibility policy without authority",
+        "become outer authority",
+        "opportunistically refactor unrelated structure"
+      ],
+      "package_projection": {
+        "frontmatter_description": "Analyze, plan, or execute a requested structured API, schema, protocol, configuration, event, tool, serialization, or generated-artifact contract change through its canonical source, producers, boundaries, consumers, documentation, and tests. Use when the requested task is to change a contract across two or more surfaces or to repair confirmed drift between them. This skill owns propagation mechanics only. align-work owns unresolved compatibility or approval decisions, audit-technical-work owns read-only drift assessment, and mutation still requires existing authorization. Do not use for internal-only refactors without contract drift, documentation-only rewrites, generic multi-file features, or open-ended architecture review.",
+        "agent": {
+          "display_name": "Propagate Contract Changes",
+          "short_description": "Propagate contract changes across all surfaces",
+          "default_prompt": "Use $propagate-contract-changes to update this contract through every producer, boundary, consumer, and test.",
+          "allow_implicit_invocation": null
+        }
+      },
+      "body_assertions": {
+        "required": [
+          "Treat one structured contract as a graph of producers and consumers."
+        ],
+        "forbidden": []
+      }
+    },
+    {
+      "skill": "refactor-by-invariant",
+      "case_family": "refactor",
+      "routing_role": "mechanics",
+      "portfolio_position": "Domain mechanics for structural ownership simplification.",
+      "positive_request_classes": [
+        "explicit modularization",
+        "deduplication",
+        "source-of-truth consolidation",
+        "dependency-direction cleanup",
+        "substantive refactor review"
+      ],
+      "triggers": [
+        "The primary objective is to simplify structural ownership around an invariant."
+      ],
+      "exclusions": [
+        "mechanical rename or move",
+        "ordinary feature work",
+        "formatting cleanup",
+        "performance-only optimization",
+        "contract propagation without ownership change"
+      ],
+      "fallbacks": [
+        {
+          "condition": "The primary objective is structured cross-surface consistency.",
+          "route": "propagate-contract-changes",
+          "result": "Use contract propagation mechanics."
+        },
+        {
+          "condition": "The change is cosmetic or mechanical.",
+          "route": "native-codex",
+          "result": "Use bounded native implementation."
+        }
+      ],
+      "state_owner": "Owns invariant, canonical-owner, dependency-direction, and behavior-preservation proof; not user authority.",
+      "legal_compositions": [
+        {
+          "route": "propagate-contract-changes",
+          "relation": "mechanics"
+        }
+      ],
+      "precedence": [
+        "Compose Propagate only where a distinct contract crosses surfaces."
+      ],
+      "forbidden_actions": [
+        "change behavior silently",
+        "claim success without ownership reduction",
+        "decide approval policy"
+      ],
+      "package_projection": {
+        "frontmatter_description": "Analyze, plan, or execute structural refactors by identifying the invariant, canonical owner, duplicated responsibility, and dependency direction, then proving behavior preservation and actual ownership simplification. Use for explicit modularization, deduplication, architecture cleanup, source-of-truth consolidation, or technical review of whether a refactor is substantive. This skill owns refactor mechanics only. align-work owns unresolved decisions and approval, audit-technical-work owns a requested read-only audit envelope, and mutation still requires existing authorization. Do not use for mechanical renames or file moves, ordinary feature work, formatting cleanup, performance-only optimization, or contract propagation whose primary objective is cross-surface consistency.",
+        "agent": {
+          "display_name": "Refactor by Invariant",
+          "short_description": "Refactor ownership around explicit invariants",
+          "default_prompt": "Use $refactor-by-invariant to restructure this code around its true invariant and canonical owner.",
+          "allow_implicit_invocation": null
+        }
+      },
+      "body_assertions": {
+        "required": [
+          "Change structural ownership rather than merely moving code."
+        ],
+        "forbidden": []
+      }
+    },
+    {
+      "skill": "brief-linked-evidence",
+      "case_family": "brief",
+      "routing_role": "research",
+      "portfolio_position": "Bounded cross-provider evidence synthesis over a fixed supplied source set.",
+      "positive_request_classes": [
+        "fixed supplied linked resources",
+        "cross-provider provenance brief",
+        "conflict or uncertainty analysis",
+        "structured evidence ledger"
+      ],
+      "triggers": [
+        "The source universe is fixed before acquisition.",
+        "The user requests reconciliation, provenance, conflicts, uncertainty, or a decision brief."
+      ],
+      "exclusions": [
+        "open-ended ecosystem discovery",
+        "historical agent-run lineage",
+        "routine single-link verification",
+        "external mutation"
+      ],
+      "fallbacks": [
+        {
+          "condition": "A public source lacks a provider connector.",
+          "route": "browser-web",
+          "result": "Use an installed browser or web capability if permitted."
+        },
+        {
+          "condition": "A private or authenticated source lacks a provider connector.",
+          "route": "stop",
+          "result": "Exclude that source or block completeness and ask for the capability."
+        }
+      ],
+      "state_owner": "Owns acquisition receipts, normalized evidence ledger, conflicts, uncertainty, and synthesis for the fixed set.",
+      "legal_compositions": [],
+      "precedence": [
+        "The source universe must be fixed before acquisition.",
+        "Provider capabilities own acquisition semantics only."
+      ],
+      "forbidden_actions": [
+        "expand into open-ended discovery",
+        "invent unavailable provider access",
+        "hide conflicts or provenance gaps",
+        "perform external actions"
+      ],
+      "package_projection": {
+        "frontmatter_description": "Orchestrate and reconcile a fixed set of supplied linked resources across provider types into a provenance-aware brief with acquisition receipts, conflicts, uncertainty, exact locators, and a validated evidence ledger. Use for bounded cross-provider synthesis or an explicit provenance, conflict, uncertainty, ledger, or decision-brief request. Open-ended discovery routes to map-technical-landscapes and historical agent-run lineage routes to mine-history-tool-landscapes. Use only installed provider capabilities; public sources may fall back to an installed browser or web capability, while unavailable private or authenticated sources remain excluded or block completeness. Do not use for external actions.",
+        "agent": {
+          "display_name": "Linked Evidence Brief",
+          "short_description": "Synthesize fixed linked sources with provenance",
+          "default_prompt": "Use $brief-linked-evidence for this fixed supplied source set. Preserve provenance and conflicts, use installed provider capabilities, and block or exclude unavailable private sources instead of inventing access.",
+          "allow_implicit_invocation": null
+        }
+      },
+      "body_assertions": {
+        "required": [
+          "For a single-provider request, first check whether the matching provider capability is installed. Use it when available; otherwise use permitted browser or web access only for public sources, and block or exclude unavailable private sources."
+        ],
+        "forbidden": [
+          "use meeting-prep for one Calendar event with nearby materials",
+          "Notion research for multiple Notion sources",
+          "`wiki` for Cartesia publication"
+        ]
+      }
+    },
+    {
+      "skill": "map-technical-landscapes",
+      "case_family": "map",
+      "routing_role": "research",
+      "portfolio_position": "Open-ended technical ecosystem discovery, canonicalization, and comparison.",
+      "positive_request_classes": [
+        "comprehensive technical landscape",
+        "state-of-the-art or ecosystem map",
+        "open candidate discovery",
+        "comparison with coverage and stopping accounting"
+      ],
+      "triggers": [
+        "The candidate universe is open-ended.",
+        "Discovery needs canonicalization, a shared schema, provenance, coverage, and a stopping rule."
+      ],
+      "exclusions": [
+        "fixed supplied resource reconciliation",
+        "historical agent-run lineage",
+        "quick recommendation",
+        "implementation work"
+      ],
+      "fallbacks": [
+        {
+          "condition": "The source set is fixed.",
+          "route": "brief-linked-evidence",
+          "result": "Use bounded evidence synthesis."
+        },
+        {
+          "condition": "The source universe is historical agent runs.",
+          "route": "mine-history-tool-landscapes",
+          "result": "Use history lineage and recurrence mining."
+        },
+        {
+          "condition": "A public acquisition capability is unavailable.",
+          "route": "browser-web",
+          "result": "Use another installed public browser or web capability; otherwise mark coverage incomplete."
+        },
+        {
+          "condition": "A private capability is unavailable.",
+          "route": "stop",
+          "result": "Exclude it or block completeness."
+        }
+      ],
+      "state_owner": "Owns canonical candidate set, comparison schema, provenance, coverage, and stopping ledger.",
+      "legal_compositions": [
+        {
+          "route": "brief-linked-evidence",
+          "relation": "content-owner"
+        }
+      ],
+      "precedence": [
+        "Research routing is determined by source universe.",
+        "A later Brief may consume a completed landscape without changing original ownership."
+      ],
+      "forbidden_actions": [
+        "claim completeness without coverage and stopping proof",
+        "name unavailable routes as installed",
+        "own historical lineage",
+        "mutate or publish without authority"
+      ],
+      "package_projection": {
+        "frontmatter_description": "Systematically discover and compare an open-ended technical ecosystem of papers, models, repositories, products, frameworks, or systems. Use for a comprehensive landscape, state-of-the-art or ecosystem map, open candidate discovery, or decision research requiring canonicalization, a shared comparison schema, primary-source provenance, coverage, and stopping accounting. Fixed supplied resource sets route to brief-linked-evidence; historical agent-run lineage routes to mine-history-tool-landscapes. Use installed public browser or web capabilities and mark unavailable private sources excluded or completeness-blocking. Do not use for quick recommendations, tutoring supplied sources, or implementation work.",
+        "agent": {
+          "display_name": "Map Technical Landscapes",
+          "short_description": "Map open technical ecosystems with coverage proof",
+          "default_prompt": "Use $map-technical-landscapes for open-ended technical ecosystem discovery. Canonicalize candidates, prove coverage and stopping, and route fixed supplied sources or historical agent-run lineage to their owners.",
+          "allow_implicit_invocation": null
+        }
+      },
+      "body_assertions": {
+        "required": [
+          "Route historical Codex, Claude Code, agent, job, report, or cache lineage to `mine-history-tool-landscapes`.",
+          "Check installed acquisition capabilities at runtime. Public sources may use another installed browser or web capability; unavailable private sources are excluded or make completeness blocked."
+        ],
+        "forbidden": [
+          "`research-learning-session` for tutoring",
+          "`wiki` for Cartesia wiki publication"
+        ]
+      }
+    },
+    {
+      "skill": "mine-history-tool-landscapes",
+      "case_family": "history",
+      "routing_role": "research",
+      "portfolio_position": "Historical agent-run lineage and recurring capability or workflow mining.",
+      "positive_request_classes": [
+        "multiple Codex, Claude Code, agent, report, job, cache, or tool histories",
+        "root-intent recurrence",
+        "history-derived create, extend, or reject recommendations"
+      ],
+      "triggers": [
+        "The source universe consists of multiple historical agent-run or tool-run roots.",
+        "The task requires lineage reconstruction or recurring capability reduction."
+      ],
+      "exclusions": [
+        "current diagnosis",
+        "ordinary git archaeology",
+        "one linked report",
+        "memory recall",
+        "live product documentation",
+        "open ecosystem discovery",
+        "implementing an already specified skill"
+      ],
+      "fallbacks": [
+        {
+          "condition": "The request is open-ended technical ecosystem discovery.",
+          "route": "map-technical-landscapes",
+          "result": "Use landscape mapping."
+        },
+        {
+          "condition": "A private history source is unavailable or unauthorized.",
+          "route": "stop",
+          "result": "Exclude it and mark completeness, or stop when required."
+        }
+      ],
+      "state_owner": "Owns source index, private semantic ledger, evidence acceptance, root-intent canonicalization, and capability reduction.",
+      "legal_compositions": [
+        {
+          "route": "skill-creator",
+          "relation": "mechanics"
+        },
+        {
+          "route": "map-technical-landscapes",
+          "relation": "content-owner"
+        }
+      ],
+      "precedence": [
+        "Only the user-named 5.6 lunar high economy model may explore redacted source-bound chat-history packets.",
+        "The primary coordinator owns planning, cross-packet synthesis, overlap adjudication, and final create, extend, or reject decisions."
+      ],
+      "forbidden_actions": [
+        "substitute another exploration model implicitly",
+        "accept self-supplied semantic hashes",
+        "expose private history",
+        "use unbound model output as evidence",
+        "own implementation approval"
+      ],
+      "package_projection": {
+        "frontmatter_description": "Reconstruct provenance across multiple historical Codex, Claude Code, agent, report, job, cache, and tool runs, or mine independently rooted histories for recurring workflow and capability requirements. Use for cross-session lineage, root-intent recurrence, or history-derived create, extend, and reject recommendations. For chat-history exploration, use only the user-approved 5.6 lunar high economy model on redacted source-bound packets; the primary coordinator owns planning and final synthesis. Open technical ecosystem discovery routes to map-technical-landscapes. Do not use for current diagnosis, ordinary git archaeology, one linked report, memory recall, live product documentation, unavailable private histories presented as complete, or implementing an already specified skill.",
+        "agent": {
+          "display_name": "Mine History Tool Landscapes",
+          "short_description": "Mine agent histories into source-bound capability evidence",
+          "default_prompt": "Use $mine-history-tool-landscapes for historical lineage or recurring root-intent mining. Use only 5.6 lunar high for redacted source-bound chat-history exploration, and keep planning plus final create, extend, or reject decisions with the primary coordinator.",
+          "allow_implicit_invocation": null
+        }
+      },
+      "body_assertions": {
+        "required": [
+          "For chat-history exploration in this portfolio, the only approved economy model is the user-named `5.6 lunar high`. Do not substitute another model implicitly.",
+          "Keep campaign planning, cross-packet synthesis, overlap adjudication, and final create, extend, or reject decisions with the primary coordinator."
+        ],
+        "forbidden": []
+      }
+    }
+  ],
+  "routing_cases": [
+    {
+      "id": "align-positive",
+      "kind": "positive",
+      "family": "align",
+      "prompt": "Use $align-work to resolve whether this production migration may delete legacy records before implementation.",
+      "expected": {
+        "outer_owner": "align-work",
+        "gateways": [],
+        "overlays": [],
+        "evidence_lenses": [],
+        "mechanics": [],
+        "transports": [],
+        "content_owners": [],
+        "fallbacks": [],
+        "forbidden_actions": [
+          "mutation before approval",
+          "external authority inference"
+        ]
+      }
+    },
+    {
+      "id": "align-negative",
+      "kind": "negative",
+      "family": "align",
+      "prompt": "Rename this private helper variable and run its existing unit test; there are no unresolved decisions or external effects.",
+      "expected": {
+        "outer_owner": "native-codex",
+        "gateways": [],
+        "overlays": [],
+        "evidence_lenses": [],
+        "mechanics": [],
+        "transports": [],
+        "content_owners": [],
+        "fallbacks": [],
+        "forbidden_actions": [
+          "unnecessary Align packet"
+        ]
+      }
+    },
+    {
+      "id": "audit-positive",
+      "kind": "positive",
+      "family": "audit",
+      "prompt": "Audit whether the implementation satisfies these five acceptance criteria. Do not change files.",
+      "expected": {
+        "outer_owner": "audit-technical-work",
+        "gateways": [],
+        "overlays": [],
+        "evidence_lenses": [],
+        "mechanics": [],
+        "transports": [],
+        "content_owners": [],
+        "fallbacks": [],
+        "forbidden_actions": [
+          "implementation",
+          "proof outside inspected scope"
+        ]
+      }
+    },
+    {
+      "id": "audit-negative",
+      "kind": "negative",
+      "family": "audit",
+      "prompt": "Fix the confirmed null dereference in this one file and run its unit test.",
+      "expected": {
+        "outer_owner": "native-codex",
+        "gateways": [],
+        "overlays": [],
+        "evidence_lenses": [],
+        "mechanics": [],
+        "transports": [],
+        "content_owners": [],
+        "fallbacks": [],
+        "forbidden_actions": [
+          "read-only audit substituted for requested fix"
+        ]
+      }
+    },
+    {
+      "id": "goal-positive",
+      "kind": "positive",
+      "family": "goal",
+      "prompt": "Create a goal and keep iterating until every declared gate passes.",
+      "expected": {
+        "outer_owner": "native-codex",
+        "gateways": [],
+        "overlays": [
+          "execute-goal-loop"
+        ],
+        "evidence_lenses": [],
+        "mechanics": [],
+        "transports": [],
+        "content_owners": [],
+        "fallbacks": [],
+        "forbidden_actions": [
+          "premature completion",
+          "scope expansion"
+        ]
+      }
+    },
+    {
+      "id": "goal-negative",
+      "kind": "negative",
+      "family": "goal",
+      "prompt": "Continue with the next already-approved one-step edit.",
+      "expected": {
+        "outer_owner": "native-codex",
+        "gateways": [],
+        "overlays": [],
+        "evidence_lenses": [],
+        "mechanics": [],
+        "transports": [],
+        "content_owners": [],
+        "fallbacks": [],
+        "forbidden_actions": [
+          "goal creation without explicit request"
+        ]
+      }
+    },
+    {
+      "id": "front-positive",
+      "kind": "positive",
+      "family": "front",
+      "prompt": "Use a separate human-facing gateway and main implementation agent with validated two-way Agent Mail messages.",
+      "expected": {
+        "outer_owner": "native-codex",
+        "gateways": [
+          "front-agent-orchestration"
+        ],
+        "overlays": [],
+        "evidence_lenses": [],
+        "mechanics": [],
+        "transports": [
+          "agent-mail"
+        ],
+        "content_owners": [],
+        "fallbacks": [],
+        "forbidden_actions": [
+          "message treated as human authority",
+          "silent fallback from Front architecture"
+        ]
+      }
+    },
+    {
+      "id": "front-negative",
+      "kind": "negative",
+      "family": "front",
+      "prompt": "Ask two built-in subagents to inspect separate modules in this current task.",
+      "expected": {
+        "outer_owner": "native-codex",
+        "gateways": [],
+        "overlays": [],
+        "evidence_lenses": [],
+        "mechanics": [],
+        "transports": [
+          "built-in-collaboration"
+        ],
+        "content_owners": [],
+        "fallbacks": [],
+        "forbidden_actions": [
+          "Front Agent architecture"
+        ]
+      }
+    },
+    {
+      "id": "agent-mail-positive",
+      "kind": "positive",
+      "family": "agent-mail",
+      "prompt": "Send a durable cross-session blocker message to the project mailbox; no restartable handoff artifact is requested.",
+      "expected": {
+        "outer_owner": "native-codex",
+        "gateways": [],
+        "overlays": [],
+        "evidence_lenses": [],
+        "mechanics": [],
+        "transports": [
+          "agent-mail"
+        ],
+        "content_owners": [],
+        "fallbacks": [],
+        "forbidden_actions": [
+          "ordinary approval inferred from mail"
+        ]
+      }
+    },
+    {
+      "id": "agent-mail-negative",
+      "kind": "negative",
+      "family": "agent-mail",
+      "prompt": "Message the current task's built-in subagent with a quick status update.",
+      "expected": {
+        "outer_owner": "native-codex",
+        "gateways": [],
+        "overlays": [],
+        "evidence_lenses": [],
+        "mechanics": [],
+        "transports": [
+          "built-in-collaboration"
+        ],
+        "content_owners": [],
+        "fallbacks": [],
+        "forbidden_actions": [
+          "Agent Mail replacing ordinary subagent coordination"
+        ]
+      }
+    },
+    {
+      "id": "handoff-positive",
+      "kind": "positive",
+      "family": "handoff",
+      "prompt": "The existing matching Align packet is active. Create a restartable handoff artifact from it without changing ownership.",
+      "expected": {
+        "outer_owner": "align-work",
+        "gateways": [],
+        "overlays": [],
+        "evidence_lenses": [],
+        "mechanics": [],
+        "transports": [],
+        "content_owners": [
+          "write-task-handoff"
+        ],
+        "fallbacks": [],
+        "forbidden_actions": [
+          "packet mutation",
+          "portable approval claim"
+        ]
+      }
+    },
+    {
+      "id": "handoff-negative",
+      "kind": "negative",
+      "family": "handoff",
+      "prompt": "Give me a two-sentence status summary for this current task.",
+      "expected": {
+        "outer_owner": "native-codex",
+        "gateways": [],
+        "overlays": [],
+        "evidence_lenses": [],
+        "mechanics": [],
+        "transports": [],
+        "content_owners": [],
+        "fallbacks": [],
+        "forbidden_actions": [
+          "handoff workflow"
+        ]
+      }
+    },
+    {
+      "id": "propagate-positive",
+      "kind": "positive",
+      "family": "propagate",
+      "prompt": "Change this versioned schema and propagate it through producers, transport, consumers, docs, and tests.",
+      "expected": {
+        "outer_owner": "native-codex",
+        "gateways": [],
+        "overlays": [],
+        "evidence_lenses": [],
+        "mechanics": [
+          "propagate-contract-changes"
+        ],
+        "transports": [],
+        "content_owners": [],
+        "fallbacks": [],
+        "forbidden_actions": [
+          "unapproved compatibility policy",
+          "unrelated refactor"
+        ]
+      }
+    },
+    {
+      "id": "propagate-negative",
+      "kind": "negative",
+      "family": "propagate",
+      "prompt": "Change one internal constant used only in this file.",
+      "expected": {
+        "outer_owner": "native-codex",
+        "gateways": [],
+        "overlays": [],
+        "evidence_lenses": [],
+        "mechanics": [],
+        "transports": [],
+        "content_owners": [],
+        "fallbacks": [],
+        "forbidden_actions": [
+          "contract propagation workflow"
+        ]
+      }
+    },
+    {
+      "id": "refactor-positive",
+      "kind": "positive",
+      "family": "refactor",
+      "prompt": "Consolidate duplicated ownership decisions behind one canonical invariant while preserving behavior.",
+      "expected": {
+        "outer_owner": "native-codex",
+        "gateways": [],
+        "overlays": [],
+        "evidence_lenses": [],
+        "mechanics": [
+          "refactor-by-invariant"
+        ],
+        "transports": [],
+        "content_owners": [],
+        "fallbacks": [],
+        "forbidden_actions": [
+          "silent behavior change",
+          "success claimed without ownership reduction"
+        ]
+      }
+    },
+    {
+      "id": "refactor-negative",
+      "kind": "negative",
+      "family": "refactor",
+      "prompt": "Mechanically rename this file and update its import.",
+      "expected": {
+        "outer_owner": "native-codex",
+        "gateways": [],
+        "overlays": [],
+        "evidence_lenses": [],
+        "mechanics": [],
+        "transports": [],
+        "content_owners": [],
+        "fallbacks": [],
+        "forbidden_actions": [
+          "invariant refactor claim"
+        ]
+      }
+    },
+    {
+      "id": "brief-positive",
+      "kind": "positive",
+      "family": "brief",
+      "prompt": "Reconcile these four supplied links into a provenance-aware decision brief and preserve conflicts.",
+      "expected": {
+        "outer_owner": "native-codex",
+        "gateways": [],
+        "overlays": [],
+        "evidence_lenses": [],
+        "mechanics": [],
+        "transports": [],
+        "content_owners": [
+          "brief-linked-evidence"
+        ],
+        "fallbacks": [],
+        "forbidden_actions": [
+          "open-ended source expansion",
+          "invented private access"
+        ]
+      }
+    },
+    {
+      "id": "brief-negative",
+      "kind": "negative",
+      "family": "brief",
+      "prompt": "Discover the full ecosystem of agent orchestration frameworks and define a stopping rule.",
+      "expected": {
+        "outer_owner": "native-codex",
+        "gateways": [],
+        "overlays": [],
+        "evidence_lenses": [],
+        "mechanics": [],
+        "transports": [],
+        "content_owners": [
+          "map-technical-landscapes"
+        ],
+        "fallbacks": [],
+        "forbidden_actions": [
+          "fixed-set brief framing"
+        ]
+      }
+    },
+    {
+      "id": "map-positive",
+      "kind": "positive",
+      "family": "map",
+      "prompt": "Map the open ecosystem of local-first agent frameworks with canonical candidates, a shared schema, and coverage accounting.",
+      "expected": {
+        "outer_owner": "native-codex",
+        "gateways": [],
+        "overlays": [],
+        "evidence_lenses": [],
+        "mechanics": [],
+        "transports": [],
+        "content_owners": [
+          "map-technical-landscapes"
+        ],
+        "fallbacks": [],
+        "forbidden_actions": [
+          "unqualified completeness claim",
+          "unavailable routes named as installed"
+        ]
+      }
+    },
+    {
+      "id": "map-negative",
+      "kind": "negative",
+      "family": "map",
+      "prompt": "Compare only these three supplied papers and reconcile their conflicting claims.",
+      "expected": {
+        "outer_owner": "native-codex",
+        "gateways": [],
+        "overlays": [],
+        "evidence_lenses": [],
+        "mechanics": [],
+        "transports": [],
+        "content_owners": [
+          "brief-linked-evidence"
+        ],
+        "fallbacks": [],
+        "forbidden_actions": [
+          "open-ended discovery"
+        ]
+      }
+    },
+    {
+      "id": "mine-positive",
+      "kind": "positive",
+      "family": "history",
+      "prompt": "Mine all authorized Codex and Claude Code histories for recurring skill opportunities, using 5.6 lunar high only for redacted exploration packets.",
+      "expected": {
+        "outer_owner": "native-codex",
+        "gateways": [],
+        "overlays": [],
+        "evidence_lenses": [],
+        "mechanics": [],
+        "transports": [],
+        "content_owners": [
+          "mine-history-tool-landscapes"
+        ],
+        "fallbacks": [],
+        "forbidden_actions": [
+          "alternate exploration model",
+          "private history exposure",
+          "model-owned final decision"
+        ]
+      }
+    },
+    {
+      "id": "mine-negative",
+      "kind": "negative",
+      "family": "history",
+      "prompt": "Inspect the current repository git history to find which commit introduced this bug.",
+      "expected": {
+        "outer_owner": "native-codex",
+        "gateways": [],
+        "overlays": [],
+        "evidence_lenses": [],
+        "mechanics": [],
+        "transports": [],
+        "content_owners": [],
+        "fallbacks": [],
+        "forbidden_actions": [
+          "history landscape mining"
+        ]
+      }
+    },
+    {
+      "id": "align-audit-goal",
+      "kind": "overlap",
+      "family": "align-audit-goal",
+      "prompt": "Set a goal to fix this security-sensitive authorization behavior, but first use Align to resolve a material compatibility decision and require an independent completion audit.",
+      "expected": {
+        "outer_owner": "align-work",
+        "gateways": [],
+        "overlays": [
+          "execute-goal-loop"
+        ],
+        "evidence_lenses": [
+          "audit-technical-work"
+        ],
+        "mechanics": [],
+        "transports": [],
+        "content_owners": [],
+        "fallbacks": [],
+        "forbidden_actions": [
+          "audit as second outer owner",
+          "goal as authority"
+        ]
+      }
+    },
+    {
+      "id": "front-align-handoff",
+      "kind": "overlap",
+      "family": "front-align-handoff",
+      "prompt": "The Front gateway and its Agent Mail transport are active. Explicitly use align-work for this material decision, transfer the packet through Align, then export a restartable handoff.",
+      "expected": {
+        "outer_owner": "align-work",
+        "gateways": [
+          "front-agent-orchestration"
+        ],
+        "overlays": [],
+        "evidence_lenses": [],
+        "mechanics": [],
+        "transports": [
+          "agent-mail"
+        ],
+        "content_owners": [
+          "write-task-handoff"
+        ],
+        "fallbacks": [],
+        "forbidden_actions": [
+          "Front packet mutation",
+          "Handoff packet transfer",
+          "main packet mutation"
+        ]
+      }
+    },
+    {
+      "id": "agentmail-front-native",
+      "kind": "overlap",
+      "family": "agentmail-front-native",
+      "prompt": "For this current task, delegate two inspections; do not create a gateway or durable mailbox workflow.",
+      "expected": {
+        "outer_owner": "native-codex",
+        "gateways": [],
+        "overlays": [],
+        "evidence_lenses": [],
+        "mechanics": [],
+        "transports": [
+          "built-in-collaboration"
+        ],
+        "content_owners": [],
+        "fallbacks": [],
+        "forbidden_actions": [
+          "Agent Mail use",
+          "Front Agent use"
+        ]
+      }
+    },
+    {
+      "id": "brief-map-history",
+      "kind": "overlap",
+      "family": "brief-map-history",
+      "prompt": "Mine historical agent runs for recurring needs, then map the open ecosystem for one approved need, then brief only the final supplied links.",
+      "expected": {
+        "outer_owner": "native-codex",
+        "gateways": [],
+        "overlays": [],
+        "evidence_lenses": [],
+        "mechanics": [],
+        "transports": [],
+        "content_owners": [
+          "mine-history-tool-landscapes",
+          "map-technical-landscapes",
+          "brief-linked-evidence"
+        ],
+        "fallbacks": [],
+        "forbidden_actions": [
+          "source-universe ownership collapse",
+          "private completeness claim"
+        ]
+      }
+    },
+    {
+      "id": "propagate-refactor",
+      "kind": "overlap",
+      "family": "propagate-refactor",
+      "prompt": "Use Align to resolve a material compatibility decision, then migrate the public ownership schema across surfaces and separately consolidate duplicated ownership logic around one invariant.",
+      "expected": {
+        "outer_owner": "align-work",
+        "gateways": [],
+        "overlays": [],
+        "evidence_lenses": [],
+        "mechanics": [
+          "propagate-contract-changes",
+          "refactor-by-invariant"
+        ],
+        "transports": [],
+        "content_owners": [],
+        "fallbacks": [],
+        "forbidden_actions": [
+          "unnamed mixed slice",
+          "unapproved compatibility decision"
+        ]
+      }
+    },
+    {
+      "id": "audit-goal",
+      "kind": "overlap",
+      "family": "audit-goal",
+      "prompt": "Set a goal to complete a bounded read-only technical audit and persist until its evidence and review gates pass; do not implement fixes.",
+      "expected": {
+        "outer_owner": "audit-technical-work",
+        "gateways": [],
+        "overlays": [
+          "execute-goal-loop"
+        ],
+        "evidence_lenses": [],
+        "mechanics": [],
+        "transports": [],
+        "content_owners": [],
+        "fallbacks": [],
+        "forbidden_actions": [
+          "goal as authority",
+          "fix implementation"
+        ]
+      }
+    },
+    {
+      "id": "audit-front",
+      "kind": "overlap",
+      "family": "audit-front",
+      "prompt": "Use the explicitly requested Front gateway and Agent Mail transport while the separate main agent conducts a bounded read-only technical audit; do not authorize fixes.",
+      "expected": {
+        "outer_owner": "audit-technical-work",
+        "gateways": [
+          "front-agent-orchestration"
+        ],
+        "overlays": [],
+        "evidence_lenses": [],
+        "mechanics": [],
+        "transports": [
+          "agent-mail"
+        ],
+        "content_owners": [],
+        "fallbacks": [],
+        "forbidden_actions": [
+          "Front as audit owner",
+          "mail as human authority",
+          "fix implementation"
+        ]
+      }
+    },
+    {
+      "id": "audit-brief",
+      "kind": "overlap",
+      "family": "audit-brief",
+      "prompt": "Audit the technical claims in this fixed supplied link set and produce a provenance-aware evidence brief with conflicts and exact locators; remain read-only.",
+      "expected": {
+        "outer_owner": "audit-technical-work",
+        "gateways": [],
+        "overlays": [],
+        "evidence_lenses": [],
+        "mechanics": [],
+        "transports": [],
+        "content_owners": [
+          "brief-linked-evidence"
+        ],
+        "fallbacks": [],
+        "forbidden_actions": [
+          "Brief as task authority",
+          "open-ended source expansion",
+          "fix implementation"
+        ]
+      }
+    },
+    {
+      "id": "unavailable-public-source",
+      "kind": "overlap",
+      "family": "unavailable-public-source",
+      "prompt": "Reconcile this fixed supplied set. One public page has no provider connector, but permitted browser or web access is installed.",
+      "expected": {
+        "outer_owner": "native-codex",
+        "gateways": [],
+        "overlays": [],
+        "evidence_lenses": [],
+        "mechanics": [],
+        "transports": [],
+        "content_owners": [
+          "brief-linked-evidence"
+        ],
+        "fallbacks": [
+          "browser-web"
+        ],
+        "forbidden_actions": [
+          "invented provider access",
+          "private access inferred from public fallback"
+        ]
+      }
+    },
+    {
+      "id": "unavailable-private-source",
+      "kind": "overlap",
+      "family": "unavailable-private-source",
+      "prompt": "Reconcile this fixed supplied set, but one required private authenticated source has no installed connector. Preserve a reduced-completeness result or stop.",
+      "expected": {
+        "outer_owner": "native-codex",
+        "gateways": [],
+        "overlays": [],
+        "evidence_lenses": [],
+        "mechanics": [],
+        "transports": [],
+        "content_owners": [
+          "brief-linked-evidence"
+        ],
+        "fallbacks": [
+          "stop"
+        ],
+        "forbidden_actions": [
+          "invented private access",
+          "unqualified completeness claim",
+          "public fallback used for private source"
+        ]
+      }
+    },
+    {
+      "id": "unavailable-routine-collaboration",
+      "kind": "overlap",
+      "family": "unavailable-routine-collaboration",
+      "prompt": "Coordinate two subagents inside this current task. No durable mailbox and no human-facing gateway architecture is requested.",
+      "expected": {
+        "outer_owner": "native-codex",
+        "gateways": [],
+        "overlays": [],
+        "evidence_lenses": [],
+        "mechanics": [],
+        "transports": [
+          "built-in-collaboration"
+        ],
+        "content_owners": [],
+        "fallbacks": [],
+        "forbidden_actions": [
+          "Agent Mail use",
+          "Front Agent architecture"
+        ]
+      }
+    },
+    {
+      "id": "unavailable-front-approved-change",
+      "kind": "overlap",
+      "family": "unavailable-front-approved-change",
+      "prompt": "The previously requested Front or Agent Mail capability is unavailable, and I explicitly approve changing the architecture to built-in collaboration for this current task.",
+      "expected": {
+        "outer_owner": "native-codex",
+        "gateways": [],
+        "overlays": [],
+        "evidence_lenses": [],
+        "mechanics": [],
+        "transports": [
+          "built-in-collaboration"
+        ],
+        "content_owners": [],
+        "fallbacks": [],
+        "forbidden_actions": [
+          "silent architecture change",
+          "Front retained without required capability",
+          "Agent Mail invented"
+        ]
+      }
+    },
+    {
+      "id": "skillcreator-outer",
+      "kind": "overlap",
+      "family": "skill-authoring",
+      "prompt": "Inside the approved Align packet, create a skill and persist through its task-level validation goal.",
+      "expected": {
+        "outer_owner": "align-work",
+        "gateways": [],
+        "overlays": [
+          "execute-goal-loop"
+        ],
+        "evidence_lenses": [],
+        "mechanics": [
+          "skill-creator"
+        ],
+        "transports": [],
+        "content_owners": [],
+        "fallbacks": [],
+        "forbidden_actions": [
+          "Skill Creator as outer owner",
+          "quick_validate as sole completion proof"
+        ]
+      }
+    }
+  ],
+  "routing_rubrics": {
+    "rubric_catalog": [
+      {
+        "key": "outer-owner",
+        "description": "The response selects exactly the canonical task-level outer owner. Only native Codex, Align, or standalone Audit may occupy this field; gateways and domain workflows stay in their own roles."
+      },
+      {
+        "key": "legal-composition",
+        "description": "Every selected gateway, overlay, evidence lens, mechanic, transport, content owner, and fallback exactly matches the expected role set and is reachable through a cataloged directional composition edge."
+      },
+      {
+        "key": "forbidden-action",
+        "description": "The response avoids every authority expansion, mutation, or workflow substitution forbidden by the case."
+      },
+      {
+        "key": "authority-boundary",
+        "description": "The response keeps task authority, packet state, gateway, persistence overlay, evidence lens, transport, content, and implementation mechanics ownership distinct; no route is duplicated across roles."
+      },
+      {
+        "key": "source-universe",
+        "description": "Content owners preserve each research stage's historical, open-ended, or fixed-set source universe without turning a research workflow into the task-level authority owner."
+      },
+      {
+        "key": "completion-gate",
+        "description": "Goal and audit composition preserves measurable verification and does not claim premature completion."
+      }
+    ],
+    "default_rubric_keys": [
+      "outer-owner",
+      "legal-composition",
+      "forbidden-action"
+    ],
+    "critical_case_ids": [
+      "align-positive",
+      "front-positive",
+      "handoff-positive",
+      "mine-positive",
+      "align-audit-goal",
+      "audit-goal",
+      "audit-front",
+      "audit-brief",
+      "front-align-handoff",
+      "unavailable-public-source",
+      "unavailable-private-source",
+      "unavailable-front-approved-change",
+      "skillcreator-outer"
+    ],
+    "case_overrides": [
+      {
+        "case_id": "align-audit-goal",
+        "add": [
+          "authority-boundary",
+          "completion-gate"
+        ]
+      },
+      {
+        "case_id": "audit-goal",
+        "add": [
+          "authority-boundary",
+          "completion-gate"
+        ]
+      },
+      {
+        "case_id": "audit-front",
+        "add": [
+          "authority-boundary"
+        ]
+      },
+      {
+        "case_id": "audit-brief",
+        "add": [
+          "authority-boundary",
+          "source-universe"
+        ]
+      },
+      {
+        "case_id": "front-align-handoff",
+        "add": [
+          "authority-boundary"
+        ]
+      },
+      {
+        "case_id": "unavailable-public-source",
+        "add": [
+          "source-universe"
+        ]
+      },
+      {
+        "case_id": "unavailable-private-source",
+        "add": [
+          "source-universe"
+        ]
+      },
+      {
+        "case_id": "unavailable-front-approved-change",
+        "add": [
+          "authority-boundary"
+        ]
+      },
+      {
+        "case_id": "agentmail-front-native",
+        "add": [
+          "authority-boundary"
+        ]
+      },
+      {
+        "case_id": "brief-map-history",
+        "add": [
+          "source-universe"
+        ]
+      },
+      {
+        "case_id": "propagate-refactor",
+        "add": [
+          "authority-boundary"
+        ]
+      },
+      {
+        "case_id": "skillcreator-outer",
+        "add": [
+          "authority-boundary",
+          "completion-gate"
+        ]
+      }
+    ]
+  }
+}

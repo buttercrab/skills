@@ -1,0 +1,351 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://local.invalid/history-evidence-v1.schema.json",
+  "title": "History evidence v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version", "evidence_id", "mode", "authoritative", "validated_at",
+    "bindings", "source_accounting", "lineage", "recurrence", "claims",
+    "artifacts", "conflicts", "states", "capabilities", "overlaps",
+    "candidates", "decisions", "counts", "reconciliation", "evidence_sha256"
+  ],
+  "properties": {
+    "schema_version": {"const": "history-evidence/v1"},
+    "evidence_id": {"$ref": "#/$defs/opaque_id"},
+    "mode": {"enum": ["lineage", "capability"]},
+    "authoritative": {"const": true},
+    "validated_at": {"$ref": "#/$defs/timestamp"},
+    "bindings": {
+      "type": "object", "additionalProperties": false,
+      "required": ["history_contract_id", "history_contract_sha256", "index_id", "history_index_sha256", "raw_manifest_sha256", "semantic_ledger_sha256", "native_lineage_closure_sha256", "exclusion_ledger_sha256", "corpus_sha256", "reduction_id", "reduction_sha256", "raw_reopen_receipt", "raw_reopen_receipt_sha256", "exact_input_file_set", "exact_input_file_set_sha256"],
+      "properties": {
+        "history_contract_id": {"$ref": "#/$defs/uuid"},
+        "history_contract_sha256": {"$ref": "#/$defs/hash"},
+        "index_id": {"$ref": "#/$defs/opaque_id"},
+        "history_index_sha256": {"$ref": "#/$defs/hash"},
+        "raw_manifest_sha256": {"$ref": "#/$defs/hash"},
+        "semantic_ledger_sha256": {"$ref": "#/$defs/hash"},
+        "native_lineage_closure_sha256": {"$ref": "#/$defs/hash"},
+        "exclusion_ledger_sha256": {"$ref": "#/$defs/hash"},
+        "corpus_sha256": {"$ref": "#/$defs/hash"},
+        "reduction_id": {"oneOf": [{"$ref": "#/$defs/opaque_id"}, {"type": "null"}]},
+        "reduction_sha256": {"oneOf": [{"$ref": "#/$defs/hash"}, {"type": "null"}]},
+        "raw_reopen_receipt": {"$ref": "#/$defs/raw_reopen_receipt"},
+        "raw_reopen_receipt_sha256": {"$ref": "#/$defs/hash"},
+        "exact_input_file_set": {"$ref": "#/$defs/exact_input_file_set"},
+        "exact_input_file_set_sha256": {"$ref": "#/$defs/hash"}
+      }
+    },
+    "source_accounting": {
+      "type": "object", "additionalProperties": false,
+      "required": ["schema_version", "source_ids", "included_record_ids", "excluded_record_ids", "nonsemantic_record_ids", "observation_ids", "exclusion_reason_counts", "source_accounting_sha256"],
+      "properties": {
+        "schema_version": {"const": "history-evidence-source-accounting/v1"},
+        "source_ids": {"$ref": "#/$defs/id_set"},
+        "included_record_ids": {"$ref": "#/$defs/id_set"},
+        "excluded_record_ids": {"$ref": "#/$defs/id_set"},
+        "nonsemantic_record_ids": {"$ref": "#/$defs/id_set"},
+        "observation_ids": {"$ref": "#/$defs/observation_set"},
+        "exclusion_reason_counts": {
+          "type": "object", "additionalProperties": false,
+          "required": ["after_cutoff", "active_root", "active_descendant", "active_namespace"],
+          "properties": {
+            "after_cutoff": {"type": "integer", "minimum": 0},
+            "active_root": {"type": "integer", "minimum": 0},
+            "active_descendant": {"type": "integer", "minimum": 0},
+            "active_namespace": {"type": "integer", "minimum": 0}
+          }
+        },
+        "source_accounting_sha256": {"$ref": "#/$defs/hash"}
+      }
+    },
+    "lineage": {
+      "type": "object", "additionalProperties": false,
+      "required": ["scope_root_ids", "node_ids", "root_ids", "child_ids", "unresolved_ids", "excluded_ids", "duplicate_export_ids", "namespace_ids", "project_family_ids", "edges"],
+      "properties": {
+        "scope_root_ids": {"$ref": "#/$defs/id_set"},
+        "node_ids": {"$ref": "#/$defs/id_set"},
+        "root_ids": {"$ref": "#/$defs/id_set"},
+        "child_ids": {"$ref": "#/$defs/id_set"},
+        "unresolved_ids": {"$ref": "#/$defs/id_set"},
+        "excluded_ids": {"$ref": "#/$defs/id_set"},
+        "duplicate_export_ids": {"$ref": "#/$defs/id_set"},
+        "namespace_ids": {"$ref": "#/$defs/id_set"},
+        "project_family_ids": {"$ref": "#/$defs/id_set"},
+        "edges": {
+          "type": "array",
+          "items": {
+            "type": "object", "additionalProperties": false,
+            "required": ["edge_id", "from_id", "to_id", "edge_type", "occurred_at", "confidence", "grounding_observation_ids", "state_id"],
+            "properties": {
+              "edge_id": {"$ref": "#/$defs/opaque_id"},
+              "from_id": {"$ref": "#/$defs/opaque_id"},
+              "to_id": {"$ref": "#/$defs/opaque_id"},
+              "edge_type": {"enum": ["native-parent", "artifact", "heuristic", "duplicate-export", "unresolved"]},
+              "occurred_at": {"$ref": "#/$defs/timestamp"},
+              "confidence": {"enum": ["exact", "high", "medium", "low", "unresolved"]},
+              "grounding_observation_ids": {"$ref": "#/$defs/observation_set"},
+              "state_id": {"$ref": "#/$defs/opaque_id"}
+            }
+          }
+        }
+      }
+    },
+    "recurrence": {
+      "type": "array",
+      "items": {
+        "type": "object", "additionalProperties": false,
+        "required": ["candidate_id", "root_ids", "project_family_ids", "root_count", "project_family_count", "observation_ids", "classification", "classification_basis"],
+        "properties": {
+          "candidate_id": {"$ref": "#/$defs/opaque_id"},
+          "root_ids": {"$ref": "#/$defs/id_set"},
+          "project_family_ids": {"$ref": "#/$defs/id_set"},
+          "root_count": {"type": "integer", "minimum": 0},
+          "project_family_count": {"type": "integer", "minimum": 0},
+          "observation_ids": {"$ref": "#/$defs/observation_set"},
+          "classification": {"const": "user-root"},
+          "classification_basis": {"const": "reducer-reviewed"}
+        }
+      }
+    },
+    "claims": {"type": "array", "items": {"$ref": "#/$defs/claim"}},
+    "artifacts": {"type": "array", "items": {"$ref": "#/$defs/artifact"}},
+    "conflicts": {"type": "array", "items": {"$ref": "#/$defs/conflict"}},
+    "states": {"type": "array", "items": {"$ref": "#/$defs/state"}},
+    "capabilities": {"type": "array", "items": {"$ref": "#/$defs/capability"}},
+    "overlaps": {"type": "array", "items": {"$ref": "#/$defs/overlap"}},
+    "candidates": {
+      "type": "array",
+      "items": {
+        "type": "object", "additionalProperties": false,
+        "required": ["candidate_id", "observation_ids", "root_ids", "project_family_ids", "capability_ids", "overlap_ids"],
+        "properties": {
+          "candidate_id": {"$ref": "#/$defs/opaque_id"},
+          "observation_ids": {"$ref": "#/$defs/observation_set"},
+          "root_ids": {"$ref": "#/$defs/id_set"},
+          "project_family_ids": {"$ref": "#/$defs/id_set"},
+          "capability_ids": {"$ref": "#/$defs/id_set"},
+          "overlap_ids": {"$ref": "#/$defs/id_set"}
+        }
+      }
+    },
+    "decisions": {
+      "type": "array",
+      "items": {
+        "type": "object", "additionalProperties": false,
+        "required": ["decision_id", "candidate_id", "disposition", "target_skill_id", "evidence_observation_ids", "claim_ids", "capability_ids", "overlap_ids", "reduction_decision_sha256", "evidence_decision_sha256"],
+        "properties": {
+          "decision_id": {"$ref": "#/$defs/opaque_id"},
+          "candidate_id": {"$ref": "#/$defs/opaque_id"},
+          "disposition": {"enum": ["create", "extend", "reject"]},
+          "target_skill_id": {"oneOf": [{"$ref": "#/$defs/opaque_id"}, {"type": "null"}]},
+          "evidence_observation_ids": {"$ref": "#/$defs/observation_set"},
+          "claim_ids": {"$ref": "#/$defs/id_set"},
+          "capability_ids": {"$ref": "#/$defs/id_set"},
+          "overlap_ids": {"$ref": "#/$defs/id_set"},
+          "reduction_decision_sha256": {"$ref": "#/$defs/hash"},
+          "evidence_decision_sha256": {"$ref": "#/$defs/hash"}
+        },
+        "allOf": [
+          {
+            "if": {"properties": {"disposition": {"const": "extend"}}},
+            "then": {"properties": {"target_skill_id": {"$ref": "#/$defs/opaque_id"}}},
+            "else": {"properties": {"target_skill_id": {"type": "null"}}}
+          }
+        ]
+      }
+    },
+    "counts": {
+      "type": "object", "additionalProperties": false,
+      "required": ["sources", "included_records", "excluded_records", "nonsemantic_records", "observations", "scope_roots", "lineage_nodes", "roots", "children", "unresolved", "excluded", "duplicate_exports", "namespaces", "project_families", "edges", "claims", "artifacts", "conflicts", "states", "capabilities", "overlaps", "candidates", "decisions"],
+      "properties": {
+        "sources": {"type": "integer", "minimum": 0},
+        "included_records": {"type": "integer", "minimum": 0},
+        "excluded_records": {"type": "integer", "minimum": 0},
+        "nonsemantic_records": {"type": "integer", "minimum": 0},
+        "observations": {"type": "integer", "minimum": 0},
+        "scope_roots": {"type": "integer", "minimum": 0},
+        "lineage_nodes": {"type": "integer", "minimum": 0},
+        "roots": {"type": "integer", "minimum": 0},
+        "children": {"type": "integer", "minimum": 0},
+        "unresolved": {"type": "integer", "minimum": 0},
+        "excluded": {"type": "integer", "minimum": 0},
+        "duplicate_exports": {"type": "integer", "minimum": 0},
+        "namespaces": {"type": "integer", "minimum": 0},
+        "project_families": {"type": "integer", "minimum": 0},
+        "edges": {"type": "integer", "minimum": 0},
+        "claims": {"type": "integer", "minimum": 0},
+        "artifacts": {"type": "integer", "minimum": 0},
+        "conflicts": {"type": "integer", "minimum": 0},
+        "states": {"type": "integer", "minimum": 0},
+        "capabilities": {"type": "integer", "minimum": 0},
+        "overlaps": {"type": "integer", "minimum": 0},
+        "candidates": {"type": "integer", "minimum": 0},
+        "decisions": {"type": "integer", "minimum": 0}
+      }
+    },
+    "reconciliation": {
+      "type": "object", "additionalProperties": false,
+      "required": ["claim_ids", "artifact_ids", "conflict_ids", "state_ids", "capability_ids", "overlap_ids", "candidate_ids", "decision_ids", "decision_candidate_ids", "catalog_skill_ids", "dangling_reference_ids", "complete"],
+      "properties": {
+        "claim_ids": {"$ref": "#/$defs/id_set"},
+        "artifact_ids": {"$ref": "#/$defs/id_set"},
+        "conflict_ids": {"$ref": "#/$defs/id_set"},
+        "state_ids": {"$ref": "#/$defs/id_set"},
+        "capability_ids": {"$ref": "#/$defs/id_set"},
+        "overlap_ids": {"$ref": "#/$defs/id_set"},
+        "candidate_ids": {"$ref": "#/$defs/id_set"},
+        "decision_ids": {"$ref": "#/$defs/id_set"},
+        "decision_candidate_ids": {"$ref": "#/$defs/id_set"},
+        "catalog_skill_ids": {"$ref": "#/$defs/id_set"},
+        "dangling_reference_ids": {"$ref": "#/$defs/id_set"},
+        "complete": {"const": true}
+      }
+    },
+    "evidence_sha256": {"$ref": "#/$defs/hash"}
+  },
+  "allOf": [
+    {
+      "if": {"properties": {"mode": {"const": "lineage"}}},
+      "then": {
+        "properties": {
+          "bindings": {"properties": {"reduction_id": {"type": "null"}, "reduction_sha256": {"type": "null"}}},
+          "recurrence": {"maxItems": 0},
+          "capabilities": {"maxItems": 0},
+          "overlaps": {"maxItems": 0},
+          "candidates": {"maxItems": 0},
+          "decisions": {"maxItems": 0}
+        }
+      }
+    },
+    {
+      "if": {"properties": {"mode": {"const": "capability"}}},
+      "then": {
+        "properties": {
+          "bindings": {"properties": {"reduction_id": {"$ref": "#/$defs/opaque_id"}, "reduction_sha256": {"$ref": "#/$defs/hash"}}},
+          "recurrence": {"minItems": 1},
+          "capabilities": {"minItems": 1},
+          "candidates": {"minItems": 1},
+          "decisions": {"minItems": 1}
+        }
+      }
+    }
+  ],
+  "$defs": {
+    "hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "uuid": {"type": "string", "format": "uuid"},
+    "timestamp": {"type": "string", "format": "date-time"},
+    "opaque_id": {"type": "string", "pattern": "^[a-z][a-z0-9-]{2,31}-[0-9a-f]{32,64}$"},
+    "observation_id": {"type": "string", "pattern": "^obs-[0-9a-f]{64}$"},
+    "id_set": {"type": "array", "uniqueItems": true, "items": {"$ref": "#/$defs/opaque_id"}},
+    "observation_set": {"type": "array", "uniqueItems": true, "items": {"$ref": "#/$defs/observation_id"}},
+    "descriptor": {
+      "type": "object", "additionalProperties": false,
+      "required": ["schema_version", "root_authority_sha256", "relative_path_sha256", "device", "inode", "size", "mode", "uid", "nlink", "mtime_ns", "captured_at", "sha256", "open_flags"],
+      "properties": {
+        "schema_version": {"const": "descriptor-file/v2"},
+        "root_authority_sha256": {"$ref": "#/$defs/hash"},
+        "relative_path_sha256": {"$ref": "#/$defs/hash"},
+        "device": {"type": "integer", "minimum": 0},
+        "inode": {"type": "integer", "minimum": 1},
+        "size": {"type": "integer", "minimum": 0},
+        "mode": {"type": "string", "pattern": "^0[46][04][04]$"},
+        "uid": {"type": "integer", "minimum": 0},
+        "nlink": {"const": 1},
+        "mtime_ns": {"type": "integer", "minimum": 0},
+        "captured_at": {"$ref": "#/$defs/timestamp"},
+        "sha256": {"$ref": "#/$defs/hash"},
+        "open_flags": {"const": ["O_RDONLY", "O_CLOEXEC", "O_NOFOLLOW"]}
+      }
+    },
+    "raw_reopen_receipt": {
+      "type": "object", "additionalProperties": false,
+      "required": ["schema_version", "descriptor", "source_ids", "source_descriptor_sha256s", "receipt_sha256"],
+      "properties": {
+        "schema_version": {"const": "raw-reopen-receipt/v2"},
+        "descriptor": {"$ref": "#/$defs/descriptor"},
+        "source_ids": {"$ref": "#/$defs/id_set"},
+        "source_descriptor_sha256s": {"type": "array", "uniqueItems": true, "items": {"$ref": "#/$defs/hash"}},
+        "receipt_sha256": {"$ref": "#/$defs/hash"}
+      }
+    },
+    "exact_input_file_set": {
+      "type": "object", "additionalProperties": false,
+      "required": ["schema_version", "member_count", "members", "members_sha256"],
+      "properties": {
+        "schema_version": {"const": "history-evidence-input-set/v1"},
+        "member_count": {"type": "integer", "minimum": 1},
+        "members": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"$ref": "#/$defs/descriptor"}},
+        "members_sha256": {"$ref": "#/$defs/hash"}
+      }
+    },
+    "claim": {
+      "type": "object", "additionalProperties": false,
+      "required": ["claim_id", "kind", "summary", "observation_ids", "artifact_ids", "conflict_ids", "state_ids"],
+      "properties": {
+        "claim_id": {"$ref": "#/$defs/opaque_id"},
+        "kind": {"enum": ["lineage", "recurrence", "capability", "overlap", "decision", "state"]},
+        "summary": {"type": "string", "minLength": 1, "maxLength": 4096},
+        "observation_ids": {"$ref": "#/$defs/observation_set"},
+        "artifact_ids": {"$ref": "#/$defs/id_set"},
+        "conflict_ids": {"$ref": "#/$defs/id_set"},
+        "state_ids": {"$ref": "#/$defs/id_set"}
+      }
+    },
+    "artifact": {
+      "type": "object", "additionalProperties": false,
+      "required": ["artifact_id", "artifact_sha256", "kind", "observation_ids", "state_id"],
+      "properties": {
+        "artifact_id": {"$ref": "#/$defs/opaque_id"},
+        "artifact_sha256": {"$ref": "#/$defs/hash"},
+        "kind": {"enum": ["report", "code", "receipt", "job", "cache", "tool-output", "other"]},
+        "observation_ids": {"$ref": "#/$defs/observation_set"},
+        "state_id": {"$ref": "#/$defs/opaque_id"}
+      }
+    },
+    "conflict": {
+      "type": "object", "additionalProperties": false,
+      "required": ["conflict_id", "left_claim_id", "right_claim_id", "status", "observation_ids"],
+      "properties": {
+        "conflict_id": {"$ref": "#/$defs/opaque_id"},
+        "left_claim_id": {"$ref": "#/$defs/opaque_id"},
+        "right_claim_id": {"$ref": "#/$defs/opaque_id"},
+        "status": {"enum": ["open", "resolved", "irreconcilable"]},
+        "observation_ids": {"$ref": "#/$defs/observation_set"}
+      }
+    },
+    "state": {
+      "type": "object", "additionalProperties": false,
+      "required": ["state_id", "label", "observed_at", "observation_ids"],
+      "properties": {
+        "state_id": {"$ref": "#/$defs/opaque_id"},
+        "label": {"enum": ["frozen", "live", "unresolved", "excluded", "deleted", "expired"]},
+        "observed_at": {"$ref": "#/$defs/timestamp"},
+        "observation_ids": {"$ref": "#/$defs/observation_set"}
+      }
+    },
+    "capability": {
+      "type": "object", "additionalProperties": false,
+      "required": ["capability_id", "name", "candidate_ids", "observation_ids", "catalog_skill_ids"],
+      "properties": {
+        "capability_id": {"$ref": "#/$defs/opaque_id"},
+        "name": {"type": "string", "minLength": 1, "maxLength": 256},
+        "candidate_ids": {"$ref": "#/$defs/id_set"},
+        "observation_ids": {"$ref": "#/$defs/observation_set"},
+        "catalog_skill_ids": {"$ref": "#/$defs/id_set"}
+      }
+    },
+    "overlap": {
+      "type": "object", "additionalProperties": false,
+      "required": ["overlap_id", "left_capability_id", "right_capability_id", "relation", "observation_ids"],
+      "properties": {
+        "overlap_id": {"$ref": "#/$defs/opaque_id"},
+        "left_capability_id": {"$ref": "#/$defs/opaque_id"},
+        "right_capability_id": {"$ref": "#/$defs/opaque_id"},
+        "relation": {"enum": ["duplicate", "partial", "adjacent", "none"]},
+        "observation_ids": {"$ref": "#/$defs/observation_set"}
+      }
+    }
+  }
+}

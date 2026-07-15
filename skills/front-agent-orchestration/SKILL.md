@@ -1,6 +1,6 @@
 ---
 name: front-agent-orchestration
-description: Use when a human needs a dedicated gateway agent while a separate main agent implements work through validated two-way Agent Mail messages. Do not use for ordinary built-in subagent delegation or direct Agent Mail workflows that do not need a human approval gateway.
+description: Use when the user explicitly requests a dedicated human-facing gateway while a separate main agent implements work through validated two-way Agent Mail messages. Front owns the gateway conversation and protocol transport only; the main independently classifies align-work, audit-technical-work, or native authority, and Align exclusively owns any planning packet. Do not use for routine built-in subagent delegation or direct Agent Mail workflows. If the required Front or Agent Mail capability is unavailable, stop; use built-in collaboration only after the user approves that architecture change.
 ---
 
 # Front Agent Orchestration
@@ -10,6 +10,8 @@ Front Agent runs a paired two-session workflow:
 ```text
 Human <-> Gateway Agent <-> front-agent protocol <-> Agent Mail HTTP <-> Main Agent
 ```
+
+Front owns the human-facing gateway and protocol transport. It does not own planning packets or implementation authority. The main agent independently classifies the original request and canonical repository state into `align-work`, `audit-technical-work`, or native bounded work before accepting implementation. If the required Front or Agent Mail capability is unavailable, stop. Use built-in collaboration only after the user approves an architecture change.
 
 Agent Mail is the durable mailbox. Front Agent is the application protocol on top of it. Mail is stored in the Agent Mail PostgreSQL service. Local `.front-agent/` files contain private pairing state, participant credentials, locks, logs, a bounded question-validation cache, and answer-deduplication state. The CLI creates `.front-agent/.gitignore`; never publish or copy this runtime directory.
 
@@ -91,6 +93,8 @@ human_confirmed: true
 answer: "Reject invalid input with inline validation."
 ```
 
+Every `work` and `update` additionally carries a closed nested `work_authority/v1`. A work packet includes the exact `original_request`, a unique UUID `work_id`, `sequence: 0`, its request hash, canonical repository root, `alignment_mode: packet | none`, gateway classification, and either the exact packet fence or `packet_binding: null`. Updates repeat that authority with the same work ID, a strictly increasing sequence, and current packet fencing. Unknown fields, omitted mode, mixed old/new protocol, work-ID reuse, reordering, stale fencing, cross-work returns, and post-terminal updates fail closed.
+
 Allowed methods:
 
 - Main may send `update`, `question`, or `note`.
@@ -105,6 +109,8 @@ Allowed methods:
 Before gateway sends `work`, `answer`, or `note`, it must inspect the relevant repository context for nontrivial requests, present a plain-language intent or decision preview, and wait for explicit human approval of that exact scope. Only then may it set `human_confirmed: true`. Silence, an inferred preference, a timeout default, or approval of an earlier scope does not count. If the human changes scope, present the revised preview and obtain approval again.
 
 Main reports completion, failure, or cancellation with `method: update` and the matching terminal status. Gateway relays the useful result to the human and stops the paired workflow after a terminal update unless the human explicitly approves new work.
+
+Front validates message structure and the per-pair work lifecycle. Main must still independently classify the exact original request and canonical root. Resolve the installed Align skill from its loaded `SKILL.md`, copy only the nested authority to a private JSON file, and run `python3 "$ALIGN_WORK_DIR/scripts/work_authority.py" validate-work --authority <authority.json> --original-request <request.txt> --repo <root>` before accepting work. Run `validate-update` with the intended return status against fresh authority immediately before mutation or final return. Front never writes Align packet state; only the active Align coordinator transitions or records it.
 
 ## Operating Rules
 
@@ -122,6 +128,25 @@ Main reports completion, failure, or cancellation with `method: update` and the 
 
 ## Resources
 
+- Read [references/operations.md](references/operations.md) for runtime requirements, offline verification, launcher behavior, and local-state safety.
 - Read [references/protocol.md](references/protocol.md) before changing message, pairing, lifecycle, or security behavior.
 - Read [references/examples.md](references/examples.md) when composing protocol packets.
 - Use [references/forward-tests.md](references/forward-tests.md) for fresh-agent or release verification; do not run live Agent Mail checks without explicit authorization.
+
+<!-- BEGIN GENERATED PORTFOLIO ROUTING v1 -->
+## Portfolio routing contract (generated)
+
+This block is generated from `tests/portfolio-routing-v1.json`; do not edit it by hand.
+
+- `skill`: "front-agent-orchestration"
+- `routing_role`: "gateway"
+- `portfolio_position`: "Dedicated human-facing gateway for a separate main implementation agent."
+- `positive_request_classes`: ["explicit gateway/main two-way orchestration through validated messages"]
+- `triggers`: ["The user explicitly requests a dedicated human gateway and separate main agent.","Validated two-way Front Agent messages are required."]
+- `exclusions`: ["routine built-in subagent delegation","direct Agent Mail without a human approval gateway"]
+- `state_owner`: "Owns the gateway conversation and Front protocol transport; Align exclusively owns any planning packet."
+- `precedence`: ["Front is the outer human interface only.","Main independently classifies Align, Audit, or native authority from the original request and canonical repository state."]
+- `legal_compositions`: [{"route":"agent-mail","relation":"transport"},{"route":"write-task-handoff","relation":"content-owner"}]
+- `fallbacks`: [{"condition":"Required Front or Agent Mail capability is unavailable.","route":"stop","result":"Report the missing capability."},{"condition":"The user approves an architecture change away from Front.","route":"built-in-collaboration","result":"Use built-in collaboration under the newly approved architecture."}]
+- `forbidden_actions`: ["select none to bypass Align","mutate Align packets from main","treat protocol messages as human authority","silently fall back from the approved architecture"]
+<!-- END GENERATED PORTFOLIO ROUTING v1 -->

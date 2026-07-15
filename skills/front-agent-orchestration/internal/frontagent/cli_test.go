@@ -2,6 +2,7 @@ package frontagent
 
 import (
 	"bytes"
+	"crypto/sha256"
 	"encoding/json"
 	"fmt"
 	"io"
@@ -168,7 +169,7 @@ func TestGatewayCanSubmitWorkAndMainCanListen(t *testing.T) {
 		"send", "Start work",
 		"--root", root,
 		"--identity", gatewayID,
-	}, gatewayWorkBody()))
+	}, gatewayWorkBody(root)))
 
 	listenOut := runCLI(t, []string{
 		"listen",
@@ -204,7 +205,7 @@ func TestListenDrainsAllUnreadMessages(t *testing.T) {
 		"send", "Start work",
 		"--root", root,
 		"--identity", gatewayID,
-	}, gatewayWorkBody()))
+	}, gatewayWorkBody(root)))
 
 	listenOut := runCLI(t, []string{
 		"listen",
@@ -356,8 +357,15 @@ func TestMethodSpecificFieldsAreRequired(t *testing.T) {
 		body     string
 		want     string
 	}{
-		{mainID, "```yaml\nmethod: question\nfrom_role: main\nto_role: gateway\nsummary: Missing question.\n```\n", "question field"},
-		{mainID, "```yaml\nmethod: update\nfrom_role: main\nto_role: gateway\nsummary: Missing status.\n```\n", "update status"},
+		{mainID, "```yaml\nmethod: question\nfrom_role: main\nto_role: gateway\nsummary: Missing question.\n```\n", "requires field \"question\""},
+		{
+			mainID,
+			strings.Replace(
+				mainUpdateBody(root, "11111111-1111-4111-8111-111111111111", 1, "accepted"),
+				"status: accepted\n", "", 1,
+			),
+			"requires field \"status\"",
+		},
 	}
 	for _, test := range tests {
 		var stdout, stderr bytes.Buffer
@@ -370,7 +378,7 @@ func TestMethodSpecificFieldsAreRequired(t *testing.T) {
 	missingAnswer := "```yaml\nmethod: answer\nfrom_role: gateway\nto_role: main\nsummary: Missing answer.\nhuman_confirmed: true\n```\n"
 	var stdout, stderr bytes.Buffer
 	err := Run([]string{"send", "Answer", "--root", root, "--identity", gatewayID, "--responds-to", questionID}, strings.NewReader(missingAnswer), &stdout, &stderr)
-	if err == nil || !strings.Contains(err.Error(), "answer field") {
+	if err == nil || !strings.Contains(err.Error(), "requires field \"answer\"") {
 		t.Fatalf("missing answer error=%v stdout=%q stderr=%q", err, stdout.String(), stderr.String())
 	}
 }
@@ -418,7 +426,7 @@ func TestListenWaitsForOneValidMessageThenExits(t *testing.T) {
 		"send", "Start work",
 		"--root", root,
 		"--identity", gatewayID,
-	}, gatewayWorkBody()))
+	}, gatewayWorkBody(root)))
 
 	select {
 	case got := <-done:
@@ -445,7 +453,7 @@ func TestListenRejectsSpoofedProtocolMessage(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	_, err = runMail(gatewayWorkBody(), "send",
+	_, err = runMail(gatewayWorkBody(root), "send",
 		"--to", mainID,
 		"--subject", "Spoofed work",
 		"--identity", spoofID,
@@ -478,12 +486,16 @@ func TestListenRejectsSpoofedProtocolMessage(t *testing.T) {
 func TestMainCanSendUpdateToGateway(t *testing.T) {
 	root := t.TempDir()
 	mainID, gatewayID := pairSessions(t, root)
+	_ = strings.TrimSpace(runCLI(t, []string{
+		"send", "Start work", "--root", root, "--identity", gatewayID,
+	}, gatewayWorkBody(root)))
+	runCLI(t, []string{"listen", "--root", root, "--identity", mainID, "--timeout", "0"}, "")
 
 	updateID := strings.TrimSpace(runCLI(t, []string{
 		"send", "Work accepted",
 		"--root", root,
 		"--identity", mainID,
-	}, mainUpdateAcceptedBody()))
+	}, mainUpdateAcceptedBody(root)))
 
 	listenOut := runCLI(t, []string{
 		"listen",
@@ -530,7 +542,7 @@ func TestStreamPrintsMultipleDeliveriesUntilTimeout(t *testing.T) {
 		done <- result{out: stdout.String(), err: err}
 	}()
 	waitForListenerLock(t, root, mainID)
-	firstID := strings.TrimSpace(runCLI(t, []string{"send", "First", "--root", root, "--identity", gatewayID}, gatewayWorkBody()))
+	firstID := strings.TrimSpace(runCLI(t, []string{"send", "First", "--root", root, "--identity", gatewayID}, gatewayWorkBody(root)))
 	secondBody := "```yaml\nmethod: note\nfrom_role: gateway\nto_role: main\nsummary: Second delivery.\nhuman_confirmed: true\n```\n"
 	secondID := strings.TrimSpace(runCLI(t, []string{"send", "Second", "--root", root, "--identity", gatewayID}, secondBody))
 	select {
@@ -634,7 +646,7 @@ func (failingWriter) Write([]byte) (int, error) { return 0, fmt.Errorf("injected
 func TestListenDoesNotMarkValidMessageReadBeforeOutput(t *testing.T) {
 	root := t.TempDir()
 	mainID, gatewayID := pairSessions(t, root)
-	workID := strings.TrimSpace(runCLI(t, []string{"send", "Start work", "--root", root, "--identity", gatewayID}, gatewayWorkBody()))
+	workID := strings.TrimSpace(runCLI(t, []string{"send", "Start work", "--root", root, "--identity", gatewayID}, gatewayWorkBody(root)))
 	var stderr bytes.Buffer
 	err := Run([]string{"listen", "--root", root, "--identity", mainID, "--timeout", "0"}, strings.NewReader(""), failingWriter{}, &stderr)
 	if err == nil || !strings.Contains(err.Error(), "injected write failure") {
@@ -1529,12 +1541,80 @@ func TestSendRejectsUnpairedState(t *testing.T) {
 		"send", "Direction",
 		"--root", root,
 		"--identity", "gateway-id",
-	}, strings.NewReader(gatewayWorkBody()), &stdout, &stderr)
+	}, strings.NewReader(gatewayWorkBody(root)), &stdout, &stderr)
 	if err == nil {
 		t.Fatalf("expected unpaired gateway error, stdout=%q stderr=%q", stdout.String(), stderr.String())
 	}
 	if !strings.Contains(err.Error(), "not paired") {
 		t.Fatalf("error = %q, want not paired", err.Error())
+	}
+}
+
+func TestWorkAuthorityLifecycleRejectsReuseReorderAndPostTerminalUpdates(t *testing.T) {
+	root := t.TempDir()
+	identity := "lifecycle-test"
+	workID := "11111111-1111-4111-8111-111111111111"
+	commitPrepared := func(body string) error {
+		commit, release, err := prepareWorkEvent(root, identity, body)
+		if err != nil {
+			return err
+		}
+		defer release()
+		return commit()
+	}
+	work := gatewayWorkBodyWithID(root, workID)
+	if err := validateMessageBody(work, roleGateway, ""); err != nil {
+		t.Fatal(err)
+	}
+	if err := commitPrepared(work); err != nil {
+		t.Fatal(err)
+	}
+	if err := commitPrepared(work); err != nil {
+		t.Fatalf("exact duplicate work was not idempotent: %v", err)
+	}
+	reused := strings.Replace(work, "summary: Implement feature.", "summary: Changed scope.", 1)
+	if err := commitPrepared(reused); err == nil || !strings.Contains(err.Error(), "reused") {
+		t.Fatalf("changed work-id reuse error=%v", err)
+	}
+	accepted := mainUpdateBody(root, workID, 1, "accepted")
+	if err := commitPrepared(accepted); err != nil {
+		t.Fatal(err)
+	}
+	if err := commitPrepared(accepted); err != nil {
+		t.Fatalf("exact duplicate accepted update was not idempotent: %v", err)
+	}
+	if err := commitPrepared(mainUpdateBody(root, workID, 3, "progress")); err == nil || !strings.Contains(err.Error(), "want 2") {
+		t.Fatalf("reordered update error=%v", err)
+	}
+	cancelled := mainUpdateBody(root, workID, 2, "cancelled")
+	if err := commitPrepared(cancelled); err != nil {
+		t.Fatal(err)
+	}
+	if err := commitPrepared(cancelled); err != nil {
+		t.Fatalf("duplicate cancellation was not idempotent: %v", err)
+	}
+	if err := commitPrepared(mainUpdateBody(root, workID, 3, "progress")); err == nil || !strings.Contains(err.Error(), "terminal") {
+		t.Fatalf("post-terminal update error=%v", err)
+	}
+	unknown := mainUpdateBody(root, "22222222-2222-4222-8222-222222222222", 1, "accepted")
+	if err := commitPrepared(unknown); err == nil || !strings.Contains(err.Error(), "unknown work_id") {
+		t.Fatalf("cross-work update error=%v", err)
+	}
+}
+
+func TestWorkAuthorityIsClosedAndRejectsMixedOldProtocol(t *testing.T) {
+	root := t.TempDir()
+	valid := gatewayWorkBody(root)
+	attacks := []string{
+		strings.Replace(valid, "  alignment_mode: none\n", "", 1),
+		strings.Replace(valid, "  alignment_mode: none\n", "  alignment_mode: maybe\n", 1),
+		strings.Replace(valid, "  packet_binding: null\n", "  packet_binding: null\n  unknown: value\n", 1),
+		"```yaml\nmethod: work\nfrom_role: gateway\nto_role: main\nsummary: Old work.\nhuman_confirmed: true\naction: start\n```\n",
+	}
+	for _, attack := range attacks {
+		if err := validateMessageBody(attack, roleGateway, ""); err == nil {
+			t.Fatalf("invalid or mixed work protocol was accepted:\n%s", attack)
+		}
 	}
 }
 
@@ -1637,12 +1717,35 @@ func gatewayAnswerBody(answer string) string {
 	return fmt.Sprintf("```yaml\nmethod: answer\nfrom_role: gateway\nto_role: main\nsummary: Decision confirmed.\nhuman_confirmed: true\nanswer: %s\n```\n", answer)
 }
 
-func gatewayWorkBody() string {
-	return "```yaml\nmethod: work\nfrom_role: gateway\nto_role: main\nsummary: Implement feature.\nhuman_confirmed: true\naction: start\nrequirements:\n  - Add the feature.\nacceptance_criteria:\n  - Tests pass.\n```\n"
+func canonicalTestRoot(roots []string) string {
+	root := "/repo"
+	if len(roots) > 0 {
+		root = roots[0]
+	}
+	resolved, err := filepath.EvalSymlinks(root)
+	if err == nil {
+		root = resolved
+	}
+	return root
 }
 
-func mainUpdateAcceptedBody() string {
-	return "```yaml\nmethod: update\nfrom_role: main\nto_role: gateway\nsummary: Work accepted.\nstatus: accepted\n```\n"
+func gatewayWorkBody(roots ...string) string {
+	return gatewayWorkBodyWithID(canonicalTestRoot(roots), "11111111-1111-4111-8111-111111111111")
+}
+
+func gatewayWorkBodyWithID(root, workID string) string {
+	request := "Implement the feature."
+	hash := sha256.Sum256([]byte(request))
+	return fmt.Sprintf("```yaml\nmethod: work\nfrom_role: gateway\nto_role: main\nsummary: Implement feature.\nhuman_confirmed: true\noriginal_request: %s\nwork_authority:\n  schema_version: work_authority/v1\n  work_id: %s\n  sequence: 0\n  original_request_sha256: %x\n  alignment_mode: none\n  gateway_classification: none\n  repository_root: %s\n  packet_binding: null\nrequirements:\n  - Add the feature.\nacceptance_criteria:\n  - Tests pass.\n```\n", request, workID, hash, canonicalTestRoot([]string{root}))
+}
+
+func mainUpdateAcceptedBody(roots ...string) string {
+	return mainUpdateBody(canonicalTestRoot(roots), "11111111-1111-4111-8111-111111111111", 1, "accepted")
+}
+
+func mainUpdateBody(root, workID string, sequence int, status string) string {
+	requestHash := sha256.Sum256([]byte("Implement the feature."))
+	return fmt.Sprintf("```yaml\nmethod: update\nfrom_role: main\nto_role: gateway\nsummary: Work %s.\nstatus: %s\nwork_authority:\n  schema_version: work_authority/v1\n  work_id: %s\n  sequence: %d\n  original_request_sha256: %x\n  alignment_mode: none\n  gateway_classification: none\n  repository_root: %s\n  packet_binding: null\n```\n", status, status, workID, sequence, requestHash, canonicalTestRoot([]string{root}))
 }
 
 func mustFirstMailID(t *testing.T, out string) string {

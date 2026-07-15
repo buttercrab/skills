@@ -1,0 +1,382 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://local.invalid/capability-reduction-v3.schema.json",
+  "title": "Capability reduction v3",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version", "reduction_id", "history_binding", "model_resolution",
+    "capability_catalog", "schedule", "packets", "attempts", "results",
+    "hydration", "synthesis", "candidates", "decisions", "reconciliation",
+    "reduction_sha256"
+  ],
+  "properties": {
+    "schema_version": {"const": "capability-reduction/v3"},
+    "reduction_id": {"$ref": "#/$defs/opaque_id"},
+    "history_binding": {
+      "type": "object", "additionalProperties": false,
+      "required": ["history_contract_id", "history_contract_sha256", "index_id", "history_index_sha256", "raw_manifest_sha256", "semantic_ledger_sha256", "native_lineage_closure_sha256", "exclusion_ledger_sha256", "corpus_sha256", "ledger_state", "delete_by", "binding_sha256"],
+      "properties": {
+        "history_contract_id": {"$ref": "#/$defs/uuid"},
+        "history_contract_sha256": {"$ref": "#/$defs/hash"},
+        "index_id": {"$ref": "#/$defs/opaque_id"},
+        "history_index_sha256": {"$ref": "#/$defs/hash"},
+        "raw_manifest_sha256": {"$ref": "#/$defs/hash"},
+        "semantic_ledger_sha256": {"$ref": "#/$defs/hash"},
+        "native_lineage_closure_sha256": {"$ref": "#/$defs/hash"},
+        "exclusion_ledger_sha256": {"$ref": "#/$defs/hash"},
+        "corpus_sha256": {"$ref": "#/$defs/hash"},
+        "ledger_state": {"const": "live"},
+        "delete_by": {"$ref": "#/$defs/timestamp"},
+        "binding_sha256": {"$ref": "#/$defs/hash"}
+      }
+    },
+    "model_resolution": {
+      "type": "object", "additionalProperties": false,
+      "required": ["schema_version", "display_name", "callable_id", "provider", "settings_sha256", "runtime_catalog", "provider_trust", "authority_validation", "selected_entry_ordinal", "selected_entry_sha256", "callable_verification", "resolved_at", "resolution_sha256"],
+      "properties": {
+        "schema_version": {"const": "exploration-model-resolution/v2"},
+        "display_name": {"const": "5.6 lunar high"},
+        "callable_id": {"type": "string", "minLength": 1, "maxLength": 256},
+        "provider": {"type": "string", "minLength": 1, "maxLength": 128},
+        "settings_sha256": {"$ref": "#/$defs/hash"},
+        "runtime_catalog": {
+          "type": "object", "additionalProperties": false,
+          "required": ["schema_version", "descriptor", "catalog_sha256", "captured_at", "expires_at", "entry_count", "entries"],
+          "properties": {
+            "schema_version": {"const": "runtime-model-catalog/v2"},
+            "descriptor": {"$ref": "#/$defs/descriptor"},
+            "catalog_sha256": {"$ref": "#/$defs/hash"},
+            "captured_at": {"$ref": "#/$defs/timestamp"},
+            "expires_at": {"$ref": "#/$defs/timestamp"},
+            "entry_count": {"type": "integer", "minimum": 1},
+            "entries": {
+              "type": "array", "minItems": 1,
+              "items": {
+                "type": "object", "additionalProperties": false,
+                "required": ["ordinal", "display_name", "callable_id", "provider", "status", "supported_settings_sha256", "entry_sha256"],
+                "properties": {
+                  "ordinal": {"type": "integer", "minimum": 1},
+                  "display_name": {"type": "string", "minLength": 1, "maxLength": 256},
+                  "callable_id": {"type": "string", "minLength": 1, "maxLength": 256},
+                  "provider": {"type": "string", "minLength": 1, "maxLength": 128},
+                  "status": {"enum": ["callable", "unavailable", "disabled"]},
+                  "supported_settings_sha256": {"$ref": "#/$defs/hash"},
+                  "entry_sha256": {"$ref": "#/$defs/hash"}
+                }
+              }
+            }
+          }
+        },
+        "provider_trust": {
+          "type": "object", "additionalProperties": false,
+          "required": ["schema_version", "descriptor", "catalog_sha256", "entries"],
+          "properties": {
+            "schema_version": {"const": "provider-verifier-trust/v1"},
+            "descriptor": {"$ref": "#/$defs/descriptor"},
+            "catalog_sha256": {"$ref": "#/$defs/hash"},
+            "entries": {
+              "type": "array", "minItems": 1, "uniqueItems": true,
+              "items": {
+                "type": "object", "additionalProperties": false,
+                "required": ["provider", "key_id_sha256", "verification_key", "verifier", "protocol", "verification_algorithm", "entry_sha256"],
+                "properties": {
+                  "provider": {"type": "string", "minLength": 1, "maxLength": 128},
+                  "key_id_sha256": {"$ref": "#/$defs/hash"},
+                  "verification_key": {"$ref": "#/$defs/descriptor"},
+                  "verifier": {"$ref": "#/$defs/descriptor"},
+                  "protocol": {"const": "provider-authenticated-challenge/v1"},
+                  "verification_algorithm": {"const": "hmac-sha256/v1"},
+                  "entry_sha256": {"$ref": "#/$defs/hash"}
+                }
+              }
+            }
+          }
+        },
+        "authority_validation": {
+          "type": "object", "additionalProperties": false,
+          "required": [
+            "schema_version", "trust_root_receipt",
+            "trust_root_receipt_sha256", "provider_key",
+            "provider_key_sha256", "verifier", "verifier_sha256",
+            "nonce_state", "nonce_state_before_sha256",
+            "nonce_state_after_sha256", "used_nonce_sha256s",
+            "used_nonce_count", "used_receipt_sha256s",
+            "used_receipt_count", "validated_at", "max_age_seconds",
+            "receipt_sha256"
+          ],
+          "properties": {
+            "schema_version": {"const": "callable-authority-validation/v1"},
+            "trust_root_receipt": {"$ref": "#/$defs/descriptor"},
+            "trust_root_receipt_sha256": {"$ref": "#/$defs/hash"},
+            "provider_key": {"$ref": "#/$defs/descriptor"},
+            "provider_key_sha256": {"$ref": "#/$defs/hash"},
+            "verifier": {"$ref": "#/$defs/descriptor"},
+            "verifier_sha256": {"$ref": "#/$defs/hash"},
+            "nonce_state": {"$ref": "#/$defs/descriptor"},
+            "nonce_state_before_sha256": {"$ref": "#/$defs/hash"},
+            "nonce_state_after_sha256": {"$ref": "#/$defs/hash"},
+            "used_nonce_sha256s": {"$ref": "#/$defs/hash_set"},
+            "used_nonce_count": {"type": "integer", "minimum": 0},
+            "used_receipt_sha256s": {"$ref": "#/$defs/hash_set"},
+            "used_receipt_count": {"type": "integer", "minimum": 0},
+            "validated_at": {"$ref": "#/$defs/timestamp"},
+            "max_age_seconds": {"const": 900},
+            "receipt_sha256": {"$ref": "#/$defs/hash"}
+          }
+        },
+        "selected_entry_ordinal": {"type": "integer", "minimum": 1},
+        "selected_entry_sha256": {"$ref": "#/$defs/hash"},
+        "callable_verification": {
+          "type": "object", "additionalProperties": false,
+          "required": ["descriptor", "catalog_sha256", "selected_entry_sha256", "display_name", "callable_id", "provider", "settings_sha256", "verification_protocol", "verifier_entry_sha256", "authority_validation_receipt_sha256", "challenge_nonce_sha256", "challenge_message_sha256", "request_sha256", "response_sha256", "provider_mac_hex", "command_status", "verifier_version", "requested_at", "captured_at", "expires_at", "callable", "receipt_sha256"],
+          "properties": {
+            "descriptor": {"$ref": "#/$defs/descriptor"},
+            "catalog_sha256": {"$ref": "#/$defs/hash"},
+            "selected_entry_sha256": {"$ref": "#/$defs/hash"},
+            "display_name": {"const": "5.6 lunar high"},
+            "callable_id": {"type": "string", "minLength": 1, "maxLength": 256},
+            "provider": {"type": "string", "minLength": 1, "maxLength": 128},
+            "settings_sha256": {"$ref": "#/$defs/hash"},
+            "verification_protocol": {"const": "provider-authenticated-challenge/v1"},
+            "verifier_entry_sha256": {"$ref": "#/$defs/hash"},
+            "authority_validation_receipt_sha256": {"$ref": "#/$defs/hash"},
+            "challenge_nonce_sha256": {"$ref": "#/$defs/hash"},
+            "challenge_message_sha256": {"$ref": "#/$defs/hash"},
+            "request_sha256": {"$ref": "#/$defs/hash"},
+            "response_sha256": {"$ref": "#/$defs/hash"},
+            "provider_mac_hex": {"$ref": "#/$defs/hash"},
+            "command_status": {"const": 0},
+            "verifier_version": {"type": "string", "minLength": 1},
+            "requested_at": {"$ref": "#/$defs/timestamp"},
+            "captured_at": {"$ref": "#/$defs/timestamp"},
+            "expires_at": {"$ref": "#/$defs/timestamp"},
+            "callable": {"const": true},
+            "receipt_sha256": {"$ref": "#/$defs/hash"}
+          }
+        },
+        "resolved_at": {"$ref": "#/$defs/timestamp"},
+        "resolution_sha256": {"$ref": "#/$defs/hash"}
+      }
+    },
+    "capability_catalog": {
+      "type": "object", "additionalProperties": false,
+      "required": ["schema_version", "descriptor", "catalog_sha256", "skill_ids"],
+      "properties": {
+        "schema_version": {"const": "frozen-capability-catalog/v2"},
+        "descriptor": {"$ref": "#/$defs/descriptor"},
+        "catalog_sha256": {"$ref": "#/$defs/hash"},
+        "skill_ids": {"$ref": "#/$defs/id_set"}
+      }
+    },
+    "schedule": {
+      "type": "object", "additionalProperties": false,
+      "required": ["schema_version", "packet_ids", "attempt_ids", "max_packets", "max_observations_per_packet", "max_packet_bytes", "max_result_candidates", "max_result_bytes", "snapshot_sha256"],
+      "properties": {
+        "schema_version": {"const": "capability-schedule/v3"},
+        "packet_ids": {"$ref": "#/$defs/id_set"},
+        "attempt_ids": {"$ref": "#/$defs/id_set"},
+        "max_packets": {"const": 4096},
+        "max_observations_per_packet": {"const": 128},
+        "max_packet_bytes": {"const": 1048576},
+        "max_result_candidates": {"const": 256},
+        "max_result_bytes": {"const": 1048576},
+        "snapshot_sha256": {"$ref": "#/$defs/hash"}
+      }
+    },
+    "packets": {
+      "type": "array", "minItems": 1,
+      "items": {
+        "type": "object", "additionalProperties": false,
+        "required": ["schema_version", "packet_id", "parent_packet_id", "observation_ids", "observations", "task_prompt_sha256", "result_schema_sha256", "data_policy", "canonical_bytes", "input_sha256"],
+        "properties": {
+          "schema_version": {"const": "capability-packet/v3"},
+          "packet_id": {"$ref": "#/$defs/opaque_id"},
+          "parent_packet_id": {"oneOf": [{"$ref": "#/$defs/opaque_id"}, {"type": "null"}]},
+          "observation_ids": {"$ref": "#/$defs/observation_set"},
+          "observations": {
+            "type": "array", "minItems": 1, "maxItems": 128,
+            "items": {
+              "type": "object", "additionalProperties": false,
+              "required": ["observation_id", "ledger_record_sha256", "source_id", "raw_sha256", "record_id", "root_id", "project_family_id", "field", "ordinal", "locator_sha256", "redacted_text", "redacted_text_sha256", "semantic_commitment_sha256"],
+              "properties": {
+                "observation_id": {"$ref": "#/$defs/observation_id"},
+                "ledger_record_sha256": {"$ref": "#/$defs/hash"},
+                "source_id": {"$ref": "#/$defs/opaque_id"},
+                "raw_sha256": {"$ref": "#/$defs/hash"},
+                "record_id": {"$ref": "#/$defs/opaque_id"},
+                "root_id": {"$ref": "#/$defs/opaque_id"},
+                "project_family_id": {"$ref": "#/$defs/opaque_id"},
+                "field": {"type": "string", "minLength": 1},
+                "ordinal": {"type": "integer", "minimum": 1},
+                "locator_sha256": {"$ref": "#/$defs/hash"},
+                "redacted_text": {"type": "string", "minLength": 1, "maxLength": 1048576},
+                "redacted_text_sha256": {"$ref": "#/$defs/hash"},
+                "semantic_commitment_sha256": {"$ref": "#/$defs/hash"}
+              }
+            }
+          },
+          "task_prompt_sha256": {"$ref": "#/$defs/hash"},
+          "result_schema_sha256": {"$ref": "#/$defs/hash"},
+          "data_policy": {"const": "bounded-redacted-source-bound-packets-only"},
+          "canonical_bytes": {"type": "integer", "minimum": 1, "maximum": 1048576},
+          "input_sha256": {"$ref": "#/$defs/hash"}
+        }
+      }
+    },
+    "attempts": {
+      "type": "array", "minItems": 1,
+      "items": {
+        "type": "object", "additionalProperties": false,
+        "required": ["attempt_id", "packet_id", "kind", "model_callable_id", "settings_sha256", "status", "result_id", "provider_receipt_sha256", "started_at", "ended_at"],
+        "properties": {
+          "attempt_id": {"$ref": "#/$defs/opaque_id"},
+          "packet_id": {"$ref": "#/$defs/opaque_id"},
+          "kind": {"enum": ["initial", "retry", "split", "recovered"]},
+          "model_callable_id": {"type": "string", "minLength": 1, "maxLength": 256},
+          "settings_sha256": {"$ref": "#/$defs/hash"},
+          "status": {"enum": ["accepted", "failed", "split", "recovered"]},
+          "result_id": {"oneOf": [{"$ref": "#/$defs/opaque_id"}, {"type": "null"}]},
+          "provider_receipt_sha256": {"oneOf": [{"$ref": "#/$defs/hash"}, {"type": "null"}]},
+          "started_at": {"$ref": "#/$defs/timestamp"},
+          "ended_at": {"$ref": "#/$defs/timestamp"}
+        }
+      }
+    },
+    "results": {
+      "type": "array", "minItems": 1,
+      "items": {
+        "type": "object", "additionalProperties": false,
+        "required": ["schema_version", "result_id", "packet_id", "accepted_observation_ids", "dropped_unknown_observation_ids", "candidate_ids", "output_sha256", "provider_receipt_sha256"],
+        "properties": {
+          "schema_version": {"const": "capability-result/v3"},
+          "result_id": {"$ref": "#/$defs/opaque_id"},
+          "packet_id": {"$ref": "#/$defs/opaque_id"},
+          "accepted_observation_ids": {"$ref": "#/$defs/observation_set"},
+          "dropped_unknown_observation_ids": {"$ref": "#/$defs/observation_set"},
+          "candidate_ids": {"$ref": "#/$defs/id_set"},
+          "output_sha256": {"$ref": "#/$defs/hash"},
+          "provider_receipt_sha256": {"$ref": "#/$defs/hash"}
+        }
+      }
+    },
+    "hydration": {
+      "type": "object", "additionalProperties": false,
+      "required": ["schema_version", "accepted_observation_ids", "semantic_ledger_sha256", "ledger_state", "items_sha256", "output_sha256", "receipt_sha256", "expires_at"],
+      "properties": {
+        "schema_version": {"const": "capability-hydration/v3"},
+        "accepted_observation_ids": {"$ref": "#/$defs/observation_set"},
+        "semantic_ledger_sha256": {"$ref": "#/$defs/hash"},
+        "ledger_state": {"const": "live"},
+        "items_sha256": {"$ref": "#/$defs/hash"},
+        "output_sha256": {"$ref": "#/$defs/hash"},
+        "receipt_sha256": {"$ref": "#/$defs/hash"},
+        "expires_at": {"$ref": "#/$defs/timestamp"}
+      }
+    },
+    "synthesis": {
+      "type": "object", "additionalProperties": false,
+      "required": ["schema_version", "accepted_result_ids", "hydration_output_sha256", "hydration_receipt_sha256", "candidate_ids", "capability_ids", "overlap_ids", "decision_ids", "input_sha256", "output_sha256", "primary_coordinator_owned"],
+      "properties": {
+        "schema_version": {"const": "capability-synthesis/v3"},
+        "accepted_result_ids": {"$ref": "#/$defs/id_set"},
+        "hydration_output_sha256": {"$ref": "#/$defs/hash"},
+        "hydration_receipt_sha256": {"$ref": "#/$defs/hash"},
+        "candidate_ids": {"$ref": "#/$defs/id_set"},
+        "capability_ids": {"$ref": "#/$defs/id_set"},
+        "overlap_ids": {"$ref": "#/$defs/id_set"},
+        "decision_ids": {"$ref": "#/$defs/id_set"},
+        "input_sha256": {"$ref": "#/$defs/hash"},
+        "output_sha256": {"$ref": "#/$defs/hash"},
+        "primary_coordinator_owned": {"const": true}
+      }
+    },
+    "candidates": {
+      "type": "array", "minItems": 1,
+      "items": {
+        "type": "object", "additionalProperties": false,
+        "required": ["candidate_id", "accepted_observation_ids", "root_ids", "project_family_ids", "root_count", "project_family_count", "capability_ids", "overlap_ids"],
+        "properties": {
+          "candidate_id": {"$ref": "#/$defs/opaque_id"},
+          "accepted_observation_ids": {"$ref": "#/$defs/observation_set"},
+          "root_ids": {"$ref": "#/$defs/id_set"},
+          "project_family_ids": {"$ref": "#/$defs/id_set"},
+          "root_count": {"type": "integer", "minimum": 0},
+          "project_family_count": {"type": "integer", "minimum": 0},
+          "capability_ids": {"$ref": "#/$defs/id_set"},
+          "overlap_ids": {"$ref": "#/$defs/id_set"}
+        }
+      }
+    },
+    "decisions": {
+      "type": "array", "minItems": 1,
+      "items": {
+        "type": "object", "additionalProperties": false,
+        "required": ["decision_id", "candidate_id", "disposition", "target_skill_id", "evidence_observation_ids", "decided_by", "decision_sha256"],
+        "properties": {
+          "decision_id": {"$ref": "#/$defs/opaque_id"},
+          "candidate_id": {"$ref": "#/$defs/opaque_id"},
+          "disposition": {"enum": ["create", "extend", "reject"]},
+          "target_skill_id": {"oneOf": [{"$ref": "#/$defs/opaque_id"}, {"type": "null"}]},
+          "evidence_observation_ids": {"$ref": "#/$defs/observation_set"},
+          "decided_by": {"const": "primary-coordinator"},
+          "decision_sha256": {"$ref": "#/$defs/hash"}
+        },
+        "allOf": [
+          {
+            "if": {"properties": {"disposition": {"const": "extend"}}},
+            "then": {"properties": {"target_skill_id": {"$ref": "#/$defs/opaque_id"}}},
+            "else": {"properties": {"target_skill_id": {"type": "null"}}}
+          }
+        ]
+      }
+    },
+    "reconciliation": {
+      "type": "object", "additionalProperties": false,
+      "required": ["scheduled_packet_ids", "terminal_packet_ids", "accepted_result_ids", "failed_attempt_ids", "split_attempt_ids", "retried_attempt_ids", "accepted_observation_ids", "dropped_observation_ids", "candidate_ids", "decision_candidate_ids", "complete"],
+      "properties": {
+        "scheduled_packet_ids": {"$ref": "#/$defs/id_set"},
+        "terminal_packet_ids": {"$ref": "#/$defs/id_set"},
+        "accepted_result_ids": {"$ref": "#/$defs/id_set"},
+        "failed_attempt_ids": {"$ref": "#/$defs/id_set"},
+        "split_attempt_ids": {"$ref": "#/$defs/id_set"},
+        "retried_attempt_ids": {"$ref": "#/$defs/id_set"},
+        "accepted_observation_ids": {"$ref": "#/$defs/observation_set"},
+        "dropped_observation_ids": {"$ref": "#/$defs/observation_set"},
+        "candidate_ids": {"$ref": "#/$defs/id_set"},
+        "decision_candidate_ids": {"$ref": "#/$defs/id_set"},
+        "complete": {"const": true}
+      }
+    },
+    "reduction_sha256": {"$ref": "#/$defs/hash"}
+  },
+  "$defs": {
+    "hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "uuid": {"type": "string", "format": "uuid"},
+    "timestamp": {"type": "string", "format": "date-time"},
+    "opaque_id": {"type": "string", "pattern": "^[a-z][a-z0-9-]{2,31}-[0-9a-f]{32,64}$"},
+    "observation_id": {"type": "string", "pattern": "^obs-[0-9a-f]{64}$"},
+    "id_set": {"type": "array", "uniqueItems": true, "items": {"$ref": "#/$defs/opaque_id"}},
+    "observation_set": {"type": "array", "uniqueItems": true, "items": {"$ref": "#/$defs/observation_id"}},
+    "hash_set": {"type": "array", "uniqueItems": true, "items": {"$ref": "#/$defs/hash"}},
+    "descriptor": {
+      "type": "object", "additionalProperties": false,
+      "required": ["schema_version", "root_authority_sha256", "relative_path_sha256", "device", "inode", "size", "mode", "uid", "nlink", "mtime_ns", "captured_at", "sha256", "open_flags"],
+      "properties": {
+        "schema_version": {"const": "descriptor-file/v2"},
+        "root_authority_sha256": {"$ref": "#/$defs/hash"},
+        "relative_path_sha256": {"$ref": "#/$defs/hash"},
+        "device": {"type": "integer", "minimum": 0},
+        "inode": {"type": "integer", "minimum": 1},
+        "size": {"type": "integer", "minimum": 0},
+        "mode": {"type": "string", "pattern": "^0[46][04][04]$"},
+        "uid": {"type": "integer", "minimum": 0},
+        "nlink": {"const": 1},
+        "mtime_ns": {"type": "integer", "minimum": 0},
+        "captured_at": {"$ref": "#/$defs/timestamp"},
+        "sha256": {"$ref": "#/$defs/hash"},
+        "open_flags": {"const": ["O_RDONLY", "O_CLOEXEC", "O_NOFOLLOW"]}
+      }
+    }
+  }
+}

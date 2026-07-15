@@ -1,6 +1,7 @@
+# portfolio-routing-v1-row-sha256: 917111e134bb73318b641a96d1656d30f1fc6fa9982989edef77dbdd5538302e
 interface:
   display_name: "Align Work"
-  short_description: "Align nontrivial coding work before execution"
-  default_prompt: "Use $align-work to explore, align, plan, obtain approval, and execute this nontrivial coding task."
+  short_description: "Align authority and approval before execution"
+  default_prompt: "Use $align-work to resolve material decisions, own the planning packet and approval lifecycle, and execute only within the approved authority contract. Under Front Agent, keep Front as the gateway but retain Align packet ownership."
 policy:
   allow_implicit_invocation: true

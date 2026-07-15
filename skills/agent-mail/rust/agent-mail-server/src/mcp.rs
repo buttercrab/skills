@@ -18,6 +18,7 @@ use axum::{
 use serde::Deserialize;
 use serde_json::{Value, json};
 use tokio::sync::{Mutex, mpsc};
+use tokio_stream::{StreamExt, wrappers::ReceiverStream};
 
 use crate::{
     domain::{SendMessage, StartParticipant},
@@ -82,7 +83,7 @@ pub async fn mcp_get(State(state): State<Arc<AppState>>, headers: HeaderMap) -> 
         return (StatusCode::BAD_REQUEST, "missing Accept: text/event-stream").into_response();
     }
 
-    let (tx, mut rx) = mpsc::channel(256);
+    let (tx, rx) = mpsc::channel(256);
     {
         let mut sessions = state.mcp.sessions.lock().await;
         prune_expired_sessions(&mut sessions);
@@ -96,15 +97,17 @@ pub async fn mcp_get(State(state): State<Arc<AppState>>, headers: HeaderMap) -> 
         session.stream = Some(tx);
     }
 
-    let stream = async_stream::stream! {
-        yield Ok::<Event, Infallible>(Event::default().event("message").data(""));
-        while let Some(message) = rx.recv().await {
-            match Event::default().json_data(message) {
-                Ok(event) => yield Ok(event),
-                Err(_) => yield Ok(Event::default().event("message").data("{}")),
-            }
-        }
-    };
+    let initial = tokio_stream::once(Ok::<Event, Infallible>(
+        Event::default().event("message").data(""),
+    ));
+    let messages = ReceiverStream::new(rx).map(|message| {
+        Ok::<Event, Infallible>(
+            Event::default()
+                .json_data(message)
+                .unwrap_or_else(|_| Event::default().event("message").data("{}")),
+        )
+    });
+    let stream = initial.chain(messages);
 
     Sse::new(stream)
         .keep_alive(KeepAlive::default())

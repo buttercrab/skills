@@ -1,0 +1,99 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "work-authority-v1.schema.json",
+  "title": "Front and Align work authority v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "work_id",
+    "sequence",
+    "original_request_sha256",
+    "alignment_mode",
+    "gateway_classification",
+    "repository_root",
+    "packet_binding"
+  ],
+  "properties": {
+    "schema_version": {"const": "work_authority/v1"},
+    "work_id": {"type": "string", "format": "uuid"},
+    "sequence": {"type": "integer", "minimum": 0},
+    "original_request_sha256": {"$ref": "#/$defs/hash"},
+    "alignment_mode": {"enum": ["packet", "none"]},
+    "gateway_classification": {
+      "enum": [
+        "explicit-invocation",
+        "existing-packet",
+        "material-decision",
+        "destructive",
+        "production",
+        "security-privacy",
+        "costly",
+        "external-mutation",
+        "none"
+      ]
+    },
+    "repository_root": {"type": "string", "pattern": "^/.+"},
+    "packet_binding": {
+      "oneOf": [
+        {"type": "null"},
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "packet_id",
+            "task_id",
+            "packet_path",
+            "packet_revision",
+            "protected_digest",
+            "approval_id",
+            "authority_classes",
+            "coordinator_id",
+            "coordinator_epoch",
+            "state_generation",
+            "lifecycle_status",
+            "execution_head"
+          ],
+          "properties": {
+            "packet_id": {"type": "string", "format": "uuid"},
+            "task_id": {"type": "string", "pattern": "^[a-z0-9][a-z0-9-]{0,63}$"},
+            "packet_path": {"type": "string", "pattern": "^\\.planning/[a-z0-9][a-z0-9-]{0,63}$"},
+            "packet_revision": {"type": "integer", "minimum": 1},
+            "protected_digest": {"$ref": "#/$defs/hash"},
+            "approval_id": {"type": "string", "format": "uuid"},
+            "authority_classes": {
+              "type": "array",
+              "minItems": 1,
+              "maxItems": 3,
+              "uniqueItems": true,
+              "items": {"enum": ["P", "R", "T"]}
+            },
+            "coordinator_id": {"type": "string", "format": "uuid"},
+            "coordinator_epoch": {"type": "integer", "minimum": 1},
+            "state_generation": {"type": "integer", "minimum": 0},
+            "lifecycle_status": {
+              "enum": [
+                "approved",
+                "executing",
+                "verifying",
+                "needs_reapproval",
+                "blocked",
+                "cancelled",
+                "complete"
+              ]
+            },
+            "execution_head": {
+              "oneOf": [
+                {"type": "null"},
+                {"$ref": "#/$defs/hash"}
+              ]
+            }
+          }
+        }
+      ]
+    }
+  },
+  "$defs": {
+    "hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+  }
+}

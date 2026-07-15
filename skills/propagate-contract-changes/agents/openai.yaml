@@ -1,0 +1,5 @@
+# portfolio-routing-v1-row-sha256: ea8b5bbbcca89d8dbdf958601851fe6210612377c078251d576808cfd4f91db7
+interface:
+  display_name: "Propagate Contract Changes"
+  short_description: "Propagate contract changes across all surfaces"
+  default_prompt: "Use $propagate-contract-changes to update this contract through every producer, boundary, consumer, and test."

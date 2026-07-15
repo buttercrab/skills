@@ -1,0 +1,229 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://local.invalid/semantic-observation-ledger-v2.schema.json",
+  "title": "Semantic observation ledger v2",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version", "ledger_id", "history_contract_id", "index_id",
+    "created_at", "delete_by", "lifecycle_state", "identity_binding",
+    "native_id_inventory", "native_nodes", "native_lineage_closure_sha256",
+    "lineage_accounting", "records", "semantic_ledger_sha256"
+  ],
+  "properties": {
+    "schema_version": {"const": "semantic-observation-ledger/v2"},
+    "ledger_id": {"$ref": "#/$defs/opaque_id"},
+    "history_contract_id": {"$ref": "#/$defs/uuid"},
+    "index_id": {"$ref": "#/$defs/opaque_id"},
+    "created_at": {"$ref": "#/$defs/timestamp"},
+    "delete_by": {"$ref": "#/$defs/timestamp"},
+    "lifecycle_state": {"const": "live"},
+    "identity_binding": {
+      "type": "object", "additionalProperties": false,
+      "required": ["schema_version", "index_salt_receipt_sha256", "identity_key_receipt_sha256", "identity_domain", "native_hmac_domain"],
+      "properties": {
+        "schema_version": {"const": "history-identity/v2"},
+        "index_salt_receipt_sha256": {"$ref": "#/$defs/hash"},
+        "identity_key_receipt_sha256": {"$ref": "#/$defs/hash"},
+        "identity_domain": {"const": "history-public-id/v2"},
+        "native_hmac_domain": {"const": "history-native-id/v2"}
+      }
+    },
+    "native_id_inventory": {
+      "type": "object", "additionalProperties": false,
+      "required": ["schema_version", "native_map_sha256", "native_hmac_set_sha256", "total_count", "by_type", "complete"],
+      "properties": {
+        "schema_version": {"const": "history-native-id-inventory/v2"},
+        "native_map_sha256": {"$ref": "#/$defs/hash"},
+        "native_hmac_set_sha256": {"$ref": "#/$defs/hash"},
+        "total_count": {"type": "integer", "minimum": 0},
+        "by_type": {
+          "type": "object", "additionalProperties": false,
+          "required": ["session", "message", "parent", "project", "tool", "user", "organization", "workspace", "namespace", "task", "thread", "run", "job", "artifact", "provider_specific"],
+          "properties": {
+            "session": {"type": "integer", "minimum": 0},
+            "message": {"type": "integer", "minimum": 0},
+            "parent": {"type": "integer", "minimum": 0},
+            "project": {"type": "integer", "minimum": 0},
+            "tool": {"type": "integer", "minimum": 0},
+            "user": {"type": "integer", "minimum": 0},
+            "organization": {"type": "integer", "minimum": 0},
+            "workspace": {"type": "integer", "minimum": 0},
+            "namespace": {"type": "integer", "minimum": 0},
+            "task": {"type": "integer", "minimum": 0},
+            "thread": {"type": "integer", "minimum": 0},
+            "run": {"type": "integer", "minimum": 0},
+            "job": {"type": "integer", "minimum": 0},
+            "artifact": {"type": "integer", "minimum": 0},
+            "provider_specific": {"type": "integer", "minimum": 0}
+          }
+        },
+        "complete": {"const": true}
+      }
+    },
+    "native_nodes": {
+      "type": "array", "minItems": 1, "uniqueItems": true,
+      "items": {
+        "type": "object", "additionalProperties": false,
+        "required": [
+          "native_hmac", "native_type", "platform", "source_id",
+          "source_record_ordinal", "record_id", "observation_id", "node_id",
+          "parent_id", "root_id", "namespace_id", "project_family_id",
+          "classification", "classification_basis", "record_disposition",
+          "parent_native_hmac", "namespace_native_hmac",
+          "project_family_native_hmac", "occurred_at", "after_cutoff"
+        ],
+        "properties": {
+          "native_hmac": {"$ref": "#/$defs/hash"},
+          "native_type": {"enum": ["session", "message", "parent", "project", "tool", "user", "organization", "workspace", "namespace", "task", "thread", "run", "job", "artifact", "provider_specific"]},
+          "platform": {"enum": ["codex", "claude-code"]},
+          "source_id": {"$ref": "#/$defs/opaque_id"},
+          "source_record_ordinal": {"type": "integer", "minimum": 1},
+          "record_id": {"$ref": "#/$defs/opaque_id"},
+          "observation_id": {"oneOf": [{"$ref": "#/$defs/observation_id"}, {"type": "null"}]},
+          "node_id": {"$ref": "#/$defs/opaque_id"},
+          "parent_id": {"oneOf": [{"$ref": "#/$defs/opaque_id"}, {"type": "null"}]},
+          "root_id": {"oneOf": [{"$ref": "#/$defs/opaque_id"}, {"type": "null"}]},
+          "namespace_id": {"oneOf": [{"$ref": "#/$defs/opaque_id"}, {"type": "null"}]},
+          "project_family_id": {"oneOf": [{"$ref": "#/$defs/opaque_id"}, {"type": "null"}]},
+          "classification": {"enum": ["user-root", "delegated", "retry", "continuation", "test", "replay", "synthetic", "system", "duplicate-export", "non-semantic"]},
+          "classification_basis": {"enum": ["platform-native", "reducer-reviewed", "artifact-grounded", "heuristic-reviewed"]},
+          "record_disposition": {"enum": ["semantic", "non-semantic", "excluded"]},
+          "parent_native_hmac": {"oneOf": [{"$ref": "#/$defs/hash"}, {"type": "null"}]},
+          "namespace_native_hmac": {"oneOf": [{"$ref": "#/$defs/hash"}, {"type": "null"}]},
+          "project_family_native_hmac": {"oneOf": [{"$ref": "#/$defs/hash"}, {"type": "null"}]},
+          "occurred_at": {"$ref": "#/$defs/timestamp"},
+          "after_cutoff": {"type": "boolean"}
+        }
+      }
+    },
+    "native_lineage_closure_sha256": {"$ref": "#/$defs/hash"},
+    "lineage_accounting": {
+      "type": "object", "additionalProperties": false,
+      "required": [
+        "source_ids", "record_ids", "semantic_record_ids",
+        "excluded_record_ids", "nonsemantic_record_ids", "observation_ids",
+        "node_ids", "root_ids", "child_ids", "unresolved_ids",
+        "duplicate_export_ids", "nonsemantic_ids", "excluded_ids",
+        "namespace_ids", "project_family_ids", "counts", "counts_sha256"
+      ],
+      "properties": {
+        "source_ids": {"$ref": "#/$defs/id_set"},
+        "record_ids": {"$ref": "#/$defs/id_set"},
+        "semantic_record_ids": {"$ref": "#/$defs/id_set"},
+        "excluded_record_ids": {"$ref": "#/$defs/id_set"},
+        "nonsemantic_record_ids": {"$ref": "#/$defs/id_set"},
+        "observation_ids": {"$ref": "#/$defs/observation_set"},
+        "node_ids": {"$ref": "#/$defs/id_set"},
+        "root_ids": {"$ref": "#/$defs/id_set"},
+        "child_ids": {"$ref": "#/$defs/id_set"},
+        "unresolved_ids": {"$ref": "#/$defs/id_set"},
+        "duplicate_export_ids": {"$ref": "#/$defs/id_set"},
+        "nonsemantic_ids": {"$ref": "#/$defs/id_set"},
+        "excluded_ids": {"$ref": "#/$defs/id_set"},
+        "namespace_ids": {"$ref": "#/$defs/id_set"},
+        "project_family_ids": {"$ref": "#/$defs/id_set"},
+        "counts": {
+          "type": "object", "additionalProperties": false,
+          "required": [
+            "sources", "records", "semantic_records", "excluded_records",
+            "nonsemantic_records", "observations", "nodes", "roots",
+            "children", "unresolved", "duplicate_exports", "nonsemantic",
+            "excluded", "namespaces", "project_families"
+          ],
+          "properties": {
+            "sources": {"type": "integer", "minimum": 0},
+            "records": {"type": "integer", "minimum": 0},
+            "semantic_records": {"type": "integer", "minimum": 0},
+            "excluded_records": {"type": "integer", "minimum": 0},
+            "nonsemantic_records": {"type": "integer", "minimum": 0},
+            "observations": {"type": "integer", "minimum": 0},
+            "nodes": {"type": "integer", "minimum": 0},
+            "roots": {"type": "integer", "minimum": 0},
+            "children": {"type": "integer", "minimum": 0},
+            "unresolved": {"type": "integer", "minimum": 0},
+            "duplicate_exports": {"type": "integer", "minimum": 0},
+            "nonsemantic": {"type": "integer", "minimum": 0},
+            "excluded": {"type": "integer", "minimum": 0},
+            "namespaces": {"type": "integer", "minimum": 0},
+            "project_families": {"type": "integer", "minimum": 0}
+          }
+        },
+        "counts_sha256": {"$ref": "#/$defs/hash"}
+      }
+    },
+    "records": {
+      "type": "array",
+      "items": {
+        "type": "object", "additionalProperties": false,
+        "required": [
+          "observation_id", "record_id", "root_id", "project_family_id",
+          "namespace_id", "platform", "source_id", "raw_sha256", "source_record_ordinal",
+          "field", "ordinal", "classification", "classification_basis",
+          "lineage", "locator", "redaction_policy_version", "native_hmac_set_sha256",
+          "redacted_text", "redacted_text_sha256", "semantic_commitment_sha256",
+          "ledger_record_sha256"
+        ],
+        "properties": {
+          "observation_id": {"$ref": "#/$defs/observation_id"},
+          "record_id": {"$ref": "#/$defs/opaque_id"},
+          "root_id": {"$ref": "#/$defs/opaque_id"},
+          "project_family_id": {"$ref": "#/$defs/opaque_id"},
+          "namespace_id": {"$ref": "#/$defs/opaque_id"},
+          "platform": {"enum": ["codex", "claude-code"]},
+          "source_id": {"$ref": "#/$defs/opaque_id"},
+          "raw_sha256": {"$ref": "#/$defs/hash"},
+          "source_record_ordinal": {"type": "integer", "minimum": 1},
+          "field": {"enum": ["root-intent", "user-message", "assistant-summary", "tool-result", "project-context", "metadata"]},
+          "ordinal": {"type": "integer", "minimum": 1},
+          "classification": {"enum": ["user-root", "delegated", "retry", "continuation", "test", "replay", "synthetic", "system", "duplicate-export", "non-semantic"]},
+          "classification_basis": {"enum": ["platform-native", "reducer-reviewed", "artifact-grounded", "heuristic-reviewed"]},
+          "lineage": {
+            "type": "object", "additionalProperties": false,
+            "required": ["node_id", "parent_id", "edge_type", "depth", "occurred_at", "confidence", "grounding_observation_ids"],
+            "properties": {
+              "node_id": {"$ref": "#/$defs/opaque_id"},
+              "parent_id": {"oneOf": [{"$ref": "#/$defs/opaque_id"}, {"type": "null"}]},
+              "edge_type": {"enum": ["native-root", "native-parent", "artifact", "heuristic", "unresolved"]},
+              "depth": {"type": "integer", "minimum": 0},
+              "occurred_at": {"$ref": "#/$defs/timestamp"},
+              "confidence": {"enum": ["exact", "high", "medium", "low", "unresolved"]},
+              "grounding_observation_ids": {"$ref": "#/$defs/observation_set"}
+            }
+          },
+          "locator": {
+            "type": "object", "additionalProperties": false,
+            "required": ["adapter_id", "adapter_version", "source_id", "raw_sha256", "line", "event_ordinal", "field", "json_pointer", "sha256"],
+            "properties": {
+              "adapter_id": {"enum": ["codex-history-jsonl", "claude-code-history-jsonl"]},
+              "adapter_version": {"const": "v2"},
+              "source_id": {"$ref": "#/$defs/opaque_id"},
+              "raw_sha256": {"$ref": "#/$defs/hash"},
+              "line": {"type": "integer", "minimum": 1},
+              "event_ordinal": {"type": "integer", "minimum": 1},
+              "field": {"type": "string", "minLength": 1},
+              "json_pointer": {"type": "string", "pattern": "^/"},
+              "sha256": {"$ref": "#/$defs/hash"}
+            }
+          },
+          "redaction_policy_version": {"const": "history-redaction/v2"},
+          "native_hmac_set_sha256": {"$ref": "#/$defs/hash"},
+          "redacted_text": {"type": "string", "minLength": 1, "maxLength": 1048576},
+          "redacted_text_sha256": {"$ref": "#/$defs/hash"},
+          "semantic_commitment_sha256": {"$ref": "#/$defs/hash"},
+          "ledger_record_sha256": {"$ref": "#/$defs/hash"}
+        }
+      }
+    },
+    "semantic_ledger_sha256": {"$ref": "#/$defs/hash"}
+  },
+  "$defs": {
+    "hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "uuid": {"type": "string", "format": "uuid"},
+    "timestamp": {"type": "string", "format": "date-time"},
+    "opaque_id": {"type": "string", "pattern": "^[a-z][a-z0-9-]{2,31}-[0-9a-f]{32,64}$"},
+    "observation_id": {"type": "string", "pattern": "^obs-[0-9a-f]{64}$"},
+    "id_set": {"type": "array", "uniqueItems": true, "items": {"$ref": "#/$defs/opaque_id"}},
+    "observation_set": {"type": "array", "uniqueItems": true, "items": {"$ref": "#/$defs/observation_id"}}
+  }
+}

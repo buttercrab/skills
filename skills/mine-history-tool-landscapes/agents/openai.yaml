@@ -1,4 +1,5 @@
+# portfolio-routing-v1-row-sha256: 0cda82d27538b04834473e41fba589736cd8022a07947439ec2c441f28f92b03
 interface:
   display_name: "Mine History Tool Landscapes"
-  short_description: "Mine agent histories into capability evidence"
-  default_prompt: "Use $mine-history-tool-landscapes in the single mode requested: reconstruct historical lineage or mine independent root intents for capability gaps; run both only when explicit."
+  short_description: "Mine agent histories into source-bound capability evidence"
+  default_prompt: "Use $mine-history-tool-landscapes for historical lineage or recurring root-intent mining. Use only 5.6 lunar high for redacted source-bound chat-history exploration, and keep planning plus final create, extend, or reject decisions with the primary coordinator."
