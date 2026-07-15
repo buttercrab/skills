@@ -1,35 +1,24 @@
 # Explore and Align
 
-Read this reference during discovery and after new information reopens the problem space.
+Read this reference only when a decision-changing ambiguity remains. Converge as soon as evidence and delegated judgment support a bounded recommendation.
 
-## Repeat the loop
+## Inspect before asking
 
 1. Inspect the authorized repository, docs, tests, runtime, logs, UI, or external evidence needed for the current uncertainty.
-2. Record each material observation in `facts.md` before asking the next question round.
-3. Separate observation, inference, working assumption, and unknown.
-4. Ask only questions whose answers can change outcome, scope, architecture, authority, safety, risk, acceptance criteria, or the plan.
-5. Record the question, meaningful options, user answer, rationale, consequences, and provenance in `decisions.md`.
-6. Explore the new search space opened by the answer instead of immediately converging.
-7. Append an alignment-round entry with facts and decisions added, contrary evidence checked, remaining open question IDs, and advancement verdict.
+2. Separate observation, inference, working assumption, and unknown.
+3. Resolve safely discoverable facts directly. Ask only for intent, preference, authority, risk tolerance, or another choice evidence cannot settle.
+4. Frame the smallest question set whose answers can materially change outcome, scope, architecture, authority, safety, risk, acceptance criteria, or the approval envelope.
 
-Ledger IDs are internal recovery aids. Ask and answer user-facing questions in ordinary language; do not make the user reference fact, decision, round, or question codes.
+Stateful tests, UI actions, connector calls, paid requests, and external reads with side effects are mutations, not discovery, and require matching authority.
 
-For ambiguity-driven entry, do not declare alignment immediately after the first answer. Run another exploration/reflection pass and ask a second question round when any decision-changing space remains. Do not manufacture ceremonial questions: a round may close with no outgoing question when evidence or the user's answer genuinely eliminates the remaining decision space.
+## Converge after the answer
 
-## Question discipline
+Lightweight mode permits at most one clarification round. After the answer, present the best bounded recommendation with its assumptions. Do not reopen exploration merely because another option exists. If authority or safety remains genuinely unresolved, state the single blocker; do not manufacture a second round.
 
-Explore a fact when it can be safely discovered from the authorized environment. Ask the user when the answer expresses intent, preference, authority, risk tolerance, or a decision that evidence cannot settle.
+User-delegated judgment closes non-authority questions. A further round is permitted only in durable mode, and only when the coordinator can name the unresolved decision, the materially different consequences of its options, and why a safe assumption cannot resolve it.
 
-Do not batch every conceivable question. Ask a small set of highest-leverage questions, update the packet, explore their implications, then reassess.
+## Persist only in durable mode
 
-Classify every question as answered, user-delegated, explicitly assumed with user acceptance, declined, deferred/blocking, or still open. Reassess after each round; continue only while another round could materially change the plan. Treat stateful tests, UI actions, connector calls, paid requests, and external reads with side effects as mutations requiring matching authority, not as read-only exploration.
+Before asking in durable mode, record each material observation in `facts.md`. After the answer, record the decision, meaningful options, rationale, consequences, provenance, contrary evidence, and remaining open questions in `decisions.md`. Ledger IDs are internal recovery aids; never make the user reference them.
 
-## Stop rule
-
-Advance to planning only when:
-
-- no decision-changing question remains open;
-- material facts have evidence and volatility labels;
-- consequential assumptions are confirmed or explicitly accepted;
-- meaningful alternatives and contrary evidence were checked; and
-- the latest round records why planning is now justified.
+Advance to the plan when no decision-changing question remains, consequential assumptions are explicit, and the evidence is sufficient for the mode's approval envelope. Durable mode also requires volatility labels and an alignment-round advancement verdict. There is no minimum number of rounds in either mode.

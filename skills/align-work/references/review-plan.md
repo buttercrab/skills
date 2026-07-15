@@ -4,7 +4,7 @@ Read this reference when deciding whether a plan needs adversarial review and wh
 
 ## Review threshold
 
-Prefer fresh review for broad, architectural, security-sensitive, production-facing, irreversible, costly, ambiguous, or multi-owner plans. A simple, low-risk, single-path plan with deterministic checks may skip review only with a recorded reason.
+Never use adversarial plan review for lightweight mode. In durable mode, use fresh review when a plausible planning error could cause an irreversible or production effect, cross a security/privacy/trust boundary, exceed a meaningful cost ceiling, or create conflicting ownership across multiple actors. Complexity, file count, or architectural language alone is insufficient. Skipping review needs no separate receipt.
 
 ## Reviewer setup
 

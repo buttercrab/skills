@@ -1,7 +1,7 @@
-# portfolio-routing-v1-row-sha256: d1a5baa53e720b29e4e3ff4305413dd6edddb145a6980aa3d8f0eb0959b171aa
+# portfolio-routing-v1-row-sha256: 12bcbe6249f9c1c26ce915ed06af8c7fd40a6f41adb8093ae301b94946555690
 interface:
   display_name: "Align Work"
-  short_description: "Align complex work with one approval"
-  default_prompt: "Use $align-work to resolve material decisions, present one plain-language approval request, then execute and verify without asking again while the approved scope is unchanged."
+  short_description: "Align work proportionally with one approval"
+  default_prompt: "Use $align-work with lightweight alignment by default. Escalate to a durable packet only when risk or continuity requires it, ask at most one lightweight clarification round, and execute immediately after one plain-language approval."
 policy:
   allow_implicit_invocation: true

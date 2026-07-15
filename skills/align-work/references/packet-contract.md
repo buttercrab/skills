@@ -1,6 +1,6 @@
 # Planning Packet Contract
 
-Read this reference before creating, resuming, sealing, approving, transitioning, or repairing a packet.
+This reference is durable-mode only. Do not create or resume a packet for lightweight Align work. Read it before creating, resuming, sealing, approving, transitioning, transferring, or repairing a packet.
 
 ## Files
 
@@ -38,6 +38,14 @@ Use `handoff` for an orderly coordinator transfer. Use `recover` only after the 
 Every `handoff` emits a closed `packet-transfer-receipt/v1` in its JSON result. The receipt binds repository and packet identity, revision and digest, approval, old and new coordinator fencing, resulting generation, paused and resume status, cleared runtime authority, and execution-chain head. Validate it against current reality with `scripts/work_authority.py validate-transfer`; a stale, fabricated, malformed, cross-root, or incomplete receipt never transfers authority.
 
 New Front Agent work uses the current class-free work protocol. The legacy protocol remains valid only for legacy packets that already contain authority classes. The gateway declares `packet` or `none` from the original request and local packet discovery. Main independently reclassifies the exact request and canonical root, then runs the helper read-only. Packet mode binds the current regular packet beneath `<root>/.planning`, packet format, packet and approval identity, coordinator epoch and generation, lifecycle status, and execution head. Sequence zero requires `approved`; updates carry current fencing and a lifecycle-appropriate status. Front validates structure and replay order; Main revalidates current packet reality before each mutation boundary. These fields are internal transport data and must not appear in normal user-facing prompts or receipts.
+
+## Front and transfer integration
+
+Front Agent always uses durable mode because it separates the human gateway from the implementing main agent. The gateway runs the packet workflow and carries packet identity and fencing in hidden transport metadata. Main validates that identity read-only, never writes the packet, and stops if the transport cannot preserve it. Current packet bindings are class-free; legacy bindings retain their historical classes only for compatibility.
+
+Every new Front `work` message uses the closed [current work authority schema](work-authority-v2.schema.json); [work-authority v1](work-authority-v1.schema.json) is accepted only for legacy packets. Both bind the exact request and SHA-256, `alignment_mode: packet | none`, sequence, canonical root, approval, lifecycle, and fencing. Validate with `scripts/work_authority.py validate-work`; omitted, forged `none`, mixed-version, cross-root, symlinked, stale, or invalid-approval work fails closed. Every return keeps the same work ID, strictly increases sequence, and carries current fencing.
+
+`planning_packet.py handoff` is the only transfer producer. It pauses the packet, clears runtime authority, increments coordinator fencing, and emits the closed [packet transfer receipt v1](packet-transfer-receipt-v1.schema.json). A summary or delivery without a current receipt validated by `scripts/work_authority.py validate-transfer` is informational only.
 
 ## Approval
 

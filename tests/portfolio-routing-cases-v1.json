@@ -43,6 +43,27 @@
       }
     },
     {
+      "id": "align-lightweight-explicit",
+      "kind": "positive",
+      "family": "align",
+      "prompt": "Use $align-work to choose between two equivalent local names for a private helper, make the rename, and run its unit test. The change is reversible and has no external effect.",
+      "expected": {
+        "outer_owner": "align-work",
+        "gateways": [],
+        "overlays": [],
+        "evidence_lenses": [],
+        "mechanics": [],
+        "transports": [],
+        "content_owners": [],
+        "fallbacks": [],
+        "forbidden_actions": [
+          "planning packet",
+          "second clarification round without a named material blocker",
+          "second start prompt"
+        ]
+      }
+    },
+    {
       "id": "audit-positive",
       "kind": "positive",
       "family": "audit",

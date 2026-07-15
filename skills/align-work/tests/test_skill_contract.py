@@ -20,10 +20,14 @@ class SkillContractCase(unittest.TestCase):
         description = frontmatter["description"]
         for phrase in (
             "$align-work",
-            "existing align-work packet",
-            "unresolved decisions",
+            "lightweight alignment",
+            "durable packet mode",
+            "at most one decision-changing clarification round",
+            "existing Align packet",
             "destructive",
             "externally mutating",
+            "cross-session",
+            "cross-agent",
             "ordinary clear bounded coding",
             "simple answers",
             "low-risk mechanical edits",
@@ -41,7 +45,7 @@ class SkillContractCase(unittest.TestCase):
         self.assertGreaterEqual(len(short), 25)
         self.assertLessEqual(len(short), 64)
         self.assertIn("$align-work", data["interface"]["default_prompt"])
-        self.assertIn("plain-language approval request", data["interface"]["default_prompt"])
+        self.assertIn("one plain-language approval", data["interface"]["default_prompt"])
         self.assertIs(data["policy"]["allow_implicit_invocation"], True)
         for line in text.splitlines():
             if ":" in line and line.strip().split(":", 1)[0] in {"display_name", "short_description", "default_prompt"}:
@@ -84,26 +88,49 @@ class SkillContractCase(unittest.TestCase):
 
     def test_risky_one_step_work_is_an_independent_trigger(self):
         text = (SKILL / "SKILL.md").read_text()
-        self.assertIn("even if the requested action is clear and one-step", text)
+        self.assertIn("destructive, irreversible, production-facing", text)
+        self.assertIn("Choose durable mode when any condition holds", text)
 
     def test_step_count_and_read_only_work_do_not_overtrigger_alignment(self):
         text = (SKILL / "SKILL.md").read_text()
-        self.assertIn("step count alone does not", text)
+        self.assertIn("step count alone do not trigger Align or durable mode", text)
         self.assertIn("A read-only request alone is insufficient", text)
-        self.assertIn("Uncertainty about complexity alone does not trigger", text)
+        self.assertIn("Uncertainty about complexity", text)
         self.assertNotIn("If uncertain, treat the task as nontrivial", text)
 
-    def test_explicit_align_under_front_preserves_packet_contract(self):
+    def test_explicit_align_uses_lightweight_mode_without_a_durable_trigger(self):
+        text = (SKILL / "SKILL.md").read_text()
+        self.assertIn("Explicit `$align-work` selects Align ownership, not durable mode by itself.", text)
+        self.assertIn("Do not create `.planning/`", text)
+        self.assertIn("Do not ask a second lightweight clarification round.", text)
+        self.assertIn("User-delegated judgment closes non-authority questions.", text)
+        self.assertIn("An unqualified approval starts execution immediately", text)
+
+    def test_durable_mode_has_closed_escalation_triggers(self):
         text = (SKILL / "SKILL.md").read_text()
         for phrase in (
-            "gateway must run this packet workflow",
+            "a matching packet exists",
+            "resume, recovery, handoff",
+            "work spanning sessions or agents",
+            "production-facing",
+            "Front Agent always uses durable mode.",
+        ):
+            self.assertIn(phrase, text)
+
+    def test_explicit_align_under_front_preserves_packet_contract(self):
+        skill = (SKILL / "SKILL.md").read_text()
+        packet = (SKILL / "references" / "packet-contract.md").read_text()
+        self.assertIn("Front Agent always uses durable mode.", skill)
+        for phrase in (
+            "gateway runs the packet workflow",
             "Current packet bindings are class-free",
             "Main validates that identity read-only",
             "never writes the packet",
-            "This metadata is internal; never copy it into normal user-facing messages.",
+            "work-authority-v2.schema.json",
+            "packet-transfer-receipt-v1.schema.json",
         ):
-            self.assertIn(phrase, text)
-        self.assertNotIn("exact packet path, task ID, revision, digest, authority classes", text)
+            self.assertIn(phrase, packet)
+        self.assertNotIn("exact packet path, task ID, revision, digest, authority classes", skill)
 
     def test_plan_preflight_and_execution_baseline_are_explicit(self):
         plan = (SKILL / "references" / "write-plan.md").read_text()
@@ -137,14 +164,15 @@ class SkillContractCase(unittest.TestCase):
         skill = (SKILL / "SKILL.md").read_text()
         packet = (SKILL / "references" / "packet-contract.md").read_text()
         execute = (SKILL / "references" / "execute-approved-plan.md").read_text()
-        self.assertIn("Keep audit receipts internal", skill)
-        self.assertIn("never prescribe an exact reply formula", skill)
+        self.assertIn("Preserve approval and execution boundaries", skill)
+        self.assertIn("Keep machine receipts internal", skill)
+        self.assertIn("Do not make the user repeat", skill)
         self.assertIn("translate it under this current rule", packet)
         self.assertIn("Keep the new machine receipt internal", execute)
         self.assertNotIn("show the user its revision, digest, and authority classes", skill)
         self.assertNotIn("Show the user the packet ID", packet)
         self.assertNotIn("approval of the new envelope, digest", execute)
-        self.assertIn("Current packet bindings are class-free", skill)
+        self.assertIn("Current packet bindings are class-free", packet)
         self.assertIn("Use one human approval", (SKILL.parent / "front-agent-orchestration" / "SKILL.md").read_text())
 
     def test_new_plan_template_is_human_readable(self):
@@ -192,7 +220,7 @@ class SkillContractCase(unittest.TestCase):
         packet = (SKILL / "references" / "packet-contract.md").read_text()
         plan = (SKILL / "references" / "write-plan.md").read_text()
         execute = (SKILL / "references" / "execute-approved-plan.md").read_text()
-        self.assertIn("one human approval per envelope", skill)
+        self.assertIn("one plain-language approval envelope", skill)
         self.assertIn("do not ask a second", skill)
         self.assertIn("trusted same-task continuity", packet)
         self.assertIn("fresh Codex task", packet)
@@ -202,8 +230,8 @@ class SkillContractCase(unittest.TestCase):
         self.assertIn("### Outside the envelope", execute)
         self.assertIn("file-recorded approval alone is insufficient", execute)
 
-    def test_required_resources_only(self):
-        expected = {
+    def test_required_resources_exist_without_freezing_package_inventory(self):
+        required = {
             "SKILL.md",
             "agents/openai.yaml",
             "scripts/planning_packet.py",
@@ -227,7 +255,7 @@ class SkillContractCase(unittest.TestCase):
             "tests/test_work_authority.py",
         }
         actual = {str(path.relative_to(SKILL)) for path in SKILL.rglob("*") if path.is_file() and "__pycache__" not in path.parts}
-        self.assertEqual(actual, expected)
+        self.assertTrue(required.issubset(actual), sorted(required - actual))
 
 
 if __name__ == "__main__":

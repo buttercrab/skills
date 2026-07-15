@@ -16,6 +16,12 @@
       "prompt": "Rename this private helper variable and run its existing unit test; there are no unresolved decisions or external effects."
     },
     {
+      "id": "align-lightweight-explicit",
+      "kind": "positive",
+      "family": "align",
+      "prompt": "Use $align-work to choose between two equivalent local names for a private helper, make the rename, and run its unit test. The change is reversible and has no external effect."
+    },
+    {
       "id": "audit-positive",
       "kind": "positive",
       "family": "audit",
