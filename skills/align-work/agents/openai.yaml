@@ -1,7 +1,7 @@
-# portfolio-routing-v1-row-sha256: 12bcbe6249f9c1c26ce915ed06af8c7fd40a6f41adb8093ae301b94946555690
+# portfolio-routing-v1-row-sha256: 8d478e19ae838ede753ef234e0b14fa5e4eb443f78cf34c92402916d80faa41c
 interface:
   display_name: "Align Work"
   short_description: "Align work proportionally with one approval"
-  default_prompt: "Use $align-work with lightweight alignment by default. Escalate to a durable packet only when risk or continuity requires it, ask at most one lightweight clarification round, and execute immediately after one plain-language approval."
+  default_prompt: "Use $align-work with lightweight alignment by default. Escalate to a durable packet only when risk or continuity requires it, ask at most one lightweight clarification round, execute immediately after one plain-language approval, and continue through scope-neutral reversible plan drift unless concrete new authority is required."
 policy:
   allow_implicit_invocation: true

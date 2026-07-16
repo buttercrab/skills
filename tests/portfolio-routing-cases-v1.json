@@ -64,6 +64,27 @@
       }
     },
     {
+      "id": "align-in-envelope-drift",
+      "kind": "positive",
+      "family": "align",
+      "prompt": "An approved Align task needs a helper moved to a different already-authorized file, an internal implementation substitution, and one stronger unit test. The outcome, external effects, trust boundary, risk, cost, and required gates are unchanged. Continue implementation.",
+      "expected": {
+        "outer_owner": "align-work",
+        "gateways": [],
+        "overlays": [],
+        "evidence_lenses": [],
+        "mechanics": [],
+        "transports": [],
+        "content_owners": [],
+        "fallbacks": [],
+        "forbidden_actions": [
+          "reapproval for scope-neutral reversible plan drift",
+          "protected plan rewrite",
+          "second start prompt"
+        ]
+      }
+    },
+    {
       "id": "audit-positive",
       "kind": "positive",
       "family": "audit",

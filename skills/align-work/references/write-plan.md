@@ -23,11 +23,13 @@ Keep stable fact, decision, round, and step identifiers in internal ledgers and 
 
 ## Approval-envelope rubric
 
-Treat a change as outside the approved envelope when it adds outcome, scope, permissions, or surfaces; chooses an unplanned architecture; expands a trust/security/privacy/data boundary; raises reversibility or risk; exceeds an approved cost/time ceiling; weakens a required gate; or needs an unapproved rollback or partial-work disposition. Stop and obtain a new approval for those changes.
+Write the envelope to authorize the outcome and its material boundaries, not to freeze every implementation detail. Reapproval is exceptional. Treat a change as outside the envelope only when the executor can name concrete new user authority it needs: a new externally visible outcome or unauthorized system/repository surface; a destructive or irreversible action not already approved; a wider trust/security/privacy/data boundary; a higher approved cost or time ceiling; a weakened required gate; or an unapproved rollback or partial-work disposition. A difference from the plan text, file list, architecture, dependency choice, or step sequence is insufficient by itself.
 
-Keep retries, step reordering, reversible internal mechanics inside approved paths, named fallback branches inside their stated bounds, stronger verification, and ordinary in-scope bug fixes inside the envelope. When useful, list these bounded contingencies explicitly so execution can continue without another question.
+Keep scope-neutral file changes, internal architecture or refactors, implementation substitutions, bounded dependency adjustments within the approved trust boundary, retries, step insertion or removal, step reordering, reversible mechanics, named fallback branches inside their stated bounds, stronger verification, and ordinary in-scope bug fixes inside the envelope. If classification is uncertain, continue when the change is local or otherwise authorized, reversible, preserves the outcome and acceptance gates, and does not widen external effects, trust, risk, or cost. List only genuinely material exclusions; do not enumerate every permissible contingency.
 
-Freeze `facts.md`, `decisions.md`, and `plan.md` after approval. Record in-envelope discoveries, mechanics, and receipts in `execution.md` rather than editing the protected snapshot. Change protected files only when the envelope must change or when repairing an integrity fault.
+Treat exact destructive allowlists, named namespaces, publication or deployment targets, and other sealed external scopes literally. A live target outside an exact set always needs new approval rather than an inferred expansion.
+
+Freeze `facts.md`, `decisions.md`, and `plan.md` after approval. Record in-envelope discoveries, operational plan deltas, mechanics, and receipts in `execution.md` rather than editing the protected snapshot or seeking approval merely to make the snapshot match execution. Change protected files only when new authority changes the envelope or when repairing an integrity fault.
 
 ## Approval readiness
 

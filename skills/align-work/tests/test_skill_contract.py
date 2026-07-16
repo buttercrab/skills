@@ -210,10 +210,23 @@ class SkillContractCase(unittest.TestCase):
 
     def test_material_change_clears_approval_before_replanning(self):
         text = (SKILL / "references" / "execute-approved-plan.md").read_text()
+        self.assertIn("concrete new authority required", text)
         transition = text.index("transition the packet to `needs_reapproval`")
         revise = text.index("Revise `plan.md`")
         self.assertLess(transition, revise)
         self.assertIn("Do not leave a digest-mismatched packet waiting on a reviewer", text)
+
+    def test_scope_neutral_plan_drift_continues_without_reapproval(self):
+        skill = (SKILL / "SKILL.md").read_text()
+        plan = (SKILL / "references" / "write-plan.md").read_text()
+        execute = (SKILL / "references" / "execute-approved-plan.md").read_text()
+        self.assertIn("Default to continuing: a difference from the approved plan is not itself an approval event.", skill)
+        self.assertIn("Stop only when you can name the concrete new authority required", skill)
+        self.assertIn("A difference from the plan text, file list, architecture, dependency choice, or step sequence is insufficient by itself.", plan)
+        self.assertIn("operational plan deltas", plan)
+        self.assertIn("Default to continuing without reapproval.", execute)
+        self.assertIn("Do not transition to `needs_reapproval` merely to synchronize the protected plan with execution.", execute)
+        self.assertIn("target outside an exact destructive allowlist", execute)
 
     def test_one_approval_envelope_contract(self):
         skill = (SKILL / "SKILL.md").read_text()

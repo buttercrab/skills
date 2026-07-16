@@ -8,7 +8,7 @@ Read this reference only after approval of the sealed packet or an explicit fres
 2. Confirm the approved envelope and continuity. Reuse approval without another prompt only inside the same visible Codex task; in a fresh task, the user's explicit continue/resume/implement instruction is reauthorization, while file-recorded approval alone is insufficient.
 3. Read applicable repository guidance and inspect the current branch, worktree, generated state, and relevant external state.
 4. Record the dirty-worktree baseline, explicitly owned paths, unrelated user changes to preserve, and any partial mutation already present.
-5. Revalidate volatile facts and compare live state to the approved baseline. Stop for reapproval if drift is material.
+5. Revalidate volatile facts and compare live state to the approved baseline. Apply the new-authority test below to drift; continue through ordinary in-envelope differences.
 6. Reconcile incomplete attempts and partial mutations before choosing the next eligible step. Never blind-revert or clean state that the packet does not own.
 7. Transition to `executing`. After an unqualified plan approval, use that same message as approval evidence and `--reuse-approval`; do not ask “start?” again. After a fresh-task instruction or unexpected recovery, use that single current user message for every required authorization field instead of prompting twice.
 8. Record every attempt through the packet helper.
@@ -28,11 +28,15 @@ Before each writable slice that can overlap existing work, run `scripts/preserva
 
 ### Inside the envelope
 
-Continue without reapproval for retries, step reordering, reversible mechanics inside approved paths, named fallbacks inside their bounds, stronger verification, and ordinary in-scope bug fixes. Keep protected planning files frozen and record the discovery, action, and receipt in `execution.md`.
+Default to continuing without reapproval. This includes scope-neutral file additions or substitutions, internal architecture or refactors, implementation substitutions, bounded dependency adjustments within the approved trust boundary, retries, step insertion or removal, step reordering, reversible mechanics, named fallbacks inside their bounds, stronger verification, and ordinary in-scope bug fixes. The approved outcome and material boundaries control; the plan's exact wording and mechanics do not.
+
+If classification is uncertain, continue when the change is local or otherwise authorized, reversible, preserves required gates, and does not widen external effects, trust/security/privacy exposure, material risk, cost, or partial-work consequences. Keep protected planning files frozen and record the discovery, operational plan delta, action, and receipt in `execution.md`. Do not transition to `needs_reapproval` merely to synchronize the protected plan with execution.
 
 ### Outside the envelope
 
-If a discovery changes approved outcome or scope, selects an unplanned architecture, adds authority or surfaces, expands trust/security/privacy/risk, exceeds cost or time bounds, weakens required verification, or needs an unapproved partial-work disposition:
+Reapproval is exceptional. Use this path only when you can state the concrete new authority required: a new externally visible outcome or unauthorized system/repository surface; a destructive or irreversible action not already approved; a target outside an exact destructive allowlist or sealed external scope; wider trust/security/privacy/data exposure; a higher cost or time ceiling; weaker required verification; or an unapproved rollback or partial-work disposition. Do not classify a change as outside merely because the implementation, architecture, files, dependencies, or step sequence differ from the protected plan.
+
+When concrete new authority is required:
 
 1. Stop new product mutation. Preserve the diff and receipts; allow only read-only diagnosis and necessary safety containment.
 2. Immediately transition the packet to `needs_reapproval`. This clears stale approval before any more planning work.

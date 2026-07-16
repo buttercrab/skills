@@ -22,6 +22,12 @@
       "prompt": "Use $align-work to choose between two equivalent local names for a private helper, make the rename, and run its unit test. The change is reversible and has no external effect."
     },
     {
+      "id": "align-in-envelope-drift",
+      "kind": "positive",
+      "family": "align",
+      "prompt": "An approved Align task needs a helper moved to a different already-authorized file, an internal implementation substitution, and one stronger unit test. The outcome, external effects, trust boundary, risk, cost, and required gates are unchanged. Continue implementation."
+    },
+    {
       "id": "audit-positive",
       "kind": "positive",
       "family": "audit",
