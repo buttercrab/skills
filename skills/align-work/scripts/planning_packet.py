@@ -33,7 +33,12 @@ AUTHORITY_CLASS_RE = re.compile(r"^(?:P|R|T|I|G|E|D)(?:[0-9]+)?$")
 DRAFT_MARKER = "<!-- align-work-required-content -->"
 MAX_AUDIT_EVIDENCE_LENGTH = 256
 
-PROTECTED = ("decisions.md", "facts.md", "plan.md")
+LEGACY_PROTECTED = ("decisions.md", "facts.md", "plan.md")
+PROTECTED_BY_VERSION = {
+    1: LEGACY_PROTECTED,
+    2: LEGACY_PROTECTED,
+    3: ("alignment.md",),
+}
 STATUSES = {
     "discovery",
     "drafting",
@@ -43,15 +48,16 @@ STATUSES = {
     "executing",
     "verifying",
     "needs_reapproval",
+    "needs_alignment",
     "blocked",
     "paused",
     "complete",
     "cancelled",
     "invalid",
 }
-EXECUTION_STATUSES = {"executing", "verifying", "needs_reapproval", "blocked", "complete"}
+EXECUTION_STATUSES = {"executing", "verifying", "needs_reapproval", "needs_alignment", "blocked", "complete"}
 ATTEMPT_STATUSES = {"started", "passed", "failed", "blocked", "rolled_back", "skipped"}
-SUPPORTED_SCHEMA_VERSIONS = {1, 2}
+SUPPORTED_SCHEMA_VERSIONS = {1, 2, 3}
 COMMON_STATE_FIELDS = {
     "schema_version",
     "packet_id",
@@ -75,6 +81,7 @@ COMMON_STATE_FIELDS = {
 STATE_FIELDS_BY_VERSION = {
     1: COMMON_STATE_FIELDS | {"requested_authority_classes"},
     2: COMMON_STATE_FIELDS,
+    3: COMMON_STATE_FIELDS,
 }
 COMMON_APPROVAL_FIELDS = {
     "id",
@@ -90,6 +97,7 @@ COMMON_APPROVAL_FIELDS = {
 APPROVAL_FIELDS_BY_VERSION = {
     1: COMMON_APPROVAL_FIELDS | {"authority_classes"},
     2: COMMON_APPROVAL_FIELDS,
+    3: COMMON_APPROVAL_FIELDS,
 }
 COORDINATOR_EVENT_FIELDS = {"event", "from", "to", "recorded_at", "evidence", "disposition"}
 ATTEMPT_FIELDS = {
@@ -117,10 +125,11 @@ ALLOWED_TRANSITIONS = {
     "drafting": {"reviewing", "awaiting_approval", "paused", "cancelled"},
     "reviewing": {"drafting", "awaiting_approval", "paused", "cancelled"},
     "awaiting_approval": {"discovery", "drafting", "approved", "paused", "cancelled"},
-    "approved": {"executing", "needs_reapproval", "paused", "cancelled"},
-    "executing": {"verifying", "needs_reapproval", "blocked", "paused", "cancelled"},
+    "approved": {"executing", "needs_reapproval", "needs_alignment", "paused", "cancelled"},
+    "executing": {"verifying", "needs_reapproval", "needs_alignment", "blocked", "paused", "cancelled"},
     "needs_reapproval": {"approved", "executing", "drafting", "cancelled"},
-    "verifying": {"complete", "executing", "needs_reapproval", "blocked", "paused"},
+    "needs_alignment": {"approved", "executing", "drafting", "cancelled"},
+    "verifying": {"complete", "executing", "needs_reapproval", "needs_alignment", "blocked", "paused"},
     "blocked": set(),
     "paused": set(),
     "complete": set(),
@@ -312,9 +321,24 @@ def packet_lock(packet: Path):
         os.close(fd)
 
 
-def compute_digest(packet: Path) -> str:
+def protected_files(schema_version: int) -> tuple[str, ...]:
+    try:
+        return PROTECTED_BY_VERSION[schema_version]
+    except KeyError as exc:
+        raise PacketError(EXIT_INVALID, "unsupported schema_version", sorted(SUPPORTED_SCHEMA_VERSIONS), schema_version) from exc
+
+
+def alignment_needed_status(schema_version: int) -> str:
+    return "needs_alignment" if schema_version == 3 else "needs_reapproval"
+
+
+def approval_scope_source(schema_version: int) -> str:
+    return "sealed alignment.md" if schema_version == 3 else "sealed plan"
+
+
+def compute_digest(packet: Path, schema_version: int = 2) -> str:
     digest = hashlib.sha256()
-    for name in PROTECTED:
+    for name in protected_files(schema_version):
         path = packet / name
         _lstat_regular(path)
         name_bytes = name.encode("utf-8")
@@ -394,6 +418,15 @@ def validate_state(state: dict, packet: Path) -> None:
             raise PacketError(EXIT_INVALID, f"{field} must be nonnegative", ">=0", state[field])
     if state["status"] not in STATUSES:
         raise PacketError(EXIT_INVALID, "unknown status", sorted(STATUSES), state["status"])
+    expected_alignment_status = alignment_needed_status(schema_version)
+    incompatible_alignment_status = "needs_reapproval" if expected_alignment_status == "needs_alignment" else "needs_alignment"
+    if state["status"] == incompatible_alignment_status or state["resume_status"] == incompatible_alignment_status:
+        raise PacketError(
+            EXIT_INVALID,
+            "alignment lifecycle status does not match packet schema",
+            expected_alignment_status,
+            state["status"] if state["status"] == incompatible_alignment_status else state["resume_status"],
+        )
     if state["protected_digest"] is not None and (not isinstance(state["protected_digest"], str) or not HEX_RE.fullmatch(state["protected_digest"])):
         raise PacketError(EXIT_INVALID, "protected_digest must be null or lowercase SHA-256", "64 lowercase hex", state["protected_digest"])
     if not isinstance(state["open_question_ids"], list) or len(state["open_question_ids"]) != len(set(state["open_question_ids"])):
@@ -471,9 +504,11 @@ def validate_approval(state: dict) -> None:
 
 
 def validate_markdown(packet: Path, state: dict) -> None:
-    requirements = {
+    common = {
         "facts.md": (("# Facts:",), ("## Observed facts",), ("## Inferences",), ("## Unknowns",)),
         "decisions.md": (("# Decisions:",), ("## Confirmed decisions",), ("## Open questions",), ("## Alignment rounds",)),
+    }
+    legacy_plan = {
         "plan.md": (
             ("# Plan:",),
             ("## Outcome",),
@@ -485,15 +520,35 @@ def validate_markdown(packet: Path, state: dict) -> None:
             ("## Approval scope", "## Approval"),
         ),
     }
+    alignment_v3 = {
+        "alignment.md": (
+            ("# Alignment:",),
+            ("## Goal",),
+            ("## Requirements",),
+            ("## Non-goals",),
+            ("## Constraints and authority",),
+            ("## Acceptance checklist",),
+        ),
+        "plan.md": (
+            ("# Plan:",),
+            ("## Outcome",),
+            ("## Current state",),
+            ("## Approach",),
+            ("## Steps",),
+            ("## Verification strategy",),
+            ("## Risks and rollback",),
+        ),
+    }
+    requirements = {**common, **(alignment_v3 if state["schema_version"] == 3 else legacy_plan)}
     task_marker = f"Task ID: `{state['task_id']}`"
     for name, headings in requirements.items():
         path = packet / name
         _lstat_regular(path)
         text = path.read_text(encoding="utf-8")
         if TEMPLATE_RE.search(text):
-            raise PacketError(EXIT_INVALID, "protected file contains unresolved template marker", "no {{...}} marker", name)
+            raise PacketError(EXIT_INVALID, "packet file contains unresolved template marker", "no {{...}} marker", name)
         if task_marker not in text:
-            raise PacketError(EXIT_INVALID, "protected file task ID mismatch", task_marker, name)
+            raise PacketError(EXIT_INVALID, "packet file task ID mismatch", task_marker, name)
         for alternatives in headings:
             if "## Open questions" in alternatives and not state["open_question_ids"]:
                 continue
@@ -514,7 +569,21 @@ def validate_markdown(packet: Path, state: dict) -> None:
                     found = True
                     break
             if not found:
-                raise PacketError(EXIT_INVALID, "protected file lacks required heading", list(alternatives), name)
+                raise PacketError(EXIT_INVALID, "packet file lacks required heading", list(alternatives), name)
+
+
+def validate_execution_readiness(packet: Path, state: dict) -> None:
+    if state["schema_version"] != 3:
+        return
+    plan = packet / "plan.md"
+    _lstat_regular(plan)
+    if DRAFT_MARKER in plan.read_text(encoding="utf-8"):
+        raise PacketError(
+            EXIT_INVALID,
+            "aligned work needs an agent-authored plan before execution",
+            "remove the plan required-content marker after planning",
+            "plan.md is still a template",
+        )
 
 
 def canonical_json(value: dict) -> bytes:
@@ -631,10 +700,10 @@ def parse_execution(packet: Path, state: dict, enforce_head: bool = True) -> tup
 def validate_packet(packet: Path, state: dict, enforce_digest: bool = True) -> str | None:
     validate_state(state, packet)
     validate_markdown(packet, state)
-    actual = compute_digest(packet)
+    actual = compute_digest(packet, state["schema_version"])
     if enforce_digest and state["protected_digest"] is not None and actual != state["protected_digest"]:
         raise PacketError(EXIT_INVALID, "protected digest mismatch", state["protected_digest"], actual)
-    if state["status"] in {"awaiting_approval", "approved", "executing", "verifying", "needs_reapproval", "blocked", "complete"} and state["protected_digest"] is None:
+    if state["status"] in {"awaiting_approval", "approved", "executing", "verifying", "needs_reapproval", "needs_alignment", "blocked", "complete"} and state["protected_digest"] is None:
         raise PacketError(EXIT_INVALID, "sealed status requires protected_digest", "SHA-256", None)
     parse_execution(packet, state, enforce_head=True)
     if state["status"] == "invalid":
@@ -706,10 +775,10 @@ def command_init(args) -> None:
     }
     try:
         packet.mkdir(mode=0o755)
-        for name in ("facts.md", "decisions.md", "plan.md"):
+        for name in ("alignment.md", "facts.md", "decisions.md", "plan.md"):
             (packet / name).write_text(render_template(name, values), encoding="utf-8")
         state = {
-            "schema_version": 2,
+            "schema_version": 3,
             "packet_id": packet_id,
             "repository_root": str(repo),
             "task_id": args.task_id,
@@ -753,7 +822,11 @@ def command_seal(args) -> None:
             raise PacketError(EXIT_INVALID, "seal source must be an active planning state", ["discovery", "drafting", "reviewing"], state["status"])
         validate_markdown(packet, state)
         parse_execution(packet, state, enforce_head=True)
-        incomplete = [name for name in PROTECTED if DRAFT_MARKER in (packet / name).read_text(encoding="utf-8")]
+        incomplete = [
+            name
+            for name in protected_files(state["schema_version"])
+            if DRAFT_MARKER in (packet / name).read_text(encoding="utf-8")
+        ]
         if incomplete:
             raise PacketError(EXIT_INVALID, "protected files still contain required-content markers", "remove markers after authoring real content", incomplete)
         if args.status not in {"drafting", "reviewing", "awaiting_approval"}:
@@ -765,7 +838,7 @@ def command_seal(args) -> None:
             raise PacketError(
                 EXIT_INVALID,
                 "--authority is valid only for legacy schema version 1 packets",
-                "omit --authority; version 2 approval scope comes from the sealed plan",
+                f"omit --authority; approval scope comes from {approval_scope_source(state['schema_version'])}",
                 "legacy option supplied",
             )
         if args.status == "awaiting_approval":
@@ -774,7 +847,7 @@ def command_seal(args) -> None:
             if state["schema_version"] == 1 and not authorities:
                 raise PacketError(EXIT_INVALID, "awaiting approval requires authority classes", "nonempty --authority", authorities)
         state["packet_revision"] += 1
-        state["protected_digest"] = compute_digest(packet)
+        state["protected_digest"] = compute_digest(packet, state["schema_version"])
         state["status"] = args.status
         if state["schema_version"] == 1:
             state["requested_authority_classes"] = authorities
@@ -804,7 +877,7 @@ def command_repair(args) -> None:
         if args.status not in {"drafting", "reviewing"}:
             raise PacketError(EXIT_INVALID, "repair target must be drafting/reviewing", ["drafting", "reviewing"], args.status)
         validate_markdown(packet, state)
-        actual_digest = compute_digest(packet)
+        actual_digest = compute_digest(packet, state["schema_version"])
         digest_changed = state["protected_digest"] is not None and actual_digest != state["protected_digest"]
         records, actual_head = parse_execution(packet, state, enforce_head=False)
         pending = state["pending_execution_hash"]
@@ -992,8 +1065,17 @@ def command_transition(args) -> None:
         guard(state, args)
         current = state["status"]
         target = args.to
+        needs_status = alignment_needed_status(state["schema_version"])
+        incompatible_needs_status = "needs_reapproval" if needs_status == "needs_alignment" else "needs_alignment"
+        if target == incompatible_needs_status:
+            raise PacketError(
+                EXIT_INVALID,
+                "alignment lifecycle status does not match packet schema",
+                needs_status,
+                target,
+            )
         authorization_transition = (
-            target == "executing" and current in {"approved", "needs_reapproval"}
+            target == "executing" and current in {"approved", needs_status}
         ) or (
             current in {"paused", "blocked"} and target in {"executing", "verifying"}
         )
@@ -1001,7 +1083,7 @@ def command_transition(args) -> None:
             raise PacketError(
                 EXIT_INVALID,
                 "execution authorization flags are invalid for this transition",
-                "approved/needs_reapproval to executing or paused/blocked active resume",
+                f"approved/{needs_status} to executing or paused/blocked active resume",
                 f"{current}->{target}",
             )
         if current in {"paused", "blocked"}:
@@ -1027,13 +1109,13 @@ def command_transition(args) -> None:
                 raise PacketError(
                     EXIT_INVALID,
                     "--authority is valid only for legacy schema version 1 packets",
-                    "omit --authority; version 2 approval scope comes from the sealed plan",
+                    f"omit --authority; approval scope comes from {approval_scope_source(state['schema_version'])}",
                     "legacy option supplied",
                 )
-            if current == "needs_reapproval" and (
+            if current == needs_status and (
                 not args.partial_work_disposition or not args.partial_work_disposition.strip()
             ):
-                raise PacketError(EXIT_INVALID, "reapproval requires partial-work disposition", "--partial-work-disposition", None)
+                raise PacketError(EXIT_INVALID, "renewed alignment requires partial-work disposition", "--partial-work-disposition", None)
             approval_evidence = normalize_audit_evidence(args.approval_evidence, "approval evidence")
             approval = {
                 "id": as_uuid(args.approval_id, "approval-id"),
@@ -1050,9 +1132,10 @@ def command_transition(args) -> None:
                 approval["authority_classes"] = authorities
             state["approval"] = approval
         if target == "executing":
+            validate_execution_readiness(packet, state)
             if current == "approved":
                 if args.rollback or args.partial_work_disposition:
-                    raise PacketError(EXIT_INVALID, "rollback flags are valid only from needs_reapproval", "no rollback flags", current)
+                    raise PacketError(EXIT_INVALID, f"rollback flags are valid only from {needs_status}", "no rollback flags", current)
                 state["runtime_authorization_evidence"] = transition_authorization(
                     state,
                     args,
@@ -1060,13 +1143,13 @@ def command_transition(args) -> None:
                     context="execution needs current user authorization or trusted same-task approval reuse",
                 )
                 state["rollback_mode"] = False
-            elif current == "needs_reapproval":
+            elif current == needs_status:
                 if (
                     not args.rollback
                     or not args.partial_work_disposition
                     or not args.partial_work_disposition.strip()
                 ):
-                    raise PacketError(EXIT_INVALID, "needs_reapproval may execute only an authorized recorded rollback", "--rollback, --partial-work-disposition, and --authorization-evidence", None)
+                    raise PacketError(EXIT_INVALID, f"{needs_status} may execute only an authorized recorded rollback", "--rollback, --partial-work-disposition, and --authorization-evidence", None)
                 rollback_authorization = transition_authorization(
                     state,
                     args,
@@ -1087,10 +1170,10 @@ def command_transition(args) -> None:
                 allow_reuse=True,
                 context="resuming active work needs current user authorization or trusted same-task approval reuse",
             )
-        if target == "needs_reapproval":
-            # A material discovery may happen after approval but before execution.
-            # Create the ledger here as well so every needs-reapproval packet has
-            # a durable place for partial-effect and rollback receipts.
+        if target == needs_status:
+            # An alignment-changing discovery may happen before execution.
+            # Create the ledger here so partial-effect and rollback receipts
+            # remain durable while user alignment is reopened.
             ensure_execution_file(packet, state)
             state["approval"] = None
             state["runtime_authorization_evidence"] = None

@@ -16,26 +16,22 @@ class SkillContractCase(unittest.TestCase):
         frontmatter = yaml.safe_load(match.group(1))
         self.assertEqual(set(frontmatter), {"name", "description"})
         self.assertEqual(frontmatter["name"], SKILL.name)
-        self.assertIsInstance(frontmatter["description"], str)
         description = frontmatter["description"]
         for phrase in (
             "$align-work",
             "lightweight alignment",
+            "proactively ask a compact set of decision-changing questions",
+            "acceptance checklist",
+            "let the agent own and revise the plan without reapproval",
             "durable packet mode",
-            "at most one decision-changing clarification round",
             "existing Align packet",
             "destructive",
             "externally mutating",
             "cross-session",
             "cross-agent",
-            "ordinary clear bounded coding",
-            "simple answers",
-            "low-risk mechanical edits",
             "audit-technical-work",
-            "front-agent-orchestration",
         ):
             self.assertIn(phrase, description)
-        self.assertNotIn("completion requires at least three", description)
 
     def test_openai_yaml(self):
         text = (SKILL / "agents" / "openai.yaml").read_text()
@@ -44,8 +40,10 @@ class SkillContractCase(unittest.TestCase):
         short = data["interface"]["short_description"]
         self.assertGreaterEqual(len(short), 25)
         self.assertLessEqual(len(short), 64)
-        self.assertIn("$align-work", data["interface"]["default_prompt"])
-        self.assertIn("one plain-language approval", data["interface"]["default_prompt"])
+        prompt = data["interface"]["default_prompt"]
+        self.assertIn("$align-work", prompt)
+        self.assertIn("proactively", prompt)
+        self.assertIn("one alignment approval", prompt)
         self.assertIs(data["policy"]["allow_implicit_invocation"], True)
         for line in text.splitlines():
             if ":" in line and line.strip().split(":", 1)[0] in {"display_name", "short_description", "default_prompt"}:
@@ -59,9 +57,10 @@ class SkillContractCase(unittest.TestCase):
             {
                 "references/packet-contract.md",
                 "references/explore-and-align.md",
+                "references/write-alignment.md",
                 "references/write-plan.md",
                 "references/review-plan.md",
-                "references/execute-approved-plan.md",
+                "references/execute-aligned-work.md",
                 "references/work-authority-v1.schema.json",
                 "references/work-authority-v2.schema.json",
                 "references/packet-transfer-receipt-v1.schema.json",
@@ -77,14 +76,25 @@ class SkillContractCase(unittest.TestCase):
             self.assertNotRegex(text, r"\[TODO")
         self.assertLess(len((SKILL / "SKILL.md").read_text().splitlines()), 500)
 
+    def test_proactive_questioning_without_plan_interrogation(self):
+        skill = (SKILL / "SKILL.md").read_text()
+        explore = (SKILL / "references" / "explore-and-align.md").read_text()
+        for phrase in (
+            "roughly three to seven high-value questions",
+            "recommended default",
+            "goal, must-have requirements, non-goals, acceptance evidence, constraints and authority, and tradeoff priorities",
+            "Do not ask for discoverable facts or implementation-plan choices.",
+            "Ask a focused follow-up only when an answer creates a new material ambiguity.",
+        ):
+            self.assertIn(phrase, skill)
+        self.assertIn("Do not impose a hard round count", explore)
+        self.assertIn("Do not ask the user to select architecture", explore)
+
     def test_direct_children_receive_mandatory_no_delegation_preamble(self):
         preamble = "You are a direct child. Do not spawn or delegate to any other agent."
         self.assertIn(preamble, (SKILL / "SKILL.md").read_text())
         self.assertIn(preamble, (SKILL / "references" / "review-plan.md").read_text())
-        self.assertIn(
-            preamble,
-            (SKILL / "references" / "execute-approved-plan.md").read_text(),
-        )
+        self.assertIn(preamble, (SKILL / "references" / "execute-aligned-work.md").read_text())
 
     def test_risky_one_step_work_is_an_independent_trigger(self):
         text = (SKILL / "SKILL.md").read_text()
@@ -95,55 +105,40 @@ class SkillContractCase(unittest.TestCase):
         text = (SKILL / "SKILL.md").read_text()
         self.assertIn("step count alone do not trigger Align or durable mode", text)
         self.assertIn("A read-only request alone is insufficient", text)
-        self.assertIn("Uncertainty about complexity", text)
         self.assertNotIn("If uncertain, treat the task as nontrivial", text)
 
-    def test_explicit_align_uses_lightweight_mode_without_a_durable_trigger(self):
-        text = (SKILL / "SKILL.md").read_text()
-        self.assertIn("Explicit `$align-work` selects Align ownership, not durable mode by itself.", text)
-        self.assertIn("Do not create `.planning/`", text)
-        self.assertIn("Do not ask a second lightweight clarification round.", text)
-        self.assertIn("User-delegated judgment closes non-authority questions.", text)
-        self.assertIn("An unqualified approval starts execution immediately", text)
+    def test_alignment_not_plan_is_user_approved(self):
+        skill = (SKILL / "SKILL.md").read_text()
+        alignment = (SKILL / "references" / "write-alignment.md").read_text()
+        plan = (SKILL / "references" / "write-plan.md").read_text()
+        self.assertIn("The user approves the goal and completion boundary, not the implementation plan.", skill)
+        self.assertIn("acceptance checklist defines what counts as done", alignment)
+        self.assertIn("never the implementation plan", alignment)
+        self.assertIn("The plan belongs to the agent and is never a user-approval artifact.", plan)
+        self.assertIn("Updating them never requires user approval", plan)
 
-    def test_durable_mode_has_closed_escalation_triggers(self):
-        text = (SKILL / "SKILL.md").read_text()
-        for phrase in (
-            "a matching packet exists",
-            "resume, recovery, handoff",
-            "work spanning sessions or agents",
-            "production-facing",
-            "Front Agent always uses durable mode.",
-        ):
-            self.assertIn(phrase, text)
-
-    def test_explicit_align_under_front_preserves_packet_contract(self):
+    def test_durable_v3_and_legacy_contract_are_explicit(self):
         skill = (SKILL / "SKILL.md").read_text()
         packet = (SKILL / "references" / "packet-contract.md").read_text()
-        self.assertIn("Front Agent always uses durable mode.", skill)
-        for phrase in (
-            "gateway runs the packet workflow",
-            "Current packet bindings are class-free",
-            "Main validates that identity read-only",
-            "never writes the packet",
-            "work-authority-v2.schema.json",
-            "packet-transfer-receipt-v1.schema.json",
-        ):
-            self.assertIn(phrase, packet)
-        self.assertNotIn("exact packet path, task ID, revision, digest, authority classes", skill)
+        self.assertIn("New durable packets use schema version 3.", skill)
+        self.assertIn("`alignment.md` is the sole approval-bound artifact", skill)
+        self.assertIn("Schema version 3 is the default", packet)
+        self.assertIn("Schema versions 1 and 2 remain valid", packet)
+        self.assertIn("Legacy versions retain `needs_reapproval`", packet)
+        self.assertIn("work-authority v2", packet)
+        self.assertIn("packet schema versions 2 and 3", packet)
 
     def test_plan_preflight_and_execution_baseline_are_explicit(self):
         plan = (SKILL / "references" / "write-plan.md").read_text()
         for phrase in (
             "referenced path, symbol, command",
             "dependency order",
-            "Map every requirement",
+            "Map every acceptance check",
             "realistic from the stated working directory",
-            "described approval scope",
             "Simulate one representative path",
         ):
             self.assertIn(phrase, plan)
-        execute = (SKILL / "references" / "execute-approved-plan.md").read_text()
+        execute = (SKILL / "references" / "execute-aligned-work.md").read_text()
         for phrase in (
             "repository guidance",
             "dirty-worktree baseline",
@@ -154,94 +149,66 @@ class SkillContractCase(unittest.TestCase):
         ):
             self.assertIn(phrase, execute)
 
-    def test_plan_keeps_machine_identity_internal(self):
-        text = (SKILL / "references" / "write-plan.md").read_text()
-        self.assertIn("internal ledgers and machine state", text)
-        self.assertIn("Never prescribe an exact reply", text)
-        self.assertNotIn("Populate revision", text)
-
     def test_human_facing_approval_contract(self):
         skill = (SKILL / "SKILL.md").read_text()
         packet = (SKILL / "references" / "packet-contract.md").read_text()
-        execute = (SKILL / "references" / "execute-approved-plan.md").read_text()
-        self.assertIn("Preserve approval and execution boundaries", skill)
+        execute = (SKILL / "references" / "execute-aligned-work.md").read_text()
+        front = (SKILL.parent / "front-agent-orchestration" / "SKILL.md").read_text()
+        front_protocol = (SKILL.parent / "front-agent-orchestration" / "references" / "protocol.md").read_text()
+        goal_loop = (SKILL.parent / "execute-goal-loop" / "SKILL.md").read_text()
+        self.assertIn("Preserve alignment and execution boundaries", skill)
         self.assertIn("Keep machine receipts internal", skill)
-        self.assertIn("Do not make the user repeat", skill)
-        self.assertIn("translate it under this current rule", packet)
-        self.assertIn("Keep the new machine receipt internal", execute)
-        self.assertNotIn("show the user its revision, digest, and authority classes", skill)
-        self.assertNotIn("Show the user the packet ID", packet)
-        self.assertNotIn("approval of the new envelope, digest", execute)
-        self.assertIn("Current packet bindings are class-free", packet)
-        self.assertIn("Use one human approval", (SKILL.parent / "front-agent-orchestration" / "SKILL.md").read_text())
+        self.assertIn("Keep packet identity, revision, digest", packet)
+        self.assertIn("Keep machine receipts internal", execute)
+        self.assertIn("Use one human approval", front)
+        self.assertIn("alignment-contract approval", front)
+        self.assertIn("alignment-contract approval", front_protocol)
+        self.assertIn("approval of the goal and completion boundary", goal_loop)
+        self.assertNotIn("plain-language plan approval", front + front_protocol)
+        self.assertNotIn("durable plan approval", goal_loop)
 
-    def test_new_plan_template_is_human_readable(self):
-        text = (SKILL / "assets" / "packet-templates" / "plan.md").read_text()
-        self.assertIn("<!-- Task ID:", text)
-        self.assertNotRegex(text, r"(?m)^Task ID:")
+    def test_v3_templates_separate_alignment_and_plan(self):
+        alignment = (SKILL / "assets" / "packet-templates" / "alignment.md").read_text()
+        plan = (SKILL / "assets" / "packet-templates" / "plan.md").read_text()
+        state = (SKILL / "assets" / "packet-templates" / "state.json").read_text()
         for heading in (
-            "## Current state and decisions",
-            "## Scope and boundaries",
-            "## Implementation approach",
-            "## Verification",
-            "## Approval scope",
+            "## Goal",
+            "## Requirements",
+            "## Non-goals",
+            "## Constraints and authority",
+            "## Acceptance checklist",
         ):
-            self.assertIn(heading, text)
-        for internal_prompt in (
-            "Consumed facts and decisions",
-            "stable step IDs",
-            "requested authority classes",
-            "display revision and digest",
-        ):
-            self.assertNotIn(internal_prompt, text)
+            self.assertIn(heading, alignment)
+        for heading in ("## Current state", "## Approach", "## Steps", "## Verification strategy"):
+            self.assertIn(heading, plan)
+        self.assertNotIn("## Approval scope", plan)
+        self.assertIn('"schema_version": 3', state)
 
-    def test_new_packets_use_plain_language_scope_and_legacy_codes_are_isolated(self):
-        text = (SKILL / "references" / "packet-contract.md").read_text()
-        template = (SKILL / "assets" / "packet-templates" / "state.json").read_text()
-        self.assertIn("Schema version 2 is the default", text)
-        self.assertIn("### Legacy schema version 1", text)
-        self.assertIn('"schema_version": 2', template)
-        self.assertNotIn("requested_authority_classes", template)
-        for family in ("P", "R", "T", "I", "G", "E", "D"):
-            self.assertRegex(text, rf"`{family}`")
-        normal, legacy = text.split("### Legacy schema version 1", 1)
-        self.assertNotIn("--authority", normal)
-        self.assertIn("--authority", legacy)
-
-    def test_material_change_clears_approval_before_replanning(self):
-        text = (SKILL / "references" / "execute-approved-plan.md").read_text()
-        self.assertIn("concrete new authority required", text)
-        transition = text.index("transition the packet to `needs_reapproval`")
-        revise = text.index("Revise `plan.md`")
+    def test_alignment_change_precedes_contract_repair(self):
+        execute = (SKILL / "references" / "execute-aligned-work.md").read_text()
+        transition = execute.index("Transition the packet to `needs_alignment`")
+        revise = execute.index("Revise `alignment.md`")
         self.assertLess(transition, revise)
-        self.assertIn("Do not leave a digest-mismatched packet waiting on a reviewer", text)
+        self.assertIn("do not ask the user to approve a revised plan", (SKILL / "SKILL.md").read_text())
 
-    def test_scope_neutral_plan_drift_continues_without_reapproval(self):
+    def test_plan_change_never_reopens_alignment(self):
         skill = (SKILL / "SKILL.md").read_text()
         plan = (SKILL / "references" / "write-plan.md").read_text()
-        execute = (SKILL / "references" / "execute-approved-plan.md").read_text()
-        self.assertIn("Default to continuing: a difference from the approved plan is not itself an approval event.", skill)
-        self.assertIn("Stop only when you can name the concrete new authority required", skill)
-        self.assertIn("A difference from the plan text, file list, architecture, dependency choice, or step sequence is insufficient by itself.", plan)
-        self.assertIn("operational plan deltas", plan)
-        self.assertIn("Default to continuing without reapproval.", execute)
-        self.assertIn("Do not transition to `needs_reapproval` merely to synchronize the protected plan with execution.", execute)
-        self.assertIn("target outside an exact destructive allowlist", execute)
+        execute = (SKILL / "references" / "execute-aligned-work.md").read_text()
+        self.assertIn("A changed plan is never an alignment event.", skill)
+        self.assertIn("never changes the protected alignment digest", plan)
+        self.assertIn("Continue without user involvement.", execute)
+        self.assertIn("never a reason to reopen alignment by itself", execute)
 
-    def test_one_approval_envelope_contract(self):
+    def test_one_alignment_approval_starts_agent_planning_and_execution(self):
         skill = (SKILL / "SKILL.md").read_text()
         packet = (SKILL / "references" / "packet-contract.md").read_text()
-        plan = (SKILL / "references" / "write-plan.md").read_text()
-        execute = (SKILL / "references" / "execute-approved-plan.md").read_text()
-        self.assertIn("one plain-language approval envelope", skill)
+        execute = (SKILL / "references" / "execute-aligned-work.md").read_text()
+        self.assertIn("one plain-language alignment contract", skill)
         self.assertIn("do not ask a second", skill)
-        self.assertIn("trusted same-task continuity", packet)
-        self.assertIn("fresh Codex task", packet)
         self.assertIn("--reuse-approval", packet)
-        self.assertIn("named fallback branches", plan)
-        self.assertIn("### Inside the envelope", execute)
-        self.assertIn("### Outside the envelope", execute)
         self.assertIn("file-recorded approval alone is insufficient", execute)
+        self.assertIn("do not ask the user to approve the plan", execute)
 
     def test_required_resources_exist_without_freezing_package_inventory(self):
         required = {
@@ -252,12 +219,14 @@ class SkillContractCase(unittest.TestCase):
             "scripts/work_authority.py",
             "references/packet-contract.md",
             "references/explore-and-align.md",
+            "references/write-alignment.md",
             "references/write-plan.md",
             "references/review-plan.md",
-            "references/execute-approved-plan.md",
+            "references/execute-aligned-work.md",
             "references/work-authority-v1.schema.json",
             "references/work-authority-v2.schema.json",
             "references/packet-transfer-receipt-v1.schema.json",
+            "assets/packet-templates/alignment.md",
             "assets/packet-templates/facts.md",
             "assets/packet-templates/decisions.md",
             "assets/packet-templates/plan.md",

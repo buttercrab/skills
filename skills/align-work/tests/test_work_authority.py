@@ -50,20 +50,49 @@ class WorkAuthorityTests(unittest.TestCase):
             "--coordinator-id", state["active_coordinator"]["id"],
         )
 
-    def approved_packet(self, task="sample-task", *, legacy=False):
+    def approved_packet(self, task="sample-task", *, legacy=False, packet_schema_version=3):
         initialized = self.cli(
             "init", "--repo", self.repo, "--task-id", task,
             "--title", "Sample task", "--coordinator-id", self.coordinator,
         )
         packet = Path(initialized["packet"])
-        if legacy:
+        if legacy or packet_schema_version == 2:
             state = self.state(packet)
-            state["schema_version"] = 1
-            state["requested_authority_classes"] = []
+            state["schema_version"] = 1 if legacy else 2
+            if legacy:
+                state["requested_authority_classes"] = []
             (packet / "state.json").write_text(json.dumps(state))
-        for name in ("facts.md", "decisions.md", "plan.md"):
+            (packet / "plan.md").write_text(
+                "\n".join(
+                    (
+                        "# Plan: Sample task",
+                        "",
+                        f"<!-- Task ID: `{task}` -->",
+                        "",
+                        "<!-- align-work-required-content -->",
+                        "",
+                        "## Outcome",
+                        "Legacy outcome.",
+                        "## Current state and decisions",
+                        "Legacy state.",
+                        "## Scope and boundaries",
+                        "Legacy scope.",
+                        "## Implementation approach",
+                        "Legacy implementation.",
+                        "## Verification",
+                        "Legacy verification.",
+                        "## Risks and rollback",
+                        "Legacy risks.",
+                        "## Approval scope",
+                        "Legacy approval scope.",
+                        "",
+                    )
+                )
+            )
+        for name in ("alignment.md", "facts.md", "decisions.md", "plan.md"):
             path = packet / name
-            path.write_text(path.read_text().replace("<!-- align-work-required-content -->", "Authored fixture content."))
+            if path.exists():
+                path.write_text(path.read_text().replace("<!-- align-work-required-content -->", "Authored fixture content."))
         self.cli("transition", packet, *self.fence(packet), "--to", "drafting")
         if legacy:
             self.cli("seal", packet, *self.fence(packet), "--status", "awaiting_approval", "--authority", "R,T")
@@ -112,7 +141,7 @@ class WorkAuthorityTests(unittest.TestCase):
         )
         self.assertEqual("packet", result["alignment_mode"])
         binding = work_authority.binding_from_state(self.repo, packet, self.state(packet))
-        self.assertEqual(2, binding["packet_schema_version"])
+        self.assertEqual(3, binding["packet_schema_version"])
         self.assertNotIn("authority_classes", binding)
 
         other = (Path(self.temp.name) / "other").resolve()
@@ -139,6 +168,17 @@ class WorkAuthorityTests(unittest.TestCase):
         self.assertEqual("work_authority/v1", authority["schema_version"])
         self.assertEqual(["R", "T"], authority["packet_binding"]["authority_classes"])
         self.assertNotIn("packet_schema_version", authority["packet_binding"])
+        result = work_authority.validate_current(
+            authority, original_request=request, repository=self.repo
+        )
+        self.assertEqual("packet", result["alignment_mode"])
+
+    def test_current_protocol_remains_valid_for_packet_schema_v2(self):
+        request = "Continue the approved schema-v2 packet."
+        packet = self.approved_packet("v2-task", packet_schema_version=2)
+        authority = self.authority(request, packet)
+        self.assertEqual("work_authority/v2", authority["schema_version"])
+        self.assertEqual(2, authority["packet_binding"]["packet_schema_version"])
         result = work_authority.validate_current(
             authority, original_request=request, repository=self.repo
         )
@@ -225,8 +265,8 @@ class WorkAuthorityTests(unittest.TestCase):
         packet = self.approved_packet()
         request = "Continue the approved packet."
         authority = self.authority(request, packet)
-        (packet / "plan.md").write_text(
-            (packet / "plan.md").read_text() + "\nUnapproved protected change.\n"
+        (packet / "alignment.md").write_text(
+            (packet / "alignment.md").read_text() + "\nUnapproved alignment change.\n"
         )
         self.assertEqual(
             "E_PACKET_CURRENT_STATE",
@@ -234,6 +274,18 @@ class WorkAuthorityTests(unittest.TestCase):
                 authority, original_request=request, repository=self.repo
             )),
         )
+
+    def test_mutable_plan_change_preserves_approved_authority(self):
+        packet = self.approved_packet()
+        request = "Continue the approved packet."
+        (packet / "plan.md").write_text(
+            (packet / "plan.md").read_text() + "\nAgent-owned plan revision.\n"
+        )
+        authority = self.authority(request, packet)
+        result = work_authority.validate_current(
+            authority, original_request=request, repository=self.repo
+        )
+        self.assertEqual("packet", result["alignment_mode"])
 
     def test_lifecycle_status_is_bound_to_receipt_kind(self):
         packet = self.approved_packet()

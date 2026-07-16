@@ -81,6 +81,7 @@ PACKET_STATUSES = {
     "executing",
     "verifying",
     "needs_reapproval",
+    "needs_alignment",
     "blocked",
     "cancelled",
     "complete",
@@ -90,7 +91,7 @@ RECEIPT_STATUS = {
     "accepted": {"approved"},
     "progress": {"executing", "verifying"},
     "blocked": {"executing", "verifying", "blocked"},
-    "failed": {"executing", "verifying", "blocked", "needs_reapproval"},
+    "failed": {"executing", "verifying", "blocked", "needs_reapproval", "needs_alignment"},
     "cancelled": {"cancelled"},
     "complete": {"verifying"},
 }
@@ -211,8 +212,8 @@ def validate_authority_shape(authority: dict[str, Any]) -> None:
         classes = binding["authority_classes"]
         if not isinstance(classes, list) or not classes or classes != sorted(set(classes)) or not set(classes) <= {"P", "R", "T"}:
             fail("E_AUTHORITY_CLASSES")
-    elif binding["packet_schema_version"] != 2:
-        fail("E_PACKET_SCHEMA", "current work authority requires packet schema version 2")
+    elif binding["packet_schema_version"] not in {2, 3}:
+        fail("E_PACKET_SCHEMA", "current work authority requires packet schema version 2 or 3")
     if binding["lifecycle_status"] not in PACKET_STATUSES:
         fail("E_PACKET_STATUS")
 
@@ -282,8 +283,8 @@ def binding_from_state(repository: Path, packet: Path, state: dict[str, Any]) ->
         if not isinstance(classes, list):
             fail("E_PACKET_CURRENT_STATE", "legacy approval classes required")
         binding["authority_classes"] = sorted(classes)
-    elif state.get("schema_version") == 2:
-        binding["packet_schema_version"] = 2
+    elif state.get("schema_version") in {2, 3}:
+        binding["packet_schema_version"] = state["schema_version"]
     else:
         fail("E_PACKET_SCHEMA", str(state.get("schema_version")))
     return binding
@@ -292,7 +293,7 @@ def binding_from_state(repository: Path, packet: Path, state: dict[str, Any]) ->
 def work_schema_from_state(state: dict[str, Any]) -> str:
     if state.get("schema_version") == 1:
         return "work_authority/v1"
-    if state.get("schema_version") == 2:
+    if state.get("schema_version") in {2, 3}:
         return "work_authority/v2"
     fail("E_PACKET_SCHEMA", str(state.get("schema_version")))
 

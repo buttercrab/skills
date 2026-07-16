@@ -44,7 +44,7 @@ Gateway may send:
 
 Gateway-originated messages must include `human_confirmed: true`.
 
-Gateway may set that field after one explicit approval of the presented scope. When Align is active, its plan approval is that approval and must not be followed by a second gateway prompt. A user's direct answer confirms that answer without a separate approval step. Unchanged-scope updates and notes reuse the existing confirmation. Silence, an inferred preference, and timeout defaults are not approval.
+Gateway may set that field after one explicit approval of the presented scope. When Align is active, its alignment-contract approval is that approval and must not be followed by a second gateway or implementation-plan prompt. A user's direct answer confirms that answer without a separate approval step. Unchanged-scope updates and notes reuse the existing confirmation. Silence, an inferred preference, and timeout defaults are not approval.
 
 ### Work authority
 

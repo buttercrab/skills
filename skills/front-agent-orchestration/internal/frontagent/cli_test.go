@@ -1629,6 +1629,25 @@ func TestWorkAuthoritySupportsClassFreeCurrentAndIsolatedLegacyPacketBindings(t 
 	if current.PacketBinding == nil || current.PacketBinding.PacketSchemaVersion != 2 || len(current.PacketBinding.AuthorityClasses) != 0 {
 		t.Fatalf("current packet binding was not class-free: %#v", current.PacketBinding)
 	}
+	currentV3 := strings.Replace(base, "    packet_schema_version: 2\n", "    packet_schema_version: 3\n", 1)
+	parsedV3, err := parseWorkAuthority(currentV3)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if parsedV3.PacketBinding == nil || parsedV3.PacketBinding.PacketSchemaVersion != 3 || len(parsedV3.PacketBinding.AuthorityClasses) != 0 {
+		t.Fatalf("schema-v3 packet binding was not class-free: %#v", parsedV3.PacketBinding)
+	}
+	unsupported := strings.Replace(base, "    packet_schema_version: 2\n", "    packet_schema_version: 4\n", 1)
+	if _, err := parseWorkAuthority(unsupported); err == nil || !strings.Contains(err.Error(), "must be 2 or 3") {
+		t.Fatalf("unsupported packet schema error=%v", err)
+	}
+	needsAlignment := strings.Replace(currentV3, "    lifecycle_status: approved\n", "    lifecycle_status: needs_alignment\n", 1)
+	if _, err := parseWorkAuthority(needsAlignment); err != nil {
+		t.Fatalf("schema-v3 needs_alignment binding was rejected: %v", err)
+	}
+	if !frontStatusAllowsPacket("failed", "needs_alignment") {
+		t.Fatal("failed update did not accept a needs_alignment packet")
+	}
 
 	legacy := strings.Replace(base, "schema_version: work_authority/v2", "schema_version: work_authority/v1", 1)
 	legacy = strings.Replace(legacy, "    packet_schema_version: 2\n", "    authority_classes:\n      - R\n", 1)

@@ -50,6 +50,7 @@
         "approved",
         "executing",
         "needs_reapproval",
+        "needs_alignment",
         "verifying"
       ]
     },

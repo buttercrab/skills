@@ -1,5 +1,5 @@
 {
-  "schema_version": 2,
+  "schema_version": 3,
   "packet_id": "{{PACKET_ID}}",
   "repository_root": "{{REPOSITORY_ROOT}}",
   "task_id": "{{TASK_ID}}",

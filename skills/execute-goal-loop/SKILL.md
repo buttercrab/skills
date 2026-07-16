@@ -7,7 +7,7 @@ description: Use when the user explicitly asks Codex to set or execute a goal, p
 
 Use this skill to turn an open-ended task into a hard execution contract with real evidence. The point is not to keep working forever; it is to make "done" measurable, attack the biggest remaining gap, verify honestly, and repeat until the goal is complete or genuinely blocked.
 
-Compose rather than compete. `align-work` owns unresolved decisions, durable plan approval, and reapproval; domain skills own technical mechanics; this skill owns explicit persistence and completion pressure. A goal cannot broaden the authority or scope owned by either.
+Compose rather than compete. `align-work` owns unresolved alignment decisions, approval of the goal and completion boundary, and any later realignment; the agent owns its mutable implementation plan, domain skills own technical mechanics, and this skill owns explicit persistence and completion pressure. A goal cannot broaden the authority or scope owned by either.
 
 ## Goal Contract
 
@@ -101,7 +101,7 @@ Keep the user informed without treating status as completion.
 
 Treat completion as unproven until a current requirement-to-receipt audit passes.
 
-1. Re-derive the complete requirement set from the current goal, user request, approved plan or packet, named artifacts, and any accepted material revisions.
+1. Re-derive the complete requirement set from the current goal, user request, approved alignment or legacy packet, current agent-owned plan, named artifacts, and any accepted material revisions.
 2. Give every required item a stable identifier and map it to authoritative current-state evidence at matching scope.
 3. Reject a receipt when it comes from a superseded plan or revision, observes state that has since changed materially, proves only a narrower layer, or substitutes a mock for required live behavior.
 4. Recheck volatile facts and cheap current-state gates immediately before completion.

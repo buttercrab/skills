@@ -57,11 +57,46 @@ class PacketCase(unittest.TestCase):
         return Path(data["packet"])
 
     def init_legacy(self, task="legacy-task"):
-        packet = self.init(task)
+        packet = self.init_v2(task)
         state = self.state(packet)
         state["schema_version"] = 1
         state["requested_authority_classes"] = []
         (packet / "state.json").write_text(json.dumps(state))
+        self.run_cli("validate", packet)
+        return packet
+
+    def init_v2(self, task="v2-task"):
+        packet = self.init(task)
+        state = self.state(packet)
+        state["schema_version"] = 2
+        (packet / "state.json").write_text(json.dumps(state))
+        (packet / "plan.md").write_text(
+            "\n".join(
+                (
+                    "# Plan: Sample task",
+                    "",
+                    f"<!-- Task ID: `{task}` -->",
+                    "",
+                    "<!-- align-work-required-content -->",
+                    "",
+                    "## Outcome",
+                    "Legacy outcome.",
+                    "## Current state and decisions",
+                    "Legacy state.",
+                    "## Scope and boundaries",
+                    "Legacy scope.",
+                    "## Implementation approach",
+                    "Legacy implementation.",
+                    "## Verification",
+                    "Legacy verification.",
+                    "## Risks and rollback",
+                    "Legacy risks.",
+                    "## Approval scope",
+                    "Legacy approval scope.",
+                    "",
+                )
+            )
+        )
         self.run_cli("validate", packet)
         return packet
 
@@ -87,9 +122,10 @@ class PacketCase(unittest.TestCase):
 
     @staticmethod
     def complete_required_content(packet):
-        for name in ("facts.md", "decisions.md", "plan.md"):
+        for name in ("alignment.md", "facts.md", "decisions.md", "plan.md"):
             path = packet / name
-            path.write_text(path.read_text().replace("<!-- align-work-required-content -->", "Authored fixture content."))
+            if path.exists():
+                path.write_text(path.read_text().replace("<!-- align-work-required-content -->", "Authored fixture content."))
 
     def seal_for_approval(self, packet):
         self.complete_required_content(packet)
@@ -170,7 +206,8 @@ class PacketCase(unittest.TestCase):
         result = self.run_cli("validate", packet)
         self.assertEqual(result["status"], "discovery")
         state = self.state(packet)
-        self.assertEqual(state["schema_version"], 2)
+        self.assertEqual(state["schema_version"], 3)
+        self.assertTrue((packet / "alignment.md").is_file())
         self.assertNotIn("requested_authority_classes", state)
         self.assertIsNone(state["protected_digest"])
         failure = self.run_cli(
@@ -190,7 +227,7 @@ class PacketCase(unittest.TestCase):
             "seal", packet, *self.fence(packet), "--status", "awaiting_approval", code=3,
         )
 
-    def test_v2_state_approval_and_output_omit_legacy_class_fields(self):
+    def test_v3_state_approval_and_output_omit_legacy_class_fields(self):
         packet = self.init()
         sealed = self.seal_for_approval(packet)
         self.assertNotIn("authority", sealed)
@@ -213,7 +250,7 @@ class PacketCase(unittest.TestCase):
         (packet / "state.json").write_text(json.dumps(state))
         self.run_cli("validate", packet, code=3)
 
-        packet = self.init("v2-hybrid-approval")
+        packet = self.init("v3-hybrid-approval")
         self.seal_for_approval(packet)
         self.approve(packet)
         state = self.state(packet)
@@ -240,7 +277,7 @@ class PacketCase(unittest.TestCase):
             self.assertEqual(result.returncode, 0, result.stderr)
             self.assertNotIn("--authority", result.stdout)
 
-    def test_v2_rejects_legacy_authority_option_atomically(self):
+    def test_v3_rejects_legacy_authority_option_atomically(self):
         packet = self.init()
         self.complete_required_content(packet)
         self.to_drafting(packet)
@@ -319,7 +356,7 @@ class PacketCase(unittest.TestCase):
         self.run_cli("validate", packet)
 
     def test_legacy_numbered_plan_headings_are_valid(self):
-        packet = self.init()
+        packet = self.init_v2()
         plan = (packet / "plan.md").read_text()
         replacements = {
             "## Outcome": "## 1. Outcome",
@@ -335,19 +372,34 @@ class PacketCase(unittest.TestCase):
         (packet / "plan.md").write_text(plan)
         self.run_cli("validate", packet)
 
-    def test_new_plan_template_uses_human_headings(self):
+    def test_v3_plan_template_uses_agent_execution_headings(self):
         packet = self.init()
         plan = (packet / "plan.md").read_text()
         for heading in (
-            "## Current state and decisions",
-            "## Scope and boundaries",
-            "## Implementation approach",
-            "## Verification",
-            "## Approval scope",
+            "## Current state",
+            "## Approach",
+            "## Steps",
+            "## Verification strategy",
+            "## Risks and rollback",
         ):
             self.assertIn(heading, plan)
         self.assertNotIn("## Consumed facts and decisions", plan)
+        self.assertNotIn("## Approval scope", plan)
         self.assertNotIn("stable step IDs", plan)
+        self.run_cli("validate", packet)
+
+    def test_v3_alignment_template_is_the_approval_contract(self):
+        packet = self.init()
+        alignment = (packet / "alignment.md").read_text()
+        for heading in (
+            "## Goal",
+            "## Requirements",
+            "## Non-goals",
+            "## Constraints and authority",
+            "## Acceptance checklist",
+        ):
+            self.assertIn(heading, alignment)
+        self.assertNotIn("## Steps", alignment)
         self.run_cli("validate", packet)
 
     def test_semantic_heading_aliases_and_empty_open_questions_are_valid(self):
@@ -384,6 +436,31 @@ class PacketCase(unittest.TestCase):
             packet_module.compute_digest(packet),
             "a3aabbf6e45c71eccf898988a0c91ded833effa82cf15809d3a20a127e0a1a1b",
         )
+
+    def test_v3_digest_covers_alignment_only(self):
+        packet = self.init()
+        self.complete_required_content(packet)
+        original = packet_module.compute_digest(packet, 3)
+        (packet / "plan.md").write_text((packet / "plan.md").read_text() + "\nAgent plan revision.\n")
+        (packet / "facts.md").write_text((packet / "facts.md").read_text() + "\nNew fact.\n")
+        self.assertEqual(original, packet_module.compute_digest(packet, 3))
+        (packet / "alignment.md").write_text((packet / "alignment.md").read_text() + "\nNew requirement.\n")
+        self.assertNotEqual(original, packet_module.compute_digest(packet, 3))
+
+    def test_v3_seals_alignment_before_plan_and_requires_plan_for_execution(self):
+        packet = self.init()
+        alignment = packet / "alignment.md"
+        alignment.write_text(alignment.read_text().replace("<!-- align-work-required-content -->", "Aligned fixture content."))
+        self.to_drafting(packet)
+        self.run_cli("seal", packet, *self.fence(packet), "--status", "awaiting_approval")
+        self.approve(packet)
+        self.run_cli(
+            "transition", packet, *self.fence(packet), "--to", "executing",
+            "--reuse-approval", code=3,
+        )
+        plan = packet / "plan.md"
+        plan.write_text(plan.read_text().replace("<!-- align-work-required-content -->", "Agent-authored fixture plan."))
+        self.execute_reusing_approval(packet)
 
     def test_open_questions_block_advancement(self):
         packet = self.init()
@@ -500,7 +577,7 @@ class PacketCase(unittest.TestCase):
         self.assertEqual((packet / "state.json").read_bytes(), before)
 
         self.execute_reusing_approval(packet)
-        self.run_cli("transition", packet, *self.fence(packet), "--to", "needs_reapproval")
+        self.run_cli("transition", packet, *self.fence(packet), "--to", "needs_alignment")
         before = (packet / "state.json").read_bytes()
         self.run_cli(
             "transition", packet, *self.fence(packet), "--to", "executing",
@@ -542,7 +619,7 @@ class PacketCase(unittest.TestCase):
         self.seal_for_approval(packet)
         self.approve(packet)
         before = (packet / "state.json").read_bytes()
-        with (packet / "plan.md").open("a") as handle:
+        with (packet / "alignment.md").open("a") as handle:
             handle.write("\nmaterial revision\n")
         self.run_cli("validate", packet, code=3)
         self.assertEqual((packet / "state.json").read_bytes(), before)
@@ -788,7 +865,7 @@ class PacketCase(unittest.TestCase):
         self.seal_for_approval(packet)
         self.approve(packet)
         self.execute(packet)
-        self.run_cli("transition", packet, *self.fence(packet), "--to", "needs_reapproval")
+        self.run_cli("transition", packet, *self.fence(packet), "--to", "needs_alignment")
         self.run_cli(
             "transition", packet, *self.fence(packet), "--to", "executing",
             "--rollback", "--partial-work-disposition", "roll back partial change", code=3,
@@ -799,24 +876,24 @@ class PacketCase(unittest.TestCase):
         self.seal_for_approval(packet)
         self.approve(packet)
         self.assertFalse((packet / "execution.md").exists())
-        self.run_cli("transition", packet, *self.fence(packet), "--to", "needs_reapproval")
+        self.run_cli("transition", packet, *self.fence(packet), "--to", "needs_alignment")
         self.assertTrue((packet / "execution.md").is_file())
         result = self.run_cli("validate", packet)
-        self.assertEqual(result["status"], "needs_reapproval")
+        self.assertEqual(result["status"], "needs_alignment")
         self.assertIsNone(self.state(packet)["approval"])
 
-    def test_needs_reapproval_rejects_execution_attempts(self):
+    def test_needs_alignment_rejects_execution_attempts(self):
         packet = self.init()
         self.seal_for_approval(packet)
         self.approve(packet)
-        self.run_cli("transition", packet, *self.fence(packet), "--to", "needs_reapproval")
+        self.run_cli("transition", packet, *self.fence(packet), "--to", "needs_alignment")
         self.run_cli(
             "record-attempt", packet, *self.fence(packet), "--step-id", "S1",
             "--actor-id", "root", "--model", "strong-model", "--status", "passed",
             "--verification", "passed", code=3,
         )
 
-    def test_old_revision_receipt_cannot_complete_replanned_work(self):
+    def test_old_revision_receipt_cannot_complete_realigned_work(self):
         packet = self.init()
         self.seal_for_approval(packet)
         self.approve(packet)
@@ -826,9 +903,9 @@ class PacketCase(unittest.TestCase):
             "--actor-id", "root", "--model", "strong-model", "--status", "passed",
             "--verification", "old revision passed",
         )
-        self.run_cli("transition", packet, *self.fence(packet), "--to", "needs_reapproval")
-        with (packet / "plan.md").open("a") as handle:
-            handle.write("\nMaterially revised implementation detail.\n")
+        self.run_cli("transition", packet, *self.fence(packet), "--to", "needs_alignment")
+        with (packet / "alignment.md").open("a") as handle:
+            handle.write("\nMaterially revised requirement.\n")
         self.run_cli("repair", packet, *self.fence(packet), "--status", "drafting")
         self.run_cli(
             "seal", packet, *self.fence(packet), "--status", "awaiting_approval",
@@ -867,7 +944,7 @@ class PacketCase(unittest.TestCase):
         self.seal_for_approval(packet)
         self.approve(packet)
         self.execute(packet)
-        self.run_cli("transition", packet, *self.fence(packet), "--to", "needs_reapproval")
+        self.run_cli("transition", packet, *self.fence(packet), "--to", "needs_alignment")
         self.run_cli(
             "transition", packet, *self.fence(packet), "--to", "executing",
             "--rollback", "--partial-work-disposition", "roll back partial work",
@@ -881,16 +958,16 @@ class PacketCase(unittest.TestCase):
             "--verification", "rollback verified",
         )
         self.run_cli("transition", packet, *self.fence(packet), "--to", "complete", code=3)
-        self.run_cli("transition", packet, *self.fence(packet), "--to", "needs_reapproval")
+        self.run_cli("transition", packet, *self.fence(packet), "--to", "needs_alignment")
 
     def test_seal_rejects_torn_existing_execution_ledger(self):
         packet = self.init()
         self.seal_for_approval(packet)
         self.approve(packet)
         self.execute(packet)
-        self.run_cli("transition", packet, *self.fence(packet), "--to", "needs_reapproval")
-        with (packet / "plan.md").open("a") as handle:
-            handle.write("\nReplanned.\n")
+        self.run_cli("transition", packet, *self.fence(packet), "--to", "needs_alignment")
+        with (packet / "alignment.md").open("a") as handle:
+            handle.write("\nRealigned requirement.\n")
         self.run_cli("repair", packet, *self.fence(packet), "--status", "drafting")
         with (packet / "execution.md").open("a") as handle:
             handle.write("\n<!-- align-work-attempt {torn\n")
@@ -998,7 +1075,7 @@ class PacketCase(unittest.TestCase):
         )
         saved_approval = self.state(packet)["approval"]
         self.execute(packet)
-        self.run_cli("transition", packet, *self.fence(packet), "--to", "needs_reapproval")
+        self.run_cli("transition", packet, *self.fence(packet), "--to", "needs_alignment")
         state = self.state(packet)
         state["approval"] = saved_approval
         (packet / "state.json").write_text(json.dumps(state))
@@ -1023,7 +1100,7 @@ class PacketCase(unittest.TestCase):
         packet = self.init()
         self.seal_for_approval(packet)
         self.approve(packet)
-        self.run_cli("transition", packet, *self.fence(packet), "--to", "needs_reapproval")
+        self.run_cli("transition", packet, *self.fence(packet), "--to", "needs_alignment")
         before = (packet / "state.json").read_bytes()
         self.run_cli(
             "transition", packet, *self.fence(packet), "--to", "approved",

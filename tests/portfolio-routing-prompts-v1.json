@@ -22,6 +22,12 @@
       "prompt": "Use $align-work to choose between two equivalent local names for a private helper, make the rename, and run its unit test. The change is reversible and has no external effect."
     },
     {
+      "id": "align-proactive-questions",
+      "kind": "positive",
+      "family": "align",
+      "prompt": "Use $align-work to improve our CLI onboarding. I have not specified the target users, must-have outcome, non-goals, acceptance evidence, compatibility constraints, or whether speed or completeness matters more. Align with me before implementation."
+    },
+    {
       "id": "align-in-envelope-drift",
       "kind": "positive",
       "family": "align",

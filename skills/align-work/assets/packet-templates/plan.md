@@ -8,28 +8,24 @@ Created: {{CREATED_AT}}
 
 ## Outcome
 
-State the intended result and measurable completion definition.
+Reference the approved alignment and summarize the agent's current execution objective.
 
-## Current state and decisions
+## Current state
 
-Restate the execution-relevant evidence, decisions, assumptions, and volatile rechecks in plain language. Do not list internal ledger IDs.
+Summarize execution-relevant evidence, assumptions, volatile rechecks, and partial work.
 
-## Scope and boundaries
+## Approach
 
-Define concrete in-scope surfaces, non-goals, preservation boundaries, and external effects.
+Describe the current architecture, fallback, and implementation strategy. The agent may revise this section without user approval while the alignment remains satisfied.
 
-## Implementation approach
+## Steps
 
-Use descriptive step titles and give dependencies, ownership, and exact files or systems. Keep machine step keys internal.
+Use descriptive step titles and give dependencies, ownership, and current file or system surfaces. Keep machine step keys internal.
 
-## Verification
+## Verification strategy
 
-Separate required gates from optional strengthening checks and name the evidence that will demonstrate success.
+Map the alignment acceptance checklist to concrete gates and expected evidence. Separate required gates from optional strengthening checks.
 
 ## Risks and rollback
 
 Define material-change handling, failure behavior, and rollback.
-
-## Approval scope
-
-Describe in plain language what approval permits and excludes. Keep packet identity, revision, and digest in machine state.

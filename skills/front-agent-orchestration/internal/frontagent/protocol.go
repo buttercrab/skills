@@ -492,11 +492,11 @@ func parsePacketAuthority(node *yaml.Node, workSchema string) (packetAuthority, 
 		}
 	} else {
 		result.PacketSchemaVersion, err = scalarInt(get("packet_schema_version"), "packet_schema_version")
-		if err != nil || result.PacketSchemaVersion != 2 {
-			return packetAuthority{}, fmt.Errorf("packet_binding packet_schema_version must be 2")
+		if err != nil || (result.PacketSchemaVersion != 2 && result.PacketSchemaVersion != 3) {
+			return packetAuthority{}, fmt.Errorf("packet_binding packet_schema_version must be 2 or 3")
 		}
 	}
-	statuses := map[string]bool{"approved": true, "executing": true, "verifying": true, "needs_reapproval": true, "blocked": true, "cancelled": true, "complete": true}
+	statuses := map[string]bool{"approved": true, "executing": true, "verifying": true, "needs_reapproval": true, "needs_alignment": true, "blocked": true, "cancelled": true, "complete": true}
 	if !statuses[result.LifecycleStatus] {
 		return packetAuthority{}, fmt.Errorf("packet_binding lifecycle_status is invalid")
 	}

@@ -1,10 +1,10 @@
-# Review the Plan
+# Review the Agent Plan
 
 Read this reference when deciding whether a plan needs adversarial review and when reconciling reviewer evidence.
 
 ## Review threshold
 
-Never use adversarial plan review for lightweight mode. In durable mode, use fresh review when a plausible planning error could cause an irreversible or production effect, cross a security/privacy/trust boundary, exceed a meaningful cost ceiling, or create conflicting ownership across multiple actors. Complexity, file count, or architectural language alone is insufficient. Skipping review needs no separate receipt.
+Never use adversarial plan review for lightweight mode. In durable mode, use fresh review when a plausible planning error could cause an irreversible or production effect, cross a security/privacy/trust boundary, exceed a meaningful cost ceiling, or create conflicting ownership across multiple actors. Complexity, file count, or architectural language alone is insufficient. The review is an agent-internal execution gate, never a request for the user to approve the plan.
 
 ## Reviewer setup
 
@@ -17,4 +17,4 @@ Never use adversarial plan review for lightweight mode. In durable mode, use fre
 
 ## Reconciliation
 
-The active coordinator independently verifies findings. Accept supported corrections, reject overreach with reasons, update facts and decisions before the plan, and rerun affected review gates. A review verdict does not replace deterministic evidence.
+The active coordinator independently verifies findings. Accept supported corrections, reject overreach with reasons, update facts, decisions, and the mutable plan, and rerun affected review gates. Continue without user involvement unless a supported finding proves the approved alignment contract itself must change. A review verdict does not replace deterministic evidence.
