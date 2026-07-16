@@ -13,7 +13,7 @@ Read this reference after the user approves `alignment.md` or gives an explicit 
 7. Create or refresh the agent-owned `plan.md`. Transition to `executing` with the existing approval; do not ask the user to approve the plan or ask “start?” again.
 8. Record every attempt through the packet helper.
 
-Before each writable slice that can overlap existing work, run `scripts/preservation_journal.py snapshot` for every owned path and store it in the active packet's mode-0700 `private-preimages/` area. After mutation, record exact postimages and the owned patch with `record-post`. Use `rollback` only when its all-path preflight proves every current path still equals the recorded postimage; otherwise stop without overwriting concurrent work.
+Before each writable slice that can overlap existing work, run `scripts/preservation_journal.py snapshot` for every owned path and store it in the active packet's mode-0700 `private-preimages/` area. After mutation, record exact postimages and the owned patch with `record-post --repo <repo> --packet <packet> <journal>`. Use `rollback --repo <repo> --packet <packet> <journal>` only when its closed-journal, packet-containment, all-path, and all-backup preflight passes; otherwise stop without overwriting concurrent work.
 
 ## Implement autonomously
 
@@ -27,7 +27,7 @@ Before each writable slice that can overlap existing work, run `scripts/preserva
 
 ### Plan change
 
-Continue without user involvement. Update `plan.md` when useful and record material actions and receipts in `execution.md`. A different architecture, file set, dependency, step order, verification tactic, fallback, or in-scope fix is never a reason to reopen alignment by itself.
+Continue without user involvement. Update `plan.md` when useful and record material actions and receipts in `execution.md`. A different architecture, file set, dependency, step order, verification tactic, equally strong proof substitution, fallback, or in-scope fix is never a reason to reopen alignment by itself.
 
 ### Alignment change
 

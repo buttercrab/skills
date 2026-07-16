@@ -210,6 +210,13 @@ class PacketCase(unittest.TestCase):
         self.assertTrue((packet / "alignment.md").is_file())
         self.assertNotIn("requested_authority_classes", state)
         self.assertIsNone(state["protected_digest"])
+        sentinel = packet / "preserve-me.txt"
+        sentinel.write_bytes(b"existing packet bytes\x00must survive")
+        before = {
+            path.relative_to(packet).as_posix(): path.read_bytes()
+            for path in packet.rglob("*")
+            if path.is_file()
+        }
         failure = self.run_cli(
             "init",
             "--repo",
@@ -219,6 +226,12 @@ class PacketCase(unittest.TestCase):
             code=6,
         )
         self.assertIn("filesystem operation failed", failure["invariant"])
+        after = {
+            path.relative_to(packet).as_posix(): path.read_bytes()
+            for path in packet.rglob("*")
+            if path.is_file()
+        }
+        self.assertEqual(before, after)
 
     def test_untouched_templates_cannot_be_sealed(self):
         packet = self.init()

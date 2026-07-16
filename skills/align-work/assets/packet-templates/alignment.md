@@ -24,4 +24,4 @@ Record preservation boundaries, external effects, destructive or irreversible au
 
 ## Acceptance checklist
 
-List observable checks and required evidence that prove the aligned goal is complete. This is a completion contract, not an implementation task list.
+List observable invariants and minimum evidence strength that prove the aligned goal is complete. Exclude agent-chosen commands, tools, merge methods, ancestry, and other proof mechanisms unless the user explicitly requires them; equally strong proof substitutions belong in the mutable plan.

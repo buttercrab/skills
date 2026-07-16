@@ -9,6 +9,7 @@ import hashlib
 import json
 import os
 from pathlib import Path, PurePosixPath
+import re
 import shutil
 import stat
 import sys
@@ -16,6 +17,16 @@ import uuid
 
 
 SCHEMA_VERSION = "align-preservation-journal/v1"
+HEX_RE = re.compile(r"^[0-9a-f]{64}$")
+JOURNAL_BASE_FIELDS = {
+    "schema_version",
+    "slice_id",
+    "repository_root",
+    "created_at",
+    "entries",
+    "post_recorded_at",
+    "patch_sha256",
+}
 
 
 class JournalError(ValueError):
@@ -145,19 +156,6 @@ def atomic_json(path: Path, value: dict, mode: int = 0o600) -> None:
         raise
 
 
-def load_journal(path: Path) -> dict:
-    try:
-        info = path.lstat()
-        if stat.S_ISLNK(info.st_mode) or not stat.S_ISREG(info.st_mode) or info.st_nlink != 1:
-            raise JournalError("journal must be one regular non-linked file")
-        value = json.loads(path.read_text(encoding="utf-8"))
-    except (OSError, UnicodeError, json.JSONDecodeError) as exc:
-        raise JournalError(f"journal is unreadable: {path}: {exc}") from exc
-    if not isinstance(value, dict) or value.get("schema_version") != SCHEMA_VERSION:
-        raise JournalError("unsupported preservation journal")
-    return value
-
-
 def strict_load_object(path: Path) -> dict:
     def reject_constant(value: str) -> None:
         raise JournalError(f"non-finite JSON number is forbidden: {value}")
@@ -184,6 +182,119 @@ def strict_load_object(path: Path) -> dict:
     if not isinstance(value, dict):
         raise JournalError(f"JSON input must contain an object: {path}")
     return value
+
+
+def validate_path_state(value: object, label: str) -> dict:
+    if not isinstance(value, dict) or not isinstance(value.get("type"), str):
+        raise JournalError(f"{label} is malformed")
+    kind = value["type"]
+    if kind == "absent":
+        if set(value) != {"type"}:
+            raise JournalError(f"{label} absent state is not closed")
+    elif kind == "regular":
+        if set(value) != {"type", "mode", "sha256", "size"}:
+            raise JournalError(f"{label} regular state is not closed")
+        if not isinstance(value["mode"], str) or re.fullmatch(r"[0-7]{4}", value["mode"]) is None:
+            raise JournalError(f"{label} mode is invalid")
+        if not isinstance(value["sha256"], str) or HEX_RE.fullmatch(value["sha256"]) is None:
+            raise JournalError(f"{label} digest is invalid")
+        if type(value["size"]) is not int or value["size"] < 0:
+            raise JournalError(f"{label} size is invalid")
+    elif kind == "symlink":
+        if set(value) != {"type", "mode", "sha256", "target"}:
+            raise JournalError(f"{label} symlink state is not closed")
+        if not isinstance(value["mode"], str) or re.fullmatch(r"[0-7]{4}", value["mode"]) is None:
+            raise JournalError(f"{label} mode is invalid")
+        if not isinstance(value["sha256"], str) or HEX_RE.fullmatch(value["sha256"]) is None:
+            raise JournalError(f"{label} digest is invalid")
+        if not isinstance(value["target"], str):
+            raise JournalError(f"{label} target is invalid")
+    else:
+        raise JournalError(f"{label} has unsupported type: {kind}")
+    return value
+
+
+def validate_journal(value: object) -> dict:
+    if not isinstance(value, dict) or value.get("schema_version") != SCHEMA_VERSION:
+        raise JournalError("unsupported preservation journal")
+    optional = {"packet_path", "reconstructed_from", "rolled_back_at", "rollback_digest"}
+    if not JOURNAL_BASE_FIELDS <= set(value) or set(value) - JOURNAL_BASE_FIELDS - optional:
+        raise JournalError("preservation journal fields are not closed")
+    slice_id = value["slice_id"]
+    if not isinstance(slice_id, str) or not slice_id or "/" in slice_id or slice_id in {".", ".."}:
+        raise JournalError("preservation journal slice ID is invalid")
+    if not isinstance(value["repository_root"], str) or not Path(value["repository_root"]).is_absolute():
+        raise JournalError("preservation journal repository root is invalid")
+    packet_path = value.get("packet_path")
+    if packet_path is not None and (
+        not isinstance(packet_path, str)
+        or PurePosixPath(packet_path).parts != (".planning", PurePosixPath(packet_path).name)
+        or normalized_relative(packet_path) != packet_path
+    ):
+        raise JournalError("preservation journal packet path is invalid")
+    if not isinstance(value["created_at"], str) or not value["created_at"].strip():
+        raise JournalError("preservation journal creation time is invalid")
+    post_recorded = value["post_recorded_at"]
+    if post_recorded is not None and (not isinstance(post_recorded, str) or not post_recorded.strip()):
+        raise JournalError("preservation journal post time is invalid")
+    for field in ("patch_sha256", "rollback_digest"):
+        if field in value and value[field] is not None and (
+            not isinstance(value[field], str) or HEX_RE.fullmatch(value[field]) is None
+        ):
+            raise JournalError(f"preservation journal {field} is invalid")
+    if ("rolled_back_at" in value) != ("rollback_digest" in value):
+        raise JournalError("rollback metadata must be complete")
+    if "rolled_back_at" in value and (
+        not isinstance(value["rolled_back_at"], str) or not value["rolled_back_at"].strip()
+    ):
+        raise JournalError("preservation journal rollback time is invalid")
+    reconstructed = value.get("reconstructed_from")
+    if reconstructed is not None:
+        expected = {
+            "source_journal",
+            "source_journal_sha256",
+            "approved_manifest",
+            "approved_manifest_digest",
+            "candidate_root",
+        }
+        if not isinstance(reconstructed, dict) or set(reconstructed) != expected:
+            raise JournalError("reconstruction metadata is not closed")
+        for field, item in reconstructed.items():
+            if not isinstance(item, str) or not item:
+                raise JournalError(f"reconstruction metadata {field} is invalid")
+        for field in ("source_journal_sha256", "approved_manifest_digest"):
+            if HEX_RE.fullmatch(reconstructed[field]) is None:
+                raise JournalError(f"reconstruction metadata {field} is invalid")
+    entries = value["entries"]
+    if not isinstance(entries, list) or not entries:
+        raise JournalError("preservation journal entries must be nonempty")
+    seen: set[str] = set()
+    for index, entry in enumerate(entries):
+        if not isinstance(entry, dict) or not isinstance(entry.get("path"), str):
+            raise JournalError(f"preservation journal entry {index} is malformed")
+        relative = normalized_relative(entry["path"])
+        if relative in seen:
+            raise JournalError(f"duplicate preservation journal path: {relative}")
+        seen.add(relative)
+        preimage = validate_path_state(entry.get("preimage"), f"entry {relative} preimage")
+        expected_fields = {"path", "preimage"}
+        if preimage["type"] == "regular":
+            expected_fields |= {"backup", "backup_sha256"}
+            expected_backup = f"backups/{hashlib.sha256(relative.encode('utf-8')).hexdigest()}"
+            if entry.get("backup") != expected_backup:
+                raise JournalError(f"backup path is invalid: {relative}")
+            if entry.get("backup_sha256") != preimage["sha256"]:
+                raise JournalError(f"backup digest differs from preimage: {relative}")
+        if post_recorded is not None:
+            expected_fields.add("postimage")
+            validate_path_state(entry.get("postimage"), f"entry {relative} postimage")
+        if set(entry) != expected_fields:
+            raise JournalError(f"preservation journal entry fields are not closed: {relative}")
+    return value
+
+
+def load_journal(path: Path) -> dict:
+    return validate_journal(strict_load_object(path))
 
 
 def validate_packet_dir(root: Path, value: str | Path) -> Path:
@@ -219,6 +330,27 @@ def packet_member(packet: Path, value: str | Path, *, directory: bool = False) -
         kind = "directory" if directory else "single-link regular file"
         raise JournalError(f"packet artifact must be a {kind}: {raw}")
     return raw
+
+
+def authorized_journal(
+    repo: str | Path,
+    packet_value: str | Path,
+    journal_value: str | Path,
+) -> tuple[Path, Path, Path, dict]:
+    root = safe_root(repo)
+    packet = validate_packet_dir(root, packet_value)
+    journal_path = packet_member(packet, journal_value)
+    relative = journal_path.relative_to(packet).parts
+    if len(relative) != 3 or relative[0] != "private-preimages" or relative[2] != "journal.json":
+        raise JournalError("journal must be <packet>/private-preimages/<slice-id>/journal.json")
+    journal = load_journal(journal_path)
+    if journal["repository_root"] != str(root):
+        raise JournalError("journal repository root differs from the authorized repository")
+    if journal.get("packet_path") not in {None, packet.relative_to(root).as_posix()}:
+        raise JournalError("journal packet path differs from the authorized packet")
+    if journal["slice_id"] != relative[1]:
+        raise JournalError("journal slice ID differs from its containing directory")
+    return root, packet, journal_path, journal
 
 
 def manifest_file_state(path: Path, relative: str) -> dict:
@@ -262,6 +394,8 @@ def reconstruct_applied(
     source = load_journal(source_path)
     if Path(source.get("repository_root", "")) != root:
         raise JournalError("source journal repository root differs")
+    if source.get("packet_path") not in {None, packet.relative_to(root).as_posix()}:
+        raise JournalError("source journal packet path differs")
     if source.get("post_recorded_at") is not None:
         raise JournalError("reconstruction is only for an unapplied historical journal")
     if not slice_id or "/" in slice_id or slice_id in {".", ".."}:
@@ -347,6 +481,7 @@ def reconstruct_applied(
             "schema_version": SCHEMA_VERSION,
             "slice_id": slice_id,
             "repository_root": str(root),
+            "packet_path": packet.relative_to(root).as_posix(),
             "created_at": now(),
             "entries": entries,
             "post_recorded_at": now(),
@@ -420,6 +555,7 @@ def snapshot(repo: str, packet_value: str, slice_id: str, paths: list[str]) -> t
             "schema_version": SCHEMA_VERSION,
             "slice_id": slice_id,
             "repository_root": str(root),
+            "packet_path": packet.relative_to(root).as_posix(),
             "created_at": now(),
             "entries": entries,
             "post_recorded_at": None,
@@ -434,9 +570,13 @@ def snapshot(repo: str, packet_value: str, slice_id: str, paths: list[str]) -> t
         raise
 
 
-def record_post(journal_path: Path, patch: Path | None) -> dict:
-    journal = load_journal(journal_path)
-    root = safe_root(journal["repository_root"])
+def record_post(
+    repo: str | Path,
+    packet_value: str | Path,
+    journal_value: str | Path,
+    patch: Path | None,
+) -> tuple[Path, dict]:
+    root, _, journal_path, journal = authorized_journal(repo, packet_value, journal_value)
     if journal.get("post_recorded_at") is not None:
         raise JournalError("post-state is already recorded")
     for entry in journal["entries"]:
@@ -446,21 +586,35 @@ def record_post(journal_path: Path, patch: Path | None) -> dict:
             raise JournalError("owned patch must be a regular file")
         journal["patch_sha256"] = digest_file(patch)
     journal["post_recorded_at"] = now()
+    validate_journal(journal)
     atomic_json(journal_path, journal)
-    return journal
+    return journal_path, journal
 
 
 def state_equal(left: dict, right: dict) -> bool:
     return left == right
 
 
-def restore_regular(root: Path, relative: str, entry: dict, journal_path: Path) -> None:
+def backup_path(entry: dict, journal_path: Path) -> Path:
+    relative = entry["path"]
     backup_relative = entry.get("backup")
-    if not isinstance(backup_relative, str):
-        raise JournalError(f"regular preimage lacks backup: {relative}")
-    backup = journal_path.parent / backup_relative
-    if digest_file(backup) != entry.get("backup_sha256") or entry["preimage"]["sha256"] != entry.get("backup_sha256"):
+    expected_relative = f"backups/{hashlib.sha256(relative.encode('utf-8')).hexdigest()}"
+    if backup_relative != expected_relative:
+        raise JournalError(f"regular preimage has an invalid backup path: {relative}")
+    backup = journal_path.parent.joinpath(*PurePosixPath(backup_relative).parts)
+    try:
+        info = backup.lstat()
+    except FileNotFoundError as exc:
+        raise JournalError(f"backup is missing: {relative}") from exc
+    if stat.S_ISLNK(info.st_mode) or not stat.S_ISREG(info.st_mode) or info.st_nlink != 1:
+        raise JournalError(f"backup must be one regular non-linked file: {relative}")
+    expected_hash = entry.get("backup_sha256")
+    if digest_file(backup) != expected_hash or entry["preimage"]["sha256"] != expected_hash:
         raise JournalError(f"backup integrity failure: {relative}")
+    return backup
+
+
+def restore_regular(root: Path, relative: str, entry: dict, backup: Path) -> None:
     target = safe_path(root, relative, create_parents=True)
     temp = target.parent / f".{target.name}.rollback.{uuid.uuid4()}"
     descriptor = os.open(temp, os.O_WRONLY | os.O_CREAT | os.O_EXCL, 0o600)
@@ -469,9 +623,9 @@ def restore_regular(root: Path, relative: str, entry: dict, journal_path: Path) 
             shutil.copyfileobj(input_handle, output_handle)
             output_handle.flush()
             os.fsync(output_handle.fileno())
+        if digest_file(temp) != entry["backup_sha256"]:
+            raise JournalError(f"backup changed during rollback: {relative}")
         os.chmod(temp, int(entry["preimage"]["mode"], 8))
-        if target.exists() or target.is_symlink():
-            target.unlink()
         os.replace(temp, target)
         fsync_directory(target.parent)
     except Exception:
@@ -482,15 +636,38 @@ def restore_regular(root: Path, relative: str, entry: dict, journal_path: Path) 
         raise
 
 
-def rollback(journal_path: Path) -> dict:
-    journal = load_journal(journal_path)
-    root = safe_root(journal["repository_root"])
+def restore_symlink(root: Path, relative: str, target_text: str) -> None:
+    target = safe_path(root, relative, create_parents=True)
+    temp = target.parent / f".{target.name}.rollback.{uuid.uuid4()}"
+    try:
+        os.symlink(target_text, temp)
+        os.replace(temp, target)
+        fsync_directory(target.parent)
+    except Exception:
+        try:
+            temp.unlink()
+        except FileNotFoundError:
+            pass
+        raise
+
+
+def rollback(
+    repo: str | Path,
+    packet_value: str | Path,
+    journal_value: str | Path,
+) -> tuple[Path, dict]:
+    root, _, journal_path, journal = authorized_journal(repo, packet_value, journal_value)
     if journal.get("post_recorded_at") is None:
         raise JournalError("rollback requires recorded post-state")
+    if journal.get("rolled_back_at") is not None:
+        raise JournalError("rollback is already recorded")
+    backups: dict[str, Path] = {}
     for entry in journal["entries"]:
         observed = path_state(root, entry["path"])
         if not state_equal(observed, entry.get("postimage")):
             raise JournalError(f"unsafe rollback; current state drifted: {entry['path']}")
+        if entry["preimage"]["type"] == "regular":
+            backups[entry["path"]] = backup_path(entry, journal_path)
     for entry in journal["entries"]:
         relative = entry["path"]
         target = safe_path(root, relative, create_parents=True)
@@ -500,20 +677,18 @@ def rollback(journal_path: Path) -> dict:
                 target.unlink()
                 fsync_directory(target.parent)
         elif preimage["type"] == "regular":
-            restore_regular(root, relative, entry, journal_path)
+            restore_regular(root, relative, entry, backups[relative])
         elif preimage["type"] == "symlink":
-            if target.exists() or target.is_symlink():
-                target.unlink()
-            os.symlink(preimage["target"], target)
-            fsync_directory(target.parent)
+            restore_symlink(root, relative, preimage["target"])
         else:
             raise JournalError(f"unsupported preimage type: {preimage['type']}")
     journal["rolled_back_at"] = now()
     journal["rollback_digest"] = digest_value(
         {entry["path"]: path_state(root, entry["path"]) for entry in journal["entries"]}
     )
+    validate_journal(journal)
     atomic_json(journal_path, journal)
-    return journal
+    return journal_path, journal
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -525,9 +700,13 @@ def main(argv: list[str] | None = None) -> int:
     snapshot_parser.add_argument("--slice-id", required=True)
     snapshot_parser.add_argument("--path", action="append", required=True)
     post_parser = subparsers.add_parser("record-post")
+    post_parser.add_argument("--repo", required=True)
+    post_parser.add_argument("--packet", required=True)
     post_parser.add_argument("journal")
     post_parser.add_argument("--patch")
     rollback_parser = subparsers.add_parser("rollback")
+    rollback_parser.add_argument("--repo", required=True)
+    rollback_parser.add_argument("--packet", required=True)
     rollback_parser.add_argument("journal")
     reconstruct_parser = subparsers.add_parser("reconstruct-applied")
     reconstruct_parser.add_argument("--repo", required=True)
@@ -541,11 +720,14 @@ def main(argv: list[str] | None = None) -> int:
         if args.command == "snapshot":
             journal_path, journal = snapshot(args.repo, args.packet, args.slice_id, args.path)
         elif args.command == "record-post":
-            journal_path = Path(args.journal).expanduser().absolute()
-            journal = record_post(journal_path, Path(args.patch).expanduser().absolute() if args.patch else None)
+            journal_path, journal = record_post(
+                args.repo,
+                args.packet,
+                args.journal,
+                Path(args.patch).expanduser().absolute() if args.patch else None,
+            )
         elif args.command == "rollback":
-            journal_path = Path(args.journal).expanduser().absolute()
-            journal = rollback(journal_path)
+            journal_path, journal = rollback(args.repo, args.packet, args.journal)
         else:
             journal_path, journal = reconstruct_applied(
                 args.repo,

@@ -225,9 +225,10 @@ func validateMessageBody(body, fromRole, respondsTo string) error {
 }
 
 var (
-	uuidPattern = regexp.MustCompile(`^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$`)
-	hashPattern = regexp.MustCompile(`^[0-9a-f]{64}$`)
-	taskPattern = regexp.MustCompile(`^[a-z0-9][a-z0-9-]{0,63}$`)
+	uuidPattern           = regexp.MustCompile(`^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$`)
+	hashPattern           = regexp.MustCompile(`^[0-9a-f]{64}$`)
+	taskPattern           = regexp.MustCompile(`^[a-z0-9][a-z0-9-]{0,63}$`)
+	authorityClassPattern = regexp.MustCompile(`^(?:P|R|T|I|G|E|D)(?:[0-9]+)?$`)
 )
 
 type packetAuthority struct {
@@ -476,12 +477,12 @@ func parsePacketAuthority(node *yaml.Node, workSchema string) (packetAuthority, 
 	}
 	if workSchema == "work_authority/v1" {
 		classes := get("authority_classes")
-		if classes == nil || classes.Kind != yaml.SequenceNode || len(classes.Content) == 0 || len(classes.Content) > 3 {
+		if classes == nil || classes.Kind != yaml.SequenceNode || len(classes.Content) == 0 {
 			return packetAuthority{}, fmt.Errorf("packet_binding authority_classes is invalid")
 		}
 		seen := map[string]bool{}
 		for _, item := range classes.Content {
-			if item.Kind != yaml.ScalarNode || item.Tag != "!!str" || !map[string]bool{"P": true, "R": true, "T": true}[item.Value] || seen[item.Value] {
+			if item.Kind != yaml.ScalarNode || item.Tag != "!!str" || !authorityClassPattern.MatchString(item.Value) || seen[item.Value] {
 				return packetAuthority{}, fmt.Errorf("packet_binding authority_classes is invalid")
 			}
 			seen[item.Value] = true
@@ -496,7 +497,7 @@ func parsePacketAuthority(node *yaml.Node, workSchema string) (packetAuthority, 
 			return packetAuthority{}, fmt.Errorf("packet_binding packet_schema_version must be 2 or 3")
 		}
 	}
-	statuses := map[string]bool{"approved": true, "executing": true, "verifying": true, "needs_reapproval": true, "needs_alignment": true, "blocked": true, "cancelled": true, "complete": true}
+	statuses := map[string]bool{"approved": true, "executing": true, "verifying": true, "blocked": true, "cancelled": true, "complete": true}
 	if !statuses[result.LifecycleStatus] {
 		return packetAuthority{}, fmt.Errorf("packet_binding lifecycle_status is invalid")
 	}

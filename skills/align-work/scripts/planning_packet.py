@@ -773,8 +773,10 @@ def command_init(args) -> None:
         "PACKET_ID": packet_id,
         "REPOSITORY_ROOT": str(repo),
     }
+    created_packet = False
     try:
         packet.mkdir(mode=0o755)
+        created_packet = True
         for name in ("alignment.md", "facts.md", "decisions.md", "plan.md"):
             (packet / name).write_text(render_template(name, values), encoding="utf-8")
         state = {
@@ -800,7 +802,7 @@ def command_init(args) -> None:
         atomic_json(packet / "state.json", state)
         validate_packet(packet, state)
     except Exception:
-        if packet.exists():
+        if created_packet and packet.exists():
             shutil.rmtree(packet)
         raise
     success("init", packet=str(packet), coordinator_id=coordinator, epoch=1, revision=0)

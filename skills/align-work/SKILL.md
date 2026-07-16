@@ -1,6 +1,6 @@
 ---
 name: align-work
-description: Use as the outer alignment and approval workflow for coding when the user invokes $align-work, a material decision changes the outcome contract or authority, an existing Align packet resumes, or work is destructive, externally mutating, cross-session, or cross-agent. Default to lightweight alignment for local reversible work; inspect facts, proactively ask a compact set of decision-changing questions with recommended defaults, align the goal, requirements, non-goals, constraints and authority, and acceptance checklist, then obtain one approval. After approval, let the agent own and revise the plan without reapproval. Use durable packet mode for existing packets, continuity, destructive or irreversible, production, security/privacy, costly, or external work. New packets bind approval to alignment; legacy packets retain their versioned contract. Reopen user alignment only when the approved alignment itself must change. Read-only audits route to audit-technical-work; domain skills own mechanics.
+description: Use as the outer alignment and approval workflow for coding when the user invokes $align-work, a material unresolved decision changes the outcome contract or authority, an existing Align packet resumes, or work is destructive, irreversible, production-facing, security/privacy-sensitive, costly, or externally mutating. Default to lightweight alignment for local reversible work; inspect facts, proactively ask decision-changing questions with recommended defaults, align the goal, requirements, non-goals, constraints and authority, and observable acceptance invariants, then obtain one approval. After approval, let the agent own and revise implementation and verification mechanisms without reapproval. Use durable packet mode for existing packets, explicit continuity across sessions or agents, Front work when Align applies, or high-risk/external work. Reopen user alignment only when the approved outcome contract itself must change. Read-only audits route to audit-technical-work; domain skills own mechanics.
 ---
 
 # Align Work
@@ -9,16 +9,16 @@ Align the outcome contract with the user, then let the agent own execution. The 
 
 ## Classify ownership and mode
 
-Use Align when the user explicitly invokes `$align-work`, a material unresolved decision changes the accepted outcome or authority, an existing packet must resume, or the work is destructive, irreversible, production-facing, security/privacy-sensitive, costly, externally mutating, cross-session, or cross-agent.
+Use Align when the user explicitly invokes `$align-work`, a material unresolved decision changes the accepted outcome or authority, an existing packet must resume, or the work is destructive, irreversible, production-facing, security/privacy-sensitive, costly, or externally mutating. Cross-session or cross-agent execution triggers Align only when the user asks for durable shared alignment, continuity, recovery, or handoff; ordinary bounded delegation does not.
 
 Explicit `$align-work` selects Align ownership, not durable mode by itself. A read-only request alone is insufficient: route bounded technical audits to `audit-technical-work`, open discovery to `map-technical-landscapes`, and fixed supplied resources to `brief-linked-evidence`. When Align is not explicitly invoked, bypass it for simple answers, ordinary clear bounded coding, and low-risk reversible mechanical edits. Uncertainty about complexity and step count alone do not trigger Align or durable mode.
 
 Choose durable mode when any condition holds:
 
 - a matching packet exists;
-- the user asks for durable planning, resume, recovery, handoff, or work spanning sessions or agents;
+- the user asks for durable planning, resume, recovery, handoff, or alignment continuity spanning sessions or agents;
 - the work is destructive, irreversible, production-facing, security/privacy-sensitive, costly, or externally mutating; or
-- Front Agent is the selected gateway. Front Agent always uses durable mode.
+- Front Agent is the selected gateway for work that independently triggers Align. When Align applies under Front Agent, use durable mode. Front selection alone does not activate Align.
 
 Otherwise use lightweight mode. Never downgrade explicit `$align-work` or a matching packet. Domain skills such as `skill-creator`, `refactor-by-invariant`, and `propagate-contract-changes` own mechanics only. `execute-goal-loop` is an explicit persistence overlay and cannot broaden Align authority.
 
@@ -56,7 +56,7 @@ For durable Front work, load the [current work-authority schema](references/work
 ## Preserve alignment and execution boundaries
 
 - Ask proactively about user intent, completion evidence, constraints, authority, and tradeoffs before approval. User-delegated judgment closes non-authority questions, and implementation details remain agent-owned.
-- Treat the acceptance checklist as observable completion evidence, never an ordered implementation task list.
+- Seal observable invariants and minimum evidence strength, not agent-chosen proof mechanisms. The acceptance checklist is never an ordered implementation task list; if equally strong evidence can prove the same invariant, substitute it through the mutable plan without reapproval.
 - Once approved, keep planning and execution autonomous. A changed plan is never an alignment event.
 - Enter `needs_alignment` only when the approved alignment contract itself must change, is internally conflicting, or cannot be completed with the recorded authority. State the exact conflict or missing authority; do not ask the user to approve a revised plan.
 - Exact destructive allowlists, named namespaces, publication or deployment targets, and other aligned external scopes remain literal. A live target outside them changes the alignment contract.
@@ -75,12 +75,12 @@ This block is generated from `tests/portfolio-routing-v1.json`; do not edit it b
 - `skill`: "align-work"
 - `routing_role`: "outer"
 - `portfolio_position`: "Outer outcome-alignment and execution-approval workflow with a lightweight default and durable packet escalation for authority-sensitive coding work."
-- `positive_request_classes`: ["explicit Align invocation","matching packet resume","decision-changing ambiguity in the goal, requirements, non-goals, constraints or authority, tradeoffs, or acceptance checklist","explicit durable, resumable, handoff, cross-session, or cross-agent work","destructive or irreversible work","production, security, privacy, costly, or external mutation"]
+- `positive_request_classes`: ["explicit Align invocation","matching packet resume","decision-changing ambiguity in the goal, requirements, non-goals, constraints or authority, tradeoffs, or acceptance checklist","explicit durable, resumable, handoff, or continuity-preserving cross-session or cross-agent work","destructive or irreversible work","production, security, privacy, costly, or external mutation"]
 - `triggers`: ["The user explicitly invokes $align-work.","An existing matching Align packet must resume.","A material unresolved choice changes the goal, requirements, non-goals, constraints or authority, tradeoff priorities, or acceptance checklist.","The work is destructive, irreversible, production-facing, security/privacy-sensitive, costly, or externally mutating."]
 - `exclusions`: ["ordinary clear bounded coding","simple answers","low-risk reversible mechanical edits","read-only technical audits"]
 - `state_owner`: "Owns the user-approved alignment contract while the agent owns the mutable implementation plan; in durable mode Align is the sole owner of packet state, coordinator fencing, execution chain, guarded transfer, and recovery."
-- `precedence`: ["Wins over domain mechanics when an Align trigger applies.","Under Front, Front remains the human gateway while Align uses durable mode and retains exclusive packet ownership.","A goal loop never changes authority."]
+- `precedence`: ["Wins over domain mechanics when an Align trigger applies.","Under Front, when an Align trigger applies, Front remains the human gateway while Align uses durable mode and retains exclusive packet ownership.","A goal loop never changes authority."]
 - `legal_compositions`: [{"route":"front-agent-orchestration","relation":"gateway"},{"route":"execute-goal-loop","relation":"overlay"},{"route":"audit-technical-work","relation":"evidence-lens"},{"route":"skill-creator","relation":"mechanics"},{"route":"propagate-contract-changes","relation":"mechanics"},{"route":"refactor-by-invariant","relation":"mechanics"},{"route":"agent-mail","relation":"transport"},{"route":"write-task-handoff","relation":"content-owner"}]
 - `fallbacks`: [{"condition":"No Align trigger applies.","route":"native-codex","result":"Use the native bounded workflow."},{"condition":"The request is a bounded read-only technical audit.","route":"audit-technical-work","result":"Audit owns the read-only outer contract."}]
-- `forbidden_actions`: ["delegate packet mutation to Front, Handoff, Goal Loop, or domain skills","infer external authority","create a durable packet solely because Align was explicitly invoked when no durable trigger applies","cap proactive alignment to one clarification round when material intent remains unresolved","ask the user to approve an implementation plan","reopen alignment solely because the agent-owned plan changes","downgrade explicit Align or matching packet state"]
+- `forbidden_actions`: ["delegate packet mutation to Front, Handoff, Goal Loop, or domain skills","infer external authority","create a durable packet solely because Align was explicitly invoked when no durable trigger applies","cap proactive alignment to one clarification round when material intent remains unresolved","ask the user to approve an implementation plan","reopen alignment solely because the agent-owned plan changes","seal an agent-chosen implementation or verification mechanism as an acceptance requirement","downgrade explicit Align or matching packet state"]
 <!-- END GENERATED PORTFOLIO ROUTING v1 -->

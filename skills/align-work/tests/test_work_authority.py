@@ -50,7 +50,14 @@ class WorkAuthorityTests(unittest.TestCase):
             "--coordinator-id", state["active_coordinator"]["id"],
         )
 
-    def approved_packet(self, task="sample-task", *, legacy=False, packet_schema_version=3):
+    def approved_packet(
+        self,
+        task="sample-task",
+        *,
+        legacy=False,
+        packet_schema_version=3,
+        legacy_authority="R,T",
+    ):
         initialized = self.cli(
             "init", "--repo", self.repo, "--task-id", task,
             "--title", "Sample task", "--coordinator-id", self.coordinator,
@@ -95,10 +102,13 @@ class WorkAuthorityTests(unittest.TestCase):
                 path.write_text(path.read_text().replace("<!-- align-work-required-content -->", "Authored fixture content."))
         self.cli("transition", packet, *self.fence(packet), "--to", "drafting")
         if legacy:
-            self.cli("seal", packet, *self.fence(packet), "--status", "awaiting_approval", "--authority", "R,T")
+            self.cli(
+                "seal", packet, *self.fence(packet), "--status", "awaiting_approval",
+                "--authority", legacy_authority,
+            )
             self.cli(
                 "transition", packet, *self.fence(packet), "--to", "approved",
-                "--approval-id", str(uuid.uuid4()), "--authority", "R,T",
+                "--approval-id", str(uuid.uuid4()), "--authority", legacy_authority,
                 "--approval-evidence", "current user approved exact digest",
             )
         else:
@@ -173,6 +183,23 @@ class WorkAuthorityTests(unittest.TestCase):
         )
         self.assertEqual("packet", result["alignment_mode"])
 
+    def test_legacy_packet_protocol_accepts_full_historical_authority_domain(self):
+        request = "Continue the approved legacy packet."
+        packet = self.approved_packet(
+            "legacy-full-domain",
+            legacy=True,
+            legacy_authority="D2,E,G7,I,P,R,T10",
+        )
+        authority = self.authority(request, packet)
+        self.assertEqual(
+            ["D2", "E", "G7", "I", "P", "R", "T10"],
+            authority["packet_binding"]["authority_classes"],
+        )
+        result = work_authority.validate_current(
+            authority, original_request=request, repository=self.repo
+        )
+        self.assertEqual("packet", result["alignment_mode"])
+
     def test_current_protocol_remains_valid_for_packet_schema_v2(self):
         request = "Continue the approved schema-v2 packet."
         packet = self.approved_packet("v2-task", packet_schema_version=2)
@@ -219,6 +246,30 @@ class WorkAuthorityTests(unittest.TestCase):
             self.code(lambda: work_authority.validate_current(none, original_request=request, repository=self.repo)),
         )
         self.assertTrue(packet.exists())
+
+    def test_clear_or_negated_plan_language_does_not_force_align(self):
+        requests = (
+            "Refactor the architecture to the specified modular design without changing scope.",
+            "Do not change scope or acceptance criteria; implement the supplied patch.",
+            "Fix the permission error in the local test fixture.",
+        )
+        for request in requests:
+            with self.subTest(request=request):
+                none = self.authority(request, None, mode="none", classification="none")
+                result = work_authority.validate_current(
+                    none, original_request=request, repository=self.repo
+                )
+                self.assertEqual("none", result["alignment_mode"])
+
+    def test_explicit_unresolved_choice_still_forces_align(self):
+        request = "We need your decision: choose between strict and permissive validation."
+        none = self.authority(request, None, mode="none", classification="none")
+        self.assertEqual(
+            "E_ALIGNMENT_DISAGREEMENT",
+            self.code(lambda: work_authority.validate_current(
+                none, original_request=request, repository=self.repo
+            )),
+        )
 
     def test_cross_root_symlink_stale_generation_and_changed_request_fail(self):
         packet = self.approved_packet()
@@ -318,6 +369,49 @@ class WorkAuthorityTests(unittest.TestCase):
         complete = self.authority(request, packet, sequence=3)
         work_authority.validate_current(
             complete, original_request=request, repository=self.repo, update_status="complete"
+        )
+
+    def test_alignment_needed_state_cannot_be_bound_as_work_authority(self):
+        packet = self.approved_packet()
+        request = "Continue the approved packet."
+        self.cli("transition", packet, *self.fence(packet), "--to", "needs_alignment")
+        self.assertEqual(
+            "E_PACKET_CURRENT_STATE",
+            self.code(lambda: work_authority.binding_from_state(
+                self.repo, packet, self.state(packet)
+            )),
+        )
+        forged = {
+            "schema_version": "work_authority/v2",
+            "work_id": str(uuid.uuid4()),
+            "sequence": 1,
+            "original_request_sha256": hashlib.sha256(request.encode()).hexdigest(),
+            "alignment_mode": "packet",
+            "gateway_classification": "existing-packet",
+            "repository_root": str(self.repo),
+            "packet_binding": {
+                "packet_schema_version": 3,
+                "packet_id": self.state(packet)["packet_id"],
+                "task_id": packet.name,
+                "packet_path": f".planning/{packet.name}",
+                "packet_revision": self.state(packet)["packet_revision"],
+                "protected_digest": self.state(packet)["protected_digest"],
+                "approval_id": str(uuid.uuid4()),
+                "coordinator_id": self.state(packet)["active_coordinator"]["id"],
+                "coordinator_epoch": self.state(packet)["active_coordinator"]["epoch"],
+                "state_generation": self.state(packet)["state_generation"],
+                "lifecycle_status": "needs_alignment",
+                "execution_head": self.state(packet)["execution_head"],
+            },
+        }
+        self.assertEqual(
+            "E_PACKET_STATUS",
+            self.code(lambda: work_authority.validate_current(
+                forged,
+                original_request=request,
+                repository=self.repo,
+                update_status="failed",
+            )),
         )
 
     def test_helper_transfer_receipt_is_current_and_stale_after_second_handoff(self):

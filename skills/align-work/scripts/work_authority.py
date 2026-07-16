@@ -65,6 +65,7 @@ TRANSFER_FIELDS = {
 }
 HASH_RE = re.compile(r"^[0-9a-f]{64}$")
 TASK_RE = re.compile(r"^[a-z0-9][a-z0-9-]{0,63}$")
+AUTHORITY_CLASS_RE = re.compile(r"^(?:P|R|T|I|G|E|D)(?:[0-9]+)?$")
 CLASSIFICATIONS = {
     "explicit-invocation",
     "existing-packet",
@@ -80,8 +81,6 @@ PACKET_STATUSES = {
     "approved",
     "executing",
     "verifying",
-    "needs_reapproval",
-    "needs_alignment",
     "blocked",
     "cancelled",
     "complete",
@@ -91,7 +90,7 @@ RECEIPT_STATUS = {
     "accepted": {"approved"},
     "progress": {"executing", "verifying"},
     "blocked": {"executing", "verifying", "blocked"},
-    "failed": {"executing", "verifying", "blocked", "needs_reapproval", "needs_alignment"},
+    "failed": {"executing", "verifying", "blocked"},
     "cancelled": {"cancelled"},
     "complete": {"verifying"},
 }
@@ -210,7 +209,12 @@ def validate_authority_shape(authority: dict[str, Any]) -> None:
     _hash(binding["execution_head"], "execution_head", nullable=True)
     if work_schema == "work_authority/v1":
         classes = binding["authority_classes"]
-        if not isinstance(classes, list) or not classes or classes != sorted(set(classes)) or not set(classes) <= {"P", "R", "T"}:
+        if (
+            not isinstance(classes, list)
+            or not classes
+            or classes != sorted(set(classes))
+            or any(not isinstance(item, str) or AUTHORITY_CLASS_RE.fullmatch(item) is None for item in classes)
+        ):
             fail("E_AUTHORITY_CLASSES")
     elif binding["packet_schema_version"] not in {2, 3}:
         fail("E_PACKET_SCHEMA", "current work authority requires packet schema version 2 or 3")
@@ -247,8 +251,11 @@ def classify_request(original_request: str, repository: Path) -> str:
     if active_packets(repository):
         return "existing-packet"
     patterns = (
-        ("material-decision", r"\b(?:decide|decision|choose|ambiguity|ambiguous|architecture|scope|acceptance criteria)\b"),
-        ("security-privacy", r"\b(?:security|privacy|credential|secret|permission|authorization)\b"),
+        (
+            "material-decision",
+            r"\b(?:choose between|decide whether|which .{1,80} should|need(?:s)? (?:a |your )?decision|unresolved|ambigu(?:ity|ous))\b",
+        ),
+        ("security-privacy", r"\b(?:security|privacy|credential|secret|authorization)\b"),
         ("destructive", r"\b(?:delete|destroy|drop|purge|irreversible|force push|reset --hard)\b"),
         ("production", r"\b(?:production|deploy|release|live traffic)\b"),
         ("costly", r"\b(?:costly|paid|purchase|billing|expensive)\b"),

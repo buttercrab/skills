@@ -1642,20 +1642,23 @@ func TestWorkAuthoritySupportsClassFreeCurrentAndIsolatedLegacyPacketBindings(t 
 		t.Fatalf("unsupported packet schema error=%v", err)
 	}
 	needsAlignment := strings.Replace(currentV3, "    lifecycle_status: approved\n", "    lifecycle_status: needs_alignment\n", 1)
-	if _, err := parseWorkAuthority(needsAlignment); err != nil {
-		t.Fatalf("schema-v3 needs_alignment binding was rejected: %v", err)
+	if _, err := parseWorkAuthority(needsAlignment); err == nil {
+		t.Fatal("schema-v3 needs_alignment binding was accepted without approval")
 	}
-	if !frontStatusAllowsPacket("failed", "needs_alignment") {
-		t.Fatal("failed update did not accept a needs_alignment packet")
+	if frontStatusAllowsPacket("failed", "needs_alignment") {
+		t.Fatal("failed update accepted an approval-cleared needs_alignment packet")
+	}
+	if !frontStatusAllowsPacket("failed", "executing") {
+		t.Fatal("failed update did not accept the pre-transition executing packet")
 	}
 
 	legacy := strings.Replace(base, "schema_version: work_authority/v2", "schema_version: work_authority/v1", 1)
-	legacy = strings.Replace(legacy, "    packet_schema_version: 2\n", "    authority_classes:\n      - R\n", 1)
+	legacy = strings.Replace(legacy, "    packet_schema_version: 2\n", "    authority_classes:\n      - D2\n      - I\n      - R\n      - T10\n", 1)
 	parsedLegacy, err := parseWorkAuthority(legacy)
 	if err != nil {
 		t.Fatal(err)
 	}
-	if parsedLegacy.PacketBinding == nil || len(parsedLegacy.PacketBinding.AuthorityClasses) != 1 || parsedLegacy.PacketBinding.PacketSchemaVersion != 0 {
+	if parsedLegacy.PacketBinding == nil || len(parsedLegacy.PacketBinding.AuthorityClasses) != 4 || parsedLegacy.PacketBinding.PacketSchemaVersion != 0 {
 		t.Fatalf("legacy packet binding was not isolated: %#v", parsedLegacy.PacketBinding)
 	}
 

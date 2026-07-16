@@ -20,15 +20,14 @@ class SkillContractCase(unittest.TestCase):
         for phrase in (
             "$align-work",
             "lightweight alignment",
-            "proactively ask a compact set of decision-changing questions",
-            "acceptance checklist",
-            "let the agent own and revise the plan without reapproval",
+            "proactively ask decision-changing questions",
+            "observable acceptance invariants",
+            "implementation and verification mechanisms without reapproval",
             "durable packet mode",
             "existing Align packet",
             "destructive",
             "externally mutating",
-            "cross-session",
-            "cross-agent",
+            "continuity across sessions or agents",
             "audit-technical-work",
         ):
             self.assertIn(phrase, description)
@@ -43,7 +42,8 @@ class SkillContractCase(unittest.TestCase):
         prompt = data["interface"]["default_prompt"]
         self.assertIn("$align-work", prompt)
         self.assertIn("proactively", prompt)
-        self.assertIn("one alignment approval", prompt)
+        self.assertIn("seek one approval", prompt)
+        self.assertIn("proof mechanisms", prompt)
         self.assertIs(data["policy"]["allow_implicit_invocation"], True)
         for line in text.splitlines():
             if ":" in line and line.strip().split(":", 1)[0] in {"display_name", "short_description", "default_prompt"}:
@@ -106,6 +106,11 @@ class SkillContractCase(unittest.TestCase):
         self.assertIn("step count alone do not trigger Align or durable mode", text)
         self.assertIn("A read-only request alone is insufficient", text)
         self.assertNotIn("If uncertain, treat the task as nontrivial", text)
+        self.assertIn("ordinary bounded delegation does not", text)
+        self.assertIn("Front selection alone does not activate Align", text)
+        packet = (SKILL / "references" / "packet-contract.md").read_text()
+        self.assertIn("Front work with no independent Align trigger uses native authority", packet)
+        self.assertNotIn("Front Agent always uses durable mode", text + packet)
 
     def test_alignment_not_plan_is_user_approved(self):
         skill = (SKILL / "SKILL.md").read_text()
@@ -199,6 +204,30 @@ class SkillContractCase(unittest.TestCase):
         self.assertIn("never changes the protected alignment digest", plan)
         self.assertIn("Continue without user involvement.", execute)
         self.assertIn("never a reason to reopen alignment by itself", execute)
+
+    def test_equally_strong_proof_substitution_stays_in_plan(self):
+        skill = (SKILL / "SKILL.md").read_text()
+        alignment = (SKILL / "references" / "write-alignment.md").read_text()
+        plan = (SKILL / "references" / "write-plan.md").read_text()
+        packet = (SKILL / "references" / "packet-contract.md").read_text()
+        template = (SKILL / "assets" / "packet-templates" / "alignment.md").read_text()
+        self.assertIn("Seal observable invariants and minimum evidence strength", skill)
+        self.assertIn("Apply the substitution test", alignment)
+        for forbidden_mechanism in ("merge methods", "commit ancestry", "commands", "tools"):
+            self.assertIn(forbidden_mechanism, alignment)
+        self.assertIn("squash merging prevents PR-head ancestry", plan)
+        self.assertIn("byte-for-byte tree equivalence", plan)
+        self.assertIn("Substitute equal-or-stronger evidence without entering `needs_alignment`", packet)
+        self.assertIn("equally strong proof substitutions belong in the mutable plan", template)
+
+    def test_front_failure_precedes_approval_clearing_alignment_transition(self):
+        front = (SKILL.parent / "front-agent-orchestration" / "SKILL.md").read_text()
+        protocol = (SKILL.parent / "front-agent-orchestration" / "references" / "protocol.md").read_text()
+        packet = (SKILL / "references" / "packet-contract.md").read_text()
+        for text in (front, protocol, packet):
+            self.assertIn("before", text)
+            self.assertIn("needs_alignment", text)
+            self.assertIn("approval-cleared", text)
 
     def test_one_alignment_approval_starts_agent_planning_and_execution(self):
         skill = (SKILL / "SKILL.md").read_text()

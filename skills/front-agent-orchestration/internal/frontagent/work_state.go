@@ -131,7 +131,7 @@ func frontStatusAllowsPacket(status, packetStatus string) bool {
 		"accepted":  {"approved": true},
 		"progress":  {"executing": true, "verifying": true},
 		"blocked":   {"executing": true, "verifying": true, "blocked": true},
-		"failed":    {"executing": true, "verifying": true, "blocked": true, "needs_reapproval": true, "needs_alignment": true},
+		"failed":    {"executing": true, "verifying": true, "blocked": true},
 		"cancelled": {"cancelled": true},
 		"complete":  {"verifying": true},
 	}

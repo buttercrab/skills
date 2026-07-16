@@ -70,8 +70,6 @@
                 "approved",
                 "executing",
                 "verifying",
-                "needs_reapproval",
-                "needs_alignment",
                 "blocked",
                 "cancelled",
                 "complete"

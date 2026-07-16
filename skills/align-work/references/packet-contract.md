@@ -49,6 +49,8 @@ Approval evidence is an internal audit record, not authenticated authority. Stor
 
 Version 3 enters `needs_alignment` only when the approved goal, requirements, non-goals, constraints or authority, or acceptance checklist must change or cannot all be honored. Preserve partial effects, revise only the alignment contract that actually changed, repair and reseal it, and ask once for the exact delta and partial-work disposition. Never enter `needs_alignment` for a plan change.
 
+Acceptance checks bind observable invariants and user-required minimum evidence strength, not agent-chosen proof mechanisms. A repository policy, tool, command, merge strategy, or verification method belongs in the mutable plan unless the user explicitly requires it. Substitute equal-or-stronger evidence without entering `needs_alignment`; enter it only when the invariant or minimum evidence strength itself must change or cannot be satisfied.
+
 Legacy versions retain `needs_reapproval` and their historical protected-plan behavior.
 
 ## Resume
@@ -67,8 +69,10 @@ Execution markers are the authoritative hash-chained records. Every marker binds
 
 ## Front and transfer integration
 
-Front Agent always uses durable mode because it separates the human gateway from the implementing main agent. The gateway runs the packet workflow; Main validates packet identity read-only and never writes the packet.
+When Align applies under Front Agent, it uses durable mode because the human gateway and implementing main agent are separate. Front work with no independent Align trigger uses native authority instead. The gateway runs any Align packet workflow; Main validates packet identity read-only and never writes the packet.
 
 New Front work uses [work-authority v2](work-authority-v2.schema.json), which accepts class-free packet schema versions 2 and 3. Legacy packet schema version 1 uses [work-authority v1](work-authority-v1.schema.json). Both bind the request, canonical repository root, packet and approval identity, lifecycle, fencing, and execution head. Version 3 binds the alignment-only protected digest.
 
 Every `handoff` emits a closed [packet-transfer receipt v1](packet-transfer-receipt-v1.schema.json). Validate it against current packet reality with `scripts/work_authority.py validate-transfer`; stale, fabricated, malformed, cross-root, or incomplete receipts never transfer authority.
+
+Work authority never binds `needs_alignment` or legacy `needs_reapproval`, because those states clear approval. Under Front, Main must send a terminal `failed` update bound to the still-current `executing`, `verifying`, or `blocked` state before the Align coordinator enters the approval-cleared alignment state.

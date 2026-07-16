@@ -108,6 +108,27 @@
       }
     },
     {
+      "id": "align-proof-substitution",
+      "kind": "positive",
+      "family": "align",
+      "prompt": "An approved Align release requires main to contain the exact verified PR contents and production to deploy them. The repository permits only squash merges, so PR-head ancestry is unavailable, but the squash result is byte-for-byte tree-equivalent to the verified PR. Continue the release.",
+      "expected": {
+        "outer_owner": "align-work",
+        "gateways": [],
+        "overlays": [],
+        "evidence_lenses": [],
+        "mechanics": [],
+        "transports": [],
+        "content_owners": [],
+        "fallbacks": [],
+        "forbidden_actions": [
+          "reopen alignment for a verification-method substitution",
+          "require PR-head ancestry that the user did not specify",
+          "second approval"
+        ]
+      }
+    },
+    {
       "id": "audit-positive",
       "kind": "positive",
       "family": "audit",

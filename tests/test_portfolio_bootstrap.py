@@ -440,8 +440,8 @@ class PreservationJournalTests(unittest.TestCase):
         (self.root / "link").unlink()
         os.symlink("delete.txt", self.root / "link")
         (self.root / "created.txt").write_text("new")
-        self.module.record_post(journal_path, None)
-        self.module.rollback(journal_path)
+        self.module.record_post(self.root, self.root / ".planning" / "task", journal_path, None)
+        self.module.rollback(self.root, self.root / ".planning" / "task", journal_path)
         self.assertEqual((self.root / "regular.txt").read_text(), "before")
         self.assertEqual((self.root / "delete.txt").read_text(), "restore me")
         self.assertEqual(os.readlink(self.root / "link"), "regular.txt")
@@ -456,8 +456,8 @@ class PreservationJournalTests(unittest.TestCase):
             ["old.txt", "new.txt"],
         )
         (self.root / "old.txt").rename(self.root / "new.txt")
-        self.module.record_post(journal_path, None)
-        self.module.rollback(journal_path)
+        self.module.record_post(self.root, self.root / ".planning" / "task", journal_path, None)
+        self.module.rollback(self.root, self.root / ".planning" / "task", journal_path)
         self.assertEqual((self.root / "old.txt").read_text(), "rename")
         self.assertFalse((self.root / "new.txt").exists())
 
@@ -471,10 +471,10 @@ class PreservationJournalTests(unittest.TestCase):
             ["file.txt"],
         )
         path.write_text("owned postimage")
-        self.module.record_post(journal_path, None)
+        self.module.record_post(self.root, self.root / ".planning" / "task", journal_path, None)
         path.write_text("concurrent user edit")
         with self.assertRaises(self.module.JournalError):
-            self.module.rollback(journal_path)
+            self.module.rollback(self.root, self.root / ".planning" / "task", journal_path)
         self.assertEqual(path.read_text(), "concurrent user edit")
 
     def test_reconstruct_applied_binds_approved_candidate_and_preserves_source(self):
@@ -510,9 +510,90 @@ class PreservationJournalTests(unittest.TestCase):
         self.assertEqual(self.module.digest_file(source_journal), source_hash)
         self.assertIsNotNone(recovered["post_recorded_at"])
         self.assertEqual(recovered["reconstructed_from"]["source_journal_sha256"], source_hash)
-        self.module.rollback(recovered_path)
+        self.module.rollback(self.root, self.root / ".planning" / "task", recovered_path)
         self.assertEqual(source_file.read_text(), "before")
         self.assertFalse((self.root / "new.txt").exists())
+
+    def test_record_and_rollback_reject_journal_outside_authorized_packet(self):
+        target = self.root / "important.txt"
+        target.write_text("must survive")
+        forged = self.root / "forged.json"
+        forged.write_text(json.dumps({
+            "schema_version": self.module.SCHEMA_VERSION,
+            "slice_id": "forged",
+            "repository_root": str(self.root),
+            "created_at": self.module.now(),
+            "entries": [{
+                "path": "important.txt",
+                "preimage": {"type": "absent"},
+                "postimage": self.module.path_state(self.root, "important.txt"),
+            }],
+            "post_recorded_at": self.module.now(),
+            "patch_sha256": None,
+        }))
+        packet = self.root / ".planning" / "task"
+        with self.assertRaises(self.module.JournalError):
+            self.module.rollback(self.root, packet, forged)
+        self.assertEqual(target.read_text(), "must survive")
+
+    def test_journal_cannot_be_reused_under_a_different_packet(self):
+        target = self.root / "file.txt"
+        target.write_text("before")
+        packet = self.root / ".planning" / "task"
+        journal_path, _ = self.module.snapshot(
+            str(self.root), str(packet), "bound-slice", ["file.txt"]
+        )
+        target.write_text("after")
+        self.module.record_post(self.root, packet, journal_path, None)
+        other = self.root / ".planning" / "other"
+        other.mkdir()
+        with self.assertRaises(self.module.JournalError):
+            self.module.rollback(self.root, other, journal_path)
+        self.assertEqual(target.read_text(), "after")
+
+    def test_corrupt_later_backup_fails_before_any_rollback_mutation(self):
+        first = self.root / "a.txt"
+        second = self.root / "b.txt"
+        first.write_text("first before")
+        second.write_text("second before")
+        packet = self.root / ".planning" / "task"
+        journal_path, journal = self.module.snapshot(
+            str(self.root), str(packet), "preflight-all", ["a.txt", "b.txt"]
+        )
+        first.write_text("first after")
+        second.write_text("second after")
+        self.module.record_post(self.root, packet, journal_path, None)
+        second_entry = next(entry for entry in journal["entries"] if entry["path"] == "b.txt")
+        (journal_path.parent / second_entry["backup"]).write_text("corrupt")
+        with self.assertRaises(self.module.JournalError):
+            self.module.rollback(self.root, packet, journal_path)
+        self.assertEqual(first.read_text(), "first after")
+        self.assertEqual(second.read_text(), "second after")
+
+    def test_journal_loader_rejects_duplicate_keys_and_unknown_fields(self):
+        packet = self.root / ".planning" / "task"
+        private = packet / "private-preimages" / "strict"
+        private.mkdir(parents=True)
+        journal_path = private / "journal.json"
+        journal_path.write_text(
+            '{"schema_version":"align-preservation-journal/v1",'
+            '"schema_version":"align-preservation-journal/v1"}'
+        )
+        with self.assertRaises(self.module.JournalError):
+            self.module.authorized_journal(self.root, packet, journal_path)
+
+        journal_path.write_text(json.dumps({
+            "schema_version": self.module.SCHEMA_VERSION,
+            "slice_id": "strict",
+            "repository_root": str(self.root),
+            "created_at": self.module.now(),
+            "entries": [{"path": "file.txt", "preimage": {"type": "absent"}}],
+            "post_recorded_at": None,
+            "patch_sha256": None,
+            "unexpected": True,
+        }))
+        with self.assertRaises(self.module.JournalError):
+            self.module.authorized_journal(self.root, packet, journal_path)
 
     def test_reconstruct_applied_rejects_current_candidate_mismatch(self):
         source_file = self.root / "file.txt"

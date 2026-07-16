@@ -20,6 +20,8 @@ Never write “as discussed above,” “use the prior context,” or another de
 
 Continuously revise `plan.md` as evidence changes. Architecture, files, dependencies, sequencing, fallbacks, tests, internal rollback mechanics, retries, and ordinary in-scope fixes are agent-owned decisions. Updating them never requires user approval and never changes the protected alignment digest.
 
+Concrete proof mechanisms live here. When repository policy, tooling, or execution reality invalidates one method, substitute equal-or-stronger evidence for the same alignment invariant and continue without reapproval. For example, if squash merging prevents PR-head ancestry but the aligned outcome is exact verified contents on `main`, prove byte-for-byte tree equivalence instead. Reopen alignment only if the invariant itself or its user-required minimum evidence strength must change.
+
 When new evidence reveals that the approved alignment cannot be satisfied, do not disguise a contract change as planning. Enter `needs_alignment`, state the exact conflict or missing authority, and follow the alignment-change path.
 
 ## Preflight

@@ -214,7 +214,7 @@
         "explicit Align invocation",
         "matching packet resume",
         "decision-changing ambiguity in the goal, requirements, non-goals, constraints or authority, tradeoffs, or acceptance checklist",
-        "explicit durable, resumable, handoff, cross-session, or cross-agent work",
+        "explicit durable, resumable, handoff, or continuity-preserving cross-session or cross-agent work",
         "destructive or irreversible work",
         "production, security, privacy, costly, or external mutation"
       ],
@@ -279,7 +279,7 @@
       ],
       "precedence": [
         "Wins over domain mechanics when an Align trigger applies.",
-        "Under Front, Front remains the human gateway while Align uses durable mode and retains exclusive packet ownership.",
+        "Under Front, when an Align trigger applies, Front remains the human gateway while Align uses durable mode and retains exclusive packet ownership.",
         "A goal loop never changes authority."
       ],
       "forbidden_actions": [
@@ -289,14 +289,15 @@
         "cap proactive alignment to one clarification round when material intent remains unresolved",
         "ask the user to approve an implementation plan",
         "reopen alignment solely because the agent-owned plan changes",
+        "seal an agent-chosen implementation or verification mechanism as an acceptance requirement",
         "downgrade explicit Align or matching packet state"
       ],
       "package_projection": {
-        "frontmatter_description": "Use as the outer alignment and approval workflow for coding when the user invokes $align-work, a material decision changes the outcome contract or authority, an existing Align packet resumes, or work is destructive, externally mutating, cross-session, or cross-agent. Default to lightweight alignment for local reversible work; inspect facts, proactively ask a compact set of decision-changing questions with recommended defaults, align the goal, requirements, non-goals, constraints and authority, and acceptance checklist, then obtain one approval. After approval, let the agent own and revise the plan without reapproval. Use durable packet mode for existing packets, continuity, destructive or irreversible, production, security/privacy, costly, or external work. New packets bind approval to alignment; legacy packets retain their versioned contract. Reopen user alignment only when the approved alignment itself must change. Read-only audits route to audit-technical-work; domain skills own mechanics.",
+        "frontmatter_description": "Use as the outer alignment and approval workflow for coding when the user invokes $align-work, a material unresolved decision changes the outcome contract or authority, an existing Align packet resumes, or work is destructive, irreversible, production-facing, security/privacy-sensitive, costly, or externally mutating. Default to lightweight alignment for local reversible work; inspect facts, proactively ask decision-changing questions with recommended defaults, align the goal, requirements, non-goals, constraints and authority, and observable acceptance invariants, then obtain one approval. After approval, let the agent own and revise implementation and verification mechanisms without reapproval. Use durable packet mode for existing packets, explicit continuity across sessions or agents, Front work when Align applies, or high-risk/external work. Reopen user alignment only when the approved outcome contract itself must change. Read-only audits route to audit-technical-work; domain skills own mechanics.",
         "agent": {
           "display_name": "Align Work",
           "short_description": "Align work proportionally with one approval",
-          "default_prompt": "Use $align-work with lightweight alignment by default. Inspect first, proactively ask high-value questions with recommended defaults, and seek one alignment approval for the goal, requirements, non-goals, constraints and authority, and acceptance checklist. Then own and revise the implementation plan without reapproval, escalating only when the approved alignment contract must change or cannot be honored.",
+          "default_prompt": "Use $align-work with lightweight alignment by default. Inspect first, proactively ask high-value questions with recommended defaults, and seek one approval for the goal, requirements, non-goals, constraints and authority, and observable acceptance invariants. Keep agent-chosen implementation and proof mechanisms in the mutable plan; substitute equally strong evidence without reapproval. Escalate only when the approved outcome contract must change or cannot be honored.",
           "allow_implicit_invocation": true
         }
       },
@@ -307,7 +308,8 @@
           "The user approves the goal and completion boundary, not the implementation plan.",
           "A changed plan is never an alignment event.",
           "Enter `needs_alignment` only when the approved alignment contract itself must change",
-          "Front Agent always uses durable mode.",
+          "When Align applies under Front Agent, use durable mode.",
+          "Seal observable invariants and minimum evidence strength, not agent-chosen proof mechanisms.",
           "Never downgrade explicit `$align-work` or a matching packet."
         ],
         "forbidden": [
@@ -1104,6 +1106,27 @@
           "reopen alignment for an agent-owned plan change",
           "user approval of the revised plan",
           "second start prompt"
+        ]
+      }
+    },
+    {
+      "id": "align-proof-substitution",
+      "kind": "positive",
+      "family": "align",
+      "prompt": "An approved Align release requires main to contain the exact verified PR contents and production to deploy them. The repository permits only squash merges, so PR-head ancestry is unavailable, but the squash result is byte-for-byte tree-equivalent to the verified PR. Continue the release.",
+      "expected": {
+        "outer_owner": "align-work",
+        "gateways": [],
+        "overlays": [],
+        "evidence_lenses": [],
+        "mechanics": [],
+        "transports": [],
+        "content_owners": [],
+        "fallbacks": [],
+        "forbidden_actions": [
+          "reopen alignment for a verification-method substitution",
+          "require PR-head ancestry that the user did not specify",
+          "second approval"
         ]
       }
     },
