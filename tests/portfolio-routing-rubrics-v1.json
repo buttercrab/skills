@@ -27,6 +27,26 @@
     {
       "key": "completion-gate",
       "description": "Goal and audit composition preserves measurable verification and does not claim premature completion."
+    },
+    {
+      "key": "information-materiality",
+      "description": "The response surfaces every decision-changing outcome, missing item, contradiction, risk, active constraint, or next-action consequence that is present before activity detail; it never manufactures a category merely to fill the format."
+    },
+    {
+      "key": "current-truth",
+      "description": "Daily and dashboard content uses authority appropriate to each fact type, labels consequential staleness or uncertainty when present, preserves exact gate coverage, and keeps one actionable next step."
+    },
+    {
+      "key": "evaluation-contract-fidelity",
+      "description": "The response keeps the user-named evaluation instrument, required cells or datasets, reference basis, metric, and coverage as the acceptance contract; simpler, partial, or different evals remain labeled supporting evidence."
+    },
+    {
+      "key": "daily-output-contract",
+      "description": "The daily report preserves the ordered daily sections, active constraints, incomplete work, and exactly one next action with owner and done condition, without launching evidence-generating project work."
+    },
+    {
+      "key": "dashboard-truth-contract",
+      "description": "The dashboard separates stable intent from timestamped living state, preserves consequential unknowns, distinguishes governing intent from observed activity, and avoids duplicated living truth."
     }
   ],
   "default_rubric_keys": [
@@ -39,6 +59,13 @@
     "front-positive",
     "handoff-positive",
     "mine-positive",
+    "importance-positive",
+    "daily-report-positive",
+    "project-dashboard-positive",
+    "daily-importance",
+    "dashboard-importance-align",
+    "audit-importance",
+    "daily-dashboard",
     "align-audit-goal",
     "audit-goal",
     "audit-front",
@@ -50,6 +77,63 @@
     "skillcreator-outer"
   ],
   "case_overrides": [
+    {
+      "case_id": "importance-positive",
+      "add": [
+        "information-materiality"
+      ]
+    },
+    {
+      "case_id": "daily-report-positive",
+      "add": [
+        "information-materiality",
+        "current-truth",
+        "daily-output-contract"
+      ]
+    },
+    {
+      "case_id": "project-dashboard-positive",
+      "add": [
+        "information-materiality",
+        "current-truth",
+        "dashboard-truth-contract"
+      ]
+    },
+    {
+      "case_id": "daily-importance",
+      "add": [
+        "information-materiality",
+        "current-truth",
+        "evaluation-contract-fidelity",
+        "daily-output-contract"
+      ]
+    },
+    {
+      "case_id": "dashboard-importance-align",
+      "add": [
+        "authority-boundary",
+        "information-materiality",
+        "current-truth",
+        "evaluation-contract-fidelity",
+        "dashboard-truth-contract"
+      ]
+    },
+    {
+      "case_id": "audit-importance",
+      "add": [
+        "authority-boundary",
+        "information-materiality",
+        "completion-gate"
+      ]
+    },
+    {
+      "case_id": "daily-dashboard",
+      "add": [
+        "authority-boundary",
+        "daily-output-contract",
+        "dashboard-truth-contract"
+      ]
+    },
     {
       "case_id": "align-audit-goal",
       "add": [

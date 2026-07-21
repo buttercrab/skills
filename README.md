@@ -11,9 +11,12 @@ This repository contains authored Codex skills and their implementation code.
 - `skills/front-agent-orchestration` - Human-facing gateway and main-agent orchestration protocol over Agent Mail.
 - `skills/execute-goal-loop` - Explicit goal-driven persistence with hard verification and review gates.
 - `skills/map-technical-landscapes` - Bounded technical ecosystem discovery, canonicalization, and comparison.
+- `skills/maintain-project-dashboard` - Durable project operating bases with current, evidence-backed state and no filler progress.
 - `skills/mine-history-tool-landscapes` - Privacy-preserving history lineage and recurring-capability analysis.
+- `skills/prioritize-important-information` - Decision-first information selection that exposes missing work, contradictions, and risk.
 - `skills/propagate-contract-changes` - Canonical contract propagation across producers, boundaries, consumers, and proof surfaces.
 - `skills/refactor-by-invariant` - Structural refactoring around explicit invariants and canonical ownership.
+- `skills/write-daily-report` - Concise daily execution reports with one next action and done condition.
 - `skills/write-task-handoff` - Restartable cross-session handoffs that preserve canonical state and authority boundaries.
 
 ## Repository Layout
@@ -50,9 +53,11 @@ Start Codex with `AGENT_MAIL_TOKEN` in the environment so the MCP client can aut
 
 `tests/portfolio-routing-v1.json` is the only editable source of portfolio routing truth. Package descriptions, agent metadata, generated routing contract blocks, and evaluator-only cases are validated projections. Every `SKILL.md` contains exactly one delimited generated routing block covering triggers, exclusions, ownership, precedence, legal compositions, fallbacks, and forbidden actions. Each `agents/openai.yaml` also carries a generated `portfolio-routing-v1-row-sha256` comment that binds every field of its canonical row. Update the canonical contract first, run `scripts/sync_portfolio_routing.py --write`, and then run `tests/validate_portfolio_routing.py`; editing a projection alone is contract drift. `scripts/sync_portfolio_routing.py --check` verifies every generated routing projection without changing files.
 
-The routing contract classifies all eleven skills, closes precedence and fallback rules, and binds separate trial and evaluator catalogs. Its role grammar is exclusive: exactly one of native Codex, Align, or standalone Audit owns the task envelope, while Front remains a gateway, Goal Loop an overlay, nested Audit an evidence lens, Agent Mail or built-in collaboration a transport, package and contract skills mechanics, and handoff or research workflows content owners. A selected route appears in only one role and every supporting route must be reachable from the outer owner through a directional composition edge.
+The routing contract classifies all fourteen skills, closes precedence and fallback rules, and binds separate trial and evaluator catalogs. Its role grammar is exclusive: exactly one of native Codex, Align, or standalone Audit owns the task envelope, while Front remains a gateway, Goal Loop an overlay, nested Audit an evidence lens, Agent Mail or built-in collaboration a transport, package and contract skills mechanics, and reporting, dashboard, information-selection, handoff, or research workflows content owners. A selected route appears in only one role and every supporting route must be reachable from the outer owner through a directional composition edge.
 
 `tests/portfolio-routing-prompts-v1.json` is the only catalog copied into an isolated trial root; its closed schema permits only case identity, family, kind, and raw prompt text. The trial also receives the canonical role grammar, external route profiles such as `skill-creator`, and the candidate packages, but no case-specific expected route. Expected routes and rubrics remain evaluator-only in `tests/portfolio-routing-cases-v1.json` and `tests/portfolio-routing-rubrics-v1.json`, and are never copied into the trial root.
+
+These catalogs are static routing definitions. Projection checks and repository unit tests do not invoke a model, launch an agent trial, or prove produced-output quality. Any forward or model evaluation is a separate action that requires explicit task authority.
 
 ## Validate
 
@@ -60,6 +65,7 @@ The routing contract classifies all eleven skills, closes precedence and fallbac
 python3 -m venv /tmp/skills-validation-venv
 /tmp/skills-validation-venv/bin/python -m pip install PyYAML==6.0.3 jsonschema==4.26.0
 PY=/tmp/skills-validation-venv/bin/python
+export PYTHONDONTWRITEBYTECODE=1
 for d in skills/*; do
   [[ -f "$d/SKILL.md" ]] || continue
   "$PY" "${CODEX_HOME:-$HOME/.codex}/skills/.system/skill-creator/scripts/quick_validate.py" "$d"

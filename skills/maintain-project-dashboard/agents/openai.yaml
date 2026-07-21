@@ -1,0 +1,5 @@
+# portfolio-routing-v1-row-sha256: 20e52af92ffcd36e04717703f6c66d31de34ce0602b848be20f3e74e5a151419
+interface:
+  display_name: "Maintain Project Dashboard"
+  short_description: "Keep project dashboards current and decision-useful"
+  default_prompt: "Use $maintain-project-dashboard to refresh this project base with current important information, preserving exact gate status and consequential unknowns explicitly."

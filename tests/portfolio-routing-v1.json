@@ -20,7 +20,10 @@
     "refactor-by-invariant",
     "brief-linked-evidence",
     "map-technical-landscapes",
-    "mine-history-tool-landscapes"
+    "mine-history-tool-landscapes",
+    "prioritize-important-information",
+    "write-daily-report",
+    "maintain-project-dashboard"
   ],
   "role_taxonomy": [
     {
@@ -86,12 +89,15 @@
       "field": "content_owners",
       "relation": "content-owner",
       "cardinality": "zero-or-more",
-      "description": "Workflows that own a produced handoff or research artifact and its source-universe semantics. They do not become the task-level authority envelope merely because they own content.",
+      "description": "Workflows that own produced reporting, dashboard, information-selection, handoff, or research artifacts and their content semantics. They do not become the task-level authority envelope merely because they own content.",
       "allowed_routes": [
         "write-task-handoff",
         "brief-linked-evidence",
         "map-technical-landscapes",
-        "mine-history-tool-landscapes"
+        "mine-history-tool-landscapes",
+        "prioritize-important-information",
+        "write-daily-report",
+        "maintain-project-dashboard"
       ]
     },
     {
@@ -160,6 +166,18 @@
           "relation": "content-owner"
         },
         {
+          "route": "prioritize-important-information",
+          "relation": "content-owner"
+        },
+        {
+          "route": "write-daily-report",
+          "relation": "content-owner"
+        },
+        {
+          "route": "maintain-project-dashboard",
+          "relation": "content-owner"
+        },
+        {
           "route": "browser-web",
           "relation": "fallback"
         },
@@ -196,6 +214,7 @@
     "Research routing follows source universe: historical agent-run lineage to Mine, open-ended ecosystem discovery to Map, and fixed supplied linked resources to Brief.",
     "Mechanics routing follows the primary invariant: structured cross-surface contract propagation to Propagate and structural ownership simplification to Refactor; compose only as separately named slices.",
     "Skill Creator is the package-authoring mechanic for skill or metadata changes and never becomes portfolio state owner.",
+    "Reporting routing follows the information surface: Prioritize owns decision relevance and exact-gate fidelity, Daily Report owns the time-bounded format, and Project Dashboard owns durable current-state structure; an agent-chosen proxy never replaces a user-named acceptance gate.",
     "Unavailable capabilities are never assumed: public sources may use an installed browser or web fallback, private sources remain excluded or block completeness, and routine current-task coordination uses built-in collaboration."
   ],
   "unavailable_capability_policy": [
@@ -274,6 +293,18 @@
         },
         {
           "route": "write-task-handoff",
+          "relation": "content-owner"
+        },
+        {
+          "route": "prioritize-important-information",
+          "relation": "content-owner"
+        },
+        {
+          "route": "write-daily-report",
+          "relation": "content-owner"
+        },
+        {
+          "route": "maintain-project-dashboard",
           "relation": "content-owner"
         }
       ],
@@ -367,6 +398,10 @@
           "relation": "content-owner"
         },
         {
+          "route": "prioritize-important-information",
+          "relation": "content-owner"
+        },
+        {
           "route": "propagate-contract-changes",
           "relation": "mechanics"
         },
@@ -377,7 +412,8 @@
       ],
       "precedence": [
         "Outer owner for standalone read-only technical audits.",
-        "Inside Align or Goal, supplies the evidence lens without creating a second outer workflow."
+        "Inside Align or Goal, supplies the evidence lens without creating a second outer workflow.",
+        "Prioritize Important Information may order audit findings by consequence without changing audit scope, severity, or proof requirements."
       ],
       "forbidden_actions": [
         "implement fixes",
@@ -1002,6 +1038,217 @@
         ],
         "forbidden": []
       }
+    },
+    {
+      "skill": "prioritize-important-information",
+      "case_family": "importance",
+      "routing_role": "content",
+      "portfolio_position": "Decision-relevance filter for status, reporting, and decision surfaces.",
+      "positive_request_classes": [
+        "requests to identify what matters",
+        "verbose status or evidence needing decision-first triage",
+        "hidden failures, missing work, contradictions, uncertainty, or scope drift",
+        "information ordering by consequence rather than activity",
+        "agent-chosen proxy work presented in place of an exact user-named acceptance gate"
+      ],
+      "triggers": [
+        "The user asks what is important, what matters, or what is being hidden.",
+        "Verbose material needs bad-news-first ordering and an explicit negative-space check.",
+        "A simpler, partial, or different evaluation may be replacing the exact requested evaluation contract."
+      ],
+      "exclusions": [
+        "performing technical verification or owning audit scope",
+        "daily report formatting",
+        "durable dashboard maintenance",
+        "external mutation or publication"
+      ],
+      "fallbacks": [
+        {
+          "condition": "The request is a simple answer containing one already-confirmed fact.",
+          "route": "native-codex",
+          "result": "Answer directly without invoking a ranking workflow."
+        }
+      ],
+      "state_owner": "Owns the selected and ranked information hierarchy, including consequential omissions; owns neither source verification nor product state.",
+      "legal_compositions": [],
+      "precedence": [
+        "The latest explicit user instruction and current goal govern the ranking.",
+        "The user-named evaluation instrument and acceptance conditions govern completion; proxy evidence remains supporting evidence.",
+        "Write Daily Report owns the daily format and Project Dashboard owns durable current-state structure."
+      ],
+      "forbidden_actions": [
+        "rank information by agent effort or activity volume",
+        "bury bad news below successful substeps",
+        "substitute an easier evaluation for a user-named acceptance gate",
+        "turn uncertain facts into certainty",
+        "mutate or publish externally"
+      ],
+      "package_projection": {
+        "frontmatter_description": "Rank available facts by their effect on the user's decision, goal, next action, risk, or trust, then surface consequential information before activity detail. Use when the user asks what matters, source material is verbose, important failures or missing work may be buried, or an agent-chosen proxy may be replacing an exact user-named acceptance gate. It can order existing audit, report, or dashboard material but does not own technical verification, audit scope, task authority, daily-report format, dashboard state, or external writes.",
+        "agent": {
+          "display_name": "Prioritize Important Information",
+          "short_description": "Surface decision-changing facts before activity detail",
+          "default_prompt": "Use $prioritize-important-information to rank these facts by what changes my decision, goal, next action, risk, or trust.",
+          "allow_implicit_invocation": null
+        }
+      },
+      "body_assertions": {
+        "required": [
+          "A fact is important when omitting it could cause a wrong decision or action.",
+          "Importance and confidence are separate.",
+          "Activity is not success.",
+          "A proxy, simpler check, partial run, or agent-preferred metric does not replace the specified gate.",
+          "Links may hold supporting evidence, never unnamed material facts.",
+          "Never demote a decision-changing fact merely to satisfy a length target."
+        ],
+        "forbidden": []
+      }
+    },
+    {
+      "skill": "write-daily-report",
+      "case_family": "daily-report",
+      "routing_role": "content",
+      "portfolio_position": "Time-bounded daily execution report format with one next action.",
+      "positive_request_classes": [
+        "daily report",
+        "standup-style update",
+        "end-of-day report",
+        "today's execution handoff",
+        "reporting exact evaluation-gate coverage without creating new project work"
+      ],
+      "triggers": [
+        "The user explicitly asks for a daily report, standup update, or end-of-day report.",
+        "Current evidence must be reduced to today's material changes, active constraints, and one next action.",
+        "A named evaluation gate and any non-equivalent proxy results must be reported separately."
+      ],
+      "exclusions": [
+        "durable project dashboard refresh",
+        "restartable cross-session handoff",
+        "technical audit",
+        "external publication without explicit authority"
+      ],
+      "fallbacks": [
+        {
+          "condition": "The requested artifact is a durable operating base rather than today's update.",
+          "route": "maintain-project-dashboard",
+          "result": "Use the project dashboard owner."
+        }
+      ],
+      "state_owner": "Owns daily report structure and content; owns neither truth verification, durable dashboard state, nor external publication authority.",
+      "legal_compositions": [
+        {
+          "route": "prioritize-important-information",
+          "relation": "content-owner"
+        }
+      ],
+      "precedence": [
+        "Owns the time-bounded daily format.",
+        "Report preparation is read-only project work and never authorizes evidence-generating evals, training, jobs, or implementation.",
+        "Prioritize Important Information owns deeper consequence ranking; Project Dashboard owns durable current state."
+      ],
+      "forbidden_actions": [
+        "duplicate the roadmap or durable dashboard",
+        "end with multiple next actions",
+        "hide requested work that is not done",
+        "launch evals, training, jobs, settings changes, merges, or implementation merely to fill a report evidence gap",
+        "present a simpler or partial evaluation as completion of the exact requested gate",
+        "write externally without explicit authority"
+      ],
+      "package_projection": {
+        "frontmatter_description": "Write a concise, decision-useful daily report from existing project evidence, with today's goal, active constraints, material changes, missing or blocked work, parallel work, exact evaluation-gate coverage, and one next action with an owner and done condition. Use for daily reports, standup updates, end-of-day reports, or today's execution handoff. Report preparation is read-only and never authorizes new evals, training, jobs, settings changes, merges, or implementation. This skill owns the daily format, not technical verification, durable dashboard state, restartable handoffs, or external publication; write externally only with explicit authority.",
+        "agent": {
+          "display_name": "Write Daily Report",
+          "short_description": "Write concise daily reports with one next action",
+          "default_prompt": "Use $write-daily-report to turn current project evidence into a concise daily report with one next action.",
+          "allow_implicit_invocation": null
+        }
+      },
+      "body_assertions": {
+        "required": [
+          "Give exactly one action, its owner, its done condition",
+          "Preparing a report is read-only project work.",
+          "Run a named evaluation only when the user separately requested or authorized that exact evaluation contract",
+          "State one current commitment, its done condition, and any still-active constraint",
+          "Invocation of this skill alone never authorizes an external write or any evidence-generating project work.",
+          "Put simpler evaluations under supporting evidence; never promote them to completion of the named gate."
+        ],
+        "forbidden": []
+      }
+    },
+    {
+      "skill": "maintain-project-dashboard",
+      "case_family": "project-dashboard",
+      "routing_role": "content",
+      "portfolio_position": "Durable project operating-base structure and current-state maintenance.",
+      "positive_request_classes": [
+        "project control tower",
+        "durable operating base",
+        "Notion-style project dashboard",
+        "stale, duplicated, or useless progress cleanup",
+        "exact acceptance-gate and evaluation-instrument status"
+      ],
+      "triggers": [
+        "The user asks to create or refresh a durable project dashboard or operating base.",
+        "Current project truth must replace stale narrative while preserving stable design knowledge.",
+        "Governing intent, observed activity, proxy evidence, and exact acceptance-gate status must remain distinct."
+      ],
+      "exclusions": [
+        "frontend dashboard software implementation",
+        "daily report",
+        "technical audit",
+        "external writes without explicit authority"
+      ],
+      "fallbacks": [
+        {
+          "condition": "The request is only today's update.",
+          "route": "write-daily-report",
+          "result": "Use the daily report owner."
+        },
+        {
+          "condition": "The request is to build visual dashboard software.",
+          "route": "native-codex",
+          "result": "Use the relevant frontend or UI implementation workflow."
+        }
+      ],
+      "state_owner": "Owns dashboard information architecture and the representation of living project state, including explicit unknowns and exact gate coverage; owns neither canonical product state nor task authority.",
+      "legal_compositions": [
+        {
+          "route": "prioritize-important-information",
+          "relation": "content-owner"
+        }
+      ],
+      "precedence": [
+        "The latest explicit instruction and ratified decisions own goals, priorities, constraints, and exact acceptance gates; live evidence owns what actually happened.",
+        "When observed activity conflicts with governing intent, show both and label the mismatch as scope drift.",
+        "Prioritize Important Information owns deeper consequence ranking; Write Daily Report owns today's time-bounded report."
+      ],
+      "forbidden_actions": [
+        "present untimestamped stale status as current",
+        "show generic activity as progress",
+        "omit a consequential unknown because evidence is missing",
+        "substitute an easier evaluation for the exact named gate",
+        "duplicate living state across prose sections",
+        "write externally without explicit authority"
+      ],
+      "package_projection": {
+        "frontmatter_description": "Create or refresh a durable project operating dashboard or base that separates stable knowledge from timestamped living state and shows current, important information with evidence or an explicit unknown or unverified label. Use for project control towers, operating bases, Notion-style dashboards, exact acceptance-gate status, or removal of stale status, AI-generated filler, duplicated prose, and useless progress. This skill owns dashboard information architecture and current-state maintenance, not frontend UI implementation, daily reports, technical verification, task authority, or unapproved external writes.",
+        "agent": {
+          "display_name": "Maintain Project Dashboard",
+          "short_description": "Keep project dashboards current and decision-useful",
+          "default_prompt": "Use $maintain-project-dashboard to refresh this project base with current important information, preserving exact gate status and consequential unknowns explicitly.",
+          "allow_implicit_invocation": null
+        }
+      },
+      "body_assertions": {
+        "required": [
+          "Maintain a compact decision surface for operating a project.",
+          "If not, remain read-only and provide a proposed structure or patch.",
+          "Show progress only when it changes a gate, ETA, decision, or next action.",
+          "Assign authority by fact type instead of applying one global source order:",
+          "never substitute an easier eval silently."
+        ],
+        "forbidden": []
+      }
     }
   ],
   "routing_cases": [
@@ -1549,6 +1796,233 @@
       }
     },
     {
+      "id": "importance-positive",
+      "kind": "positive",
+      "family": "importance",
+      "prompt": "Prioritize this noisy status without hiding any decision-changing fact: (1) the required ASR sheet is 29/45 with 16 sets pending; (2) narrower proxy evals passed; (3) requested T+A+D training has not started; (4) the /data location changed and current settings still point to the old path; (5) no merging remains an active constraint; and (6) a summary nevertheless says all eval work is complete. Explain the distinct consequence of each fact.",
+      "expected": {
+        "outer_owner": "native-codex",
+        "gateways": [],
+        "overlays": [],
+        "evidence_lenses": [],
+        "mechanics": [],
+        "transports": [],
+        "content_owners": [
+          "prioritize-important-information"
+        ],
+        "fallbacks": [],
+        "forbidden_actions": [
+          "activity volume used as importance",
+          "failures buried below successful substeps",
+          "sixth material fact omitted to satisfy a length target"
+        ]
+      }
+    },
+    {
+      "id": "importance-negative",
+      "kind": "negative",
+      "family": "importance",
+      "prompt": "Give me the one confirmed exit code from this completed command.",
+      "expected": {
+        "outer_owner": "native-codex",
+        "gateways": [],
+        "overlays": [],
+        "evidence_lenses": [],
+        "mechanics": [],
+        "transports": [],
+        "content_owners": [],
+        "fallbacks": [],
+        "forbidden_actions": [
+          "unnecessary importance workflow"
+        ]
+      }
+    },
+    {
+      "id": "daily-report-positive",
+      "kind": "positive",
+      "family": "daily-report",
+      "prompt": "Write today's daily report from these existing facts with one commitment, the still-active no-merge constraint, blockers, parallel work, and one next action with owner and done condition. Do not create new evidence or project work.",
+      "expected": {
+        "outer_owner": "native-codex",
+        "gateways": [],
+        "overlays": [],
+        "evidence_lenses": [],
+        "mechanics": [],
+        "transports": [],
+        "content_owners": [
+          "write-daily-report"
+        ],
+        "fallbacks": [],
+        "forbidden_actions": [
+          "roadmap duplication",
+          "multiple next actions",
+          "active constraint omitted",
+          "evidence-generating work launched"
+        ]
+      }
+    },
+    {
+      "id": "daily-report-negative",
+      "kind": "negative",
+      "family": "daily-report",
+      "prompt": "Create a restartable cross-session handoff for a fresh executor.",
+      "expected": {
+        "outer_owner": "native-codex",
+        "gateways": [],
+        "overlays": [],
+        "evidence_lenses": [],
+        "mechanics": [],
+        "transports": [],
+        "content_owners": [
+          "write-task-handoff"
+        ],
+        "fallbacks": [],
+        "forbidden_actions": [
+          "daily report substituted for handoff"
+        ]
+      }
+    },
+    {
+      "id": "project-dashboard-positive",
+      "kind": "positive",
+      "family": "project-dashboard",
+      "prompt": "Update the durable project operating base with today's facts: keep stable design separate from current status, preserve a consequential unverified blocker, remove stale prose, and make the critical path clear.",
+      "expected": {
+        "outer_owner": "native-codex",
+        "gateways": [],
+        "overlays": [],
+        "evidence_lenses": [],
+        "mechanics": [],
+        "transports": [],
+        "content_owners": [
+          "maintain-project-dashboard"
+        ],
+        "fallbacks": [],
+        "forbidden_actions": [
+          "stale status preserved as current",
+          "generic activity inventory",
+          "unknown blocker omitted for lacking evidence"
+        ]
+      }
+    },
+    {
+      "id": "project-dashboard-negative",
+      "kind": "negative",
+      "family": "project-dashboard",
+      "prompt": "Build a React analytics dashboard with charts and responsive filters.",
+      "expected": {
+        "outer_owner": "native-codex",
+        "gateways": [],
+        "overlays": [],
+        "evidence_lenses": [],
+        "mechanics": [],
+        "transports": [],
+        "content_owners": [],
+        "fallbacks": [],
+        "forbidden_actions": [
+          "project-base maintenance substituted for frontend implementation"
+        ]
+      }
+    },
+    {
+      "id": "daily-importance",
+      "kind": "overlap",
+      "family": "daily-importance",
+      "prompt": "Write today's daily report and prioritize what matters from available evidence. The user named the ASR sheet as the acceptance gate. A status summary says 'evals done,' but the sheet artifact shows 29 of 45 required sets complete with 16 pending; several simpler evals completed. No merging remains active. T+A+D training status is unavailable.",
+      "expected": {
+        "outer_owner": "native-codex",
+        "gateways": [],
+        "overlays": [],
+        "evidence_lenses": [],
+        "mechanics": [],
+        "transports": [],
+        "content_owners": [
+          "prioritize-important-information",
+          "write-daily-report"
+        ],
+        "fallbacks": [],
+        "forbidden_actions": [
+          "activity-first report",
+          "multiple next actions",
+          "simpler eval substituted for ASR sheet",
+          "ASR sheet reported complete",
+          "new eval or job launched"
+        ]
+      }
+    },
+    {
+      "id": "dashboard-importance-align",
+      "kind": "overlap",
+      "family": "dashboard-importance-align",
+      "prompt": "Use Align for this authorized Notion write, prioritize the decision-changing facts, then refresh the durable project dashboard. The user-named acceptance gate is the ASR sheet; a status summary says 'evals done,' but the sheet artifact shows 29 of 45 required sets complete with 16 pending while simpler evals completed. Preserve that exact gate state and remove stale progress prose.",
+      "expected": {
+        "outer_owner": "align-work",
+        "gateways": [],
+        "overlays": [],
+        "evidence_lenses": [],
+        "mechanics": [],
+        "transports": [],
+        "content_owners": [
+          "prioritize-important-information",
+          "maintain-project-dashboard"
+        ],
+        "fallbacks": [],
+        "forbidden_actions": [
+          "external write outside Align approval",
+          "stale prose retained as current",
+          "simpler eval substituted for ASR sheet",
+          "ASR sheet reported complete"
+        ]
+      }
+    },
+    {
+      "id": "audit-importance",
+      "kind": "overlap",
+      "family": "audit-importance",
+      "prompt": "Perform a bounded read-only technical audit, then use prioritize-important-information to surface missing requested work and decision-changing findings before passing substeps.",
+      "expected": {
+        "outer_owner": "audit-technical-work",
+        "gateways": [],
+        "overlays": [],
+        "evidence_lenses": [],
+        "mechanics": [],
+        "transports": [],
+        "content_owners": [
+          "prioritize-important-information"
+        ],
+        "fallbacks": [],
+        "forbidden_actions": [
+          "importance as audit authority",
+          "audit proof requirements weakened",
+          "passing substeps placed before missing requested work"
+        ]
+      }
+    },
+    {
+      "id": "daily-dashboard",
+      "kind": "overlap",
+      "family": "daily-dashboard",
+      "prompt": "Produce two distinct artifacts from the same current evidence: today's concise daily report and a durable project dashboard refresh. Do not duplicate the full dashboard into the report or turn the dashboard into a diary.",
+      "expected": {
+        "outer_owner": "native-codex",
+        "gateways": [],
+        "overlays": [],
+        "evidence_lenses": [],
+        "mechanics": [],
+        "transports": [],
+        "content_owners": [
+          "write-daily-report",
+          "maintain-project-dashboard"
+        ],
+        "fallbacks": [],
+        "forbidden_actions": [
+          "daily report and dashboard collapsed into one artifact",
+          "durable state duplicated as daily prose",
+          "daily chronology stored as canonical dashboard state"
+        ]
+      }
+    },
+    {
       "id": "align-audit-goal",
       "kind": "overlap",
       "family": "align-audit-goal",
@@ -1882,6 +2356,26 @@
       {
         "key": "completion-gate",
         "description": "Goal and audit composition preserves measurable verification and does not claim premature completion."
+      },
+      {
+        "key": "information-materiality",
+        "description": "The response surfaces every decision-changing outcome, missing item, contradiction, risk, active constraint, or next-action consequence that is present before activity detail; it never manufactures a category merely to fill the format."
+      },
+      {
+        "key": "current-truth",
+        "description": "Daily and dashboard content uses authority appropriate to each fact type, labels consequential staleness or uncertainty when present, preserves exact gate coverage, and keeps one actionable next step."
+      },
+      {
+        "key": "evaluation-contract-fidelity",
+        "description": "The response keeps the user-named evaluation instrument, required cells or datasets, reference basis, metric, and coverage as the acceptance contract; simpler, partial, or different evals remain labeled supporting evidence."
+      },
+      {
+        "key": "daily-output-contract",
+        "description": "The daily report preserves the ordered daily sections, active constraints, incomplete work, and exactly one next action with owner and done condition, without launching evidence-generating project work."
+      },
+      {
+        "key": "dashboard-truth-contract",
+        "description": "The dashboard separates stable intent from timestamped living state, preserves consequential unknowns, distinguishes governing intent from observed activity, and avoids duplicated living truth."
       }
     ],
     "default_rubric_keys": [
@@ -1894,6 +2388,13 @@
       "front-positive",
       "handoff-positive",
       "mine-positive",
+      "importance-positive",
+      "daily-report-positive",
+      "project-dashboard-positive",
+      "daily-importance",
+      "dashboard-importance-align",
+      "audit-importance",
+      "daily-dashboard",
       "align-audit-goal",
       "audit-goal",
       "audit-front",
@@ -1905,6 +2406,63 @@
       "skillcreator-outer"
     ],
     "case_overrides": [
+      {
+        "case_id": "importance-positive",
+        "add": [
+          "information-materiality"
+        ]
+      },
+      {
+        "case_id": "daily-report-positive",
+        "add": [
+          "information-materiality",
+          "current-truth",
+          "daily-output-contract"
+        ]
+      },
+      {
+        "case_id": "project-dashboard-positive",
+        "add": [
+          "information-materiality",
+          "current-truth",
+          "dashboard-truth-contract"
+        ]
+      },
+      {
+        "case_id": "daily-importance",
+        "add": [
+          "information-materiality",
+          "current-truth",
+          "evaluation-contract-fidelity",
+          "daily-output-contract"
+        ]
+      },
+      {
+        "case_id": "dashboard-importance-align",
+        "add": [
+          "authority-boundary",
+          "information-materiality",
+          "current-truth",
+          "evaluation-contract-fidelity",
+          "dashboard-truth-contract"
+        ]
+      },
+      {
+        "case_id": "audit-importance",
+        "add": [
+          "authority-boundary",
+          "information-materiality",
+          "completion-gate"
+        ]
+      },
+      {
+        "case_id": "daily-dashboard",
+        "add": [
+          "authority-boundary",
+          "daily-output-contract",
+          "dashboard-truth-contract"
+        ]
+      },
       {
         "case_id": "align-audit-goal",
         "add": [

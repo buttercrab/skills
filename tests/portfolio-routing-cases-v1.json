@@ -547,6 +547,233 @@
       }
     },
     {
+      "id": "importance-positive",
+      "kind": "positive",
+      "family": "importance",
+      "prompt": "Prioritize this noisy status without hiding any decision-changing fact: (1) the required ASR sheet is 29/45 with 16 sets pending; (2) narrower proxy evals passed; (3) requested T+A+D training has not started; (4) the /data location changed and current settings still point to the old path; (5) no merging remains an active constraint; and (6) a summary nevertheless says all eval work is complete. Explain the distinct consequence of each fact.",
+      "expected": {
+        "outer_owner": "native-codex",
+        "gateways": [],
+        "overlays": [],
+        "evidence_lenses": [],
+        "mechanics": [],
+        "transports": [],
+        "content_owners": [
+          "prioritize-important-information"
+        ],
+        "fallbacks": [],
+        "forbidden_actions": [
+          "activity volume used as importance",
+          "failures buried below successful substeps",
+          "sixth material fact omitted to satisfy a length target"
+        ]
+      }
+    },
+    {
+      "id": "importance-negative",
+      "kind": "negative",
+      "family": "importance",
+      "prompt": "Give me the one confirmed exit code from this completed command.",
+      "expected": {
+        "outer_owner": "native-codex",
+        "gateways": [],
+        "overlays": [],
+        "evidence_lenses": [],
+        "mechanics": [],
+        "transports": [],
+        "content_owners": [],
+        "fallbacks": [],
+        "forbidden_actions": [
+          "unnecessary importance workflow"
+        ]
+      }
+    },
+    {
+      "id": "daily-report-positive",
+      "kind": "positive",
+      "family": "daily-report",
+      "prompt": "Write today's daily report from these existing facts with one commitment, the still-active no-merge constraint, blockers, parallel work, and one next action with owner and done condition. Do not create new evidence or project work.",
+      "expected": {
+        "outer_owner": "native-codex",
+        "gateways": [],
+        "overlays": [],
+        "evidence_lenses": [],
+        "mechanics": [],
+        "transports": [],
+        "content_owners": [
+          "write-daily-report"
+        ],
+        "fallbacks": [],
+        "forbidden_actions": [
+          "roadmap duplication",
+          "multiple next actions",
+          "active constraint omitted",
+          "evidence-generating work launched"
+        ]
+      }
+    },
+    {
+      "id": "daily-report-negative",
+      "kind": "negative",
+      "family": "daily-report",
+      "prompt": "Create a restartable cross-session handoff for a fresh executor.",
+      "expected": {
+        "outer_owner": "native-codex",
+        "gateways": [],
+        "overlays": [],
+        "evidence_lenses": [],
+        "mechanics": [],
+        "transports": [],
+        "content_owners": [
+          "write-task-handoff"
+        ],
+        "fallbacks": [],
+        "forbidden_actions": [
+          "daily report substituted for handoff"
+        ]
+      }
+    },
+    {
+      "id": "project-dashboard-positive",
+      "kind": "positive",
+      "family": "project-dashboard",
+      "prompt": "Update the durable project operating base with today's facts: keep stable design separate from current status, preserve a consequential unverified blocker, remove stale prose, and make the critical path clear.",
+      "expected": {
+        "outer_owner": "native-codex",
+        "gateways": [],
+        "overlays": [],
+        "evidence_lenses": [],
+        "mechanics": [],
+        "transports": [],
+        "content_owners": [
+          "maintain-project-dashboard"
+        ],
+        "fallbacks": [],
+        "forbidden_actions": [
+          "stale status preserved as current",
+          "generic activity inventory",
+          "unknown blocker omitted for lacking evidence"
+        ]
+      }
+    },
+    {
+      "id": "project-dashboard-negative",
+      "kind": "negative",
+      "family": "project-dashboard",
+      "prompt": "Build a React analytics dashboard with charts and responsive filters.",
+      "expected": {
+        "outer_owner": "native-codex",
+        "gateways": [],
+        "overlays": [],
+        "evidence_lenses": [],
+        "mechanics": [],
+        "transports": [],
+        "content_owners": [],
+        "fallbacks": [],
+        "forbidden_actions": [
+          "project-base maintenance substituted for frontend implementation"
+        ]
+      }
+    },
+    {
+      "id": "daily-importance",
+      "kind": "overlap",
+      "family": "daily-importance",
+      "prompt": "Write today's daily report and prioritize what matters from available evidence. The user named the ASR sheet as the acceptance gate. A status summary says 'evals done,' but the sheet artifact shows 29 of 45 required sets complete with 16 pending; several simpler evals completed. No merging remains active. T+A+D training status is unavailable.",
+      "expected": {
+        "outer_owner": "native-codex",
+        "gateways": [],
+        "overlays": [],
+        "evidence_lenses": [],
+        "mechanics": [],
+        "transports": [],
+        "content_owners": [
+          "prioritize-important-information",
+          "write-daily-report"
+        ],
+        "fallbacks": [],
+        "forbidden_actions": [
+          "activity-first report",
+          "multiple next actions",
+          "simpler eval substituted for ASR sheet",
+          "ASR sheet reported complete",
+          "new eval or job launched"
+        ]
+      }
+    },
+    {
+      "id": "dashboard-importance-align",
+      "kind": "overlap",
+      "family": "dashboard-importance-align",
+      "prompt": "Use Align for this authorized Notion write, prioritize the decision-changing facts, then refresh the durable project dashboard. The user-named acceptance gate is the ASR sheet; a status summary says 'evals done,' but the sheet artifact shows 29 of 45 required sets complete with 16 pending while simpler evals completed. Preserve that exact gate state and remove stale progress prose.",
+      "expected": {
+        "outer_owner": "align-work",
+        "gateways": [],
+        "overlays": [],
+        "evidence_lenses": [],
+        "mechanics": [],
+        "transports": [],
+        "content_owners": [
+          "prioritize-important-information",
+          "maintain-project-dashboard"
+        ],
+        "fallbacks": [],
+        "forbidden_actions": [
+          "external write outside Align approval",
+          "stale prose retained as current",
+          "simpler eval substituted for ASR sheet",
+          "ASR sheet reported complete"
+        ]
+      }
+    },
+    {
+      "id": "audit-importance",
+      "kind": "overlap",
+      "family": "audit-importance",
+      "prompt": "Perform a bounded read-only technical audit, then use prioritize-important-information to surface missing requested work and decision-changing findings before passing substeps.",
+      "expected": {
+        "outer_owner": "audit-technical-work",
+        "gateways": [],
+        "overlays": [],
+        "evidence_lenses": [],
+        "mechanics": [],
+        "transports": [],
+        "content_owners": [
+          "prioritize-important-information"
+        ],
+        "fallbacks": [],
+        "forbidden_actions": [
+          "importance as audit authority",
+          "audit proof requirements weakened",
+          "passing substeps placed before missing requested work"
+        ]
+      }
+    },
+    {
+      "id": "daily-dashboard",
+      "kind": "overlap",
+      "family": "daily-dashboard",
+      "prompt": "Produce two distinct artifacts from the same current evidence: today's concise daily report and a durable project dashboard refresh. Do not duplicate the full dashboard into the report or turn the dashboard into a diary.",
+      "expected": {
+        "outer_owner": "native-codex",
+        "gateways": [],
+        "overlays": [],
+        "evidence_lenses": [],
+        "mechanics": [],
+        "transports": [],
+        "content_owners": [
+          "write-daily-report",
+          "maintain-project-dashboard"
+        ],
+        "fallbacks": [],
+        "forbidden_actions": [
+          "daily report and dashboard collapsed into one artifact",
+          "durable state duplicated as daily prose",
+          "daily chronology stored as canonical dashboard state"
+        ]
+      }
+    },
+    {
       "id": "align-audit-goal",
       "kind": "overlap",
       "family": "align-audit-goal",

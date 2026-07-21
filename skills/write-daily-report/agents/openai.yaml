@@ -1,0 +1,5 @@
+# portfolio-routing-v1-row-sha256: f57bea682d25c0b3685ef799b454f05ab9b0ce14c22702e61b7fd26f7d5e952e
+interface:
+  display_name: "Write Daily Report"
+  short_description: "Write concise daily reports with one next action"
+  default_prompt: "Use $write-daily-report to turn current project evidence into a concise daily report with one next action."

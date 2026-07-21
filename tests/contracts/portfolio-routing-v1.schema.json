@@ -264,7 +264,10 @@
             "refactor-by-invariant",
             "brief-linked-evidence",
             "map-technical-landscapes",
-            "mine-history-tool-landscapes"
+            "mine-history-tool-landscapes",
+            "prioritize-important-information",
+            "write-daily-report",
+            "maintain-project-dashboard"
             ]
           },
           "case_family": {
@@ -420,7 +423,10 @@
             "refactor-by-invariant",
             "brief-linked-evidence",
             "map-technical-landscapes",
-            "mine-history-tool-landscapes"
+            "mine-history-tool-landscapes",
+            "prioritize-important-information",
+            "write-daily-report",
+            "maintain-project-dashboard"
           ]
         },
         "role_taxonomy": {
@@ -459,8 +465,8 @@
         },
         "rows": {
           "type": "array",
-          "minItems": 11,
-          "maxItems": 11,
+          "minItems": 14,
+          "maxItems": 14,
           "items": {
             "$ref": "#/$defs/row"
           }

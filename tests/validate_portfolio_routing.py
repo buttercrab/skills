@@ -46,6 +46,7 @@ EXTERNAL_ROUTE_ORDER = (
     "skill-creator",
 )
 OVERLAP_FAMILIES = {
+    "audit-importance",
     "audit-brief",
     "audit-front",
     "audit-goal",
@@ -53,12 +54,20 @@ OVERLAP_FAMILIES = {
     "front-align-handoff",
     "agentmail-front-native",
     "brief-map-history",
+    "daily-importance",
+    "dashboard-importance-align",
+    "daily-dashboard",
     "propagate-refactor",
     "skill-authoring",
     "unavailable-private-source",
     "unavailable-public-source",
     "unavailable-routine-collaboration",
     "unavailable-front-approved-change",
+}
+REQUIRED_COMPOSITION_EDGES = {
+    ("audit-technical-work", "prioritize-important-information", "content-owner"),
+    ("write-daily-report", "prioritize-important-information", "content-owner"),
+    ("maintain-project-dashboard", "prioritize-important-information", "content-owner"),
 }
 ROUTING_BLOCK_BEGIN = "<!-- BEGIN GENERATED PORTFOLIO ROUTING v1 -->"
 ROUTING_BLOCK_END = "<!-- END GENERATED PORTFOLIO ROUTING v1 -->"
@@ -318,6 +327,13 @@ def validate(root: Path, overlay: Path | None = None) -> list[str]:
         for fallback in row["fallbacks"]:
             if fallback["route"] not in known_routes:
                 errors.append(f"contract: {name} names unavailable fallback route {fallback['route']!r}")
+
+    for source, target, relation in sorted(REQUIRED_COMPOSITION_EDGES):
+        if (target, relation) not in composition_edges.get(source, set()):
+            errors.append(
+                f"contract: missing required direct composition edge "
+                f"{source!r} -> {target!r} as {relation!r}"
+            )
 
     expected_cases = {
         "schema_version": "portfolio-routing-cases/v1",

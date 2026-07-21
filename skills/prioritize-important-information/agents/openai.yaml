@@ -1,0 +1,5 @@
+# portfolio-routing-v1-row-sha256: aa55707b4a7d66e176045a40042c6d13870c599794192e19ef439ee400422c8f
+interface:
+  display_name: "Prioritize Important Information"
+  short_description: "Surface decision-changing facts before activity detail"
+  default_prompt: "Use $prioritize-important-information to rank these facts by what changes my decision, goal, next action, risk, or trust."

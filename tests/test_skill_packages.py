@@ -66,6 +66,20 @@ EXPECTED = {
         "scripts/validate_history_evidence.py",
         "tests/test_history_pipeline.py",
     },
+    "prioritize-important-information": {
+        "SKILL.md",
+        "agents/openai.yaml",
+        "references/importance-examples.md",
+    },
+    "write-daily-report": {
+        "SKILL.md",
+        "agents/openai.yaml",
+    },
+    "maintain-project-dashboard": {
+        "SKILL.md",
+        "agents/openai.yaml",
+        "references/dashboard-structure.md",
+    },
 }
 
 
@@ -156,12 +170,67 @@ class SkillPackageTests(unittest.TestCase):
                 "prior approval as nonportable",
                 "reproducible snapshot marker",
             ],
+            "prioritize-important-information": [
+                "A fact is important when omitting it could cause a wrong decision or action.",
+                "Importance and confidence are separate.",
+                "Activity is not success.",
+                "A proxy, simpler check, partial run, or agent-preferred metric does not replace the specified gate.",
+                "keep the specified gate `not done` or partial until the complete named contract",
+                "Links may hold supporting evidence, never unnamed material facts.",
+                "Never demote a decision-changing fact merely to satisfy a length target.",
+            ],
+            "write-daily-report": [
+                "Give exactly one action, its owner, its done condition",
+                "Preparing a report is read-only project work.",
+                "Run a named evaluation only when the user separately requested or authorized that exact evaluation contract",
+                "State one current commitment, its done condition, and any still-active constraint",
+                "Invocation of this skill alone never authorizes an external write or any evidence-generating project work.",
+                "Put simpler evaluations under supporting evidence; never promote them to completion of the named gate.",
+            ],
+            "maintain-project-dashboard": [
+                "Maintain a compact decision surface for operating a project.",
+                "If not, remain read-only and provide a proposed structure or patch.",
+                "Show progress only when it changes a gate, ETA, decision, or next action.",
+                "Assign authority by fact type instead of applying one global source order:",
+                "never substitute an easier eval silently.",
+            ],
         }
         for name, phrases in expectations.items():
             text = (SKILLS / name / "SKILL.md").read_text()
             for phrase in phrases:
                 with self.subTest(skill=name, phrase=phrase):
                     self.assertIn(phrase, text)
+
+    def test_reporting_contract_examples_are_pinned(self):
+        importance = (SKILLS / "prioritize-important-information" / "SKILL.md").read_text()
+        daily = (SKILLS / "write-daily-report" / "SKILL.md").read_text()
+        importance_examples = (
+            SKILLS
+            / "prioritize-important-information"
+            / "references"
+            / "importance-examples.md"
+        ).read_text()
+        dashboard_reference = (
+            SKILLS
+            / "maintain-project-dashboard"
+            / "references"
+            / "dashboard-structure.md"
+        ).read_text()
+
+        self.assertNotIn("at most five", importance.lower())
+        self.assertNotIn("at most five", daily.lower())
+        self.assertNotIn("disclose the exact overflow", importance.lower())
+        self.assertNotIn("disclose the exact overflow", daily.lower())
+        self.assertIn("name every material fact on the visible decision surface", importance)
+        self.assertIn("name every material delta inline", daily)
+        self.assertIn("29 of 45 required sets", importance_examples)
+        self.assertIn("16 remain", importance_examples)
+        self.assertIn("The simpler evaluations are supporting evidence", importance_examples)
+        self.assertIn(
+            "ASR sheet: 29/45 sets, 16 pending (as of 2026-07-19)",
+            dashboard_reference,
+        )
+        self.assertIn("Omni Model Base", dashboard_reference)
 
     def test_trial_and_evaluator_catalogs_are_separate(self):
         self.assertFalse((ROOT / "tests" / "forward_test_cases.json").exists())

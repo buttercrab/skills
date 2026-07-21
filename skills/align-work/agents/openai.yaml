@@ -1,4 +1,4 @@
-# portfolio-routing-v1-row-sha256: f52c24adf8a14b7a66d0297c9fe40558c94425077da6dedf749ccebb8947b27f
+# portfolio-routing-v1-row-sha256: a1c40130e979be4f9c98abb77c057ba0f31d48164e5bc5dd079f28321f412e54
 interface:
   display_name: "Align Work"
   short_description: "Align work proportionally with one approval"

@@ -43,6 +43,36 @@ class PortfolioRoutingTests(unittest.TestCase):
         )
         self.assertEqual(0, result.returncode, result.stderr)
 
+    def test_reporting_composition_edges_are_direct(self):
+        contract = json.loads((ROOT / "tests" / "portfolio-routing-v1.json").read_text())
+        rows = {row["skill"]: row for row in contract["rows"]}
+        required = {
+            ("audit-technical-work", "prioritize-important-information", "content-owner"),
+            ("write-daily-report", "prioritize-important-information", "content-owner"),
+            ("maintain-project-dashboard", "prioritize-important-information", "content-owner"),
+        }
+        for source, target, relation in required:
+            with self.subTest(source=source, target=target):
+                self.assertIn(
+                    {"route": target, "relation": relation},
+                    rows[source]["legal_compositions"],
+                )
+
+    def test_missing_required_reporting_edge_fails_closed(self):
+        contract = json.loads((ROOT / "tests" / "portfolio-routing-v1.json").read_text())
+        daily = next(row for row in contract["rows"] if row["skill"] == "write-daily-report")
+        daily["legal_compositions"] = []
+        with tempfile.TemporaryDirectory() as directory:
+            overlay = Path(directory)
+            target = overlay / "tests" / "portfolio-routing-v1.json"
+            target.parent.mkdir(parents=True)
+            target.write_text(json.dumps(contract, indent=2) + "\n", encoding="utf-8")
+            errors = self.validator.validate(ROOT, overlay)
+            self.assertTrue(
+                any("missing required direct composition edge" in error for error in errors),
+                errors,
+            )
+
     def test_projection_writer_preserves_existing_source_modes(self):
         contract = json.loads((ROOT / "tests" / "portfolio-routing-v1.json").read_text())
         with tempfile.TemporaryDirectory() as directory:
