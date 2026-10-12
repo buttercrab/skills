@@ -1,83 +1,66 @@
-# Skills
+# Personal agent skills
 
-This repository contains authored Codex skills and their implementation code.
+Six task-focused skills. Each works independently; there is no portfolio router or required planning framework.
 
-## Skills
+| Skill | Purpose | Invocation |
+| --- | --- | --- |
+| `audit-technical-work` | Check technical claims against current evidence and report defects or missing proof. | Normal discovery |
+| `refactor-by-invariant` | Preserve behavior while simplifying ownership and dependencies. | Normal discovery |
+| `propagate-contract-changes` | Carry a changed contract across definitions, producers, boundaries, and consumers. | Normal discovery |
+| `write-task-handoff` | Prepare a restartable continuation with current state, decisions, and evidence. | Normal discovery |
+| `research-with-evidence` | Synthesize supplied sources or discover and compare options. | Normal discovery |
+| `responsive-coordinator` | Keep the main agent conversational while workers execute the task. | Explicit opt-in only |
 
-- `skills/agent-mail` - Rust/PostgreSQL Agent Mail service and deployment docs.
-- `skills/align-work` - Approval workflow for coding tasks with material unresolved decisions or elevated mutation risk.
-- `skills/audit-technical-work` - Bounded read-only technical audits with requirement-to-evidence accounting.
-- `skills/brief-linked-evidence` - Cross-provider evidence reconciliation and validated provenance briefs.
-- `skills/front-agent-orchestration` - Human-facing gateway and main-agent orchestration protocol over Agent Mail.
-- `skills/execute-goal-loop` - Explicit goal-driven persistence with hard verification and review gates.
-- `skills/map-technical-landscapes` - Bounded technical ecosystem discovery, canonicalization, and comparison.
-- `skills/mine-history-tool-landscapes` - Privacy-preserving history lineage and recurring-capability analysis.
-- `skills/propagate-contract-changes` - Canonical contract propagation across producers, boundaries, consumers, and proof surfaces.
-- `skills/refactor-by-invariant` - Structural refactoring around explicit invariants and canonical ownership.
-- `skills/write-task-handoff` - Restartable cross-session handoffs that preserve canonical state and authority boundaries.
+## Responsive coordination
 
-## Repository Layout
+Invoke `$responsive-coordinator` or ask to turn responsive coordination on. The mode stays active in that chat until you turn it off. Creating, reviewing, or discussing the skill does not activate it.
 
-- `skills/` - skill source directories.
-- `.env/` - local deployment environment, credentials, SSH keys, and certificates. This directory is intentionally gitignored.
-- `install.sh` - links repo skills into `~/.agents/skills` and `~/.codex/skills`.
+The main agent handles discussion, scope, assignments, steering, and synthesis. Workers perform exploration, detailed planning, changes, research, testing, and review. Native subagents are preferred; no Agent Mail service, Go runtime, or second user-owned chat is required. On deactivation, the coordinator reconciles workers before returning to normal execution. Host blocking calls can still delay responses; the skill cannot guarantee a response time.
 
-## Install
-
-```bash
-./install.sh
-```
-
-No arguments preserves install-all behavior. Selection is deterministic and accepts only cataloged skill names:
+## Install and migrate
 
 ```bash
 ./install.sh --list
-./install.sh --only align-work,execute-goal-loop
-./install.sh --exclude front-agent-orchestration
+./install.sh
+./install.sh --only research-with-evidence,responsive-coordinator
+./install.sh --exclude responsive-coordinator
 ```
 
-Python 3 is required. Go is used only for the offline `front-agent-orchestration` build preflight. When Go is unavailable in a default or mixed selection, the installer skips that skill, reports the reason, and installs the remaining skills successfully. A Front-only selection still fails because no requested skill can be installed, and a build failure with Go present remains a hard preflight failure before either target changes. The installer rejects non-symlink targets and symlinked parent directories, takes one lock for both Agent and Codex targets, writes and fsyncs a recovery journal before mutation, and keeps replaced symlinks in same-filesystem backup directories. A handled failure rolls back both targets and preserves a failure journal; a later invocation recovers an interrupted journal before starting new work.
-
-Agent Mail also needs the remote MCP server installed by URL:
+Python 3 is the only installer prerequisite. Full installation links the six skills into `~/.agents/skills` and `~/.codex/skills` and retires known links owned by this repository for the seven removed skill names. Selective `--only` or `--exclude` installations do not retire old links unless `--migrate` is supplied:
 
 ```bash
-codex mcp add agent-mail --url https://agent-mail.cc/mcp --bearer-token-env-var AGENT_MAIL_TOKEN
+./install.sh --only research-with-evidence --migrate
 ```
 
-Start Codex with `AGENT_MAIL_TOKEN` in the environment so the MCP client can authenticate.
+Retirement recognizes absolute and relative links, including dangling links, only when their lexical target is this checkout's exact former skill path. Foreign retired links and real directories are preserved and reported. Selected active non-link targets are rejected. Replaced active links and retired links remain in same-filesystem backup directories. Both install targets share one lock, durable journal, rollback, and crash recovery; legacy install-only journals remain recoverable. Inspect the printed backup paths before any manual removal.
 
-## Canonical portfolio routing
+## Preserved software
 
-`tests/portfolio-routing-v1.json` is the only editable source of portfolio routing truth. Package descriptions, agent metadata, generated routing contract blocks, and evaluator-only cases are validated projections. Every `SKILL.md` contains exactly one delimited generated routing block covering triggers, exclusions, ownership, precedence, legal compositions, fallbacks, and forbidden actions. Each `agents/openai.yaml` also carries a generated `portfolio-routing-v1-row-sha256` comment that binds every field of its canonical row. Update the canonical contract first, run `scripts/sync_portfolio_routing.py --write`, and then run `tests/validate_portfolio_routing.py`; editing a projection alone is contract drift. `scripts/sync_portfolio_routing.py --check` verifies every generated routing projection without changing files.
+The installable catalog is only `skills/*/SKILL.md`. Retiring instructions did not remove their useful software or change deployed services:
 
-The routing contract classifies all eleven skills, closes precedence and fallback rules, and binds separate trial and evaluator catalogs. Its role grammar is exclusive: exactly one of native Codex, Align, or standalone Audit owns the task envelope, while Front remains a gateway, Goal Loop an overlay, nested Audit an evidence lens, Agent Mail or built-in collaboration a transport, package and contract skills mechanics, and handoff or research workflows content owners. A selected route appears in only one role and every supporting route must be reachable from the outer owner through a directional composition edge.
+- `integrations/agent-mail/`: Rust/PostgreSQL service and operational documentation.
+- `integrations/front-agent/`: legacy gateway/main protocol runtime; separate from the new coordinator.
+- `legacy/align-work/`: existing packet validation, recovery, transfer, and preservation helpers.
+- `tools/agent-history/`: private normalized-history index and validators.
+- `tools/evidence-brief/` and `tools/technical-landscape/`: optional validators for the former structured formats.
+- `tools/validation/`: isolated local runner, state manifests, and baseline checks.
 
-`tests/portfolio-routing-prompts-v1.json` is the only catalog copied into an isolated trial root; its closed schema permits only case identity, family, kind, and raw prompt text. The trial also receives the canonical role grammar, external route profiles such as `skill-creator`, and the candidate packages, but no case-specific expected route. Expected routes and rubrics remain evaluator-only in `tests/portfolio-routing-cases-v1.json` and `tests/portfolio-routing-rubrics-v1.json`, and are never copied into the trial root.
+Credentials and operational state remain in the ignored `.env/`, `.agent-mail/`, and `.planning/` locations. Preserved software is not installed as a skill. See [migration details](docs/migration.md) and [validation evidence](docs/validation.md).
 
 ## Validate
 
+Use an isolated dependency environment rather than modifying the system Python:
+
 ```bash
-python3 -m venv /tmp/skills-validation-venv
-/tmp/skills-validation-venv/bin/python -m pip install PyYAML==6.0.3 jsonschema==4.26.0
-PY=/tmp/skills-validation-venv/bin/python
-for d in skills/*; do
-  [[ -f "$d/SKILL.md" ]] || continue
-  "$PY" "${CODEX_HOME:-$HOME/.codex}/skills/.system/skill-creator/scripts/quick_validate.py" "$d"
-done
-make -C skills/agent-mail test
-make -C skills/agent-mail real-test
-(cd skills/front-agent-orchestration && go test ./... -count=1 -timeout=30s)
-(cd skills/front-agent-orchestration && FRONT_AGENT_MAIL_BACKEND=memory scripts/smoke_front_agent_protocol.sh)
-"$PY" -B tests/validate_portfolio_routing.py --root .
-"$PY" -B scripts/sync_portfolio_routing.py --check
-"$PY" -m unittest discover -s skills/brief-linked-evidence/tests -p 'test_*.py'
-"$PY" -m unittest discover -s skills/align-work/tests -p 'test_*.py'
-"$PY" -m unittest discover -s skills/execute-goal-loop/tests -p 'test_*.py'
-"$PY" -m unittest discover -s skills/map-technical-landscapes/tests -p 'test_*.py'
-"$PY" -m unittest discover -s skills/mine-history-tool-landscapes/tests -p 'test_*.py'
-"$PY" -m unittest discover -s tests -p 'test_*.py'
+uv run --with pyyaml --with jsonschema python -B -m unittest discover -s tests
+uv run --with pyyaml --with jsonschema python -B -m unittest discover -s legacy/align-work/tests
+uv run --with pyyaml --with jsonschema python -B -m unittest discover -s tools/agent-history/tests
+uv run --with pyyaml --with jsonschema python -B -m unittest discover -s tools/evidence-brief/tests
+uv run --with pyyaml --with jsonschema python -B -m unittest discover -s tools/technical-landscape/tests
+(cd integrations/front-agent && GOPROXY=off go test ./... -count=1 -timeout=60s)
+cargo test --locked --manifest-path integrations/agent-mail/Cargo.toml
 ```
 
-Agent Mail deployment secrets and operational state live under `.env/agent-mail/` in this repository and are not tracked.
+Use the installed skill-creator's `quick_validate.py` on each active skill. Packaging checks validate metadata, discovery policy, and resource links. Behavioral trials inspect actual agent decisions and task outcomes; text matching is not behavioral proof.
 
-`make -C skills/agent-mail public-mcp-smoke` is a live post-deployment check, not a local validation command. It creates persistent test records in the deployed service and must only run with explicit production authorization and the script's live-confirmation gate.
+The isolation runner needs macOS `sandbox-exec`; PostgreSQL integration checks additionally need local PostgreSQL tools. See `tools/validation/README.md`. Public MCP smoke creates persistent production records and requires separate production authorization; it is not a local validation step.

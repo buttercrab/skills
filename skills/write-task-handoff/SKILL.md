@@ -1,59 +1,38 @@
 ---
 name: write-task-handoff
-description: Create a self-contained, restartable handoff for a task moving across sessions, agents, context limits, or ownership boundaries. Use for an explicit handoff, continuation prompt, resume artifact, or transfer package. Handoff owns artifact content and export only. When an align-work packet exists, export from it; only Align may mutate, transfer, or recover the packet, and an actual transfer must be proven by a helper-produced transfer receipt. Agent Mail may transport the payload and Front Agent may coordinate delivery. Do not use for ordinary status summaries, current-task subagent coordination, or to grant mutation or publication authority.
+description: Create a restartable continuation prompt or artifact for work moving across sessions, agents, or context limits. Capture current state, decisions, evidence, authorization provenance, and the first resume action without requiring the original conversation.
 ---
 
 # Write Task Handoff
 
-Produce a restartable task artifact that a fresh executor can use without the conversation. Preserve canonical state and authority boundaries instead of creating a competing record.
+A handoff should let a fresh executor continue the task safely and efficiently. Preserve decisions and unfinished work; link existing artifacts instead of reproducing their full contents.
 
-## Select the source of truth
+## Establish current state
 
-1. Identify the target executor, intended use, and durable destination if the user requested a file.
-2. If an `align-work` packet exists, validate it and use it as canonical. Export a handoff from a sealed or approved packet without changing protected content. Only `align-work` may mutate, transfer, or recover its packet. This skill validates and consumes the helper-produced transfer receipt; it never runs the packet transfer itself. Only Align may run `planning_packet.py handoff`; this skill never invokes it. Do not create a second canonical ledger.
-3. If a Front Agent pairing is active, compose the payload here but let that workflow own delivery through `front-agent send`; do not bypass its sender, direction, method, or human-confirmation fences with raw Agent Mail. Otherwise, when Agent Mail is requested, compose the payload here and let `agent-mail` own transport.
-4. Treat prior approval as nonportable. State what a fresh executor must reauthorize before mutation.
+Use the requested destination and format. When none is specified, provide a continuation artifact in the conversation or choose a durable workspace location if saving is part of the request.
 
-Distinguish an informational export from an ownership transfer. An export reads current canonical state and creates no execution authority. For an actual coordinator or session transfer of an `align-work` packet, require Align's helper-produced `packet-transfer-receipt/v1` binding the expected revision, epoch, generation, old and new coordinator IDs, paused state, cleared runtime authority, and execution head. Resolve the installed Align skill from its loaded `SKILL.md` and run `python3 "$ALIGN_WORK_DIR/scripts/work_authority.py" validate-transfer --receipt <receipt.json> --repo <canonical-root>` read-only. If that receipt is absent, malformed, stale, cross-root, or invalid, label the transfer incomplete and give the fresh executor the guarded recovery and reauthorization path; never imply that a summary moved packet ownership.
+Inspect the current checkout and relevant task artifacts before reporting them as current. Record a revision, observation time, or other reproducible state marker appropriate to the task. Label earlier receipts as historical when they no longer match the current state. Refresh only facts that matter to resumption; do not rerun expensive verification merely to decorate the handoff.
 
-## Reconstruct the task
+If the task has an existing plan, packet, or checkpoint, reference it and summarize what changed since it was written. Do not create a competing mutable ledger or modify coordination state merely to write a summary. A handoff document alone does not acquire a lock or transfer operational ownership; use the existing coordination mechanism when an actual transfer is required.
 
-Inspect current authoritative artifacts and include:
+## Include what the next executor needs
 
-- goal and completion definition;
-- scope, non-goals, constraints, and preservation boundaries;
-- decisions, rationale, rejected alternatives, and unresolved choices;
-- exact repository, branch, worktree, runtime, deployment, artifact, or external state;
-- changed files and partial effects, classifying every dirty path as `owned`, `unrelated`, or `unknown` without hiding user work;
-- completed checks with commands, interactions, receipts, and observation times;
-- blockers, failures, unknowns, risks, and unrun checks;
-- ordered next actions with dependencies and stopping conditions;
-- volatile facts to recheck and authority required for future actions.
+Scale detail to the task. Preserve:
 
-Separate observation, inference, assumption, and user decision. Use exact paths, identifiers, error text, versions, and hashes when they are safe and materially useful. Never include credentials, signed URLs, private tokens, or raw sensitive history.
+- The requested outcome and observable completion conditions.
+- Scope, constraints, consequential decisions and their rationale, and unresolved choices.
+- Exact repository/worktree, branch or revision, relevant artifacts, and current runtime state when needed.
+- Completed changes and partial effects. Identify task-owned dirty paths and unrelated or uncertain changes the next executor must preserve.
+- Verification already performed: relevant commands or interactions, results, revision/environment, and limitations. Distinguish suggested, attempted, failed, and passed checks.
+- Remaining work, blockers, dependencies, and the first concrete resume action.
+- Volatile facts that must be refreshed before acting, such as deployed versions, remote state, or another worker's ownership.
 
-Record an observation time and a reproducible snapshot marker such as a commit, packet revision/digest, manifest hash, or current-state command set. If inputs change while preparing the handoff, rerun affected checks and replace stale receipts rather than presenting mixed snapshots.
+Carry the provenance and scope of existing authorization: what the user actually requested or approved, any subsequent narrowing or cancellation, and actions still outside that scope. A handoff must neither erase valid authorization merely because the executor changes nor imply a broader grant from a summary or worker recommendation. If authorization cannot be established in the receiving environment, name that uncertainty and the dependent action rather than imposing a blanket restart approval.
 
-## Make restart possible
+Separate observation, user decision, inference, and assumption where the distinction affects the next step. Include exact errors and identifiers only when useful and safe; exclude credentials, signed URLs, tokens, and unnecessary sensitive history.
 
-Write the handoff so it never depends on “as discussed above,” hidden chat context, or an executor guessing which state is current. Link to canonical artifacts instead of duplicating mutable detail when a link is sufficient. End with the first safe resume step and the checks that must precede it.
+## Make continuation unambiguous
 
-Creating or delivering the handoff does not authorize implementation, installation, publication, deployment, or destructive action. Report where the canonical state lives and whether delivery was merely prepared or actually completed by an authorized transport workflow.
+Use current facts and concrete paths rather than “as discussed above” or “finish the remaining items.” End with the first resume action and its prerequisite check, if any. Link stable artifacts; summarize mutable remote facts with their observation time instead of implying they remain live.
 
-<!-- BEGIN GENERATED PORTFOLIO ROUTING v1 -->
-## Portfolio routing contract (generated)
-
-This block is generated from `tests/portfolio-routing-v1.json`; do not edit it by hand.
-
-- `skill`: "write-task-handoff"
-- `routing_role`: "content"
-- `portfolio_position`: "Restartable handoff artifact content and export workflow."
-- `positive_request_classes`: ["explicit handoff","continuation prompt","resume artifact","transfer package"]
-- `triggers`: ["The user explicitly asks for a restartable artifact across sessions, agents, context limits, or ownership boundaries."]
-- `exclusions`: ["ordinary status summary","current-task subagent coordination","granting mutation or publication authority"]
-- `state_owner`: "Owns handoff content and export only; Align exclusively owns packet mutation, transfer, and recovery."
-- `precedence`: ["When an Align packet exists, export from it and consume a helper-produced transfer receipt for actual transfers.","Agent Mail owns transport and Front owns gateway delivery."]
-- `legal_compositions`: [{"route":"agent-mail","relation":"transport"}]
-- `fallbacks`: [{"condition":"Only a simple status summary is requested.","route":"native-codex","result":"Provide a native summary without a handoff workflow."}]
-- `forbidden_actions`: ["mutate Align packet state","perform packet transfer or recovery","imply ownership transfer from export","carry portable execution authority"]
-<!-- END GENERATED PORTFOLIO ROUTING v1 -->
+Creating a document and delivering it are different outcomes. State where it was saved and whether requested delivery occurred. Do not message another person or agent merely because a handoff was prepared; use the user's authorized destination and transport. Report any unfinished ownership transfer separately from the completed writing work.

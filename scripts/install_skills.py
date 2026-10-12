@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Selective, offline-preflighted, recoverable skill installer."""
+"""Selective, recoverable skill installer and owned-link migration."""
 
 from __future__ import annotations
 
@@ -9,17 +9,19 @@ import json
 import os
 from pathlib import Path
 import re
-import shutil
 import signal
 import stat
-import subprocess
 import sys
-import tempfile
 import time
 import uuid
 
 
-JOURNAL_VERSION = "skills-install-transaction/v1"
+JOURNAL_VERSION = "skills-install-transaction/v2"
+LEGACY_JOURNAL_VERSION = "skills-install-transaction/v1"
+RETIRED_NAMES = frozenset({
+    "align-work", "execute-goal-loop", "mine-history-tool-landscapes", "agent-mail",
+    "brief-linked-evidence", "map-technical-landscapes", "front-agent-orchestration",
+})
 NAME_RE = re.compile(r"^[a-z0-9][a-z0-9-]{0,63}$")
 TX_RE = re.compile(r"^[A-Za-z0-9][A-Za-z0-9-]{0,79}$")
 
@@ -143,44 +145,88 @@ def exact_link(path: Path, target: str) -> bool:
     return path.is_symlink() and os.readlink(path) == target
 
 
+def owned_retired_link(path: Path, source: str) -> bool:
+    """Compare lexically: retired sources may be absent and links may be relative."""
+    if not path.is_symlink():
+        return False
+    return canonical_absolute(path.parent / os.readlink(path), "retired link") == Path(source)
+
+
 def validate_journal(value: dict, repo: Path) -> None:
     expected = {
-        "schema_version",
-        "transaction_id",
-        "repository_root",
-        "created_directories",
-        "backup_roots",
-        "operations",
+        "schema_version", "transaction_id", "repository_root",
+        "created_directories", "backup_roots", "operations",
     }
-    if set(value) != expected or value.get("schema_version") != JOURNAL_VERSION:
+    version = value.get("schema_version")
+    if set(value) != expected or not isinstance(version, str) or version not in {JOURNAL_VERSION, LEGACY_JOURNAL_VERSION}:
         raise InstallError("closed transaction journal fields differ")
     if value.get("repository_root") != str(repo):
         raise InstallError("pending transaction belongs to another repository")
-    if not isinstance(value.get("transaction_id"), str) or TX_RE.fullmatch(value["transaction_id"]) is None:
+    txid = value.get("transaction_id")
+    if not isinstance(txid, str) or TX_RE.fullmatch(txid) is None:
         raise InstallError("invalid journal transaction ID")
     for field in ("created_directories", "backup_roots", "operations"):
         if not isinstance(value.get(field), list):
             raise InstallError(f"journal {field} must be a list")
+    targets = set()
+    roots = set()
+    parents = set()
     for operation in value["operations"]:
-        if not isinstance(operation, dict) or set(operation) != {
-            "name", "source", "target", "backup", "original"
-        }:
+        fields = {"name", "source", "target", "backup", "original"}
+        if version == JOURNAL_VERSION:
+            fields.add("action")
+        if not isinstance(operation, dict) or set(operation) != fields:
             raise InstallError("invalid journal operation")
-        if NAME_RE.fullmatch(operation.get("name", "")) is None:
+        name = operation.get("name")
+        if not isinstance(name, str) or NAME_RE.fullmatch(name) is None:
             raise InstallError("invalid journal skill name")
+        action = operation.get("action", "install")
+        if not isinstance(action, str) or action not in {"install", "retire"}:
+            raise InstallError("invalid journal operation action")
         original = operation.get("original")
-        if not isinstance(original, dict) or original.get("kind") not in {"absent", "symlink"}:
+        if (not isinstance(original, dict) or not isinstance(original.get("kind"), str)
+                or original.get("kind") not in {"absent", "symlink"}):
             raise InstallError("invalid journal original target")
         if original["kind"] == "absent" and set(original) != {"kind"}:
             raise InstallError("invalid absent journal target")
         if original["kind"] == "symlink" and (
             set(original) != {"kind", "target"} or not isinstance(original["target"], str)
+            or "\x00" in original["target"]
         ):
             raise InstallError("invalid symlink journal target")
         for field in ("source", "target", "backup"):
+            if not isinstance(operation[field], str):
+                raise InstallError(f"journal {field} must be a string")
             path = canonical_absolute(operation[field], f"journal {field}")
             if str(path) != operation[field]:
                 raise InstallError(f"journal {field} is not normalized")
+        target = Path(operation["target"])
+        root = target.parent / f".skills-install-backup-{txid}"
+        if target.name != name or operation["source"] != str(repo / "skills" / name):
+            raise InstallError("journal skill paths differ")
+        if operation["backup"] != str(root / name) or target in targets:
+            raise InstallError("journal backup path or duplicate target differs")
+        if action == "retire" and (
+            name not in RETIRED_NAMES or original["kind"] != "symlink"
+            or canonical_absolute(target.parent / original["target"], "retired original")
+            != Path(operation["source"])
+        ):
+            raise InstallError("journal retirement is not an owned retired link")
+        targets.add(target)
+        roots.add(str(root))
+        parents.add(target.parent)
+    for field in ("created_directories", "backup_roots"):
+        items = value[field]
+        if any(not isinstance(item, str) for item in items) or len(set(items)) != len(items):
+            raise InstallError(f"invalid journal {field}")
+        for item in items:
+            if str(canonical_absolute(item, field)) != item:
+                raise InstallError(f"journal {field} is not normalized")
+    if set(value["backup_roots"]) != roots:
+        raise InstallError("journal backup roots differ from operations")
+    if any(not any(Path(item) == parent or Path(item) in parent.parents for parent in parents)
+           for item in value["created_directories"]):
+        raise InstallError("journal created directory is outside target ancestors")
 
 
 def rollback(value: dict, *, inject_failure: bool) -> None:
@@ -206,7 +252,7 @@ def rollback(value: dict, *, inject_failure: bool) -> None:
         if lexists(backup):
             if not backup.is_symlink() or os.readlink(backup) != original_target:
                 raise InstallError(f"rollback backup changed: {backup}")
-            if exact_link(target, source):
+            if operation.get("action", "install") == "install" and exact_link(target, source):
                 target.unlink()
             elif lexists(target):
                 if exact_link(target, original_target):
@@ -271,27 +317,6 @@ def discover_catalog(repo: Path) -> dict[str, Path]:
     return result
 
 
-def preflight_front_build(front: Path, go: str) -> None:
-    build_root = Path(tempfile.mkdtemp(prefix="skills-install-front-"))
-    try:
-        environment = os.environ.copy()
-        environment.update({"GOTOOLCHAIN": "local", "GOPROXY": "off", "GOSUMDB": "off"})
-        result = subprocess.run(
-            [go, "build", "-o", str(build_root / "front-agent-bin"), "./cmd/front-agent"],
-            cwd=front,
-            env=environment,
-            text=True,
-            stdout=subprocess.PIPE,
-            stderr=subprocess.PIPE,
-            check=False,
-        )
-        if result.returncode != 0:
-            detail = (result.stderr or result.stdout).strip()[-4096:]
-            raise InstallError(f"offline Front Agent preflight failed: {detail}")
-    finally:
-        shutil.rmtree(build_root, ignore_errors=True)
-
-
 def make_boundary():
     fail_at = os.environ.get("SKILLS_INSTALL_FAIL_AT")
     crash_at = os.environ.get("SKILLS_INSTALL_CRASH_AT")
@@ -336,6 +361,8 @@ def build_transaction(
     catalog: dict[str, Path],
     target_dirs: list[Path],
     txid: str,
+    *,
+    migrate: bool = False,
 ) -> dict:
     created: list[Path] = []
     for target_dir in target_dirs:
@@ -365,12 +392,30 @@ def build_transaction(
             target_operations.append(
                 {
                     "name": name,
+                    "action": "install",
                     "source": source,
                     "target": str(target),
                     "backup": str(backup_root / name),
                     "original": original,
                 }
             )
+        if migrate:
+            for name in sorted(RETIRED_NAMES):
+                target = target_dir / name
+                if not lexists(target):
+                    continue
+                source = str(repo / "skills" / name)
+                if not owned_retired_link(target, source):
+                    print(f"Skipping retirement of user-owned target: {target}", file=sys.stderr)
+                    continue
+                target_operations.append({
+                    "name": name,
+                    "action": "retire",
+                    "source": source,
+                    "target": str(target),
+                    "backup": str(backup_root / name),
+                    "original": {"kind": "symlink", "target": os.readlink(target)},
+                })
         if target_operations:
             backup_roots.append(backup_root)
             operations.extend(target_operations)
@@ -417,6 +462,9 @@ def apply_transaction(value: dict, boundary) -> None:
         boundary(f"after-backup:{index}")
         if lexists(target):
             raise InstallError(f"target unexpectedly exists before linking: {target}")
+        if operation.get("action", "install") == "retire":
+            boundary(f"after-retire:{index}")
+            continue
         os.symlink(operation["source"], target)
         fsync_directory(target.parent)
         boundary(f"after-link:{index}")
@@ -428,8 +476,8 @@ def install(args) -> int:
     catalog = discover_catalog(repo)
     names = set(catalog)
     if args.list_mode:
-        if args.only or args.exclude:
-            raise InstallError("--list cannot be combined with --only or --exclude")
+        if args.only or args.exclude or args.migrate:
+            raise InstallError("--list cannot be combined with --only, --exclude, or --migrate")
         for name in sorted(names):
             print(name)
         return 0
@@ -437,7 +485,8 @@ def install(args) -> int:
     only = parse_names(args.only, "--only", names)
     excluded = parse_names(args.exclude, "--exclude", names)
     selected = sorted((only if args.only else names) - excluded)
-    if not selected:
+    migrate = args.migrate or not (args.only or args.exclude)
+    if not selected and not migrate:
         print("No skills selected; no target directories changed.")
         return 0
 
@@ -445,22 +494,6 @@ def install(args) -> int:
         source = catalog[name]
         if source.is_symlink() or not source.is_dir() or not (source / "SKILL.md").is_file():
             raise InstallError(f"selected source failed preflight: {source}")
-    if "front-agent-orchestration" in selected:
-        go = shutil.which("go")
-        if go is None:
-            if selected == ["front-agent-orchestration"]:
-                raise InstallError(
-                    "cannot install front-agent-orchestration because Go was not found"
-                )
-            selected.remove("front-agent-orchestration")
-            print(
-                "Skipping front-agent-orchestration because Go was not found; "
-                "continuing with the other selected skills.",
-                file=sys.stderr,
-            )
-        else:
-            preflight_front_build(catalog["front-agent-orchestration"], go)
-
     home = canonical_absolute(os.environ.get("HOME", str(Path.home())), "HOME")
     agent_dir = canonical_absolute(
         os.environ.get("AGENT_SKILLS_DIR", str(home / ".agents" / "skills")),
@@ -504,10 +537,10 @@ def install(args) -> int:
         if TX_RE.fullmatch(txid) is None:
             raise InstallError("SKILLS_INSTALL_TXID is invalid")
         transaction = build_transaction(
-            repo, selected, catalog, [agent_dir, codex_dir], txid
+            repo, selected, catalog, [agent_dir, codex_dir], txid, migrate=migrate
         )
         if not transaction["operations"]:
-            print("Selected skills are already installed in both targets.")
+            print("Selected skills are already installed; no migration operations requested or needed.")
             return 0
 
         validate_journal(transaction, repo)
@@ -538,7 +571,8 @@ def install(args) -> int:
         journal_path.unlink()
         fsync_directory(journal_path.parent)
         print(
-            f"Installed {len(selected)} selected skills into {agent_dir} and {codex_dir}."
+            f"Installed {len(selected)} selected skills into {agent_dir} and {codex_dir}. "
+            f"Retired {sum(op['action'] == 'retire' for op in transaction['operations'])} owned links."
         )
         retained = [path for path in transaction["backup_roots"] if Path(path).is_dir()]
         for path in retained:
@@ -555,6 +589,12 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--list", dest="list_mode", action="store_true", help="list installable skill names")
     parser.add_argument("--only", action="append", default=[], metavar="NAME[,NAME]", help="install only named skills")
     parser.add_argument("--exclude", action="append", default=[], metavar="NAME[,NAME]", help="exclude named skills")
+    parser.add_argument(
+        "--migrate", action="store_true",
+        help="also retire links owned by this repository for the seven retired skills; "
+             "enabled by default only when neither --only nor --exclude is given; "
+             "foreign links and real directories are preserved",
+    )
     args = parser.parse_args(argv)
 
     def interrupted(signum, _frame):
@@ -565,7 +605,7 @@ def main(argv: list[str] | None = None) -> int:
             signal.signal(getattr(signal, name), interrupted)
     try:
         return install(args)
-    except (InstallError, OSError, ValueError, subprocess.SubprocessError) as exc:
+    except (InstallError, OSError, ValueError) as exc:
         print(f"install.sh: {exc}", file=sys.stderr)
         return 1
 

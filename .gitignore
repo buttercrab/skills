@@ -9,6 +9,6 @@ __pycache__/
 .planning/
 
 # Generated local binaries.
-skills/agent-mail/bin/
-skills/agent-mail/target/
-skills/front-agent-orchestration/scripts/front-agent-bin
+integrations/agent-mail/bin/
+integrations/agent-mail/target/
+integrations/front-agent/scripts/front-agent-bin

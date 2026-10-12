@@ -1,0 +1,6 @@
+interface:
+  display_name: "Responsive Coordinator"
+  short_description: "Talk with the user while workers execute tasks"
+  default_prompt: "Use $responsive-coordinator to turn on responsive coordination in this chat and delegate task execution to workers."
+policy:
+  allow_implicit_invocation: false

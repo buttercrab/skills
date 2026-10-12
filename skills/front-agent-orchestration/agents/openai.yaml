@@ -1,5 +1,0 @@
-# portfolio-routing-v1-row-sha256: 59b1b60618d34a66505aac7f8deedc9dfcfefd9544c1cb861c59bacc6c28a9b2
-interface:
-  display_name: "Front Agent Orchestration"
-  short_description: "Fenced human gateway for a separate main agent"
-  default_prompt: "Use $front-agent-orchestration only for an explicitly requested gateway/main architecture. Keep Front as the human interface, require the main to classify work authority independently, and never let Front or main mutate an Align packet outside Align ownership."

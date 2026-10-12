@@ -1,64 +1,41 @@
 ---
 name: propagate-contract-changes
-description: Analyze, plan, or execute a requested structured API, schema, protocol, configuration, event, tool, serialization, or generated-artifact contract change through its canonical source, producers, boundaries, consumers, documentation, and tests. Use when the requested task is to change a contract across two or more surfaces or to repair confirmed drift between them. This skill owns propagation mechanics only. align-work owns unresolved compatibility or approval decisions, audit-technical-work owns read-only drift assessment, and mutation still requires existing authorization. Do not use for internal-only refactors without contract drift, documentation-only rewrites, generic multi-file features, or open-ended architecture review.
+description: Carry a requested API, schema, protocol, event, configuration, or serialization change through its authoritative definition, producers, boundaries, and consumers. Use for cross-surface contract changes or confirmed contract drift.
 ---
 
 # Propagate Contract Changes
 
-Treat one structured contract as a graph of producers and consumers. Preserve one canonical definition and verify every affected boundary instead of patching the first visible failure.
+Treat the contract as a path through a system, not merely a type declaration. A value can compile correctly and still be dropped by a serializer, rejected by an older reader, or interpreted differently after storage.
 
-## Define the contract change
+## Locate authority and affected paths
 
-1. Identify the canonical owner from repository authority, generation, and consumption paths rather than assuming that a schema or generated type is authoritative. Write the exact old and requested new contract.
-2. Decide compatibility, versioning, defaulting, absence, migration, and rollback behavior before mutation. Return unresolved material choices to the outer alignment workflow.
-3. Inventory the propagation graph:
-   - models and producers;
-   - validation and serialization;
-   - transport, persistence, and generated artifacts;
-   - loaders, APIs, tools, events, and consumers;
-   - identity, hash, cache, deduplication, and replay implications;
-   - normative documentation, examples, fixtures, and tests.
-4. Mark each surface as authoritative, generated, derived, consuming, test-only, or unaffected with a reason.
+Identify the exact old and requested new semantics and the authoritative definition. Determine authority from generation and consumption paths; a generated type or schema is not automatically the source of truth.
 
-## Propagate from the owner
+Trace actual producers to consumers through applicable validation, encoding, transport, persistence, loading, and generated code. Check normative documentation, fixtures, and examples for promised behavior. Include hashes, caches, replay, or deduplication only when the change affects their inputs or interpretation. Track affected surfaces in a form proportional to the change; a short list can suffice.
 
-Proceed only with existing mutation authority.
+Search for alternate encodings, copied definitions, old names, and older consumers. A text search starts the inventory but does not prove it complete: inspect dynamic construction, generation commands, and deployed version relationships when relevant.
 
-1. Change the canonical source first within one coherent migration. If that ordering makes intermediate state invalid, use an atomic change set or an explicitly approved compatibility window; do not land a knowingly broken intermediate contract.
-2. Regenerate derived artifacts through canonical tooling. Never leave a hand-edited generated artifact as the solution.
-3. Update producers before consumers when the migration requires the new value to exist; otherwise use the explicitly approved compatibility order.
-4. Preserve the contract through serialization, persistence, transport, and identity boundaries without silent dropping or reinterpretation.
-5. Remove stale duplicate definitions and update documentation or examples to point to the owner.
+## Choose compatibility and order
 
-## Verify every boundary
+Use existing user decisions and repository conventions. Clarify only an unresolved material choice, such as whether old persisted records must still load or a public field may disappear. Do not silently turn an internal edit into a breaking migration.
 
-Test applicable cases through real boundaries:
+Distinguish an atomic local edit from a rollout across independently updated components. For a rolling change, readers may need to tolerate both forms before writers emit the new form; removal can follow after migration. For an atomic change, update all affected surfaces coherently. Document defaults, absence, invalid values, versioning, and rollback only as applicable.
 
-- valid new value;
-- invalid value and error behavior;
-- absent, defaulted, nullable, or optional value;
-- old-version and new-version compatibility;
-- serialization and persistence round trip;
-- generated artifact regeneration and clean diff;
-- identity, cache, hash, replay, or deduplication behavior;
-- representative producer-to-consumer integration.
+A request to change code does not itself authorize deploying components or migrating production data. Provide required rollout steps when those operations are outside the authorized scope.
 
-Return the canonical contract, compatibility decision, propagation inventory, changed surfaces, regeneration command, gate receipts, and any surface that remains unknown or unverified. Do not claim completion while a required producer, boundary, consumer, or proof surface is unaccounted for.
+## Propagate and verify
 
-<!-- BEGIN GENERATED PORTFOLIO ROUTING v1 -->
-## Portfolio routing contract (generated)
+Change the canonical source and regenerate derived artifacts with the repository's tooling. Do not fix drift solely by hand-editing generated output. Update callers, serializers, readers, examples, and fixtures that actually depend on the semantics; remove stale duplicate definitions without unrelated restructuring.
 
-This block is generated from `tests/portfolio-routing-v1.json`; do not edit it by hand.
+Select checks that exercise the changed boundaries:
 
-- `skill`: "propagate-contract-changes"
-- `routing_role`: "mechanics"
-- `portfolio_position`: "Domain mechanics for structured multi-surface contract migration."
-- `positive_request_classes`: ["structured API, schema, protocol, configuration, event, tool, serialization, or generated-artifact change across two or more surfaces","repair confirmed contract drift"]
-- `triggers`: ["A structured contract must propagate through at least two surfaces.","Confirmed drift exists between a canonical contract and consumers."]
-- `exclusions`: ["one-surface ordinary edit","internal-only refactor without contract drift","documentation-only rewrite","generic multi-file feature"]
-- `state_owner`: "Owns canonical-source and propagation-graph mechanics, not approval or user authority."
-- `precedence`: ["Compatibility and approval decisions stay with Align or the user.","Compose Refactor only for a separately named invariant slice."]
-- `legal_compositions`: [{"route":"refactor-by-invariant","relation":"mechanics"}]
-- `fallbacks`: [{"condition":"The work is a one-surface ordinary edit.","route":"native-codex","result":"Use bounded native implementation."},{"condition":"The primary objective is ownership simplification.","route":"refactor-by-invariant","result":"Use refactor mechanics unless a distinct contract slice is named."}]
-- `forbidden_actions`: ["decide compatibility policy without authority","become outer authority","opportunistically refactor unrelated structure"]
-<!-- END GENERATED PORTFOLIO ROUTING v1 -->
+- A representative producer-to-consumer path carrying the new value.
+- Rejection and error behavior for invalid input.
+- Missing, nullable, optional, or defaulted values when supported.
+- Old data and mixed-version readers/writers when compatibility is required.
+- Encoding or persistence round trips where the representation crosses those boundaries.
+- Repeatable regeneration and relevant cache, identity, or replay behavior.
+
+An updated mock or generated type is not evidence that a real reader accepts the value. Inspect raw boundary representations when a field can disappear or change meaning.
+
+Report the canonical change, compatibility decision, affected paths, regeneration and verification performed, and any pending migration or unverified consumer. Distinguish locally complete code from a completed rollout.

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Research with Evidence"
+  short_description: "Source-grounded synthesis and technical comparisons"
+  default_prompt: "Use $research-with-evidence to research this question and explain the evidence and limits."

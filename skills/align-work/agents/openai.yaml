@@ -1,7 +1,0 @@
-# portfolio-routing-v1-row-sha256: f52c24adf8a14b7a66d0297c9fe40558c94425077da6dedf749ccebb8947b27f
-interface:
-  display_name: "Align Work"
-  short_description: "Align work proportionally with one approval"
-  default_prompt: "Use $align-work with lightweight alignment by default. Inspect first, proactively ask high-value questions with recommended defaults, and seek one approval for the goal, requirements, non-goals, constraints and authority, and observable acceptance invariants. Keep agent-chosen implementation and proof mechanisms in the mutable plan; substitute equally strong evidence without reapproval. Escalate only when the approved outcome contract must change or cannot be honored."
-policy:
-  allow_implicit_invocation: true
