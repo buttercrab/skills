@@ -1,6 +1,6 @@
 # Personal agent skills
 
-Six task-focused skills. Each works independently; there is no portfolio router or required planning framework.
+Six rebuilt task-focused skills, plus three reporting/dashboard skills preserved from a concurrent upstream commit. Each works independently; there is no portfolio router or required planning framework.
 
 | Skill | Purpose | Invocation |
 | --- | --- | --- |
@@ -10,6 +10,9 @@ Six task-focused skills. Each works independently; there is no portfolio router 
 | `write-task-handoff` | Prepare a restartable continuation with current state, decisions, and evidence. | Normal discovery |
 | `research-with-evidence` | Synthesize supplied sources or discover and compare options. | Normal discovery |
 | `responsive-coordinator` | Keep the main agent conversational while workers execute the task. | Explicit opt-in only |
+| `maintain-project-dashboard` | Maintain a durable project dashboard with current evidence. | Normal discovery |
+| `prioritize-important-information` | Surface decision-changing information before activity detail. | Normal discovery |
+| `write-daily-report` | Summarize a day with material outcomes and one next action. | Normal discovery |
 
 ## Responsive coordination
 
@@ -26,7 +29,7 @@ The main agent handles discussion, scope, assignments, steering, and synthesis. 
 ./install.sh --exclude responsive-coordinator
 ```
 
-Python 3 is the only installer prerequisite. Full installation links the six skills into `~/.agents/skills` and `~/.codex/skills` and retires known links owned by this repository for the seven removed skill names. Selective `--only` or `--exclude` installations do not retire old links unless `--migrate` is supplied:
+Python 3 is the only installer prerequisite. Full installation links the nine available skills into `~/.agents/skills` and `~/.codex/skills` and retires known links owned by this repository for the seven removed skill names. Selective `--only` or `--exclude` installations do not retire old links unless `--migrate` is supplied:
 
 ```bash
 ./install.sh --only research-with-evidence --migrate

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Write Daily Report"
+  short_description: "Write concise daily reports with one next action"
+  default_prompt: "Use $write-daily-report to turn current project evidence into a concise daily report with one next action."

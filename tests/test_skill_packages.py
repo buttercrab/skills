@@ -9,10 +9,11 @@ SKILLS = ROOT / 'skills'
 EXPECTED = {
     'audit-technical-work', 'refactor-by-invariant', 'propagate-contract-changes',
     'write-task-handoff', 'research-with-evidence', 'responsive-coordinator',
+    'maintain-project-dashboard', 'prioritize-important-information', 'write-daily-report',
 }
 
 class SkillPackageTests(unittest.TestCase):
-    def test_only_six_installable_skills(self):
+    def test_known_installable_skills(self):
         self.assertEqual({p.parent.name for p in SKILLS.glob('*/SKILL.md')}, EXPECTED)
         self.assertEqual({p.name for p in SKILLS.iterdir() if p.is_dir()}, EXPECTED)
 

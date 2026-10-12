@@ -1,0 +1,4 @@
+interface:
+  display_name: "Prioritize Important Information"
+  short_description: "Surface decision-changing facts before activity detail"
+  default_prompt: "Use $prioritize-important-information to rank these facts by what changes my decision, goal, next action, risk, or trust."

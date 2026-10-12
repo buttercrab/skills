@@ -34,3 +34,7 @@ These are design inspirations, not copied instruction text or evidence of measur
 - [Superpowers' subagent workflow](https://github.com/obra/superpowers/blob/bb92a77741419a4ab5f06e711a283343f1ada0c3/skills/subagent-driven-development/SKILL.md): bounded briefs and clear ownership.
 
 The collection does not require those repositories or their tools.
+
+## Concurrent upstream additions
+
+Before publication, remote main had gained commit `1baa296`, adding `maintain-project-dashboard`, `prioritize-important-information`, and `write-daily-report`. The merge preserves their substantive instructions, references, and metadata. Only obsolete generated routing projections were removed to match the retired framework. These three were outside the original eleven-skill rewrite scope and have not been behaviorally evaluated in this rewrite. The repository catalog therefore now contains nine skills; the six rewritten skills were installed locally before the merge.
