@@ -1,0 +1,57 @@
+{
+  "artifact": "Provisional first-person members’ email article",
+  "read_paths": [
+    "/private/tmp/writing-intent-followup-20261108/run/COMMON.md",
+    "/private/tmp/writing-intent-followup-20261108/run/prompt.md",
+    "/private/tmp/writing-intent-followup-20261108/run/FILES.txt",
+    "/private/tmp/writing-intent-followup-20261108/run/author-notes.md",
+    "/private/tmp/writing-intent-followup-20261108/guide/SKILL.md",
+    "/private/tmp/writing-intent-followup-20261108/guide/references/author-and-reader.md",
+    "/private/tmp/writing-intent-followup-20261108/guide/references/structure-and-revision.md",
+    "/private/tmp/writing-intent-followup-20261108/guide/library/index.md",
+    "/private/tmp/writing-intent-followup-20261108/guide/references/library-usage.md",
+    "/private/tmp/writing-intent-followup-20261108/guide/references/evidence-and-voice.md",
+    "/private/tmp/writing-intent-followup-20261108/guide/library/entries/example-crane-wife-braided-inquiry.md",
+    "/private/tmp/writing-intent-followup-20261108/guide/library/entries/craft-jack-hart-theme.md",
+    "/private/tmp/writing-intent-followup-20261108/guide/library/entries/craft-wisconsin-reverse-outline.md",
+    "/Users/jaeyong/.codex/skills/i-have-adhd/SKILL.md"
+  ],
+  "questions": [
+    {
+      "recipient": "root, for Nessa",
+      "question": "Can you recall one particular moment while doing the library job that stayed with you—what happened, and what, if anything, you thought about it at the time? A small or inconclusive moment is enough.",
+      "answer": null,
+      "root_response": "Please continue with the information available.",
+      "decision": "Proceed provisionally; keep personal contribution conspicuous and unfilled."
+    }
+  ],
+  "checks": {
+    "ready_prose_words_whitespace": 275,
+    "piece_total_words_whitespace": 332,
+    "author_gap_count": 1,
+    "source_alignment": "Manual comparison against supplied author notes; no invented experience, conviction, quotation or measured benefit.",
+    "whole_piece_review": "Opening introduces list; chronology explains changes; tray failure complicates success; comparison limit stays explicit; author gap stays unfilled; ending uses known January task.",
+    "json_syntax": "Parsed successfully after writing.",
+    "output_existence": "All four owned outputs checked locally."
+  },
+  "limits": [
+    "No substantive answer from Nessa. Personal meaning and supporting personal moment remain unresolved.",
+    "Unmarked prose is a supported practical draft for author review, not a completed personal essay.",
+    "Only bundled reference cards inspected; upstream articles and their recorded inspection claims not independently verified.",
+    "Supplied group and people are fictional; no outside fact-checking attempted.",
+    "No measured reader response, originality or authorship claim."
+  ],
+  "actions": {
+    "owned_outputs": [
+      "piece.md",
+      "editorial-notes.md",
+      "receipts.json",
+      "work-log.md"
+    ],
+    "external_actions": [],
+    "child_agents": [],
+    "fixture_or_upstream_program_execution": false,
+    "network_or_browser": false,
+    "publication": false
+  }
+}

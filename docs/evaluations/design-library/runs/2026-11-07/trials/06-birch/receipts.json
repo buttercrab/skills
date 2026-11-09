@@ -1,0 +1,62 @@
+[
+  {
+    "id": "primary-govuk-confirmation-pages",
+    "url": "https://design-system.service.gov.uk/patterns/confirmation-pages/",
+    "locator": "How it works, lines 125\u2013145; HTML example lines 65\u201388",
+    "inspection_method": "web open, primary documentation text; successful",
+    "fit": "Reference number plus next steps and timing match a request receipt.",
+    "mismatch": "Full confirmation page, government styling, email and optional service actions exceed the requested repair.",
+    "selected_use": "Borrow content duties only in existing success banner.",
+    "outline_decisions": [
+      "Request submitted",
+      "R-1842",
+      "Awaiting finance review",
+      "Usually within three working days"
+    ],
+    "limits": "No visual or interaction inspection; no product backend evidence."
+  },
+  {
+    "id": "pattern-govuk-error-summary",
+    "card": "guide/library/entries/pattern-govuk-error-summary.md",
+    "url": "https://design-system.service.gov.uk/components/error-summary/",
+    "locator": "When to use and How it works, lines 105\u2013169",
+    "inspection_method": "Full local card read and successful web open of primary text",
+    "fit": "Specific correction messages linked to affected fields.",
+    "mismatch": "Full page-level GOV.UK summary contract exceeds fixed existing screen; not a service-failure model.",
+    "selected_use": "Field validation only; separate service and uncertain-outcome states.",
+    "outline_decisions": [
+      "Retain entered data",
+      "Associate actual field errors with controls",
+      "Do not blame fields for service failure"
+    ],
+    "limits": "No keyboard, screen reader, visual or live behavior test."
+  },
+  {
+    "id": "pattern-govuk-check-answers",
+    "card": "guide/library/entries/pattern-govuk-check-answers.md",
+    "url": "https://design-system.service.gov.uk/patterns/check-answers/",
+    "locator": "When to use; Mismatches and limits",
+    "inspection_method": "Full local card read only; upstream not opened",
+    "fit": "Retaining answers is relevant.",
+    "mismatch": "New review page would alter the specified navigation and add friction to a short form.",
+    "selected_use": "Not selected; do not introduce a review page.",
+    "outline_decisions": [
+      "Keep existing screen order and navigation"
+    ],
+    "limits": "No current primary or visual inspection."
+  },
+  {
+    "id": "flow-meetup-waitlist",
+    "card": "guide/library/entries/flow-meetup-waitlist.md",
+    "url": "https://help.meetup.com/hc/en-us/articles/41229648295181-How-to-Join-an-Event-Waitlist-on-Meetup",
+    "locator": "What to borrow and adapt; Mismatches and limits",
+    "inspection_method": "Full local card read only; upstream not opened",
+    "fit": "Differentiate waiting from final outcome.",
+    "mismatch": "Capacity and promotion rules are unrelated to finance review.",
+    "selected_use": "Not needed as authority; supplied backend facts directly govern status wording.",
+    "outline_decisions": [
+      "No queue position, promotion or notification claims"
+    ],
+    "limits": "No current primary, visual or product interaction inspection."
+  }
+]

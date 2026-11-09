@@ -1,0 +1,16 @@
+[
+  {
+    "run_id": "W01-answer",
+    "question": "What mattered to you about the two mornings labeling shelves, and what particular moment from them supports that—was it making returns easier, enjoying the sorting, a concern about trust, or something else?",
+    "response": "What stayed with me was that Mira could find the right clamp without asking me after we'd labeled the shelves. I liked being less necessary. I believe a useful routine can make a shared place feel more welcoming, but I don't want the article to argue that everyone should be tidy. I didn't feel that the missing blue clamp proved anything about trust.",
+    "trigger_observed": true,
+    "provenance": "Coordinator reconstruction from actual agent messages and delivered relays; no retrospective timing claim."
+  },
+  {
+    "run_id": "W01-noanswer",
+    "question": "What, if anything, did labeling the shelves mean to you—making tools easier to find, enjoying the sorting itself, a form of trust/care, or something else—and what true detail from those two mornings supports that meaning?",
+    "response": "Please continue with the information available.",
+    "trigger_observed": true,
+    "provenance": "Coordinator reconstruction from actual agent messages and delivered relays; no retrospective timing claim."
+  }
+]

@@ -1,0 +1,1 @@
+Assess this repository and suggest the smallest useful maintenance plan. It is a personal offline tool I run twice a year. Keep the assessment proportional; I am not trying to publish a package or grow a contributor team. Do not modify files or run the script. Explain concrete evidence and what remains unknown.

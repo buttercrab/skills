@@ -1,0 +1,72 @@
+{
+  "scope": "Local source/reference/outline; no build",
+  "inspected_at": "2026-11-07",
+  "sources": [
+    {
+      "id": "visual-finch-companion",
+      "url": "https://finchcare.com/",
+      "locator": "Public desktop landing hero, native Chrome screenshot 1552x1036, 2026-11-07",
+      "inspection_method": "Full local card; direct AX and screenshot viewing",
+      "access": "success; public marketing only",
+      "fit": "Coherent companion world and invitation",
+      "mismatch": "Self-care marketing, not language task or recorder; no product usability evidence",
+      "selected_use": "Governing visual reference",
+      "outline_decisions": [
+        "Original coastal post office world",
+        "Pip integrated with prompt setting",
+        "No pet-care obligation or copied assets"
+      ]
+    },
+    {
+      "id": "visual-duolingo-welcome",
+      "url": "https://www.duolingo.com/",
+      "locator": "Public first viewport, native Chrome screenshot 1552x1036, 2026-11-07",
+      "inspection_method": "Full local card; direct AX and screenshot viewing",
+      "access": "success; no lesson/account interaction",
+      "fit": "Character invitation with clear primary and secondary actions",
+      "mismatch": "Desktop marketing, no recording/review workflow tested",
+      "selected_use": "Action hierarchy reference",
+      "outline_decisions": [
+        "One dominant action per stage",
+        "Clear secondary departure choice",
+        "Original mature copy and character instead of cast/brand imitation"
+      ]
+    },
+    {
+      "id": "principle-contextual-permissions",
+      "url": "https://developer.android.com/training/permissions/requesting",
+      "locator": "Basic principles / Workflow, lines 72\u201396 in web text open",
+      "inspection_method": "Full local card; primary official text via web open",
+      "access": "success; no device test",
+      "fit": "Contextual permission request and useful denial path",
+      "mismatch": "Android-specific; not cross-platform implementation proof; linked study not inspected",
+      "selected_use": "Permission boundary guidance",
+      "outline_decisions": [
+        "Request microphone at Record",
+        "Preserve selected prompt on denial",
+        "Allow back to prompt browsing"
+      ]
+    },
+    {
+      "id": "visual-kagi-search-character",
+      "url": "https://kagi.com/",
+      "locator": "guide/library/entries/visual-kagi-search-character.md",
+      "inspection_method": "Full local card only",
+      "access": "local card success; original source not attempted",
+      "fit": "Small character can leave precise task prominent",
+      "mismatch": "Search-first restraint insufficient for expressive creative direction; no fresh visual evidence",
+      "selected_use": "Comparison, not governing reference",
+      "outline_decisions": [
+        "Reduce Pip during review without making overall product search-like"
+      ]
+    }
+  ],
+  "user_feedback": {
+    "source": "Coordinator-relayed scripted user reply",
+    "text": "I like an expressive partner. Please don't make a missed day disappoint the creature, and don't turn corrections into a red failure screen.",
+    "applied_decisions": [
+      "Warm unchanged invitation after missed days; no guilt or neglected creature",
+      "Correction remains inline on warm paper; no red failure state or disappointed pose"
+    ]
+  }
+}

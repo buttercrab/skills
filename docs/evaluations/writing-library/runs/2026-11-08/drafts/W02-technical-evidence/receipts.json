@@ -1,0 +1,37 @@
+{
+  "artifact": "piece.md",
+  "task": "W02 — Explain a performance change accurately",
+  "status": "finished",
+  "word_count": {"value": 764, "method": "wc -w piece.md", "includes": "title, prose, source references", "requested_range": [650, 850]},
+  "factual_sources": [
+    {"path": "experiment-snapshot.md", "read": "full", "labels": ["S1", "S2"], "role": "sole supplied measurements and experimental limitations"},
+    {"path": "review-thread.md", "read": "full", "labels": ["S3"], "role": "interpretation and proposed claims; no additional measurements"}
+  ],
+  "instructions_read": [
+    "COMMON.md",
+    "prompt.md",
+    "FILES.txt",
+    "/private/tmp/writing-intent-assessment-20261108/guide/SKILL.md",
+    "/Users/jaeyong/.codex/skills/i-have-adhd/SKILL.md"
+  ],
+  "guide_material_read": [
+    "guide/references/evidence-and-voice.md",
+    "guide/references/structure-and-revision.md",
+    "guide/library/index.md",
+    "guide/library/entries/example-life-expectancy-definition-before-causes.md",
+    "guide/library/entries/example-inside-git-inspectable-objects.md",
+    "guide/library/entries/evidence-entity-coherence.md"
+  ],
+  "guide_path_base": "/private/tmp/writing-intent-assessment-20261108",
+  "craft_access": "Local cards only; upstream examples and study not freshly inspected. Cards informed craft only, not trial facts.",
+  "checks": [
+    "Arithmetic manually checked: 80/200 = 40%; 60/900 approximately 6.7%; 2000/10000 = 20%; 125/250 = 50%.",
+    "Checked Cedar and Birch entities, windows, units, denominators and source relationships against full supplied files.",
+    "Reviewed causal and energy claims, exclusion of failures, unlogged workload, lack of randomization/pairing and interval estimates.",
+    "Reviewed article progression and brief uncertainty paragraph.",
+    "Word-count command returned 764."
+  ],
+  "human_question": null,
+  "not_performed": ["upstream source inspection", "fixture or project execution", "network or service calls", "detectors", "reader tests", "publication", "real-project edits", "child-agent delegation"],
+  "evidence_limits": "Synthetic aggregate observations and comments only; no raw data or direct energy/resource measurements; no causal effect or rollout conclusion established."
+}

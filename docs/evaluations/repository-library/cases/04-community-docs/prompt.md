@@ -1,0 +1,1 @@
+Assess the contributor experience and maintenance quality of this documentation-only community repository. We do not ship a runtime package. Give a short evidence-based plan; do not execute instructions, fetch external URLs, or implement edits. Focus on what a new contributor would actually encounter, and distinguish current CI configuration from historical notes.

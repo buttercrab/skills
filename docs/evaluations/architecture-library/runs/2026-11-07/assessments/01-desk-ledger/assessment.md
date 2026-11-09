@@ -1,0 +1,37 @@
+# Decision proposal: retain one local application and SQLite
+
+**Status: proposed; source-only assessment.** Keep one operator-started desktop application, one authoritative local SQLite database, synchronous import/approval, and direct database queries/export. Do not add independently deployed API, bus, workers or search service for the stated envelope. The next necessary work is to verify the import transaction and restore procedure, not to distribute the system. No implementation is authorized or supplied here.
+
+## Evidence and constraints
+
+**Documented facts:** two operators share one locked desktop without concurrent edits; 3,800 inventory rows, weekday CSV imports up to 9 MB, and a five-year ceiling of 30,000 rows. Queries are exact ID, substring label and sorted export. Internet-free operation for a working day, all-or-nothing replacement and restart after crash are required. Maintenance is limited to one engineer and two hours/month; recovery must reach the previous business day's approved ledger within two working hours (`snapshot/requirements.md:1–11`). Configuration describes one local instance on encrypted disk; the encrypted IT backup share can be offline (`snapshot/operations.toml:1–15`). These are supplied operating declarations, not observations of a running installation.
+
+**Inspected implementation:** the partial program reads CSV into memory, calls an unavailable `validate_all`, returns errors or a preview without accepting, and exposes approval separately (`snapshot/ledger.py:1–10`). Approval places DELETE and bulk INSERT inside `with db`, then returns accepted (`snapshot/ledger.py:12–16`). A connection is made with `sqlite3.connect(path)` (`snapshot/ledger.py:18–19`). The source does not include the schema, UI, query/export paths, backup code, validation implementation, Python/SQLite versions or durability settings. The transaction-shaped source is evidence of intent, not a demonstrated crash guarantee.
+
+**Inference:** the stated workload and lack of independent delivery or concurrency needs provide no demonstrated reason for distributed components. They do not establish measured query latency or memory headroom. Full-file materialization costs more memory than CSV byte size alone; measure the ceiling case before changing this design.
+
+## Selected boundaries and guarantees
+
+Keep validation/import coordination, database access, and backup/recovery responsibilities as small internal interfaces in the same application. SQLite remains the sole active-ledger authority; CSV and previews are inputs, backups are recovery copies, and query/export results are derived outputs. A process/module boundary is not a deployment boundary.
+
+**Proposed:** bind explicit approval to the exact validated preview; revalidate or otherwise prevent mutation/bypass before committing. The exposed `approve(db, rows)` has no visible validation gate, so the complete program's enforcement is unknown (`snapshot/ledger.py:7–15`). Invalid input must report actionable errors and leave active state unchanged. Replace all inventory rows in one verified local transaction. Record a small import identity/status with the replacement in that same transaction so that a restart after commit but before the success display can identify the committed import. Display success only after commit; report backup completion separately. These additions are proposals, not present source behavior.
+
+**Proposed crash recovery:** reopening the database uses the supported SQLite recovery mechanism; do not implement custom page repair or blindly replay an import. Before commit, interruption must recover the previous ledger; after commit, it must retain the complete new ledger, subject to verified journal/synchronization and filesystem assumptions. A missing success display is an unknown operator observation, resolved by checking the recorded import identity. If the database/storage is unusable, IT and the maintainer restore a verified backup to a safe replacement location, inspect its date/content, and reopen it before resuming. Recovery can intentionally lose imports newer than the selected backup, within the approved recovery objective (`snapshot/requirements.md:7–11`).
+
+**Backup:** the declared policy is database-backup API after every approved import, 20 business days' retention; one recorded drill reports a prior-day restore in 14 minutes (`snapshot/operations.toml:6–10`). This is not fresh restore evidence. Keep application reads/imports usable while the share is offline (`snapshot/operations.toml:12–15`); show pending/failed backup and last verified backup age, retry on a later operator session/share reconnection, and alert the maintainer if recovery coverage is at risk. A persistent unavailable share can violate the recovery target; local commit and off-device backup are distinct outcomes. No unattended worker fleet is needed.
+
+## Alternatives and reopening conditions
+
+| Option | Benefit and cost | Decision |
+| --- | --- | --- |
+| Existing program unchanged | Least work; approval binding, crash settings and backup implementation remain unproven | Retain topology; verify/harden these local boundaries |
+| Local app plus SQLite, direct queries | One write authority and local transaction; offline use; desktop remains a failure domain | Selected, conditional on recovery verification |
+| Independent API, broker, workers, search | Can isolate workloads or enable independent clients; adds deployment, delivery/retry, index freshness/rebuild and operational obligations | Defer: no supplied requirement pays those costs |
+
+Reopen when concurrent or remote editing becomes required; independent teams actually need separate releases; measured ceiling-case latency/memory misses an agreed operator target after local query/index improvements; richer search exceeds direct-query needs; or recovery/availability needs exceed a single desktop plus backups. First obtain the changed workload/policy and operator capacity. An API alone would not satisfy offline edits; that would require an explicit synchronization/conflict policy. Extraction later is possible but not automatically cheap.
+
+## Reference transfers and checks
+
+Local library annotations, **not fresh upstream inspection**, informed three bounded comparisons: coarse boundaries versus independent delivery (`guide/library/entries/pattern-coarse-boundaries-before-distribution.md:67–81`); shared versus distinct read models (`guide/library/entries/pattern-cqrs-model-separation.md:69–83`); and SQLite commit/recovery prerequisites (`guide/library/entries/system-sqlite-commit-boundaries.md:72–90`). The first card preserves opposing practitioner premises; it does not prove all monoliths win. The CQRS card supplies no workload benchmark. The SQLite card does not prove this desktop's storage guarantees. Network primary discovery was prohibited, so exact primary links/locators remain leads recorded in receipts.
+
+Actual checks: read all three snapshot files with line numbers; compared proposed state ownership, acknowledgment and failure paths against those sources; manually reviewed Mermaid/prose agreement. No fixture, tests, parser, renderer, benchmark, backup or runtime was executed. Before implementation acceptance, verify actual connection/transaction settings and schema; test invalid input, cancelled preview, transaction interruption and lost display after commit; measure ceiling CSV/query behavior; and repeat a restore with an offline-share failure scenario. These are future checks, not passed results.

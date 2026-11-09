@@ -1,0 +1,3 @@
+snapshot/contracts.md
+snapshot/current.py
+snapshot/migration-policy.md

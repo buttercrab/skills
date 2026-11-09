@@ -1,0 +1,105 @@
+{
+  "date": "2026-11-07",
+  "scope": "Reference and proposed outline only",
+  "sources": [
+    {
+      "id": "visual-arena-text-led-community",
+      "url": "https://www.are.na/",
+      "locator": "Opening definition and beginning of How it works",
+      "inspection_method": [
+        "Full local library card read",
+        "Public HTTPS text extraction",
+        "Own native Chrome AX and screenshot viewed"
+      ],
+      "observed": "Text-led introduction followed by mixed-media product illustration; collecting activities described.",
+      "fit": "Content and connections can express curiosity.",
+      "mismatch": "Large software/community platform; illustration is not an exercised collection workflow.",
+      "selected_use": "Direction 1: dated personal notebook",
+      "outline_decisions": [
+        "Complete short prose before optional media",
+        "Comfortable reading measure and paragraph spacing",
+        "Thumbnail-free archive with opening excerpts",
+        "Related encounters with archive return"
+      ]
+    },
+    {
+      "id": "visual-pudding-story-index",
+      "url": "https://pudding.cool/",
+      "locator": "Masthead, search/category row and first story rows",
+      "inspection_method": [
+        "Full local library card read",
+        "Public HTTPS text extraction",
+        "Own native Chrome AX and screenshot viewed"
+      ],
+      "observed": "Different story specimens with stable dates, titles and explanatory text; Audio category visible.",
+      "fit": "Heterogeneous encounters need both character and archive consistency.",
+      "mismatch": "Production-heavy visual essays; filters and search not tested.",
+      "selected_use": "Direction 2: visual micro-essay and specimen archive",
+      "outline_decisions": [
+        "Actual detail preview per entry",
+        "Consistent caption metadata",
+        "Everyday habitat browse proposed"
+      ]
+    },
+    {
+      "id": "pudding-walkachusetts",
+      "url": "https://pudding.cool/2025/10/walk/",
+      "locator": "Opening title and TEXT/TLDR choices",
+      "inspection_method": [
+        "Own native Chrome AX inspected"
+      ],
+      "observed": "Opening offers visually aided journal and mostly-image routes.",
+      "fit": "Personal observational journal with media variation.",
+      "mismatch": "Full article and route outcomes unverified; attempted click ended in detached-node error.",
+      "selected_use": "Secondary conceptual reference for direction 2",
+      "outline_decisions": [
+        "Short visual sequence",
+        "Complete text alongside optional media",
+        "No implemented route-switch claim"
+      ]
+    },
+    {
+      "id": "visual-poolsuite-retro-player",
+      "url": "https://poolsuite.net/",
+      "locator": "Loaded public player desktop, Stopped state",
+      "inspection_method": [
+        "Full local library card read",
+        "Public HTTPS extraction returned JavaScript notice only",
+        "Own native Chrome AX and screenshot viewed after boot"
+      ],
+      "observed": "Framed player with item name, transport and channel context; retro desktop and dock.",
+      "fit": "Listening is a deliberate situated activity.",
+      "mismatch": "Continuous music radio with dense controls; finite occasional clips need simpler behavior. Playback not exercised.",
+      "selected_use": "Direction 3: place-based listening journal",
+      "outline_decisions": [
+        "Finite clips with durations",
+        "Optional audio and descriptions",
+        "Place/walk archive includes silent entries equally"
+      ]
+    },
+    {
+      "id": "visual-stripe-press-book-detail",
+      "url": "https://press.stripe.com/nomad-letters",
+      "locator": "Local card only: guide/library/entries/visual-stripe-press-book-detail.md",
+      "inspection_method": [
+        "Full local library card read only"
+      ],
+      "observed": "Card describes object-led book detail and editorial text; no direct page or visual inspection in this run.",
+      "fit": "Potential relationship of visual object to context.",
+      "mismatch": "Commerce and book-object scale less useful for short encounters.",
+      "selected_use": "Considered, not applied",
+      "outline_decisions": []
+    }
+  ],
+  "checks": {
+    "directions": 3,
+    "article_and_archive_per_direction": true,
+    "final_direction_selected": false,
+    "code_or_assets_created": false,
+    "live_behavior_or_accessibility_claims": false
+  },
+  "user_feedback": {
+    "request": "One direction less image-led for readers; retain photo-led option",
+    "application": "Direction 1 made explicitly prose-first with complete 150\u2013300 word account, optional supporting media after text, thumbnail-free excerpt archive. Direction 2 preserved as photo-led."
+  }
+}

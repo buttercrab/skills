@@ -1,0 +1,5515 @@
+{
+  "schema_version": 1,
+  "generated_from": "library/entries/*.md",
+  "record_count": 107,
+  "status_counts": {
+    "candidate": 1,
+    "curated": 106
+  },
+  "resources": [
+    {
+      "id": "flow-airbnb-collaborative-wishlist",
+      "kind": "example",
+      "title": "Airbnb: shared shortlists and planning context",
+      "summary": "A consumer collaboration example separating saving, shared deliberation, view-only links and actual booking availability.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "save",
+          "compare",
+          "collaborate",
+          "plan"
+        ],
+        "contexts": [
+          "consumer",
+          "travel",
+          "group-decisions"
+        ],
+        "platforms": [
+          "web",
+          "native-mobile"
+        ],
+        "character": []
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected",
+          "documented-flow"
+        ],
+        "inspected_at": "2026-11-07",
+        "freshness": "live-at-inspection",
+        "scope": "Relevant first-party documented sequence/state account inspected; no authenticated live product workflow exercised."
+      },
+      "related": [
+        "flow-notion-view-sharing",
+        "flow-spotify-jam"
+      ],
+      "path": "library/entries/flow-airbnb-collaborative-wishlist.md",
+      "card_sha256": "199afbae3d76ec677868057b0b0af82e2040451fa02b4f488e558e0d7901b444",
+      "sources": [
+        {
+          "url": "https://www.airbnb.com/help/article/1236",
+          "title": "Airbnb Help: Use wishlists to save listings",
+          "locator": "Save to a wishlist; Collaborate; collaborative/view-only sharing; unavailable listings",
+          "revision": "not-versioned; documentation inspected 2026-11-07"
+        }
+      ]
+    },
+    {
+      "id": "flow-discord-community-onboarding",
+      "kind": "example",
+      "title": "Discord: questions that personalize channels and roles",
+      "summary": "A community-joining case where questions have visible consequences and members can revise their answers after entry.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "onboard",
+          "choose",
+          "personalize",
+          "return"
+        ],
+        "contexts": [
+          "community",
+          "games",
+          "first-use"
+        ],
+        "platforms": [
+          "web",
+          "native-mobile"
+        ],
+        "character": []
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected",
+          "documented-flow"
+        ],
+        "inspected_at": "2026-11-07",
+        "freshness": "historical",
+        "scope": "Relevant first-party documented sequence/state account inspected; no authenticated live product workflow exercised."
+      },
+      "related": [
+        "flow-duolingo-guided-path",
+        "flow-meetup-waitlist"
+      ],
+      "path": "library/entries/flow-discord-community-onboarding.md",
+      "card_sha256": "204420e88b1f762bed3e0c3a4875354bc303ed2d35a055b13e044947e6e9f40e",
+      "sources": [
+        {
+          "url": "https://support.discord.com/hc/en-us/articles/11074987197975-Community-Onboarding-FAQ",
+          "title": "Discord Support: Community Onboarding FAQ",
+          "locator": "Here is how it works; Default Channels; Customization Questions; post-join changes",
+          "revision": "2023-03-31 support account; live body inspected 2026-11-07"
+        }
+      ]
+    },
+    {
+      "id": "flow-duolingo-guided-path",
+      "kind": "example",
+      "title": "Duolingo: guided progression with review and migration",
+      "summary": "A historical learning-path case for deciding how recommended next steps coexist with review, progress transfer and learner choice.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "learn",
+          "progress",
+          "review",
+          "return"
+        ],
+        "contexts": [
+          "learning",
+          "consumer",
+          "first-use"
+        ],
+        "platforms": [
+          "native-mobile"
+        ],
+        "character": []
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected",
+          "documented-flow",
+          "visual-inspected"
+        ],
+        "inspected_at": "2026-11-07",
+        "freshness": "historical",
+        "scope": "Relevant first-party documented sequence/state account inspected; no authenticated live product workflow exercised."
+      },
+      "related": [
+        "flow-discord-community-onboarding"
+      ],
+      "path": "library/entries/flow-duolingo-guided-path.md",
+      "card_sha256": "48e6ad6c834f5a5cdfe6d7ab63f8676f68ed94e436b38bc1d62105f301cfdbc9",
+      "sources": [
+        {
+          "url": "https://blog.duolingo.com/new-duolingo-home-screen-design/",
+          "title": "Introducing the new Duolingo learning path",
+          "locator": "Quick overview; learning-path explanation; progress-transfer and return-to-lesson FAQs",
+          "revision": "2022 launch account; source inspected 2026-11-07"
+        }
+      ]
+    },
+    {
+      "id": "flow-etsy-custom-request",
+      "kind": "example",
+      "title": "Etsy: negotiate a custom request before purchase",
+      "summary": "A creative-commerce case separating configurable personalization from an open-ended proposal and later purchasable item.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "request",
+          "customize",
+          "discuss",
+          "purchase"
+        ],
+        "contexts": [
+          "commerce",
+          "creative-services",
+          "consumer"
+        ],
+        "platforms": [
+          "web",
+          "native-mobile"
+        ],
+        "character": []
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected",
+          "documented-flow"
+        ],
+        "inspected_at": "2026-11-07",
+        "freshness": "live-at-inspection",
+        "scope": "Relevant first-party documented sequence/state account inspected; no authenticated live product workflow exercised."
+      },
+      "related": [
+        "flow-shopify-checkout-layout",
+        "flow-google-docs-suggestions"
+      ],
+      "path": "library/entries/flow-etsy-custom-request.md",
+      "card_sha256": "83a3516cbad8c3e03f693e5d9820d93a9eee5273770165c5aeb4f0354223f01c",
+      "sources": [
+        {
+          "url": "https://help.etsy.com/hc/en-us/articles/115015440167-How-to-Request-a-Personalized-or-Custom-Item",
+          "title": "Etsy Help: Request a Personalized or Custom Item",
+          "locator": "Personalize an item; Request custom item; After you send a request",
+          "revision": "not-versioned; documentation inspected 2026-11-07"
+        }
+      ]
+    },
+    {
+      "id": "flow-figma-ui3-state-visibility",
+      "kind": "example",
+      "title": "Figma UI3: visible state in repeated expert work",
+      "summary": "Use a documented redesign reversal to distinguish hiding an infrequent action from hiding a frequently inspected value.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "inspect",
+          "adjust",
+          "compare"
+        ],
+        "contexts": [
+          "creative-tools",
+          "expert-repeated"
+        ],
+        "platforms": [
+          "desktop-web",
+          "web"
+        ],
+        "character": []
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected",
+          "documented-flow",
+          "visual-inspected"
+        ],
+        "inspected_at": "2026-11-07",
+        "freshness": "historical",
+        "scope": "Historical first-party redesign account read; embedded blend-mode and clip-content exploration screenshots visually inspected. No authenticated current-product interaction."
+      },
+      "related": [
+        "flow-linear-triage-decisions"
+      ],
+      "path": "library/entries/flow-figma-ui3-state-visibility.md",
+      "card_sha256": "2759cfb8921ae8babafebf3ab0f8b6bb4aa082003197ebde52d8633c492fb07a",
+      "sources": [
+        {
+          "url": "https://www.figma.com/blog/our-approach-to-designing-ui3/",
+          "title": "Figma on Figma: Our approach to designing UI3",
+          "locator": "Docked panels; Blend modes: Bridging past and present; clip-content discussion",
+          "revision": "2024-10-01 first-party account"
+        }
+      ]
+    },
+    {
+      "id": "flow-github-issue-forms",
+      "kind": "example",
+      "title": "GitHub: structured community issue intake",
+      "summary": "An authoring-to-contribution example connecting targeted prompts, required information, preview and a template chooser.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "submit",
+          "report",
+          "collect-context",
+          "preview"
+        ],
+        "contexts": [
+          "community",
+          "developer-tools",
+          "contributions"
+        ],
+        "platforms": [
+          "desktop-web",
+          "web"
+        ],
+        "character": []
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected",
+          "documented-flow"
+        ],
+        "inspected_at": "2026-11-07",
+        "freshness": "live-at-inspection",
+        "scope": "Relevant first-party documented sequence/state account inspected; no authenticated live product workflow exercised."
+      },
+      "related": [
+        "flow-linear-triage-decisions",
+        "flow-mediawiki-review-publish"
+      ],
+      "path": "library/entries/flow-github-issue-forms.md",
+      "card_sha256": "e40684f89c6ed921ce6022943abffc4f1534c113a59ab4842f3e317b33d3619e",
+      "sources": [
+        {
+          "url": "https://docs.github.com/en/communities/using-templates-to-encourage-useful-issues-and-pull-requests/configuring-issue-templates-for-your-repository",
+          "title": "GitHub Docs: Configuring issue templates",
+          "locator": "Creating templates; Creating issue forms; Configuring template chooser",
+          "revision": "not-versioned; documentation inspected 2026-11-07"
+        }
+      ]
+    },
+    {
+      "id": "flow-google-docs-suggestions",
+      "kind": "example",
+      "title": "Google Docs: propose, preview and accept changes",
+      "summary": "A collaboration flow separating a proposed edit from authoritative document content and allowing individual or bulk review.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "propose",
+          "review",
+          "accept",
+          "reject"
+        ],
+        "contexts": [
+          "collaboration",
+          "writing",
+          "human-review"
+        ],
+        "platforms": [
+          "desktop-web",
+          "web"
+        ],
+        "character": []
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected",
+          "documented-flow"
+        ],
+        "inspected_at": "2026-11-07",
+        "freshness": "live-at-inspection",
+        "scope": "Relevant first-party documented sequence/state account inspected; no authenticated live product workflow exercised."
+      },
+      "related": [
+        "flow-mediawiki-review-publish",
+        "flow-etsy-custom-request"
+      ],
+      "path": "library/entries/flow-google-docs-suggestions.md",
+      "card_sha256": "24df0e5df5771da71eaba161fa272d82ee4d9d6c5d2c6ece7bb9d1413c23dcda",
+      "sources": [
+        {
+          "url": "https://support.google.com/docs/answer/6033474",
+          "title": "Google Docs Help: Suggest edits",
+          "locator": "Suggest changes; Accept/reject one; Review suggested edits; permissions",
+          "revision": "not-versioned; documentation inspected 2026-11-07"
+        }
+      ]
+    },
+    {
+      "id": "flow-google-maps-offline",
+      "kind": "example",
+      "title": "Google Maps: select, store and refresh offline areas",
+      "summary": "A degraded-connectivity journey distinguishing downloaded coverage, available capabilities, storage and expiring information.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "prepare",
+          "download",
+          "navigate",
+          "recover"
+        ],
+        "contexts": [
+          "consumer",
+          "travel",
+          "offline"
+        ],
+        "platforms": [
+          "native-mobile"
+        ],
+        "character": []
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected",
+          "documented-flow"
+        ],
+        "inspected_at": "2026-11-07",
+        "freshness": "live-at-inspection",
+        "scope": "Relevant first-party documented sequence/state account inspected; no authenticated live product workflow exercised."
+      },
+      "related": [
+        "flow-slack-catch-up"
+      ],
+      "path": "library/entries/flow-google-maps-offline.md",
+      "card_sha256": "1d0b0a92c0b92e65ba0821ff45838b179055a12701d62fe2e15bb66f951f2228",
+      "sources": [
+        {
+          "url": "https://support.google.com/maps/answer/6291838?hl=en",
+          "title": "Google Maps Help: Download areas and navigate offline",
+          "locator": "Select your own map; Use offline maps; Manage/update offline maps",
+          "revision": "not-versioned; documentation inspected 2026-11-07"
+        }
+      ]
+    },
+    {
+      "id": "flow-linear-triage-decisions",
+      "kind": "example",
+      "title": "Linear Triage: accept, decline, duplicate or snooze",
+      "summary": "Match an intake queue where unresolved items require explicit disposition and temporary deferral remains distinguishable from rejection.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "review",
+          "prioritize",
+          "defer",
+          "resolve"
+        ],
+        "contexts": [
+          "operations",
+          "collaboration",
+          "expert-repeated"
+        ],
+        "platforms": [
+          "desktop-web",
+          "web"
+        ],
+        "character": []
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected",
+          "documented-flow"
+        ],
+        "inspected_at": "2026-11-07",
+        "freshness": "live-at-inspection",
+        "scope": "Relevant first-party text and described transitions inspected; no authenticated product interaction or visual inspection."
+      },
+      "related": [
+        "flow-figma-ui3-state-visibility",
+        "pattern-carbon-data-table",
+        "principle-goals-signals-metrics"
+      ],
+      "path": "library/entries/flow-linear-triage-decisions.md",
+      "card_sha256": "48c8f2b971377fdeb30c53a5657739c072e21ae4ef1b53acd86d00554f1ab4d9",
+      "sources": [
+        {
+          "url": "https://linear.app/docs/triage",
+          "title": "Linear Docs: Triage",
+          "locator": "Basics → Create issues / Take actions; Configure",
+          "revision": "not-versioned; live documentation inspected 2026-11-07"
+        }
+      ]
+    },
+    {
+      "id": "flow-mediawiki-review-publish",
+      "kind": "example",
+      "title": "MediaWiki VisualEditor: draft, review and publish",
+      "summary": "A public-contribution flow where editing, reviewing the diff and committing an externally visible change remain separate stages.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "edit",
+          "preview",
+          "review",
+          "publish"
+        ],
+        "contexts": [
+          "community",
+          "editorial",
+          "contributions"
+        ],
+        "platforms": [
+          "desktop-web",
+          "mobile-web",
+          "web"
+        ],
+        "character": []
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected",
+          "documented-flow"
+        ],
+        "inspected_at": "2026-11-07",
+        "freshness": "live-at-inspection",
+        "scope": "Relevant first-party documented sequence/state account inspected; no authenticated live product workflow exercised."
+      },
+      "related": [
+        "flow-google-docs-suggestions",
+        "flow-github-issue-forms"
+      ],
+      "path": "library/entries/flow-mediawiki-review-publish.md",
+      "card_sha256": "1f3e51680dac082b88056515ffbf07dd128439c9934ed758b26934cf7dbcb312",
+      "sources": [
+        {
+          "url": "https://www.mediawiki.org/wiki/Help:VisualEditor/User_guide/en",
+          "title": "MediaWiki Help: VisualEditor User guide",
+          "locator": "Publishing changes; Resume editing; switching editor; local-wiki differences",
+          "revision": "not-versioned; documentation inspected 2026-11-07"
+        }
+      ]
+    },
+    {
+      "id": "flow-meetup-waitlist",
+      "kind": "example",
+      "title": "Meetup: waitlisted versus attending",
+      "summary": "A community-capacity case showing why joining a queue, promotion rules and confirmed attendance need distinct meanings.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "join",
+          "wait",
+          "cancel",
+          "track-status"
+        ],
+        "contexts": [
+          "community",
+          "events",
+          "consumer"
+        ],
+        "platforms": [
+          "web",
+          "native-mobile"
+        ],
+        "character": []
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected",
+          "documented-flow"
+        ],
+        "inspected_at": "2026-11-07",
+        "freshness": "live-at-inspection",
+        "scope": "Relevant first-party documented sequence/state account inspected; no authenticated live product workflow exercised."
+      },
+      "related": [
+        "flow-shopify-checkout-layout",
+        "flow-discord-community-onboarding",
+        "pattern-govuk-error-summary"
+      ],
+      "path": "library/entries/flow-meetup-waitlist.md",
+      "card_sha256": "962abb8096b71d064500e90cce56bbae8a4c69af3c4fc13fc8575df6da6515af",
+      "sources": [
+        {
+          "url": "https://help.meetup.com/hc/en-us/articles/41229648295181-How-to-Join-an-Event-Waitlist-on-Meetup",
+          "title": "Meetup Help: How to Join an Event Waitlist",
+          "locator": "What is a Waitlist; joining; promotion order; mandatory fees; status",
+          "revision": "not-versioned; documentation inspected 2026-11-07"
+        }
+      ]
+    },
+    {
+      "id": "flow-notion-view-sharing",
+      "kind": "example",
+      "title": "Notion: personal versus shared database views",
+      "summary": "A multi-view workspace case for distinguishing presentation state, underlying records and changes that affect other collaborators.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "filter",
+          "compare",
+          "organize",
+          "configure"
+        ],
+        "contexts": [
+          "collaboration",
+          "operations",
+          "expert-repeated"
+        ],
+        "platforms": [
+          "desktop-web",
+          "web"
+        ],
+        "character": []
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected",
+          "documented-flow"
+        ],
+        "inspected_at": "2026-11-07",
+        "freshness": "live-at-inspection",
+        "scope": "Relevant first-party documented sequence/state account inspected; no authenticated live product workflow exercised."
+      },
+      "related": [
+        "flow-airbnb-collaborative-wishlist",
+        "flow-linear-triage-decisions"
+      ],
+      "path": "library/entries/flow-notion-view-sharing.md",
+      "card_sha256": "bcbc4fa3ec1eb98b9a74f2bf3ecc2d227bf375825741f7b3815381bd5183774c",
+      "sources": [
+        {
+          "url": "https://www.notion.com/help/views-filters-and-sorts",
+          "title": "Notion Help: Views, filters, sorts and groups",
+          "locator": "View settings; Open pages in; Filters; Sorts",
+          "revision": "not-versioned; documentation inspected 2026-11-07"
+        }
+      ]
+    },
+    {
+      "id": "flow-shopify-checkout-layout",
+      "kind": "example",
+      "title": "Shopify: one-page versus three-page checkout",
+      "summary": "Compare segmentation while retaining the same information requirements, and distinguish editor preview from the actual checkout surface.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "enter",
+          "review",
+          "purchase",
+          "correct"
+        ],
+        "contexts": [
+          "commerce",
+          "consumer",
+          "occasional"
+        ],
+        "platforms": [
+          "web",
+          "native-mobile"
+        ],
+        "character": []
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected",
+          "documented-flow"
+        ],
+        "inspected_at": "2026-11-07",
+        "freshness": "live-at-inspection",
+        "scope": "Shopper information grouping and separate merchant configuration instructions read. Native-mobile facet refers only to documented merchant Shopify-app configuration; no shopper native checkout or live workflow tested."
+      },
+      "related": [
+        "flow-etsy-custom-request",
+        "flow-meetup-waitlist"
+      ],
+      "path": "library/entries/flow-shopify-checkout-layout.md",
+      "card_sha256": "018ae0109442cd558563522894addbdbaee3f7a9168b128580ab674e20cd7a92",
+      "sources": [
+        {
+          "url": "https://help.shopify.com/en/manual/checkout-settings/customize-checkout-configurations/one-page-checkout",
+          "title": "Shopify Help: One-page checkout",
+          "locator": "Comparing layouts; Change your checkout layout; language customizations",
+          "revision": "not-versioned; documentation inspected 2026-11-07"
+        }
+      ]
+    },
+    {
+      "id": "flow-signal-usernames",
+      "kind": "example",
+      "title": "Signal: identity visibility versus discoverability",
+      "summary": "A privacy-settings example separating what others can see, how they can initiate contact, and an optional shared identifier.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "configure",
+          "connect",
+          "share-identity",
+          "recover"
+        ],
+        "contexts": [
+          "messaging",
+          "privacy",
+          "consumer"
+        ],
+        "platforms": [
+          "native-mobile",
+          "desktop"
+        ],
+        "character": []
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected",
+          "documented-flow"
+        ],
+        "inspected_at": "2026-11-07",
+        "freshness": "live-at-inspection",
+        "scope": "First-party Android/iOS/Desktop settings and actor-specific contact account read; support website and shared URL are not evidence of a web client. No account settings or messaging exercised."
+      },
+      "related": [
+        "flow-steam-family-roles",
+        "flow-discord-community-onboarding"
+      ],
+      "path": "library/entries/flow-signal-usernames.md",
+      "card_sha256": "282118e395ff9e418075ec5a6ea1e82bc37e3148643d309d84b93d9b3a425ba1",
+      "sources": [
+        {
+          "url": "https://support.signal.org/hc/en-us/articles/6712070553754-Phone-Number-Privacy-and-Usernames",
+          "title": "Signal Support: Phone Number Privacy and Usernames",
+          "locator": "Phone-number settings and Android/iOS/Desktop paths; Share username; Start a chat by username; Receiving a message request via username",
+          "revision": "not-versioned; documentation inspected 2026-11-07"
+        }
+      ]
+    },
+    {
+      "id": "flow-slack-catch-up",
+      "kind": "example",
+      "title": "Slack: catch up, skip and undo",
+      "summary": "A mobile/desktop attention queue where acknowledgement, deferral, recovery and the source conversation are distinct actions.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "review",
+          "catch-up",
+          "defer",
+          "recover"
+        ],
+        "contexts": [
+          "collaboration",
+          "messaging",
+          "repeated-use"
+        ],
+        "platforms": [
+          "desktop-web",
+          "native-mobile",
+          "web"
+        ],
+        "character": []
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected",
+          "documented-flow"
+        ],
+        "inspected_at": "2026-11-07",
+        "freshness": "live-at-inspection",
+        "scope": "Relevant first-party documented sequence/state account inspected; no authenticated live product workflow exercised."
+      },
+      "related": [
+        "flow-linear-triage-decisions",
+        "flow-google-maps-offline"
+      ],
+      "path": "library/entries/flow-slack-catch-up.md",
+      "card_sha256": "5d81a58e7fd7f15cac8662f28241eeb69048928129630a2173a7e46f1047ddc6",
+      "sources": [
+        {
+          "url": "https://slack.com/help/articles/226410907-View-all-your-unread-messages",
+          "title": "Slack Help: View all your unread messages",
+          "locator": "View/Navigate unread messages; Mark as read; Refresh; Reply",
+          "revision": "not-versioned; documentation inspected 2026-11-07"
+        }
+      ]
+    },
+    {
+      "id": "flow-spotify-jam",
+      "kind": "example",
+      "title": "Spotify Jam: shared queue with host control",
+      "summary": "A co-present/remote collaboration flow where joining, contribution, playback authority and leaving have different scopes.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "join",
+          "collaborate",
+          "queue",
+          "control"
+        ],
+        "contexts": [
+          "consumer",
+          "music",
+          "group-decisions"
+        ],
+        "platforms": [
+          "desktop-web",
+          "native-mobile",
+          "tv",
+          "web"
+        ],
+        "character": []
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected",
+          "documented-flow"
+        ],
+        "inspected_at": "2026-11-07",
+        "freshness": "live-at-inspection",
+        "scope": "Relevant first-party documented sequence/state account inspected; no authenticated live product workflow exercised."
+      },
+      "related": [
+        "flow-airbnb-collaborative-wishlist",
+        "flow-steam-family-roles",
+        "principle-low-literacy-modalities"
+      ],
+      "path": "library/entries/flow-spotify-jam.md",
+      "card_sha256": "39462859fa08476dc85d41ab7e892ddfb807809ce1034c40964f00e61c943f3a",
+      "sources": [
+        {
+          "url": "https://support.spotify.com/na-en/article/jam/",
+          "title": "Spotify Support: Start or join a Jam",
+          "locator": "Start/share; Join/add tracks; participant controls; host settings",
+          "revision": "not-versioned; documentation inspected 2026-11-07"
+        }
+      ]
+    },
+    {
+      "id": "flow-steam-family-roles",
+      "kind": "example",
+      "title": "Steam Families: role-aware requests and shared access",
+      "summary": "A gaming-household case distinguishing who requests, who authorizes and which state belongs to each account.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "invite",
+          "request",
+          "approve",
+          "manage-access"
+        ],
+        "contexts": [
+          "games",
+          "household",
+          "role-based"
+        ],
+        "platforms": [
+          "desktop-web",
+          "native-mobile",
+          "web"
+        ],
+        "character": []
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected",
+          "documented-flow",
+          "visual-inspected"
+        ],
+        "inspected_at": "2026-11-07",
+        "freshness": "live-at-inspection",
+        "scope": "Relevant first-party documented sequence/state account inspected; no authenticated live product workflow exercised."
+      },
+      "related": [
+        "flow-signal-usernames",
+        "flow-spotify-jam"
+      ],
+      "path": "library/entries/flow-steam-family-roles.md",
+      "card_sha256": "4c259f78b2c79f9bbe48c8614ddb4c9e34e632fda8e9a75c97f4c5873f1b6175",
+      "sources": [
+        {
+          "url": "https://help.steampowered.com/en/faqs/view/054C-3167-DD7F-49D4?l=english",
+          "title": "Steam Support: Steam Families User Guide and FAQ",
+          "locator": "Feature overview; setup; adult/child roles; purchase requests; sharing limitations",
+          "revision": "not-versioned; documentation inspected 2026-11-07"
+        }
+      ]
+    },
+    {
+      "id": "flow-zotero-linked-annotations",
+      "kind": "example",
+      "title": "Zotero: annotations that retain their source context",
+      "summary": "A research-reading flow linking highlights, reusable notes, citations and the exact source location.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "read",
+          "annotate",
+          "synthesize",
+          "return-to-source"
+        ],
+        "contexts": [
+          "learning",
+          "research",
+          "editorial"
+        ],
+        "platforms": [
+          "desktop"
+        ],
+        "character": []
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected",
+          "documented-flow"
+        ],
+        "inspected_at": "2026-11-07",
+        "freshness": "live-at-inspection",
+        "scope": "Relevant first-party documented sequence/state account inspected; no authenticated live product workflow exercised."
+      },
+      "related": [
+        "flow-google-docs-suggestions"
+      ],
+      "path": "library/entries/flow-zotero-linked-annotations.md",
+      "card_sha256": "86f4565c0e8720a8d4b3e4c8b2e147982d99672bb4e8567accdcc0be3ad15608",
+      "sources": [
+        {
+          "url": "https://www.zotero.org/support/pdf_reader",
+          "title": "Zotero Documentation: PDF Reader and Note Editor",
+          "locator": "Creating annotations; Adding annotations to notes; Viewing an Annotation in Context",
+          "revision": "not-versioned; documentation inspected 2026-11-07"
+        }
+      ]
+    },
+    {
+      "id": "pattern-apg-combobox",
+      "kind": "system",
+      "title": "WAI-ARIA APG: combobox decision and behavior",
+      "summary": "Distinguish editable suggestions from constrained selection and choose the popup model deliberately.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "search",
+          "select",
+          "enter"
+        ],
+        "contexts": [
+          "forms",
+          "typeahead",
+          "constrained-input"
+        ],
+        "platforms": [
+          "web"
+        ],
+        "character": []
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected"
+        ],
+        "inspected_at": "2026-11-07",
+        "freshness": "live-at-inspection",
+        "scope": "Source text inspected; no visual inspection or live component execution."
+      },
+      "related": [
+        "system-radix",
+        "pattern-primer-action-menu"
+      ],
+      "path": "library/entries/pattern-apg-combobox.md",
+      "card_sha256": "f4978a982dac9f2674d38642e4c2850d9a867c052abdf74b3350e33d54762fa2",
+      "sources": [
+        {
+          "url": "https://www.w3.org/WAI/ARIA/apg/patterns/combobox/",
+          "title": "Combobox pattern",
+          "locator": "About; keyboard interaction; roles/states/properties; editable and select-only distinctions",
+          "revision": "live documentation; not pinned to a source commit"
+        }
+      ]
+    },
+    {
+      "id": "pattern-apg-tabs",
+      "kind": "system",
+      "title": "WAI-ARIA APG: tabs and activation",
+      "summary": "Separate tab focus from panel activation and keep page panels distinct from app destinations.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "switch",
+          "inspect",
+          "navigate"
+        ],
+        "contexts": [
+          "layered-content",
+          "component-behavior"
+        ],
+        "platforms": [
+          "web"
+        ],
+        "character": []
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected",
+          "documented-flow"
+        ],
+        "inspected_at": "2026-11-07",
+        "freshness": "live-at-inspection",
+        "scope": "Source text inspected; no visual inspection or live component execution."
+      },
+      "related": [
+        "pattern-material-navigation-bar",
+        "pattern-apg-combobox"
+      ],
+      "path": "library/entries/pattern-apg-tabs.md",
+      "card_sha256": "6d1b6f5d77e4c07adf5887cebccfe3378aacce29c450738e48ba0f59cbe178c8",
+      "sources": [
+        {
+          "url": "https://www.w3.org/WAI/ARIA/apg/patterns/tabs/",
+          "title": "Tabs pattern",
+          "locator": "About; keyboard interaction; automatic activation note; roles/states/properties",
+          "revision": "live documentation; not pinned to a source commit"
+        }
+      ]
+    },
+    {
+      "id": "pattern-apple-onboarding",
+      "kind": "system",
+      "title": "Apple HIG: contextual onboarding",
+      "summary": "Choose optional introduction, safe interactive teaching or contextual tips according to the actual learning need.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "start",
+          "learn",
+          "configure"
+        ],
+        "contexts": [
+          "consumer-app",
+          "first-use",
+          "creative-tool"
+        ],
+        "platforms": [
+          "ios",
+          "ipados",
+          "macos",
+          "watchos",
+          "tvos",
+          "visionos",
+          "native-mobile"
+        ],
+        "character": []
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected",
+          "documented-flow"
+        ],
+        "inspected_at": "2026-11-07",
+        "freshness": "live-at-inspection",
+        "scope": "Onboarding text inspected in native Chrome; source-described learning paths only; no native tutorial or permission interaction."
+      },
+      "related": [
+        "system-apple-hig",
+        "pattern-carbon-empty-states"
+      ],
+      "path": "library/entries/pattern-apple-onboarding.md",
+      "card_sha256": "4e52daaf7058b4091d3a547e469dd21b511a203af2d698c78d52cd496bb0baef",
+      "sources": [
+        {
+          "url": "https://developer.apple.com/design/human-interface-guidelines/onboarding",
+          "title": "Onboarding",
+          "locator": "Best practices; tutorials; tips; setup and permissions",
+          "revision": "Visible change log: 2024-06-10 clarification; 2023-06-21 visionOS"
+        }
+      ]
+    },
+    {
+      "id": "pattern-carbon-data-table",
+      "kind": "system",
+      "title": "Carbon: data table density and actions",
+      "summary": "Task-based table sizing, selection, expansion and batch actions for operational data.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "compare",
+          "select",
+          "inspect",
+          "batch-edit"
+        ],
+        "contexts": [
+          "enterprise",
+          "data-heavy",
+          "expert-use"
+        ],
+        "platforms": [
+          "web"
+        ],
+        "character": []
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected",
+          "documented-flow",
+          "visual-inspected"
+        ],
+        "inspected_at": "2026-11-07",
+        "freshness": "live-at-inspection",
+        "scope": "Guidelines text and native Chrome sizing section inspected. Static density comparisons viewed; no live table actions executed."
+      },
+      "related": [
+        "system-carbon",
+        "pattern-carbon-empty-states"
+      ],
+      "path": "library/entries/pattern-carbon-data-table.md",
+      "card_sha256": "f15c05df6947073b000ff4687985a1738ef12fe10220355787c3a91788363001",
+      "sources": [
+        {
+          "url": "https://www.carbondesignsystem.com/building-blocks/core/components/data-table/guidelines",
+          "title": "Data table guidelines",
+          "locator": "Sizing; selection and batch actions; expandable rows; toolbar; loading",
+          "revision": "Stable; page updated 2026-09-30; React context inspected"
+        }
+      ]
+    },
+    {
+      "id": "pattern-carbon-empty-states",
+      "kind": "system",
+      "title": "Carbon: empty states by cause",
+      "summary": "Separate first use, user-driven empty results and errors before choosing explanation and action.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "start",
+          "recover",
+          "search"
+        ],
+        "contexts": [
+          "enterprise",
+          "first-use",
+          "no-results"
+        ],
+        "platforms": [
+          "web"
+        ],
+        "character": []
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected"
+        ],
+        "inspected_at": "2026-11-07",
+        "freshness": "live-at-inspection",
+        "scope": "Source text inspected; no visual inspection or live component execution."
+      },
+      "related": [
+        "system-carbon",
+        "pattern-carbon-data-table",
+        "flow-linear-triage-decisions"
+      ],
+      "path": "library/entries/pattern-carbon-empty-states.md",
+      "card_sha256": "34d58f4b3fbcc407946136391779efc8bdd95fc1675856e84ed6ea48c4c6ef3d",
+      "sources": [
+        {
+          "url": "https://www.carbondesignsystem.com/building-blocks/core/patterns/empty-states",
+          "title": "Empty states",
+          "locator": "Types; content; illustration and call-to-action guidance",
+          "revision": "Page updated 2026-08-11; not pinned"
+        }
+      ]
+    },
+    {
+      "id": "pattern-fluent-dialog",
+      "kind": "system",
+      "title": "Fluent 2: dialog interruption and focus",
+      "summary": "Choose modal, nonmodal and alert interruptions by consequence, then specify dismissal and focus.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "confirm",
+          "edit",
+          "interrupt",
+          "recover"
+        ],
+        "contexts": [
+          "enterprise",
+          "productivity",
+          "consequential-action"
+        ],
+        "platforms": [
+          "web"
+        ],
+        "character": []
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected",
+          "documented-flow"
+        ],
+        "inspected_at": "2026-11-07",
+        "freshness": "live-at-inspection",
+        "scope": "Source text inspected; no visual inspection or live component execution."
+      },
+      "related": [
+        "system-fluent2",
+        "pattern-radix-dialog"
+      ],
+      "path": "library/entries/pattern-fluent-dialog.md",
+      "card_sha256": "edff9a1beb2203f72cabc9c503706f2e0b3d6c34db7dc27feefa8f9729203ca5",
+      "sources": [
+        {
+          "url": "https://fluent2.microsoft.design/components/web/react/core/dialog/usage",
+          "title": "Dialog usage",
+          "locator": "Types; behavior; dismissal; accessibility; form and scrolling guidance",
+          "revision": "Web React core dialog; preview status at inspection"
+        }
+      ]
+    },
+    {
+      "id": "pattern-govuk-check-answers",
+      "kind": "system",
+      "title": "GOV.UK check answers and correction loop",
+      "summary": "Review submitted information with specific change links, retained values and a clear return route; adapt review placement to transaction size.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "review",
+          "correct",
+          "submit"
+        ],
+        "contexts": [
+          "public-service",
+          "forms",
+          "transactional",
+          "occasional-use"
+        ],
+        "platforms": [
+          "web",
+          "mobile-web"
+        ],
+        "character": []
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected",
+          "documented-flow",
+          "visual-inspected"
+        ],
+        "inspected_at": "2026-11-07",
+        "freshness": "live-at-inspection",
+        "scope": "Pattern explanation and HTML example inspected as text; embedded review screen visually inspected in native Chrome. Correction sequence documented, not executed."
+      },
+      "related": [
+        "system-govuk",
+        "principle-choice-context",
+        "flow-etsy-custom-request"
+      ],
+      "path": "library/entries/pattern-govuk-check-answers.md",
+      "card_sha256": "db8990885dbbdb76167fde339543508a73f670ea676a77bc8604311957f6bd12",
+      "sources": [
+        {
+          "url": "https://design-system.service.gov.uk/patterns/check-answers/",
+          "title": "Check answers",
+          "locator": "When to use; How it works; Let users go back and change their answers; HTML summary-list example",
+          "revision": "live documentation inspected 2026-11-07"
+        }
+      ]
+    },
+    {
+      "id": "pattern-govuk-error-summary",
+      "kind": "system",
+      "title": "GOV.UK: validation recovery",
+      "summary": "Connect page-level error navigation with precise errors beside affected fields.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "correct",
+          "enter",
+          "recover"
+        ],
+        "contexts": [
+          "public-service",
+          "transactional",
+          "forms"
+        ],
+        "platforms": [
+          "web",
+          "mobile-web"
+        ],
+        "character": []
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected",
+          "documented-flow"
+        ],
+        "inspected_at": "2026-11-07",
+        "freshness": "live-at-inspection",
+        "scope": "Source text inspected; no visual inspection or live component execution."
+      },
+      "related": [
+        "system-govuk",
+        "pattern-govuk-check-answers"
+      ],
+      "path": "library/entries/pattern-govuk-error-summary.md",
+      "card_sha256": "c4e43b25cd797466c5ebafd67ad8d9867874267e96da01328c58667dbb4010bb",
+      "sources": [
+        {
+          "url": "https://design-system.service.gov.uk/components/error-summary/",
+          "title": "Error summary",
+          "locator": "When to use; How it works; accessibility and focus guidance",
+          "revision": "live documentation; not pinned to a source commit"
+        }
+      ]
+    },
+    {
+      "id": "pattern-govuk-task-list",
+      "kind": "system",
+      "title": "GOV.UK: complete multiple tasks",
+      "summary": "A resumable overview for genuinely long transactions with tasks, dependencies and meaningful status.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "resume",
+          "navigate",
+          "complete"
+        ],
+        "contexts": [
+          "public-service",
+          "multi-session",
+          "complex-forms"
+        ],
+        "platforms": [
+          "web",
+          "mobile-web"
+        ],
+        "character": []
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected",
+          "documented-flow"
+        ],
+        "inspected_at": "2026-11-07",
+        "freshness": "live-at-inspection",
+        "scope": "Source text inspected; no visual inspection or live component execution."
+      },
+      "related": [
+        "system-govuk",
+        "pattern-govuk-check-answers"
+      ],
+      "path": "library/entries/pattern-govuk-task-list.md",
+      "card_sha256": "be4d3b5d2d1c5d8d8b7f6163dd935ea489e60797e910dad562fd5012648d5377",
+      "sources": [
+        {
+          "url": "https://design-system.service.gov.uk/patterns/complete-multiple-tasks/",
+          "title": "Complete multiple tasks",
+          "locator": "When to use; How it works; task status and dependencies",
+          "revision": "live documentation; not pinned to a source commit"
+        }
+      ]
+    },
+    {
+      "id": "pattern-material-navigation-bar",
+      "kind": "system",
+      "title": "Material 3: primary navigation bar",
+      "summary": "Stable top-level destinations for compact and medium layouts, with important implementation and version caveats.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "navigate",
+          "switch"
+        ],
+        "contexts": [
+          "consumer-app",
+          "primary-navigation"
+        ],
+        "platforms": [
+          "android",
+          "flutter",
+          "mobile-web",
+          "web",
+          "native-mobile"
+        ],
+        "character": []
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected",
+          "visual-inspected"
+        ],
+        "inspected_at": "2026-11-07",
+        "freshness": "live-at-inspection",
+        "scope": "Native Chrome overview text and static news-app illustration inspected; no working application navigation exercised."
+      },
+      "related": [
+        "pattern-apg-tabs",
+        "system-apple-hig",
+        "skill-android-adaptive"
+      ],
+      "path": "library/entries/pattern-material-navigation-bar.md",
+      "card_sha256": "35968694f29ba9ea976ca3de303a8b4dc72ad300f92d53886654f8b2e2c9dee6",
+      "sources": [
+        {
+          "url": "https://m3.material.io/components/navigation-bar/overview",
+          "title": "Navigation bar overview",
+          "locator": "Usage; M3 Expressive update; availability; example navigation",
+          "revision": "Live page; M3 Expressive update May 2025; baseline identified as no longer recommended"
+        }
+      ]
+    },
+    {
+      "id": "pattern-primer-action-menu",
+      "kind": "system",
+      "title": "Primer: action menu boundaries",
+      "summary": "Keep command menus distinct from form inputs, and make hierarchy and disabled reasons understandable.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "act",
+          "select",
+          "configure"
+        ],
+        "contexts": [
+          "developer-tools",
+          "command-menu"
+        ],
+        "platforms": [
+          "web"
+        ],
+        "character": []
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected"
+        ],
+        "inspected_at": "2026-11-07",
+        "freshness": "live-at-inspection",
+        "scope": "Source text inspected; no visual inspection or live component execution."
+      },
+      "related": [
+        "system-primer",
+        "pattern-apg-combobox",
+        "pattern-fluent-dialog"
+      ],
+      "path": "library/entries/pattern-primer-action-menu.md",
+      "card_sha256": "431e82f1d9300b657a0d0e70268452d2233824daec288115453dd0475eeb1834",
+      "sources": [
+        {
+          "url": "https://primer.style/product/components/action-menu/guidelines/",
+          "title": "Action menu guidelines",
+          "locator": "Usage; content; hierarchy; disabled items; trailing visuals",
+          "revision": "live documentation; not pinned to a source commit"
+        },
+        {
+          "url": "https://primer.style/product/components/action-menu/",
+          "title": "Action menu",
+          "locator": "Composition and use cases",
+          "revision": "live documentation; not pinned to a source commit"
+        }
+      ]
+    },
+    {
+      "id": "pattern-radix-dialog",
+      "kind": "system",
+      "title": "Radix: dialog composition and Escape return",
+      "summary": "A bounded live receipt for opening and dismissing a demo modal, plus implementation anatomy.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "edit",
+          "dismiss",
+          "compose"
+        ],
+        "contexts": [
+          "custom-design-system",
+          "modal-form"
+        ],
+        "platforms": [
+          "web"
+        ],
+        "character": []
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected",
+          "documented-flow",
+          "visual-inspected",
+          "interaction-tested"
+        ],
+        "inspected_at": "2026-11-07",
+        "freshness": "live-at-inspection",
+        "scope": "API documentation read; public demo opened, initial field focus observed, Escape dismissal and trigger-focus return observed in native Chrome. No edit, Save or persistence test."
+      },
+      "related": [
+        "system-radix",
+        "pattern-fluent-dialog",
+        "standard-focus-motion",
+        "tool-axe-core"
+      ],
+      "path": "library/entries/pattern-radix-dialog.md",
+      "card_sha256": "27590b64f04cac3c8f0ba01aae8b00fe3030b3ad51ced43c798f9c2e180a7c59",
+      "sources": [
+        {
+          "url": "https://www.radix-ui.com/primitives/docs/components/dialog",
+          "title": "Dialog",
+          "locator": "Demo; anatomy; features; API; keyboard interactions; controlled async example",
+          "revision": "Component version 1.2.0 displayed at inspection"
+        }
+      ]
+    },
+    {
+      "id": "pattern-uswds-language",
+      "kind": "system",
+      "title": "USWDS: language access by translation coverage",
+      "summary": "Choose equivalent-page switching or selected-content access according to what is actually translated.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "choose-language",
+          "navigate",
+          "understand"
+        ],
+        "contexts": [
+          "multilingual",
+          "public-service",
+          "partial-translation"
+        ],
+        "platforms": [
+          "web",
+          "mobile-web"
+        ],
+        "character": []
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected",
+          "documented-flow"
+        ],
+        "inspected_at": "2026-11-07",
+        "freshness": "live-at-inspection",
+        "scope": "Source text inspected; no visual inspection or live component execution."
+      },
+      "related": [
+        "system-uswds",
+        "system-govuk",
+        "principle-multilingual-layout",
+        "visual-toss-language-composition"
+      ],
+      "path": "library/entries/pattern-uswds-language.md",
+      "card_sha256": "f437b5a73a6c2d52919c38b74d98a8636707316674545ed4760e8fa7a8fa0bf8",
+      "sources": [
+        {
+          "url": "https://designsystem.digital.gov/patterns/select-a-language/",
+          "title": "Select a language",
+          "locator": "Two languages; three or more; selected content; preferred-language routes",
+          "revision": "live documentation; not pinned to a source commit"
+        },
+        {
+          "url": "https://designsystem.digital.gov/patterns/select-a-language/three-or-more-languages/",
+          "title": "Three or more languages",
+          "locator": "When to use; guidance; accessibility; latest updates",
+          "revision": "Published 2022-11-14; preview-link update 2024-04-11; live page read"
+        },
+        {
+          "url": "https://designsystem.digital.gov/patterns/select-a-language/selected-content/",
+          "title": "Selected multilingual content",
+          "locator": "When to use; coverage distinction; meaningful destination and menu guidance",
+          "revision": "live documentation; not pinned to a source commit"
+        }
+      ]
+    },
+    {
+      "id": "principle-appeal-task-distinction",
+      "kind": "foundation",
+      "title": "Separate visual appeal from the task being measured",
+      "summary": "Use screenshot-preference and target-search research to avoid treating first impressions, cultural group averages, density and interactive usability as the same outcome.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "visual-direction",
+          "evaluate",
+          "information-hierarchy"
+        ],
+        "contexts": [
+          "first-impressions",
+          "individual-differences",
+          "search",
+          "expert-work"
+        ],
+        "platforms": [
+          "web",
+          "desktop"
+        ],
+        "character": []
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected",
+          "empirical"
+        ],
+        "inspected_at": "2026-11-07",
+        "freshness": "historical",
+        "scope": "Original PDF bodies refreshed; prior same-day method review preserved. These measure brief screenshot ratings or constrained search, not this catalog's interface quality."
+      },
+      "related": [
+        "principle-reading-typography",
+        "principle-perceptual-grouping",
+        "principle-usability-sampling"
+      ],
+      "path": "library/entries/principle-appeal-task-distinction.md",
+      "card_sha256": "6690a180b830cad9ed91ab6d3736e33abac0d6904982f944d24a10e9442c2945",
+      "sources": [
+        {
+          "url": "https://www.eecs.harvard.edu/~kgajos/papers/2014/reinecke14visual.pdf",
+          "title": "Quantifying Visual Preferences Around the World",
+          "locator": "Methods pp.3–4; model; limitations p.9",
+          "revision": "Reinecke and Gajos, CHI 2014"
+        },
+        {
+          "url": "https://talaugust.github.io/assets/pdf/Baughan2020KeepIS.pdf",
+          "title": "Keep it Simple: How Visual Complexity and Preferences Impact Search Efficiency",
+          "locator": "Methods pp.2–4; statistical analysis; limitations p.8",
+          "revision": "Baughan et al., CHI 2020"
+        }
+      ]
+    },
+    {
+      "id": "principle-choice-context",
+      "kind": "foundation",
+      "title": "Evaluate choice burden in context",
+      "summary": "Use competing choice-overload evidence to investigate task difficulty, preference uncertainty and comparison structure instead of prescribing a universal option limit.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "navigate",
+          "compare",
+          "decision-support"
+        ],
+        "contexts": [
+          "choice-overload",
+          "catalogs",
+          "onboarding"
+        ],
+        "platforms": [
+          "web",
+          "mobile-web",
+          "native-mobile"
+        ],
+        "character": []
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected",
+          "empirical"
+        ],
+        "inspected_at": "2026-11-07",
+        "freshness": "historical",
+        "scope": "2010 original PDF retrieved again; the 2015 full-method/correction assessment is retained from earlier same-day source inspection. Its publisher abstract link is a reading locator, not a new full-paper inspection. Different inclusion/model choices do not establish one option count."
+      },
+      "related": [
+        "principle-navigation-learning",
+        "principle-preference-critiquing"
+      ],
+      "path": "library/entries/principle-choice-context.md",
+      "card_sha256": "f10b341a4f44a98ad58c1a97019ea33b3ac04c6b36e11a88675c362182661350",
+      "sources": [
+        {
+          "url": "https://scheibehenne.de/ScheibehenneGreifenederTodd2010.pdf",
+          "title": "Can There Ever Be Too Many Options?",
+          "locator": "Methods pp.412–414; moderator analysis and discussion pp.417–419",
+          "revision": "2010; DOI 10.1086/651235"
+        },
+        {
+          "url": "https://myscp.onlinelibrary.wiley.com/doi/abs/10.1016/j.jcps.2014.08.002",
+          "title": "Choice overload: A conceptual review and meta-analysis",
+          "locator": "Methods; results; comparison with prior meta-analysis",
+          "revision": "2015; DOI 10.1016/j.jcps.2014.08.002"
+        },
+        {
+          "url": "https://myscp.onlinelibrary.wiley.com/doi/10.1016/j.jcps.2015.07.001",
+          "title": "Corrigendum to Choice overload",
+          "locator": "Corrections to page 348",
+          "revision": "Published online 2015; issue 2016"
+        }
+      ]
+    },
+    {
+      "id": "principle-comparative-critique",
+      "kind": "foundation",
+      "title": "Use alternatives to make critique concrete",
+      "summary": "Compare meaningful alternatives to expose preferences and weaknesses while retaining the designer's responsibility to interpret feedback and propose solutions.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "compare",
+          "critique",
+          "visual-direction"
+        ],
+        "contexts": [
+          "creative-direction",
+          "prototyping",
+          "uncertain-preferences"
+        ],
+        "platforms": [
+          "cross-platform"
+        ],
+        "character": []
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected",
+          "empirical"
+        ],
+        "inspected_at": "2026-11-07",
+        "freshness": "historical",
+        "scope": "Original papers and same-day method review. Bounded thermostat-feedback and web-ad tasks; no agent or current-product evaluation."
+      },
+      "related": [
+        "principle-preference-critiquing",
+        "principle-choice-context",
+        "principle-grounding-feedback"
+      ],
+      "path": "library/entries/principle-comparative-critique.md",
+      "card_sha256": "40fba261778e2257b7b9276f78a889b7382576914d1c3fb348b5c0bcf25f6cdf",
+      "sources": [
+        {
+          "url": "https://www.billbuxton.com/rightDesign.pdf",
+          "title": "Getting the Right Design and the Design Right",
+          "locator": "Method; participants; H1–H3 results; discussion",
+          "revision": "Tohidi et al., CHI 2006"
+        },
+        {
+          "url": "https://hci.stanford.edu/publications/2010/parallel-prototyping/ParallelPrototyping2010-final.pdf",
+          "title": "Parallel Prototyping Leads to Better Design Results",
+          "locator": "Section 3 methods; measured ad outcomes; discussion",
+          "revision": "Dow et al., TOCHI 2010"
+        }
+      ]
+    },
+    {
+      "id": "principle-contextual-elicitation",
+      "kind": "foundation",
+      "title": "Elicit the problem from context, not a questionnaire",
+      "summary": "Combine existing evidence, real work examples, questions and prototypes to uncover consequential requirements without making the owner specify the entire solution.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "frame",
+          "clarify",
+          "research"
+        ],
+        "contexts": [
+          "creative-direction",
+          "stakeholders",
+          "tacit-knowledge"
+        ],
+        "platforms": [
+          "cross-platform"
+        ],
+        "character": []
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected",
+          "conceptual"
+        ],
+        "inspected_at": "2026-11-07",
+        "freshness": "historical",
+        "scope": "Original roadmap and same-day inspected interview guidance; methodological/practitioner advice, not a trial of this catalog workflow."
+      },
+      "related": [
+        "principle-mixed-initiative",
+        "principle-comparative-critique",
+        "principle-global-name-fields"
+      ],
+      "path": "library/entries/principle-contextual-elicitation.md",
+      "card_sha256": "4de437063294340011e126f89d8dc615d4685d516c6681148f79774795ea6deb",
+      "sources": [
+        {
+          "url": "https://www.cs.toronto.edu/~sme/papers/2000/ICSE2000.pdf",
+          "title": "Requirements Engineering: A Roadmap",
+          "locator": "Sections 4.1–4.3 elicitation; section 7 agreement; section 8 evolution",
+          "revision": "Nuseibeh and Easterbrook, 2000"
+        },
+        {
+          "url": "https://www.gov.uk/service-manual/user-research/using-in-depth-interviews",
+          "title": "Using in-depth interviews",
+          "locator": "Design the interview; Do the interview; After the interview",
+          "revision": "Live guidance; refreshed same-day research snapshot"
+        }
+      ]
+    },
+    {
+      "id": "principle-contextual-permissions",
+      "kind": "foundation",
+      "title": "Request access at the relevant task boundary",
+      "summary": "Combine Android's permission workflow with contextual-integrity evidence to explain why access is needed, respect refusal and preserve useful paths after denial.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "permissions",
+          "onboard",
+          "recover"
+        ],
+        "contexts": [
+          "privacy",
+          "consent",
+          "mobile",
+          "graceful-degradation"
+        ],
+        "platforms": [
+          "native-mobile",
+          "android"
+        ],
+        "character": []
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected",
+          "empirical"
+        ],
+        "inspected_at": "2026-11-07",
+        "freshness": "live-at-inspection",
+        "scope": "Current official guidance and original historical field-study PDF inspected. Platform behavior is version-dependent; no current device test or consent-effectiveness measurement."
+      },
+      "related": [
+        "principle-human-ai-control",
+        "principle-informed-choice"
+      ],
+      "path": "library/entries/principle-contextual-permissions.md",
+      "card_sha256": "2e0b640a58449048656944b150eee18e0e2e6fdf1f56e54cc8f85b168a616bd8",
+      "sources": [
+        {
+          "url": "https://developer.android.com/training/permissions/requesting",
+          "title": "Request runtime permissions",
+          "locator": "Basic principles; workflow; handle permission denial",
+          "revision": "Live platform documentation inspected 2026-11-07"
+        },
+        {
+          "url": "https://arxiv.org/pdf/1504.03747",
+          "title": "Android Permissions Remystified: A Field Study on Contextual Integrity",
+          "locator": "Section 3 methodology/exit survey; sections 5.1–5.2 expectations and blocking",
+          "revision": "Wijesekera et al., arXiv 1504.03747v1, 2015"
+        }
+      ]
+    },
+    {
+      "id": "principle-global-name-fields",
+      "kind": "foundation",
+      "title": "Design name fields for actual naming practices",
+      "summary": "Use W3C internationalization guidance to question assumed name components, ordering and validation before imposing a local naming model on a global audience.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "forms",
+          "data-modeling",
+          "localize",
+          "content-design"
+        ],
+        "contexts": [
+          "personal-names",
+          "internationalization",
+          "identity"
+        ],
+        "platforms": [
+          "web",
+          "mobile-web",
+          "cross-platform"
+        ],
+        "character": []
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected",
+          "conceptual"
+        ],
+        "inspected_at": "2026-11-07",
+        "freshness": "live-at-inspection",
+        "scope": "Original explanatory scenarios and field-design implications inspected. Not an exhaustive cultural survey or empirical comparison of this product's forms."
+      },
+      "related": [
+        "principle-multilingual-layout"
+      ],
+      "path": "library/entries/principle-global-name-fields.md",
+      "card_sha256": "722cb06ce5717aace3a5cb8e6f8746523620eecf53d084d223b00938083766db",
+      "sources": [
+        {
+          "url": "https://www.w3.org/International/questions/qa-personal-names",
+          "title": "Personal names around the world",
+          "locator": "Scenarios; examples of differences; implications for field design",
+          "revision": "Live W3C internationalization guidance accessed 2026-11-07"
+        }
+      ]
+    },
+    {
+      "id": "principle-goals-signals-metrics",
+      "kind": "foundation",
+      "title": "HEART: connect user goals to signals and metrics",
+      "summary": "Choose evidence from the experience goal and its possible interpretations, rather than treating activity or a dashboard metric as the design objective.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "evaluate",
+          "measure",
+          "frame"
+        ],
+        "contexts": [
+          "product-metrics",
+          "experiments",
+          "user-outcomes"
+        ],
+        "platforms": [
+          "web",
+          "cross-platform"
+        ],
+        "character": []
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected",
+          "conceptual"
+        ],
+        "inspected_at": "2026-11-07",
+        "freshness": "historical",
+        "scope": "Official publication entry and linked four-page author paper inspected; framework/practitioner examples, not a controlled validation of every metric."
+      },
+      "related": [
+        "principle-usability-sampling",
+        "principle-human-ai-control"
+      ],
+      "path": "library/entries/principle-goals-signals-metrics.md",
+      "card_sha256": "11d04ce36e59e07d669c96e1bce6d4fd35e88ff6e60acf04aaec2fa78fab5098",
+      "sources": [
+        {
+          "url": "https://research.google/pubs/measuring-the-user-experience-on-a-large-scale-user-centered-metrics-for-web-applications/",
+          "title": "Measuring the User Experience on a Large Scale",
+          "locator": "Official publication entry and linked author-version paper",
+          "revision": "Rodden, Hutchinson and Fu, CHI 2010"
+        },
+        {
+          "url": "https://blog.kleros.io/content/files/pub-tools-public-publication-data/pdf/36299.pdf",
+          "title": "HEART metrics author version",
+          "locator": "PULSE comparison; HEART; Goals–Signals–Metrics process and cases",
+          "revision": "Author version linked by Google Research; 2010"
+        }
+      ]
+    },
+    {
+      "id": "principle-grounding-feedback",
+      "kind": "foundation",
+      "title": "Maintain shared direction through feedback and repair",
+      "summary": "Use communication-grounding theory to preserve enough shared understanding for the current decision, carrying partial answers and revisions forward without reopening everything.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "clarify",
+          "collaborate",
+          "critique"
+        ],
+        "contexts": [
+          "creative-direction",
+          "feedback",
+          "shared-understanding"
+        ],
+        "platforms": [
+          "cross-platform"
+        ],
+        "character": []
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected",
+          "conceptual"
+        ],
+        "inspected_at": "2026-11-07",
+        "freshness": "historical",
+        "scope": "Original human-dialogue theory chapter refreshed. Application to agent design-state tracking is a proposed adaptation, not a tested mechanism."
+      },
+      "related": [
+        "principle-mixed-initiative",
+        "principle-preference-critiquing"
+      ],
+      "path": "library/entries/principle-grounding-feedback.md",
+      "card_sha256": "712b02c6240dd5eace394eac3c37b64539ac036b5c477d42c345ec3dfe0d41a0",
+      "sources": [
+        {
+          "url": "https://web.stanford.edu/~clark/1990s/Clark%2C%20H.H.%20_%20Brennan%2C%20S.E.%20_Grounding%20in%20communication_%201991.pdf",
+          "title": "Grounding in Communication",
+          "locator": "Grounding criterion; Least Collaborative Effort; changes with purpose and medium",
+          "revision": "Clark and Brennan, 1991"
+        }
+      ]
+    },
+    {
+      "id": "principle-human-ai-control",
+      "kind": "foundation",
+      "title": "Design understandable, correctable AI behavior",
+      "summary": "Use the Human–AI Interaction guidelines to examine expectations, dismissal, correction and adaptation in AI features, with their original evaluation limits intact.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "interaction-design",
+          "evaluate",
+          "correct"
+        ],
+        "contexts": [
+          "human-ai",
+          "uncertainty",
+          "automation"
+        ],
+        "platforms": [
+          "cross-platform"
+        ],
+        "character": []
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected",
+          "conceptual"
+        ],
+        "inspected_at": "2026-11-07",
+        "freshness": "historical",
+        "scope": "Original guideline synthesis and practitioner-evaluation paper refreshed. Relevance/clarity evaluation is not causal proof of end-user improvement or generative-agent coverage."
+      },
+      "related": [
+        "principle-mixed-initiative",
+        "principle-contextual-permissions",
+        "principle-informed-choice"
+      ],
+      "path": "library/entries/principle-human-ai-control.md",
+      "card_sha256": "cebece2d80377e5ff66dbdc82688070160bff27d05d0b59565a4ef2c87fd6431",
+      "sources": [
+        {
+          "url": "https://www.microsoft.com/en-us/research/wp-content/uploads/2019/01/Guidelines-for-Human-AI-Interaction-camera-ready.pdf",
+          "title": "Guidelines for Human-AI Interaction",
+          "locator": "Table 1; development/validation sections; Discussion and Future Work",
+          "revision": "Amershi et al., CHI 2019; DOI 10.1145/3290605.3300233"
+        }
+      ]
+    },
+    {
+      "id": "principle-informed-choice",
+      "kind": "foundation",
+      "title": "Preserve informed choice when optimizing a flow",
+      "summary": "Use the original dark-pattern taxonomy to inspect how defaults, framing, hidden terms and obstacles affect agency, without treating historical prevalence as current causal evidence.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "evaluate",
+          "decision-support",
+          "content-design"
+        ],
+        "contexts": [
+          "commerce",
+          "consent",
+          "subscription",
+          "user-agency"
+        ],
+        "platforms": [
+          "web",
+          "mobile-web"
+        ],
+        "character": []
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected",
+          "empirical"
+        ],
+        "inspected_at": "2026-11-07",
+        "freshness": "historical",
+        "scope": "Original taxonomy/method/limitations refreshed; historical text-oriented crawl and expert classification, not a new product audit or modern prevalence estimate."
+      },
+      "related": [
+        "principle-preference-critiquing",
+        "principle-contextual-permissions"
+      ],
+      "path": "library/entries/principle-informed-choice.md",
+      "card_sha256": "5a6426f5a06acff7336811e1b4fd9b7f667d69ce218aab92b2982cd78d1dbe8f",
+      "sources": [
+        {
+          "url": "https://arxiv.org/html/1907.07032v2",
+          "title": "Dark Patterns at Scale: Findings from a Crawl of 11K Shopping Websites",
+          "locator": "Taxonomy section 3; crawl/method section 4; findings/examples section 5; limitations 6.4",
+          "revision": "Mathur et al., arXiv 1907.07032v2, 20 September 2019; DOI 10.1145/3359183"
+        }
+      ]
+    },
+    {
+      "id": "principle-low-literacy-modalities",
+      "kind": "foundation",
+      "title": "Choose modalities with local users and task evidence",
+      "summary": "Use novice/low-literacy mobile research to compare completion, errors, speed and assistance without assuming icons, voice or text-free design are universally intuitive.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "interaction-design",
+          "research",
+          "onboard"
+        ],
+        "contexts": [
+          "low-literacy",
+          "novice-users",
+          "localization",
+          "assisted-use"
+        ],
+        "platforms": [
+          "native-mobile",
+          "cross-platform"
+        ],
+        "character": []
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected",
+          "empirical"
+        ],
+        "inspected_at": "2026-11-07",
+        "freshness": "historical",
+        "scope": "2011 original PDF refreshed, prior same-day detailed methods review retained; exploratory 2006 context is supplementary. No contemporary device or locale trial."
+      },
+      "related": [
+        "principle-global-name-fields",
+        "principle-multilingual-layout",
+        "principle-contextual-permissions"
+      ],
+      "path": "library/entries/principle-low-literacy-modalities.md",
+      "card_sha256": "04c4dac214526bc55d875fd8a146d59d6b29bf2962503c8b8b623937359e3bcc",
+      "sources": [
+        {
+          "url": "https://www.microsoft.com/en-us/research/wp-content/uploads/2016/02/ToCHI2711_Medhi.pdf",
+          "title": "Designing Mobile Interfaces for Novice and Low-Literacy Users",
+          "locator": "Table I; banking study sections 4.2–4.5; health-entry section 5; discussion",
+          "revision": "Medhi et al., TOCHI 18(1), 2011; DOI 10.1145/1959022.1959024"
+        },
+        {
+          "url": "https://www.microsoft.com/en-us/research/wp-content/uploads/2016/02/medhi_ictd2006.pdf",
+          "title": "Text-Free User Interfaces for Illiterate and Semi-Literate Users",
+          "locator": "Context, iterative design and exploratory prototype evaluation",
+          "revision": "ICTD 2006 manuscript; distinct from expanded journal versions"
+        }
+      ]
+    },
+    {
+      "id": "principle-mixed-initiative",
+      "kind": "foundation",
+      "title": "Mixed initiative: ask, act, and preserve human control",
+      "summary": "Choose when clarification or automation helps by examining consequential uncertainty, interruption cost, correction, and the person's ability to redirect the work.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "frame",
+          "clarify",
+          "collaborate"
+        ],
+        "contexts": [
+          "human-ai",
+          "creative-direction",
+          "uncertain-intent"
+        ],
+        "platforms": [
+          "cross-platform"
+        ],
+        "character": []
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected",
+          "conceptual"
+        ],
+        "inspected_at": "2026-11-07",
+        "freshness": "historical",
+        "scope": "Original principles/prototype paper inspected; relevant dialogue, control, refinement and memory sections refreshed. No new experiment or current agent trial."
+      },
+      "related": [
+        "principle-contextual-elicitation",
+        "principle-grounding-feedback",
+        "principle-human-ai-control"
+      ],
+      "path": "library/entries/principle-mixed-initiative.md",
+      "card_sha256": "8ca07c60af8d338c0aaacd5d67ce4105e50910b9ca13498713fbfa13e4b09d86",
+      "sources": [
+        {
+          "url": "https://erichorvitz.com/chi99horvitz.pdf",
+          "title": "Principles of Mixed-Initiative User Interfaces",
+          "locator": "pp.1–2, principles 2–11; LookOut account",
+          "revision": "CHI 1999; DOI 10.1145/302979.303030"
+        }
+      ]
+    },
+    {
+      "id": "principle-multilingual-layout",
+      "kind": "foundation",
+      "title": "Adapt layout to script, direction and content",
+      "summary": "Use semantic direction and script-specific layout guidance to preserve hierarchy and reading order across RTL, Hangul and mixed text instead of reproducing Latin line breaks.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "localize",
+          "typography",
+          "responsive-design"
+        ],
+        "contexts": [
+          "rtl",
+          "hangul",
+          "mixed-script",
+          "internationalization"
+        ],
+        "platforms": [
+          "web",
+          "mobile-web"
+        ],
+        "character": []
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected"
+        ],
+        "inspected_at": "2026-11-07",
+        "freshness": "versioned",
+        "scope": "Official explanatory RTL guidance and versioned Hangul draft inspected. Draft status and unfinished sections preserved; no native-reader or browser conformance test."
+      },
+      "related": [
+        "principle-global-name-fields",
+        "standard-text-adaptation"
+      ],
+      "path": "library/entries/principle-multilingual-layout.md",
+      "card_sha256": "7004935869168e01d5a15ed6033e6db6be70de3f030a843a681a609180b2ab9e",
+      "sources": [
+        {
+          "url": "https://www.w3.org/International/questions/qa-html-dir",
+          "title": "Structural markup and right-to-left text in HTML",
+          "locator": "Quick answer; base direction; forms; tables",
+          "revision": "Live W3C guidance accessed 2026-11-07"
+        },
+        {
+          "url": "https://www.w3.org/TR/2026/DNOTE-klreq-20260321/",
+          "title": "Requirements for Hangul Text Layout and Typography",
+          "locator": "Status; section 4.1 fonts; section 7.1 line breaking and restrictions",
+          "revision": "W3C Group Note Draft, 21 March 2026"
+        }
+      ]
+    },
+    {
+      "id": "principle-native-semantics",
+      "kind": "foundation",
+      "title": "Semantics are promises about behavior",
+      "summary": "Use APG to understand custom-control obligations and accessible names, while preferring suitable native behavior and testing relevant browser/assistive-technology combinations.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "components",
+          "accessibility",
+          "implement",
+          "evaluate"
+        ],
+        "contexts": [
+          "keyboard",
+          "custom-widgets",
+          "assistive-technology"
+        ],
+        "platforms": [
+          "web",
+          "mobile-web"
+        ],
+        "character": []
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected"
+        ],
+        "inspected_at": "2026-11-07",
+        "freshness": "live-at-inspection",
+        "scope": "APG Introduction, Read Me First and button pattern inspected, not executed. Informative patterns illustrate permitted variations; they are not a production-ready design system or universal compatibility guarantees."
+      },
+      "related": [
+        "standard-focus-motion"
+      ],
+      "path": "library/entries/principle-native-semantics.md",
+      "card_sha256": "57a28fc0e90a48d96fd3c45bbd9c24d962bfe279432dd7f5d289015a304f1ccf",
+      "sources": [
+        {
+          "url": "https://www.w3.org/WAI/ARIA/apg/about/introduction/",
+          "title": "APG Introduction",
+          "locator": "APG is Not a Normative Standard; Exercise Caution If Deviating; APG is not a UI Design System",
+          "revision": "Live APG introduction inspected 2026-11-07"
+        },
+        {
+          "url": "https://www.w3.org/WAI/ARIA/apg/practices/read-me-first/",
+          "title": "APG Read Me First",
+          "locator": "A role is a promise; browser/assistive-technology support; mobile/touch limits",
+          "revision": "Live APG guidance accessed 2026-11-07"
+        },
+        {
+          "url": "https://www.w3.org/WAI/ARIA/apg/patterns/button/",
+          "title": "APG Button Pattern",
+          "locator": "Keyboard interaction; roles/states/properties; toggle-label alternatives",
+          "revision": "Live pattern accessed 2026-11-07"
+        }
+      ]
+    },
+    {
+      "id": "principle-navigation-learning",
+      "kind": "foundation",
+      "title": "Navigation: scent, depth and learned location",
+      "summary": "Compare navigation structures using realistic retrieval and repeated-use tasks rather than a fixed item-count rule.",
+      "status": "curated",
+      "availability": "partial",
+      "facets": {
+        "tasks": [
+          "navigate",
+          "information-architecture",
+          "retrieve"
+        ],
+        "contexts": [
+          "catalogs",
+          "expert-work",
+          "novice-users"
+        ],
+        "platforms": [
+          "web",
+          "desktop"
+        ],
+        "character": []
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected",
+          "empirical"
+        ],
+        "inspected_at": "2026-11-07",
+        "freshness": "historical",
+        "scope": "Original hierarchy paper refreshed; menu-model methods preserved from same-day inspected research. Current Canterbury endpoint timed out. No modern navigation experiment performed."
+      },
+      "related": [
+        "principle-choice-context",
+        "principle-usability-sampling"
+      ],
+      "path": "library/entries/principle-navigation-learning.md",
+      "card_sha256": "541789d1d265fc8b6c0f7bcf7cad55bec3130c83b1a90d80e02f27b5c9a701d7",
+      "sources": [
+        {
+          "url": "https://www.microsoft.com/en-us/research/wp-content/uploads/2016/12/chi98_webdesign.pdf",
+          "title": "Web Page Design: Implications of Memory, Structure and Scent for Information Retrieval",
+          "locator": "Methods, results and discussion, pp.27–30",
+          "revision": "Larson and Czerwinski, CHI 1998"
+        },
+        {
+          "url": "https://www.csse.canterbury.ac.nz/andrew.cockburn/papers/paper191-cockburn.pdf",
+          "title": "A Predictive Model of Menu Performance",
+          "locator": "Model; calibration pp.630–632; real-design evaluation",
+          "revision": "Cockburn, Gutwin and Greenberg, CHI 2007"
+        }
+      ]
+    },
+    {
+      "id": "principle-perceptual-grouping",
+      "kind": "foundation",
+      "title": "Use grouping to communicate relationships",
+      "summary": "Reason about proximity, similarity and connected regions while preserving debate about perception mechanisms and avoiding fixed UI-spacing formulas.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "information-hierarchy",
+          "compose",
+          "group"
+        ],
+        "contexts": [
+          "forms",
+          "dashboards",
+          "content-relationships"
+        ],
+        "platforms": [
+          "cross-platform"
+        ],
+        "character": []
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected",
+          "conceptual"
+        ],
+        "inspected_at": "2026-11-07",
+        "freshness": "historical",
+        "scope": "Original theory/discussion texts refreshed and prior research review retained. No new perception experiment or inspected product-screen comparison; no visual-match claim."
+      },
+      "related": [
+        "principle-navigation-learning",
+        "standard-text-adaptation"
+      ],
+      "path": "library/entries/principle-perceptual-grouping.md",
+      "card_sha256": "324f0145db6459369a2a02b2c97c98d6efc22f60b9c84e47a31bf160963499ac",
+      "sources": [
+        {
+          "url": "https://link.springer.com/content/pdf/10.3758/BF03200760.pdf",
+          "title": "Rethinking perceptual organization: The role of uniform connectedness",
+          "locator": "pp.29–42, grouping demonstrations and proposed framework",
+          "revision": "Palmer and Rock, 1994; DOI 10.3758/BF03200760"
+        },
+        {
+          "url": "https://link.springer.com/content/pdf/10.3758/BF03210956.pdf",
+          "title": "The proper placement of uniform connectedness",
+          "locator": "pp.509–514, serial-order critique and counterexamples",
+          "revision": "Peterson, 1994; DOI 10.3758/BF03210956"
+        }
+      ]
+    },
+    {
+      "id": "principle-preference-critiquing",
+      "kind": "foundation",
+      "title": "Discover preferences through critique and suggestions",
+      "summary": "Use concrete examples to uncover missing preferences and escape a narrow initial framing, with careful limits on what a finite-catalog study establishes.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "discover",
+          "compare",
+          "clarify"
+        ],
+        "contexts": [
+          "uncertain-preferences",
+          "reference-selection",
+          "creative-direction"
+        ],
+        "platforms": [
+          "cross-platform"
+        ],
+        "character": []
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected",
+          "empirical",
+          "conceptual"
+        ],
+        "inspected_at": "2026-11-07",
+        "freshness": "historical",
+        "scope": "Original model/user-study paper and same-day methodological review; apartment-search setting, not open-ended art-direction validation."
+      },
+      "related": [
+        "principle-comparative-critique",
+        "principle-informed-choice"
+      ],
+      "path": "library/entries/principle-preference-critiquing.md",
+      "card_sha256": "bde6f5ac11b09d3ceb40600f9c16fad29f3e574fd99c6ad85ff9caf1679cb79d",
+      "sources": [
+        {
+          "url": "https://arxiv.org/pdf/1110.0026",
+          "title": "Preference-based Search using Example-Critiquing with Suggestions",
+          "locator": "Section 3 anchoring and suggestions; sections 5.1–5.2 user studies",
+          "revision": "JAIR 27 (2006), 465–503; arXiv 1110.0026v1"
+        }
+      ]
+    },
+    {
+      "id": "principle-reading-typography",
+      "kind": "foundation",
+      "title": "Typography: distinguish preference, metrics and reading performance",
+      "summary": "Evaluate type in its actual reader/task/rendering context; neither a preferred font nor an observed best-versus-worst contrast establishes a universal typeface choice.",
+      "status": "curated",
+      "availability": "partial",
+      "facets": {
+        "tasks": [
+          "typography",
+          "read",
+          "evaluate"
+        ],
+        "contexts": [
+          "long-form-reading",
+          "individual-differences",
+          "low-vision"
+        ],
+        "platforms": [
+          "web",
+          "mobile-web",
+          "cross-platform"
+        ],
+        "character": []
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected",
+          "empirical"
+        ],
+        "inspected_at": "2026-11-07",
+        "freshness": "historical",
+        "scope": "Earlier same-day original full-method reading and independent review are the retained evidence seed, not a new full-text inspection. Current PMC access returned a browser challenge and both font-paper endpoints timed out; exact results require reopening the originals."
+      },
+      "related": [
+        "principle-appeal-task-distinction",
+        "standard-text-adaptation"
+      ],
+      "path": "library/entries/principle-reading-typography.md",
+      "card_sha256": "9234b2727b5cc2ca8027d9eb8b0b422da22893d8fc2a02a2680718725972f3a7",
+      "sources": [
+        {
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC3428264/",
+          "title": "Does Print Size Matter for Reading?",
+          "locator": "Print-size metrics; x-height; fluent range; low-vision discussion",
+          "revision": "Legge and Bigelow, 2011"
+        },
+        {
+          "url": "https://jeffhuang.com/papers/Readability_TOCHI22.pdf",
+          "title": "Towards Individuated Reading Experiences",
+          "locator": "Sections 5.1.2, 6.1–6.2 and 7.3",
+          "revision": "Wallace et al., TOCHI 2022; DOI 10.1145/3502222"
+        }
+      ]
+    },
+    {
+      "id": "principle-usability-sampling",
+      "kind": "foundation",
+      "title": "Plan usability samples around risk and variation",
+      "summary": "Use formative testing and small-sample counterevidence to choose coverage deliberately, without promising a fixed percentage of problems from five participants.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "research",
+          "evaluate",
+          "usability-testing"
+        ],
+        "contexts": [
+          "formative-testing",
+          "participant-diversity",
+          "risk"
+        ],
+        "platforms": [
+          "cross-platform"
+        ],
+        "character": []
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected",
+          "empirical"
+        ],
+        "inspected_at": "2026-11-07",
+        "freshness": "historical",
+        "scope": "Original single-product/resampling study and original iterative-testing guidance refreshed. No new participant study or sample-size calculation."
+      },
+      "related": [
+        "principle-goals-signals-metrics",
+        "principle-appeal-task-distinction"
+      ],
+      "path": "library/entries/principle-usability-sampling.md",
+      "card_sha256": "6d63260be123154e384e1d366cd7d019d1b6f8e7584afb3a87c3cec8482af146",
+      "sources": [
+        {
+          "url": "https://link.springer.com/content/pdf/10.3758/BF03195514.pdf",
+          "title": "Beyond the five-user assumption",
+          "locator": "Method, Results and Analyses, Tables 1–2, Discussion, pp.379–382",
+          "revision": "Faulkner, 2003; DOI 10.3758/BF03195514"
+        },
+        {
+          "url": "https://www.nngroup.com/articles/why-you-only-need-to-test-with-5-users/",
+          "title": "Why You Only Need to Test with 5 Users",
+          "locator": "Iterative Design; When To Test More Users",
+          "revision": "Jakob Nielsen, 18 March 2000"
+        }
+      ]
+    },
+    {
+      "id": "skill-android-adaptive",
+      "kind": "skill",
+      "title": "Android adaptive Compose: layouts across form factors",
+      "summary": "Google-authored operational guidance for adaptive navigation, panes, input, foldable posture and state preservation, with explicit migration prerequisites.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "implement",
+          "adapt",
+          "verify"
+        ],
+        "contexts": [
+          "native-app",
+          "adaptive-layout",
+          "components"
+        ],
+        "platforms": [
+          "android",
+          "native-mobile"
+        ],
+        "character": []
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected"
+        ],
+        "inspected_at": "2026-11-07",
+        "freshness": "versioned",
+        "scope": "Full pinned entrypoint and foldable-tabletop.md inspected; root Apache 2.0 license opening inspected. No build, migration, screenshot or device test."
+      },
+      "related": [
+        "skill-swiftui-expert",
+        "tool-playwright",
+        "pattern-material-navigation-bar"
+      ],
+      "path": "library/entries/skill-android-adaptive.md",
+      "card_sha256": "4e36a1ec31c93e1eadae0b7a1fca2ea3259f75d0748be4377e8a20536ba05f46",
+      "sources": [
+        {
+          "url": "https://github.com/android/skills/blob/bf68e2d66a992a1e6aeb7e9263293cc23fcbf475/jetpack-compose/adaptive/SKILL.md",
+          "title": "jetpack-compose/adaptive/SKILL.md",
+          "locator": "Prerequisites; eight-step workflow; experimental API warnings; screenshot baseline instructions; foldable-tabletop.md",
+          "revision": "bf68e2d66a992a1e6aeb7e9263293cc23fcbf475"
+        }
+      ]
+    },
+    {
+      "id": "skill-anthropic-frontend-design",
+      "kind": "skill",
+      "title": "Anthropic frontend-design: subject-grounded visual direction",
+      "summary": "A studio-style planning and critique workflow for deriving a distinctive interface from its actual subject, with contextual aesthetic warnings.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "frame",
+          "design",
+          "critique"
+        ],
+        "contexts": [
+          "marketing",
+          "creative",
+          "product-interface"
+        ],
+        "platforms": [
+          "web"
+        ],
+        "character": []
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected"
+        ],
+        "inspected_at": "2026-11-07",
+        "freshness": "versioned",
+        "scope": "Instruction body and per-skill license inspected. No implementation, visual output or efficacy trial performed."
+      },
+      "related": [
+        "skill-impeccable",
+        "skill-taste-frontend",
+        "skill-ui-sh-design"
+      ],
+      "path": "library/entries/skill-anthropic-frontend-design.md",
+      "card_sha256": "f1862efb6dd2089b4006dcf40c8fec5eea35263baa5cf5b6f63a490ada5c48ae",
+      "sources": [
+        {
+          "url": "https://github.com/anthropics/skills/blob/2c5958ecac7cee2b583967a2c4981d0f4a75c579/skills/frontend-design/SKILL.md",
+          "title": "frontend-design SKILL.md",
+          "locator": "Ground your designs; Process; Restraint; More on writing",
+          "revision": "2c5958ecac7cee2b583967a2c4981d0f4a75c579"
+        }
+      ]
+    },
+    {
+      "id": "skill-baseline-ui",
+      "kind": "skill",
+      "title": "Baseline UI: opinionated cleanup checklist",
+      "summary": "An implementation-oriented cleanup skill for spacing, hierarchy and common interface defects, with strong stack and aesthetic prescriptions.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "polish",
+          "audit",
+          "implement"
+        ],
+        "contexts": [
+          "components",
+          "product-interface"
+        ],
+        "platforms": [
+          "web"
+        ],
+        "character": []
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected"
+        ],
+        "inspected_at": "2026-11-07",
+        "freshness": "versioned",
+        "scope": "Full pinned instruction body inspected. No tool execution or visual output inspected."
+      },
+      "related": [
+        "skill-ui-sh-design",
+        "skill-fixing-accessibility",
+        "skill-fixing-motion-performance"
+      ],
+      "path": "library/entries/skill-baseline-ui.md",
+      "card_sha256": "30892fefc2a0ccb0ca51b0cdfb1eff075db5516f47a6956f28a04cdead121307",
+      "sources": [
+        {
+          "url": "https://github.com/ibelick/ui-skills/blob/00db7d656719c399c091f3ea138c6f42a7fa4d98/skills/baseline-ui/SKILL.md",
+          "title": "skills/baseline-ui/SKILL.md",
+          "locator": "Stack; Components; Interaction; Animation; Typography; Design",
+          "revision": "00db7d656719c399c091f3ea138c6f42a7fa4d98"
+        }
+      ]
+    },
+    {
+      "id": "skill-create-design-md",
+      "kind": "skill",
+      "title": "Create DESIGN.md from observed governing evidence",
+      "summary": "A design-document extraction skill separating repository authority from a reconstructed public-site observation, with a strict output/export contract.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "document",
+          "inspect",
+          "maintain"
+        ],
+        "contexts": [
+          "design-system",
+          "existing-product",
+          "handoff"
+        ],
+        "platforms": [
+          "web"
+        ],
+        "character": []
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected"
+        ],
+        "inspected_at": "2026-11-07",
+        "freshness": "versioned",
+        "scope": "Full pinned skill instruction and schema/export sections inspected; no generated document or CLI execution."
+      },
+      "related": [
+        "tool-chrome-devtools-css",
+        "tool-figma-mcp",
+        "tool-awesome-design-md"
+      ],
+      "path": "library/entries/skill-create-design-md.md",
+      "card_sha256": "22f18d6307766167bafdb8c49a625b564764a2cf5e31256ac80333f3c1e2a003",
+      "sources": [
+        {
+          "url": "https://github.com/ibelick/ui-skills/blob/00db7d656719c399c091f3ea138c6f42a7fa4d98/skills/create-design-md/SKILL.md",
+          "title": "skills/create-design-md/SKILL.md",
+          "locator": "Choose the mode; Shared evidence pipeline; Trace evidence; Write; Validate",
+          "revision": "00db7d656719c399c091f3ea138c6f42a7fa4d98"
+        }
+      ]
+    },
+    {
+      "id": "skill-fixing-accessibility",
+      "kind": "skill",
+      "title": "Fixing accessibility: targeted interface repair",
+      "summary": "A narrow code-review skill connecting accessible names, native semantics, keyboard/focus behavior and form recovery to small concrete fixes.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "audit",
+          "repair",
+          "verify"
+        ],
+        "contexts": [
+          "accessibility",
+          "forms",
+          "components"
+        ],
+        "platforms": [
+          "web"
+        ],
+        "character": []
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected"
+        ],
+        "inspected_at": "2026-11-07",
+        "freshness": "versioned",
+        "scope": "Full pinned skill instructions and examples inspected; no assistive-technology or browser testing."
+      },
+      "related": [
+        "tool-axe-core",
+        "tool-playwright",
+        "skill-vercel-web-guidelines"
+      ],
+      "path": "library/entries/skill-fixing-accessibility.md",
+      "card_sha256": "8bed107c88fecf6158c23b9bd01021634f76edbf14480f9df895f9f82c153a21",
+      "sources": [
+        {
+          "url": "https://github.com/ibelick/ui-skills/blob/00db7d656719c399c091f3ea138c6f42a7fa4d98/skills/fixing-accessibility/SKILL.md",
+          "title": "skills/fixing-accessibility/SKILL.md",
+          "locator": "Rule categories; quick reference; tool boundaries; common fixes",
+          "revision": "00db7d656719c399c091f3ea138c6f42a7fa4d98"
+        }
+      ]
+    },
+    {
+      "id": "skill-fixing-motion-performance",
+      "kind": "skill",
+      "title": "Fixing motion performance",
+      "summary": "A rendering-work checklist for diagnosing jank while retaining purposeful motion and the existing animation system.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "optimize",
+          "repair",
+          "verify"
+        ],
+        "contexts": [
+          "motion",
+          "performance",
+          "components"
+        ],
+        "platforms": [
+          "web"
+        ],
+        "character": []
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected"
+        ],
+        "inspected_at": "2026-11-07",
+        "freshness": "versioned",
+        "scope": "Full pinned instruction body inspected; no animation/profiling execution."
+      },
+      "related": [
+        "tool-lighthouse",
+        "skill-vercel-react-performance"
+      ],
+      "path": "library/entries/skill-fixing-motion-performance.md",
+      "card_sha256": "530d6204c874c8d57a2381c5d87c6c521317375ecf1480001fa0868c21229c4e",
+      "sources": [
+        {
+          "url": "https://github.com/ibelick/ui-skills/blob/00db7d656719c399c091f3ea138c6f42a7fa4d98/skills/fixing-motion-performance/SKILL.md",
+          "title": "skills/fixing-motion-performance/SKILL.md",
+          "locator": "Rendering glossary; choose mechanism; measurement; scroll; layers; tool boundaries",
+          "revision": "00db7d656719c399c091f3ea138c6f42a7fa4d98"
+        }
+      ]
+    },
+    {
+      "id": "skill-impeccable",
+      "kind": "skill",
+      "title": "Impeccable: surface modes and focused design commands",
+      "summary": "A broad design command suite distinguishing persuasion, operation, reading and experience, with context loading, targeted playbooks and explicit refinement/redesign semantics.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "frame",
+          "design",
+          "critique",
+          "adapt",
+          "document"
+        ],
+        "contexts": [
+          "product-interface",
+          "marketing",
+          "editorial",
+          "native-mobile"
+        ],
+        "platforms": [
+          "web",
+          "ios",
+          "android",
+          "native-mobile"
+        ],
+        "character": []
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected"
+        ],
+        "inspected_at": "2026-11-07",
+        "freshness": "versioned",
+        "scope": "Pinned source template, shape reference and README runtime-effects statements inspected. Launcher, commands, hooks, telemetry and rendered output not executed or audited."
+      },
+      "related": [
+        "skill-anthropic-frontend-design",
+        "skill-superpowers-brainstorming",
+        "skill-taster",
+        "visual-poolsuite-retro-player"
+      ],
+      "path": "library/entries/skill-impeccable.md",
+      "card_sha256": "b664e4bdd2f9e50b7dec89cfb1a99cb750a2693d295213726299c0bdb89ab88e",
+      "sources": [
+        {
+          "url": "https://github.com/pbakaus/impeccable/blob/687bc381bc9091bf252c0a05303640561014a425/skill/SKILL.src.md",
+          "title": "skill/SKILL.src.md",
+          "locator": "Setup; Modes; Commands; Routing; brief/refinement semantics",
+          "revision": "687bc381bc9091bf252c0a05303640561014a425"
+        },
+        {
+          "url": "https://github.com/pbakaus/impeccable/blob/687bc381bc9091bf252c0a05303640561014a425/skill/reference/shape.md",
+          "title": "skill/reference/shape.md",
+          "locator": "Discovery interview; brief; Confirm and stop",
+          "revision": "687bc381bc9091bf252c0a05303640561014a425"
+        },
+        {
+          "url": "https://github.com/pbakaus/impeccable/blob/687bc381bc9091bf252c0a05303640561014a425/README.md",
+          "title": "README.md",
+          "locator": "Good to know: hooks and telemetry; deprecated craft alias",
+          "revision": "687bc381bc9091bf252c0a05303640561014a425"
+        }
+      ]
+    },
+    {
+      "id": "skill-shadcn-project-guidance",
+      "kind": "skill",
+      "title": "shadcn/ui project and component guidance",
+      "summary": "Project-aware component composition, registry search and design-system implementation instructions for an actual shadcn/ui codebase.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "implement",
+          "compose",
+          "maintain"
+        ],
+        "contexts": [
+          "components",
+          "design-system",
+          "chat",
+          "forms"
+        ],
+        "platforms": [
+          "web"
+        ],
+        "character": []
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected"
+        ],
+        "inspected_at": "2026-11-07",
+        "freshness": "versioned",
+        "scope": "Pinned skill instructions and root license inspected; no CLI commands or project modifications executed."
+      },
+      "related": [
+        "tool-storybook",
+        "skill-fixing-accessibility"
+      ],
+      "path": "library/entries/skill-shadcn-project-guidance.md",
+      "card_sha256": "3f7ddd2e8e7b5572d6b15155afa860770dc538b78bb75b6ec7498abc5f3aed8d",
+      "sources": [
+        {
+          "url": "https://github.com/shadcn-ui/ui/blob/42f3bb63b46a69e52a24bd005cdc9ec15ba7a7b9/skills/shadcn/SKILL.md",
+          "title": "skills/shadcn/SKILL.md",
+          "locator": "Project context; principles; rules; CLI; references",
+          "revision": "42f3bb63b46a69e52a24bd005cdc9ec15ba7a7b9"
+        }
+      ]
+    },
+    {
+      "id": "skill-superpowers-brainstorming",
+      "kind": "skill",
+      "title": "Superpowers brainstorming: requirements before a design document",
+      "summary": "A structured exploration-and-design-document workflow that makes assumptions and alternative approaches discussable, with explicit opt-out and approval semantics.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "frame",
+          "research",
+          "plan"
+        ],
+        "contexts": [
+          "collaboration",
+          "requirements",
+          "product-interface"
+        ],
+        "platforms": [
+          "cross-platform"
+        ],
+        "character": []
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected"
+        ],
+        "inspected_at": "2026-11-07",
+        "freshness": "versioned",
+        "scope": "Pinned brainstorming instruction body inspected; no workflow execution."
+      },
+      "related": [
+        "skill-impeccable",
+        "tool-excalidraw",
+        "tool-penpot"
+      ],
+      "path": "library/entries/skill-superpowers-brainstorming.md",
+      "card_sha256": "6fba616545e10b91f343e6ae6eeb215ab0ef5d22facea239a5fd2922ca7a132a",
+      "sources": [
+        {
+          "url": "https://github.com/obra/superpowers/blob/22f0b463e7a5e579904dd6211a520321035526f7/skills/brainstorming/SKILL.md",
+          "title": "skills/brainstorming/SKILL.md",
+          "locator": "Question cadence; approaches; design document; hard gate; visual companion",
+          "revision": "22f0b463e7a5e579904dd6211a520321035526f7"
+        }
+      ]
+    },
+    {
+      "id": "skill-swiftui-expert",
+      "kind": "skill",
+      "title": "SwiftUI expert: native layout and state review",
+      "summary": "A native Apple implementation router covering layout proposals, state ownership, identity, accessibility, API migrations and measured performance.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "implement",
+          "adapt",
+          "verify"
+        ],
+        "contexts": [
+          "native-app",
+          "adaptive-layout",
+          "components"
+        ],
+        "platforms": [
+          "ios",
+          "macos",
+          "native-mobile"
+        ],
+        "character": []
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected"
+        ],
+        "inspected_at": "2026-11-07",
+        "freshness": "versioned",
+        "scope": "Pinned entrypoint and first 125 lines of layout-best-practices.md inspected; MIT license inspected. No simulator, profiling or API compilation performed."
+      },
+      "related": [
+        "skill-android-adaptive",
+        "skill-vercel-react-performance",
+        "system-apple-hig"
+      ],
+      "path": "library/entries/skill-swiftui-expert.md",
+      "card_sha256": "ba2682fe885357e24afbd4215a50c3a8eee888bc32ee19f764ca87fb33502497",
+      "sources": [
+        {
+          "url": "https://github.com/AvdLee/SwiftUI-Agent-Skill/blob/62bd760f005093d1e2e4de5db156e456a5f96400/skills/swiftui-expert-skill/SKILL.md",
+          "title": "skills/swiftui-expert-skill/SKILL.md",
+          "locator": "Workflow; reference router; layout-best-practices.md relative layout, context-agnostic views and safe areas",
+          "revision": "62bd760f005093d1e2e4de5db156e456a5f96400"
+        }
+      ]
+    },
+    {
+      "id": "skill-taste-frontend",
+      "kind": "skill",
+      "title": "tasteskill: business-type marketing production kit",
+      "summary": "A concrete marketing-site kit routing visual material and production checks by business type, with forceful house rules and executable asset/checking infrastructure.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "design",
+          "implement",
+          "verify"
+        ],
+        "contexts": [
+          "marketing",
+          "commerce",
+          "local-business",
+          "gaming"
+        ],
+        "platforms": [
+          "web"
+        ],
+        "character": []
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected"
+        ],
+        "inspected_at": "2026-11-07",
+        "freshness": "versioned",
+        "scope": "Pinned main instruction including run/checklist and final prohibitions inspected; no scripts, photographs or UI outputs tested."
+      },
+      "related": [
+        "skill-anthropic-frontend-design",
+        "skill-taster"
+      ],
+      "path": "library/entries/skill-taste-frontend.md",
+      "card_sha256": "e0c30bc13432548ad1627db78e1acb8b2927c01e5b2cc2db4bb4e0b868a05788",
+      "sources": [
+        {
+          "url": "https://github.com/leonxlnx/taste-skill/blob/9b4bf937a1f69348126959c15d2f99a73e65699b/skills/taste-skill/SKILL.md",
+          "title": "skills/taste-skill/SKILL.md",
+          "locator": "House rules; business type; page plan; run; checklist; Never",
+          "revision": "9b4bf937a1f69348126959c15d2f99a73e65699b"
+        }
+      ]
+    },
+    {
+      "id": "skill-taster",
+      "kind": "skill",
+      "title": "Taster: taxonomy, brand axes and diagnosis-to-rebuild workflow",
+      "summary": "A pattern taxonomy and token-based design workflow connecting generic-pattern diagnosis, brand/reference intake, component selection and screen consistency.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "classify",
+          "critique",
+          "design",
+          "rebuild",
+          "verify"
+        ],
+        "contexts": [
+          "product-interface",
+          "design-system",
+          "marketing",
+          "editorial",
+          "commerce"
+        ],
+        "platforms": [
+          "web"
+        ],
+        "character": []
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected"
+        ],
+        "inspected_at": "2026-11-07",
+        "freshness": "versioned",
+        "scope": "Pinned public instruction plus locally inspected brand reference and root license. No detector, component or MCP execution."
+      },
+      "related": [
+        "skill-ui-sh-design",
+        "skill-impeccable",
+        "skill-ui-ux-pro-max",
+        "visual-finch-companion"
+      ],
+      "path": "library/entries/skill-taster.md",
+      "card_sha256": "85613896dae6a14657308a9d1e18dea1b2c12ce50ee5a40a7fbd18138a22840f",
+      "sources": [
+        {
+          "url": "https://github.com/makim-414/taster/blob/d29fb63275483fda52303b6c65ecd9428e5a2a05/skills/taster/SKILL.md",
+          "title": "skills/taster/SKILL.md",
+          "locator": "Routing tables; taxonomy; Diagnose; Brand/System; Screens; Always",
+          "revision": "d29fb63275483fda52303b6c65ecd9428e5a2a05"
+        },
+        {
+          "url": "https://github.com/makim-414/taster/blob/d29fb63275483fda52303b6c65ecd9428e5a2a05/skills/taster/references/brand.md",
+          "title": "skills/taster/references/brand.md",
+          "locator": "Brand absorption and font override policy",
+          "revision": "d29fb63275483fda52303b6c65ecd9428e5a2a05"
+        }
+      ]
+    },
+    {
+      "id": "skill-ui-sh-design",
+      "kind": "skill",
+      "title": "ui.sh design guideline workflow (optional local resource)",
+      "summary": "An installed guideline system for Tailwind UI authoring with component-specific references and strong house typography conventions.",
+      "status": "curated",
+      "availability": "local-only",
+      "facets": {
+        "tasks": [
+          "design",
+          "implement",
+          "polish"
+        ],
+        "contexts": [
+          "components",
+          "design-system",
+          "product-interface"
+        ],
+        "platforms": [
+          "web"
+        ],
+        "character": []
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected"
+        ],
+        "inspected_at": "2026-11-07",
+        "freshness": "unknown",
+        "scope": "User-provided/installed instruction body and typography reference inspected locally. Upstream equivalence and execution unverified."
+      },
+      "related": [
+        "skill-anthropic-frontend-design",
+        "skill-baseline-ui",
+        "tool-ui-sh-picker",
+        "skill-taster"
+      ],
+      "path": "library/entries/skill-ui-sh-design.md",
+      "card_sha256": "36fe17db837ad9b4a3b06dc8176a14083f834040d0c2fa8168766d0d6045ccbf",
+      "sources": [
+        {
+          "url": "local:ui-sh/design/SKILL.md",
+          "title": "User-supplied ui.sh design skill",
+          "locator": "Activation; Load First; Workflow; typography companion rules",
+          "revision": "installed/user-supplied snapshot inspected 2026-11-07; upstream version unknown"
+        }
+      ]
+    },
+    {
+      "id": "skill-ui-ux-pro-max",
+      "kind": "skill",
+      "title": "UI/UX Pro Max: contextual local design search",
+      "summary": "A searchable multi-domain guidance package with explicit query scoping, returned-match checks, stack detection and persistence boundaries.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "research",
+          "design",
+          "implement",
+          "audit"
+        ],
+        "contexts": [
+          "design-system",
+          "product-interface",
+          "native-mobile",
+          "data-display"
+        ],
+        "platforms": [
+          "web",
+          "ios",
+          "android",
+          "desktop",
+          "native-mobile"
+        ],
+        "character": []
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected"
+        ],
+        "inspected_at": "2026-11-07",
+        "freshness": "versioned",
+        "scope": "Pinned entrypoint Query Contract, domain/stack workflow and persistence boundaries inspected; search/data/scripts not executed."
+      },
+      "related": [
+        "tool-mobbin",
+        "tool-awesome-design-md",
+        "skill-taster"
+      ],
+      "path": "library/entries/skill-ui-ux-pro-max.md",
+      "card_sha256": "a783ff46d9182d910692fe33d9b92c0eb646d3bd243d258a0ca24dd22920d5c3",
+      "sources": [
+        {
+          "url": "https://github.com/nextlevelbuilder/ui-ux-pro-max-skill/blob/b7d5353e0130feb8c5574ef1251f8a1db1873ccb/.claude/skills/ui-ux-pro-max/SKILL.md",
+          "title": ".claude/skills/ui-ux-pro-max/SKILL.md",
+          "locator": "Query Contract; requirements; design system; persistence; RTL handling",
+          "revision": "b7d5353e0130feb8c5574ef1251f8a1db1873ccb"
+        }
+      ]
+    },
+    {
+      "id": "skill-vercel-react-performance",
+      "kind": "skill",
+      "title": "Vercel React best practices",
+      "summary": "Prioritized React/Next.js implementation rules with detailed incorrect/correct examples and important version-specific qualifications.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "implement",
+          "optimize",
+          "verify"
+        ],
+        "contexts": [
+          "components",
+          "performance",
+          "product-interface"
+        ],
+        "platforms": [
+          "web"
+        ],
+        "character": []
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected"
+        ],
+        "inspected_at": "2026-11-07",
+        "freshness": "versioned",
+        "scope": "Pinned instruction body and priority categories inspected; no React app or benchmark executed."
+      },
+      "related": [
+        "tool-playwright",
+        "tool-lighthouse",
+        "skill-fixing-motion-performance"
+      ],
+      "path": "library/entries/skill-vercel-react-performance.md",
+      "card_sha256": "42c19172d9fda3c56c4078b4cf918ce3ecc184f6b942d6872f3010f7712a4095",
+      "sources": [
+        {
+          "url": "https://github.com/vercel-labs/agent-skills/blob/1a2c79d4e6c4a2283dc2c614b6538cbe1ed5ca62/skills/react-best-practices/SKILL.md",
+          "title": "skills/react-best-practices/SKILL.md",
+          "locator": "Rule categories; Quick Reference; How to Use",
+          "revision": "1a2c79d4e6c4a2283dc2c614b6538cbe1ed5ca62"
+        }
+      ]
+    },
+    {
+      "id": "skill-vercel-web-guidelines",
+      "kind": "skill",
+      "title": "Vercel Web Interface Guidelines review",
+      "summary": "A lightweight review entrypoint that fetches a larger current rubric and returns concrete file/line findings.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "audit",
+          "critique",
+          "verify"
+        ],
+        "contexts": [
+          "components",
+          "product-interface",
+          "accessibility"
+        ],
+        "platforms": [
+          "web"
+        ],
+        "character": []
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected"
+        ],
+        "inspected_at": "2026-11-07",
+        "freshness": "versioned",
+        "scope": "Pinned entrypoint inspected; prior same-day rubric evidence retained. No review execution or rendered output inspected."
+      },
+      "related": [
+        "skill-fixing-accessibility",
+        "tool-axe-core",
+        "tool-lighthouse"
+      ],
+      "path": "library/entries/skill-vercel-web-guidelines.md",
+      "card_sha256": "ba6501d0b64ddd37cca6cfa8fbff5debf1d2ab7259662d07e5cc23b87de94e94",
+      "sources": [
+        {
+          "url": "https://github.com/vercel-labs/agent-skills/blob/1a2c79d4e6c4a2283dc2c614b6538cbe1ed5ca62/skills/web-design-guidelines/SKILL.md",
+          "title": "skills/web-design-guidelines/SKILL.md",
+          "locator": "How It Works; Guidelines Source; Usage",
+          "revision": "1a2c79d4e6c4a2283dc2c614b6538cbe1ed5ca62"
+        },
+        {
+          "url": "https://raw.githubusercontent.com/vercel-labs/web-interface-guidelines/main/command.md",
+          "title": "Web Interface Guidelines",
+          "locator": "Accessibility; Typography; Content; Motion; anti-patterns",
+          "revision": "mutable main; inspected in prior evidence pass 2026-11-07"
+        }
+      ]
+    },
+    {
+      "id": "standard-focus-motion",
+      "kind": "foundation",
+      "title": "Focus and motion: preserve control across interaction changes",
+      "summary": "Distinguish visible focus, stronger focus appearance, automatic motion and interaction-triggered animation, retaining each criterion's conformance level and exceptions.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "accessibility",
+          "interaction-design",
+          "motion",
+          "evaluate"
+        ],
+        "contexts": [
+          "keyboard",
+          "reduced-motion",
+          "state-changes"
+        ],
+        "platforms": [
+          "web",
+          "mobile-web"
+        ],
+        "character": []
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected"
+        ],
+        "inspected_at": "2026-11-07",
+        "freshness": "versioned",
+        "scope": "Normative and informative clauses inspected. No keyboard, vestibular-accessibility or browser compatibility test performed."
+      },
+      "related": [
+        "standard-wcag-conformance",
+        "principle-native-semantics"
+      ],
+      "path": "library/entries/standard-focus-motion.md",
+      "card_sha256": "f580b1cf690a6327386c93e24c4278f0ab25231478b7c558e673a86d54dfbf5c",
+      "sources": [
+        {
+          "url": "https://www.w3.org/TR/2024/REC-WCAG22-20241212/",
+          "title": "WCAG 2.2",
+          "locator": "SC 2.4.7, 2.4.13, 2.2.2 and 2.3.3",
+          "revision": "Recommendation 12 December 2024"
+        },
+        {
+          "url": "https://www.w3.org/WAI/WCAG22/Understanding/focus-visible.html",
+          "title": "Understanding Focus Visible",
+          "locator": "SC and mode-of-operation explanation",
+          "revision": "Level AA; accessed 2026-11-07"
+        },
+        {
+          "url": "https://www.w3.org/WAI/WCAG22/Understanding/focus-appearance.html",
+          "title": "Understanding Focus Appearance",
+          "locator": "SC; minimum area; contrast; exceptions",
+          "revision": "Level AAA; accessed 2026-11-07"
+        },
+        {
+          "url": "https://www.w3.org/WAI/WCAG22/Understanding/animation-from-interactions.html",
+          "title": "Understanding Animation from Interactions",
+          "locator": "SC; essential exception; relation to automatic movement",
+          "revision": "Level AAA; accessed 2026-11-07"
+        }
+      ]
+    },
+    {
+      "id": "standard-text-adaptation",
+      "kind": "foundation",
+      "title": "Accessible text: contrast, overrides and reflow",
+      "summary": "Interpret contrast and text-adaptation requirements together without converting tolerance tests into fixed visual defaults or replacing every table with cards.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "typography",
+          "accessibility",
+          "responsive-design"
+        ],
+        "contexts": [
+          "zoom",
+          "user-overrides",
+          "readability",
+          "dense-information"
+        ],
+        "platforms": [
+          "web",
+          "mobile-web"
+        ],
+        "character": []
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected"
+        ],
+        "inspected_at": "2026-11-07",
+        "freshness": "versioned",
+        "scope": "Versioned normative criteria and live explanatory text inspected. No contrast measurements or rendered adaptation tests of a product."
+      },
+      "related": [
+        "standard-wcag-conformance"
+      ],
+      "path": "library/entries/standard-text-adaptation.md",
+      "card_sha256": "bc6678472b0bfffdade129b8b58a3f114fe484095936588caca154cf21634992",
+      "sources": [
+        {
+          "url": "https://www.w3.org/TR/2024/REC-WCAG22-20241212/",
+          "title": "WCAG 2.2",
+          "locator": "SC 1.4.3, 1.4.10, 1.4.11 and 1.4.12",
+          "revision": "Recommendation 12 December 2024"
+        },
+        {
+          "url": "https://www.w3.org/WAI/WCAG22/Understanding/text-spacing.html",
+          "title": "Understanding Text Spacing",
+          "locator": "SC; notes; Author Responsibility",
+          "revision": "Informative explanation accessed 2026-11-07"
+        },
+        {
+          "url": "https://www.w3.org/WAI/WCAG22/Understanding/reflow.html",
+          "title": "Understanding Reflow",
+          "locator": "SC; two-dimensional exceptions; reflowing applications",
+          "revision": "Informative explanation accessed 2026-11-07"
+        },
+        {
+          "url": "https://www.w3.org/WAI/WCAG22/Understanding/contrast-minimum.html",
+          "title": "Understanding Contrast Minimum",
+          "locator": "Thresholds; large text; incidental and logo exceptions; rendering notes",
+          "revision": "Informative explanation accessed 2026-11-07"
+        }
+      ]
+    },
+    {
+      "id": "standard-wcag-conformance",
+      "kind": "foundation",
+      "title": "WCAG 2.2: define the accessibility claim",
+      "summary": "Use the versioned normative standard to identify applicable success criteria, level, process scope and evidence before claiming accessibility conformance.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "evaluate",
+          "accessibility",
+          "requirements"
+        ],
+        "contexts": [
+          "web-accessibility",
+          "complete-process",
+          "conformance"
+        ],
+        "platforms": [
+          "web",
+          "mobile-web"
+        ],
+        "character": []
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected"
+        ],
+        "inspected_at": "2026-11-07",
+        "freshness": "versioned",
+        "scope": "Versioned normative standard and conformance sections inspected. No application audit or assistive-technology testing performed."
+      },
+      "related": [
+        "standard-text-adaptation",
+        "standard-focus-motion",
+        "principle-native-semantics"
+      ],
+      "path": "library/entries/standard-wcag-conformance.md",
+      "card_sha256": "2c0e946c10ffdbc1ebd4e81262f00cd2c60fd9e218ca9dc561e1f81dee310811",
+      "sources": [
+        {
+          "url": "https://www.w3.org/TR/2024/REC-WCAG22-20241212/",
+          "title": "Web Content Accessibility Guidelines 2.2",
+          "locator": "Introduction; Conformance Requirements 5.2.1–5.2.5; full-pages responsive-variation Note 3; Conformance Claims",
+          "revision": "W3C Recommendation, 12 December 2024"
+        }
+      ]
+    },
+    {
+      "id": "system-apple-hig",
+      "kind": "system",
+      "title": "Apple Human Interface Guidelines",
+      "summary": "Platform and pattern routing for Apple experiences; inspected through the onboarding guidance, not a whole-system audit.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "start",
+          "navigate",
+          "learn"
+        ],
+        "contexts": [
+          "native-app",
+          "consumer-app",
+          "platform-conventions"
+        ],
+        "platforms": [
+          "ios",
+          "ipados",
+          "macos",
+          "watchos",
+          "tvos",
+          "visionos",
+          "native-mobile"
+        ],
+        "character": []
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected"
+        ],
+        "inspected_at": "2026-11-07",
+        "freshness": "live-at-inspection",
+        "scope": "Source text inspected; no visual inspection or live component execution."
+      },
+      "related": [
+        "pattern-apple-onboarding",
+        "pattern-material-navigation-bar"
+      ],
+      "path": "library/entries/system-apple-hig.md",
+      "card_sha256": "e948db8b79183fc5df0632ea03493cf379087a585aa9db27eafa7692b7a42c7d",
+      "sources": [
+        {
+          "url": "https://developer.apple.com/design/human-interface-guidelines/",
+          "title": "Human Interface Guidelines",
+          "locator": "Platform and topic navigation; route to onboarding",
+          "revision": "live documentation; not pinned to a source commit"
+        },
+        {
+          "url": "https://developer.apple.com/design/human-interface-guidelines/onboarding",
+          "title": "Onboarding",
+          "locator": "Best practices; tutorials; setup and permissions; change log",
+          "revision": "Live guidance; visible change-log entries 2024-06-10 and 2023-06-21"
+        }
+      ]
+    },
+    {
+      "id": "system-atlassian",
+      "kind": "system",
+      "title": "Atlassian Design System",
+      "summary": "Product-system guidance with useful distinctions between brand expression, product typography and token roles.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "compose",
+          "read",
+          "operate"
+        ],
+        "contexts": [
+          "enterprise",
+          "collaboration",
+          "productivity"
+        ],
+        "platforms": [
+          "web"
+        ],
+        "character": []
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected"
+        ],
+        "inspected_at": "2026-11-07",
+        "freshness": "live-at-inspection",
+        "scope": "Source text inspected; no visual inspection or live component execution."
+      },
+      "related": [
+        "system-primer",
+        "system-carbon"
+      ],
+      "path": "library/entries/system-atlassian.md",
+      "card_sha256": "662fdbe26585216533826e1667d12b905c67e5c263248b5391cb1cac1ac1576d",
+      "sources": [
+        {
+          "url": "https://atlassian.design/",
+          "title": "Atlassian Design System",
+          "locator": "Foundations; components; tokens and accessibility routes",
+          "revision": "live documentation; not pinned to a source commit"
+        },
+        {
+          "url": "https://atlassian.design/foundations/typography",
+          "title": "Typography",
+          "locator": "Typefaces; product versus brand use; typography tokens; legacy and fallback considerations",
+          "revision": "live documentation; not pinned to a source commit"
+        }
+      ]
+    },
+    {
+      "id": "system-carbon",
+      "kind": "system",
+      "title": "Carbon Design System",
+      "summary": "IBM-oriented system selection for data-heavy products, including components, patterns and visualization guidance.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "inspect",
+          "compare",
+          "operate"
+        ],
+        "contexts": [
+          "enterprise",
+          "data-heavy",
+          "expert-use"
+        ],
+        "platforms": [
+          "web"
+        ],
+        "character": []
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected"
+        ],
+        "inspected_at": "2026-11-07",
+        "freshness": "live-at-inspection",
+        "scope": "Source text inspected; no visual inspection or live component execution."
+      },
+      "related": [
+        "pattern-carbon-data-table",
+        "pattern-carbon-empty-states"
+      ],
+      "path": "library/entries/system-carbon.md",
+      "card_sha256": "c8fc400809afc60b4ee3858eed595955e6476ed135f1115c1dbb284582262ab5",
+      "sources": [
+        {
+          "url": "https://www.carbondesignsystem.com/",
+          "title": "Carbon Design System",
+          "locator": "System overview; foundations/components/patterns/data visualization; future v12 notice",
+          "revision": "live documentation; not pinned to a source commit"
+        }
+      ]
+    },
+    {
+      "id": "system-fluent2",
+      "kind": "system",
+      "title": "Fluent 2",
+      "summary": "Microsoft-oriented design/development system with explicit web and native platform routes.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "navigate",
+          "operate",
+          "compose"
+        ],
+        "contexts": [
+          "enterprise",
+          "productivity",
+          "cross-platform"
+        ],
+        "platforms": [
+          "web",
+          "ios",
+          "android",
+          "windows",
+          "native-mobile"
+        ],
+        "character": []
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected"
+        ],
+        "inspected_at": "2026-11-07",
+        "freshness": "live-at-inspection",
+        "scope": "Source text inspected; no visual inspection or live component execution."
+      },
+      "related": [
+        "pattern-fluent-dialog",
+        "system-carbon"
+      ],
+      "path": "library/entries/system-fluent2.md",
+      "card_sha256": "371f6d31b5c357d51f4234e8a4ba13792507991a52addbcb2e1d5a6dc775c25b",
+      "sources": [
+        {
+          "url": "https://fluent2.microsoft.design/",
+          "title": "Fluent 2",
+          "locator": "Overview; platform routes; design and development tools",
+          "revision": "live documentation; not pinned to a source commit"
+        }
+      ]
+    },
+    {
+      "id": "system-gestalt",
+      "kind": "system",
+      "title": "Pinterest Gestalt: investigation candidate",
+      "summary": "Public Pinterest system landing discovered; deeper guidance remains unverified in this research pass.",
+      "status": "candidate",
+      "availability": "partial",
+      "facets": {
+        "tasks": [
+          "discover",
+          "compose"
+        ],
+        "contexts": [
+          "consumer-product",
+          "design-system"
+        ],
+        "platforms": [
+          "web"
+        ],
+        "character": []
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected",
+          "partial"
+        ],
+        "inspected_at": "2026-11-07",
+        "freshness": "live-at-inspection",
+        "scope": "Public landing text inspected. Foundations and component overview routes exposed insufficient substantive content and later could not be reopened with the text tool. No visual or behavior evidence."
+      },
+      "related": [
+        "system-spectrum",
+        "pattern-material-navigation-bar"
+      ],
+      "path": "library/entries/system-gestalt.md",
+      "card_sha256": "f922ef7c35c5ab1e1c7c3e3b5a42f6d056bde766147b35f287488a52eda4f714",
+      "sources": [
+        {
+          "url": "https://gestalt.pinterest.systems/",
+          "title": "Gestalt",
+          "locator": "Landing description; foundations/components/get-started routes",
+          "revision": "live documentation; not pinned to a source commit"
+        },
+        {
+          "url": "https://gestalt.pinterest.systems/v1/web/overview",
+          "title": "Web overview",
+          "locator": "Route opened, substantive component guidance not exposed",
+          "revision": "Access-limited snapshot; no version inferred from v1 path"
+        },
+        {
+          "url": "https://gestalt.pinterest.systems/v1/foundations/overview",
+          "title": "Foundations overview",
+          "locator": "Route opened, substantive guidance not exposed",
+          "revision": "Access-limited snapshot"
+        }
+      ]
+    },
+    {
+      "id": "system-govuk",
+      "kind": "system",
+      "title": "GOV.UK Design System",
+      "summary": "Public-service styles, components and patterns for coherent transactional services; useful for explicit content, correction and service journeys.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "enter",
+          "review",
+          "correct",
+          "navigate"
+        ],
+        "contexts": [
+          "public-service",
+          "transactional",
+          "occasional-use"
+        ],
+        "platforms": [
+          "web",
+          "mobile-web"
+        ],
+        "character": []
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected"
+        ],
+        "inspected_at": "2026-11-07",
+        "freshness": "live-at-inspection",
+        "scope": "Homepage body, scope, routes to styles/components/patterns and footer inspected as text. No visual or live interaction claim."
+      },
+      "related": [
+        "pattern-govuk-check-answers",
+        "pattern-govuk-error-summary",
+        "pattern-govuk-task-list"
+      ],
+      "path": "library/entries/system-govuk.md",
+      "card_sha256": "6c18a6c0e882a129b77c7ff0fa30e49ca53b4de3559768ca0fb7a755c9175f4d",
+      "sources": [
+        {
+          "url": "https://design-system.service.gov.uk/",
+          "title": "GOV.UK Design System",
+          "locator": "Styles, Components, Patterns, Principles and accessibility links",
+          "revision": "live page; Frontend v6.6.0 announcement dated 2026-10-15"
+        }
+      ]
+    },
+    {
+      "id": "system-polaris",
+      "kind": "system",
+      "title": "Shopify Polaris: current app-surface routing",
+      "summary": "Choose the correct Shopify surface and current web-component documentation before borrowing admin patterns.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "operate",
+          "configure",
+          "manage"
+        ],
+        "contexts": [
+          "commerce",
+          "embedded-app",
+          "merchant-tools"
+        ],
+        "platforms": [
+          "web"
+        ],
+        "character": []
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected"
+        ],
+        "inspected_at": "2026-11-07",
+        "freshness": "live-at-inspection",
+        "scope": "Source text inspected; no visual inspection or live component execution."
+      },
+      "related": [
+        "system-carbon",
+        "pattern-carbon-data-table",
+        "flow-shopify-checkout-layout"
+      ],
+      "path": "library/entries/system-polaris.md",
+      "card_sha256": "e54a4e16915587dfb7cf4681f6907505aff9dda21761fafab7e40e41604423aa",
+      "sources": [
+        {
+          "url": "https://shopify.dev/docs/api/polaris",
+          "title": "Polaris",
+          "locator": "Overview; app surfaces; App Home/Admin/Checkout/Customer/POS routes",
+          "revision": "polaris.shopify.com redirected here at inspection"
+        },
+        {
+          "url": "https://shopify.dev/docs/api/app-home/latest/web-components",
+          "title": "App Home web components",
+          "locator": "Component categories; current version selector",
+          "revision": "v2.0 latest shown at inspection; latest URL is mutable"
+        },
+        {
+          "url": "https://shopify.dev/docs/api/app-home/latest",
+          "title": "App Home",
+          "locator": "App Bridge; web components; page-pattern routes; release channels",
+          "revision": "v2.0 latest at inspection"
+        }
+      ]
+    },
+    {
+      "id": "system-primer",
+      "kind": "system",
+      "title": "GitHub Primer",
+      "summary": "Choose Product UI, Brand UI and supporting tokens according to the surface rather than copying one GitHub look everywhere.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "compose",
+          "read",
+          "operate"
+        ],
+        "contexts": [
+          "developer-tools",
+          "product-ui",
+          "brand-ui"
+        ],
+        "platforms": [
+          "web"
+        ],
+        "character": []
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected"
+        ],
+        "inspected_at": "2026-11-07",
+        "freshness": "live-at-inspection",
+        "scope": "Source text inspected; no visual inspection or live component execution."
+      },
+      "related": [
+        "pattern-primer-action-menu",
+        "system-atlassian"
+      ],
+      "path": "library/entries/system-primer.md",
+      "card_sha256": "798d5f021e6d450865919eadb5e1ffb9b979362273c9efed08339107e4301929",
+      "sources": [
+        {
+          "url": "https://primer.style/",
+          "title": "Primer",
+          "locator": "Product UI; Brand UI; Octicons; accessibility; token routes",
+          "revision": "live documentation; not pinned to a source commit"
+        },
+        {
+          "url": "https://primer.style/product/components/action-menu/",
+          "title": "Action menu",
+          "locator": "Component composition; availability and guideline routes",
+          "revision": "live documentation; not pinned to a source commit"
+        }
+      ]
+    },
+    {
+      "id": "system-radix",
+      "kind": "system",
+      "title": "Radix Primitives",
+      "summary": "Low-level React behavior primitives for teams that will supply their own visual system and composed UX.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "compose",
+          "implement",
+          "customize"
+        ],
+        "contexts": [
+          "custom-design-system",
+          "component-engineering"
+        ],
+        "platforms": [
+          "web"
+        ],
+        "character": []
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected"
+        ],
+        "inspected_at": "2026-11-07",
+        "freshness": "live-at-inspection",
+        "scope": "Source text inspected; no visual inspection or live component execution."
+      },
+      "related": [
+        "pattern-radix-dialog",
+        "pattern-apg-combobox",
+        "pattern-fluent-dialog"
+      ],
+      "path": "library/entries/system-radix.md",
+      "card_sha256": "836c1234ea1ef96a4a606bd032ebff9b885659c5d6572db888eb0776acd96162",
+      "sources": [
+        {
+          "url": "https://www.radix-ui.com/primitives/docs/overview/introduction",
+          "title": "Radix Primitives introduction",
+          "locator": "Unstyled primitives; composition; controlled state; accessibility design goals",
+          "revision": "live documentation; not pinned to a source commit"
+        }
+      ]
+    },
+    {
+      "id": "system-spectrum",
+      "kind": "system",
+      "title": "Adobe Spectrum: creative-product ecosystem routing",
+      "summary": "A route into Adobe-oriented foundations and current implementation families, with explicit version/access gaps.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "compose",
+          "operate",
+          "inspect"
+        ],
+        "contexts": [
+          "creative-tool",
+          "professional-product",
+          "design-system"
+        ],
+        "platforms": [
+          "web"
+        ],
+        "character": []
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected"
+        ],
+        "inspected_at": "2026-11-07",
+        "freshness": "live-at-inspection",
+        "scope": "Landing-page ecosystem and status text inspected; current accordion wrapper navigation inspected, embedded guidance partial. No component behavior or visual appearance evaluated."
+      },
+      "related": [
+        "system-carbon",
+        "system-apple-hig"
+      ],
+      "path": "library/entries/system-spectrum.md",
+      "card_sha256": "5d5f3cb7d208ef0e8846bccdd1ddb1acd73250d49e453403891b0f1156415a39",
+      "sources": [
+        {
+          "url": "https://spectrum.adobe.com/",
+          "title": "Spectrum",
+          "locator": "System overview; React/Web Components status; iOS/Android availability routes",
+          "revision": "live documentation; not pinned to a source commit"
+        },
+        {
+          "url": "https://spectrum.adobe.com/web/rsp/components/accordion",
+          "title": "Accordion component route",
+          "locator": "Anatomy/options/states/behaviors/usage navigation only",
+          "revision": "Current routed documentation; implementation not pinned"
+        }
+      ]
+    },
+    {
+      "id": "system-uswds",
+      "kind": "system",
+      "title": "U.S. Web Design System",
+      "summary": "Federal-service patterns, tokens and adoption routes, with a useful language-coverage decision family.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "enter",
+          "navigate",
+          "understand"
+        ],
+        "contexts": [
+          "public-service",
+          "multilingual",
+          "transactional"
+        ],
+        "platforms": [
+          "web",
+          "mobile-web"
+        ],
+        "character": []
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected"
+        ],
+        "inspected_at": "2026-11-07",
+        "freshness": "live-at-inspection",
+        "scope": "Source text inspected; no visual inspection or live component execution."
+      },
+      "related": [
+        "pattern-uswds-language",
+        "system-govuk"
+      ],
+      "path": "library/entries/system-uswds.md",
+      "card_sha256": "4496372e38ede7dba4e8e99aa8612d66f16cf982a7b0153c14c5fc9637840b59",
+      "sources": [
+        {
+          "url": "https://designsystem.digital.gov/",
+          "title": "U.S. Web Design System",
+          "locator": "Components; patterns; tokens; utilities; templates; maturity model routes",
+          "revision": "Homepage download v3.14.0 at inspection"
+        },
+        {
+          "url": "https://designsystem.digital.gov/patterns/create-a-user-profile/",
+          "title": "Create a user profile",
+          "locator": "Profile pattern structure and latest updates",
+          "revision": "Live page includes policy-dependent February 2025 changes"
+        }
+      ]
+    },
+    {
+      "id": "tool-awesome-design-md",
+      "kind": "tool",
+      "title": "Awesome DESIGN.md: discovery through interpreted design documents",
+      "summary": "A curated directory of third-party design-language interpretations, useful for locating candidate references while preserving the difference from original product authority.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "discover",
+          "research",
+          "compare",
+          "document"
+        ],
+        "contexts": [
+          "marketing",
+          "design-system",
+          "developer-tools"
+        ],
+        "platforms": [
+          "web"
+        ],
+        "character": []
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected"
+        ],
+        "inspected_at": "2026-11-07",
+        "freshness": "versioned",
+        "scope": "Pinned directory README and one interpreted DESIGN.md body inspected; no original-site visual inspection."
+      },
+      "related": [
+        "skill-create-design-md",
+        "tool-mobbin"
+      ],
+      "path": "library/entries/tool-awesome-design-md.md",
+      "card_sha256": "2c012987aaf956baca72a5a6e5426fa6372a8e5b94c342c06a1f6d67c3e50fef",
+      "sources": [
+        {
+          "url": "https://github.com/VoltAgent/awesome-design-md/blob/fcc70284932276d085f01ef9f83edde90b1258cb/README.md",
+          "title": "Awesome DESIGN.md collection",
+          "locator": "Collection categories; design-document explanation",
+          "revision": "fcc70284932276d085f01ef9f83edde90b1258cb"
+        },
+        {
+          "url": "https://github.com/VoltAgent/awesome-design-md/blob/fcc70284932276d085f01ef9f83edde90b1258cb/design-md/voltagent/DESIGN.md",
+          "title": "Voltagent-inspired analysis",
+          "locator": "Description; color/type/component fields",
+          "revision": "fcc70284932276d085f01ef9f83edde90b1258cb"
+        }
+      ]
+    },
+    {
+      "id": "tool-axe-core",
+      "kind": "tool",
+      "title": "axe-core: state-scoped accessibility checks",
+      "summary": "A browser accessibility engine whose context, rule selection and result categories support targeted checks of actual rendered states.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "verify",
+          "audit",
+          "recover"
+        ],
+        "contexts": [
+          "accessibility",
+          "forms",
+          "components"
+        ],
+        "platforms": [
+          "web"
+        ],
+        "character": []
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected"
+        ],
+        "inspected_at": "2026-11-07",
+        "freshness": "live-at-inspection",
+        "scope": "API documentation and example test sequence inspected. The engine was not installed or executed."
+      },
+      "related": [
+        "skill-fixing-accessibility",
+        "tool-playwright",
+        "tool-lighthouse",
+        "standard-wcag-conformance",
+        "principle-native-semantics"
+      ],
+      "path": "library/entries/tool-axe-core.md",
+      "card_sha256": "36f087775a3df8298bf9c285f878bfe1ec44cce09cf8c32f8c39d961a769d313",
+      "sources": [
+        {
+          "url": "https://github.com/dequelabs/axe-core/blob/develop/doc/API.md",
+          "title": "Axe JavaScript Accessibility API",
+          "locator": "Getting Started; API Notes; axe.run context/options/results",
+          "revision": "develop, inspected 2026-11-07; not-pinned"
+        },
+        {
+          "url": "https://playwright.dev/docs/accessibility-testing",
+          "title": "Playwright accessibility testing",
+          "locator": "Introduction disclaimer; Scanning a specific part of a page",
+          "revision": "live documentation inspected 2026-11-07"
+        }
+      ]
+    },
+    {
+      "id": "tool-chrome-devtools-css",
+      "kind": "tool",
+      "title": "Chrome DevTools: inspect applied CSS rather than infer tokens",
+      "summary": "An implementation-inspection route for applied declarations, box geometry and pseudostates, useful when reconstructing a design from real rendering.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "inspect",
+          "repair",
+          "document"
+        ],
+        "contexts": [
+          "existing-product",
+          "design-system",
+          "components"
+        ],
+        "platforms": [
+          "web"
+        ],
+        "character": []
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected"
+        ],
+        "inspected_at": "2026-11-07",
+        "freshness": "live-at-inspection",
+        "scope": "Official CSS inspection tutorial read; no DevTools or target page interaction performed."
+      },
+      "related": [
+        "skill-create-design-md",
+        "tool-lighthouse"
+      ],
+      "path": "library/entries/tool-chrome-devtools-css.md",
+      "card_sha256": "ac76e6d74e1c0d4f774af0d5f3415c532c7a5756f3e6f05a07cdc9ad6ecbf8fd",
+      "sources": [
+        {
+          "url": "https://developer.chrome.com/docs/devtools/css",
+          "title": "View and change CSS",
+          "locator": "Applied styles; class/pseudostate toggles; box model",
+          "revision": "live documentation inspected 2026-11-07"
+        }
+      ]
+    },
+    {
+      "id": "tool-excalidraw",
+      "kind": "tool",
+      "title": "Excalidraw: editable low-fidelity relationship sketches",
+      "summary": "A canvas sketching tool for wireframes and diagrams, with an important distinction between the hosted application and the embeddable editor package.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "sketch",
+          "plan",
+          "compare"
+        ],
+        "contexts": [
+          "collaboration",
+          "information-architecture",
+          "flows"
+        ],
+        "platforms": [
+          "web",
+          "cross-platform"
+        ],
+        "character": []
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected"
+        ],
+        "inspected_at": "2026-11-07",
+        "freshness": "live-at-inspection",
+        "scope": "Official README and SDK FAQ inspected; no editor/collaboration session executed."
+      },
+      "related": [
+        "tool-penpot",
+        "skill-superpowers-brainstorming"
+      ],
+      "path": "library/entries/tool-excalidraw.md",
+      "card_sha256": "18b9195cb15212e7e256987c75ec1408431c4ea0bc95125d43cd2797bafaa72e",
+      "sources": [
+        {
+          "url": "https://github.com/excalidraw/excalidraw/blob/master/README.md",
+          "title": "Excalidraw README",
+          "locator": "Editor features versus Excalidraw.com; exports and integrations",
+          "revision": "master inspected 2026-11-07; not-pinned"
+        },
+        {
+          "url": "https://plus.excalidraw.com/docs/sdk/excalidraw/faq",
+          "title": "Excalidraw SDK FAQ",
+          "locator": "Package collaboration support",
+          "revision": "live documentation inspected 2026-11-07"
+        }
+      ]
+    },
+    {
+      "id": "tool-figma-mcp",
+      "kind": "tool",
+      "title": "Figma MCP: design context and code mappings",
+      "summary": "An integration surface for obtaining scoped design context, screenshots and component mappings, with distinct read and write capabilities.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "inspect",
+          "implement",
+          "document"
+        ],
+        "contexts": [
+          "handoff",
+          "design-system",
+          "components"
+        ],
+        "platforms": [
+          "web",
+          "cross-platform"
+        ],
+        "character": []
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected"
+        ],
+        "inspected_at": "2026-11-07",
+        "freshness": "live-at-inspection",
+        "scope": "Official public tool index and Dev Mode explanation inspected. No connected account, design file or MCP execution."
+      },
+      "related": [
+        "skill-create-design-md",
+        "tool-chrome-devtools-css"
+      ],
+      "path": "library/entries/tool-figma-mcp.md",
+      "card_sha256": "e2f07a53ce066b3ad39af78dbaad001cccf84fa88b724558be83396ce55b5228",
+      "sources": [
+        {
+          "url": "https://developers.figma.com/docs/figma-mcp-server/tools-and-prompts/",
+          "title": "Figma MCP tools and prompts",
+          "locator": "Read/write indexes; get_design_context; screenshot; metadata; Code Connect; remote-only distinctions",
+          "revision": "live documentation inspected 2026-11-07"
+        },
+        {
+          "url": "https://www.figma.com/dev-mode/",
+          "title": "Figma Dev Mode",
+          "locator": "Design-to-development context and component connection",
+          "revision": "live documentation inspected 2026-11-07"
+        }
+      ]
+    },
+    {
+      "id": "tool-lighthouse",
+      "kind": "tool",
+      "title": "Lighthouse: scoped page-quality diagnostics",
+      "summary": "An automated page-audit tool for performance, accessibility and other diagnostics, useful as one bounded source of implementation evidence.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "audit",
+          "verify",
+          "optimize"
+        ],
+        "contexts": [
+          "performance",
+          "accessibility",
+          "product-interface"
+        ],
+        "platforms": [
+          "web"
+        ],
+        "character": []
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected"
+        ],
+        "inspected_at": "2026-11-07",
+        "freshness": "live-at-inspection",
+        "scope": "Official overview and audit/workflow scope inspected. Lighthouse was not executed."
+      },
+      "related": [
+        "tool-axe-core",
+        "skill-vercel-react-performance"
+      ],
+      "path": "library/entries/tool-lighthouse.md",
+      "card_sha256": "9d76febf24b7e0adcb96eeee6c50074d3eb09e9e8f71396091a6f78be917b33b",
+      "sources": [
+        {
+          "url": "https://developer.chrome.com/docs/lighthouse/overview",
+          "title": "Introduction to Lighthouse",
+          "locator": "Workflow options; audit interpretation; local/authenticated DevTools; report sharing",
+          "revision": "live documentation inspected 2026-11-07"
+        }
+      ]
+    },
+    {
+      "id": "tool-mobbin",
+      "kind": "tool",
+      "title": "Mobbin: screen and flow discovery with access limits",
+      "summary": "A reference-library discovery tool for locating app/site examples by UI problem, with subscription and evidence boundaries kept explicit.",
+      "status": "curated",
+      "availability": "partial",
+      "facets": {
+        "tasks": [
+          "research",
+          "compare",
+          "discover"
+        ],
+        "contexts": [
+          "native-mobile",
+          "consumer",
+          "product-interface",
+          "flows"
+        ],
+        "platforms": [
+          "web",
+          "ios",
+          "android",
+          "native-mobile"
+        ],
+        "character": []
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected"
+        ],
+        "inspected_at": "2026-11-07",
+        "freshness": "live-at-inspection",
+        "scope": "Public product description inspected only. Search/member content, screenshots and flows uninspected."
+      },
+      "related": [
+        "tool-awesome-design-md",
+        "tool-penpot",
+        "pattern-apple-onboarding"
+      ],
+      "path": "library/entries/tool-mobbin.md",
+      "card_sha256": "2e1819560063fc579cc4924ad7c1f403855bf0856fa7a952cc701d95919677fd",
+      "sources": [
+        {
+          "url": "https://mobbin.com/",
+          "title": "Mobbin public product page",
+          "locator": "Reference library description; search examples; access links",
+          "revision": "live documentation inspected 2026-11-07"
+        }
+      ]
+    },
+    {
+      "id": "tool-penpot",
+      "kind": "tool",
+      "title": "Penpot: explicit prototype boards, triggers and flows",
+      "summary": "A design/prototyping environment with documented board connections, overlay actions and multiple flow starting points.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "prototype",
+          "compare",
+          "plan"
+        ],
+        "contexts": [
+          "design-system",
+          "collaboration",
+          "flows"
+        ],
+        "platforms": [
+          "web",
+          "cross-platform"
+        ],
+        "character": []
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected"
+        ],
+        "inspected_at": "2026-11-07",
+        "freshness": "live-at-inspection",
+        "scope": "Official prototyping guide and feature documentation inspected; no prototype viewed or interacted with."
+      },
+      "related": [
+        "tool-excalidraw",
+        "tool-ui-sh-picker"
+      ],
+      "path": "library/entries/tool-penpot.md",
+      "card_sha256": "8cf68616f054f4553fee4b887de6e41f11b36b350180fee769a3564c5ea618ce",
+      "sources": [
+        {
+          "url": "https://help.penpot.app/user-guide/prototyping-testing/prototyping/",
+          "title": "Penpot prototyping",
+          "locator": "Connect boards; interaction triggers/actions; flow starting points",
+          "revision": "live documentation inspected 2026-11-07"
+        },
+        {
+          "url": "https://penpot.app/features",
+          "title": "Penpot features",
+          "locator": "Design/prototyping; flex/grid layout; collaboration",
+          "revision": "live documentation inspected 2026-11-07"
+        }
+      ]
+    },
+    {
+      "id": "tool-playwright",
+      "kind": "tool",
+      "title": "Playwright: interaction and visual comparison evidence",
+      "summary": "Browser automation with explicit actions/assertions, accessibility integration and environment-sensitive screenshot comparison.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "verify",
+          "compare",
+          "inspect"
+        ],
+        "contexts": [
+          "components",
+          "forms",
+          "regression-testing",
+          "accessibility"
+        ],
+        "platforms": [
+          "web"
+        ],
+        "character": []
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected"
+        ],
+        "inspected_at": "2026-11-07",
+        "freshness": "live-at-inspection",
+        "scope": "Official accessibility and visual-comparison documentation inspected. No browser test or screenshot comparison executed."
+      },
+      "related": [
+        "tool-axe-core",
+        "tool-storybook"
+      ],
+      "path": "library/entries/tool-playwright.md",
+      "card_sha256": "23b0dcfb3d1ec81909246ef13580ce43e3ca8377277ef234f0f8149ab5672575",
+      "sources": [
+        {
+          "url": "https://playwright.dev/docs/accessibility-testing",
+          "title": "Accessibility testing",
+          "locator": "Introduction limitations; state activation before scan",
+          "revision": "live documentation inspected 2026-11-07"
+        },
+        {
+          "url": "https://playwright.dev/docs/test-snapshots",
+          "title": "Visual comparisons",
+          "locator": "Introduction; environment warning; generating/updating screenshots",
+          "revision": "live documentation inspected 2026-11-07"
+        }
+      ]
+    },
+    {
+      "id": "tool-storybook",
+      "kind": "tool",
+      "title": "Storybook: component state catalog and interaction fixtures",
+      "summary": "A development catalog for rendering component variants/states and attaching interaction checks to explicit initial conditions.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "document",
+          "compare",
+          "verify",
+          "compose"
+        ],
+        "contexts": [
+          "components",
+          "design-system",
+          "regression-testing"
+        ],
+        "platforms": [
+          "web"
+        ],
+        "character": []
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected"
+        ],
+        "inspected_at": "2026-11-07",
+        "freshness": "live-at-inspection",
+        "scope": "Official 10.6 story and interaction-test documentation inspected; no component rendered."
+      },
+      "related": [
+        "skill-shadcn-project-guidance",
+        "tool-playwright"
+      ],
+      "path": "library/entries/tool-storybook.md",
+      "card_sha256": "048f41285bd9f80bba715d40c7d9510ec7a7172e0e946a613db726b257a749ea",
+      "sources": [
+        {
+          "url": "https://storybook.js.org/docs/writing-stories",
+          "title": "How to write stories",
+          "locator": "Story definition; args; CSF; state examples",
+          "revision": "Docs version 10.6 inspected 2026-11-07"
+        },
+        {
+          "url": "https://storybook.js.org/docs/writing-tests/interaction-testing",
+          "title": "Interaction tests",
+          "locator": "Initial state; play function; assertions",
+          "revision": "Docs version 10.6 inspected 2026-11-07"
+        }
+      ]
+    },
+    {
+      "id": "tool-ui-sh-picker",
+      "kind": "tool",
+      "title": "ui.sh ideas picker (optional local workflow)",
+      "summary": "An implemented-option comparison and cleanup mechanism whose local skill excludes generating visual directions.",
+      "status": "curated",
+      "availability": "local-only",
+      "facets": {
+        "tasks": [
+          "compare",
+          "prototype",
+          "select"
+        ],
+        "contexts": [
+          "components",
+          "collaboration",
+          "visual-variants"
+        ],
+        "platforms": [
+          "web"
+        ],
+        "character": []
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected"
+        ],
+        "inspected_at": "2026-11-07",
+        "freshness": "unknown",
+        "scope": "User-supplied/installed ideas instructions inspected locally. Exact upstream/license, hosted script and picker behavior unverified."
+      },
+      "related": [
+        "skill-ui-sh-design",
+        "tool-penpot"
+      ],
+      "path": "library/entries/tool-ui-sh-picker.md",
+      "card_sha256": "dae190c9c64ff80574461c6b5067531f99b168383d519c0de992bc445e929cbd",
+      "sources": [
+        {
+          "url": "local:ui-sh/ideas/SKILL.md",
+          "title": "User-supplied ui.sh ideas skill",
+          "locator": "Activation; picker attributes; framework injection; selection; cleanup",
+          "revision": "installed/user-supplied snapshot 2026-11-07; upstream version unknown"
+        }
+      ]
+    },
+    {
+      "id": "visual-arena-text-led-community",
+      "kind": "example",
+      "title": "Are.na: a text-led invitation to a knowledge community",
+      "summary": "A restrained public introduction uses definitions, community context and a content model rather than a mascot or conventional feature-card hero.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "explain",
+          "welcome",
+          "collect"
+        ],
+        "contexts": [
+          "community",
+          "knowledge-work",
+          "editorial"
+        ],
+        "platforms": [
+          "web"
+        ],
+        "character": [
+          "text-led",
+          "restrained",
+          "dark",
+          "editorial"
+        ]
+      },
+      "evidence": {
+        "mode": [
+          "visual-inspected",
+          "source-inspected"
+        ],
+        "inspected_at": "2026-11-07",
+        "freshness": "live-at-inspection",
+        "scope": "Own native Chrome public HTTPS tab; desktop screenshot viewed directly. Public composition only; no account/product workflow or efficacy tested."
+      },
+      "related": [
+        "visual-pudding-story-index",
+        "visual-kagi-search-character"
+      ],
+      "path": "library/entries/visual-arena-text-led-community.md",
+      "card_sha256": "292a94c7c780a235fb8b78a7ca235472931ed78cb96bb44b392c5505294c8f6b",
+      "sources": [
+        {
+          "url": "https://www.are.na/",
+          "title": "Are.na primary public page",
+          "locator": "Desktop introduction and beginning of How it works",
+          "revision": "not-versioned; live page inspected 2026-11-07"
+        }
+      ]
+    },
+    {
+      "id": "visual-brilliant-visible-problems",
+      "kind": "example",
+      "title": "Brilliant: make the learning material visible",
+      "summary": "A current learning landing page uses mathematical problem panels as visual evidence under a restrained tutor proposition.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "explain",
+          "welcome",
+          "learn"
+        ],
+        "contexts": [
+          "learning",
+          "stem",
+          "consumer"
+        ],
+        "platforms": [
+          "web"
+        ],
+        "character": [
+          "editorial",
+          "diagram-led",
+          "restrained",
+          "light"
+        ]
+      },
+      "evidence": {
+        "mode": [
+          "visual-inspected",
+          "source-inspected"
+        ],
+        "inspected_at": "2026-11-07",
+        "freshness": "live-at-inspection",
+        "scope": "Own native Chrome public HTTPS tab; desktop screenshot viewed directly. Public composition only; no account/product workflow or efficacy tested."
+      },
+      "related": [
+        "visual-duolingo-welcome",
+        "visual-pudding-story-index"
+      ],
+      "path": "library/entries/visual-brilliant-visible-problems.md",
+      "card_sha256": "50f2e959828862fa0c9d4be33d9637e7a1a64e2fbbb9464a6c4d09b954a3f239",
+      "sources": [
+        {
+          "url": "https://brilliant.org/",
+          "title": "Brilliant primary public page",
+          "locator": "Desktop tutor hero and fan of mathematical/coding problem panels",
+          "revision": "not-versioned; live page inspected 2026-11-07"
+        }
+      ]
+    },
+    {
+      "id": "visual-duolingo-welcome",
+      "kind": "example",
+      "title": "Duolingo: character-led learning welcome",
+      "summary": "A character collage and direct start/returning-user choices for a welcoming learning product.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "onboard",
+          "welcome",
+          "learn"
+        ],
+        "contexts": [
+          "learning",
+          "consumer",
+          "first-use"
+        ],
+        "platforms": [
+          "web"
+        ],
+        "character": [
+          "character-led",
+          "playful",
+          "illustrated",
+          "bright"
+        ]
+      },
+      "evidence": {
+        "mode": [
+          "visual-inspected",
+          "source-inspected"
+        ],
+        "inspected_at": "2026-11-07",
+        "freshness": "live-at-inspection",
+        "scope": "Own native Chrome public HTTPS tab; actual desktop screenshot inspected. Marketing composition only; no product interaction or efficacy tested."
+      },
+      "related": [
+        "visual-finch-companion",
+        "flow-duolingo-guided-path"
+      ],
+      "path": "library/entries/visual-duolingo-welcome.md",
+      "card_sha256": "5c0598270ea05713190f342d8002c80f1143081f0ede0268d855a41e7b20cdda",
+      "sources": [
+        {
+          "url": "https://www.duolingo.com/",
+          "title": "Duolingo public website",
+          "locator": "Desktop public landing-page first viewport",
+          "revision": "not-versioned; live page inspected 2026-11-07"
+        }
+      ]
+    },
+    {
+      "id": "visual-finch-companion",
+      "kind": "example",
+      "title": "Finch: a companion world around a simple invitation",
+      "summary": "An illustrated pet landscape makes an abstract self-care proposition concrete without showing a complex product dashboard.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "welcome",
+          "explain",
+          "choose-direction"
+        ],
+        "contexts": [
+          "consumer",
+          "companion",
+          "self-care"
+        ],
+        "platforms": [
+          "web"
+        ],
+        "character": [
+          "character-led",
+          "pastel",
+          "illustrated",
+          "welcoming"
+        ]
+      },
+      "evidence": {
+        "mode": [
+          "visual-inspected",
+          "source-inspected"
+        ],
+        "inspected_at": "2026-11-07",
+        "freshness": "live-at-inspection",
+        "scope": "Own native Chrome public HTTPS tab; actual desktop screenshot inspected. Marketing composition only; no product interaction or efficacy tested."
+      },
+      "related": [
+        "visual-duolingo-welcome",
+        "principle-informed-choice"
+      ],
+      "path": "library/entries/visual-finch-companion.md",
+      "card_sha256": "20c6547b8b447a84ec6d7f28cc90aafa8cd6877a1235bea353161f831215f4dc",
+      "sources": [
+        {
+          "url": "https://finchcare.com/",
+          "title": "Finch public website",
+          "locator": "Public landing hero and footer-visible landscape after one downward scroll",
+          "revision": "not-versioned; live page inspected 2026-11-07"
+        }
+      ]
+    },
+    {
+      "id": "visual-gentler-streak-data-companion",
+      "kind": "example",
+      "title": "Gentler Streak: a companion alongside a mobile data view",
+      "summary": "An embedded phone preview combines a character, plain-language interpretation, a trend chart and an activity row within a photographic landing page.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "monitor",
+          "interpret",
+          "welcome"
+        ],
+        "contexts": [
+          "consumer",
+          "personal-data",
+          "wellbeing"
+        ],
+        "platforms": [
+          "web",
+          "native-mobile"
+        ],
+        "character": [
+          "character-led",
+          "data-rich",
+          "photographic",
+          "reassuring"
+        ]
+      },
+      "evidence": {
+        "mode": [
+          "visual-inspected",
+          "source-inspected"
+        ],
+        "inspected_at": "2026-11-07",
+        "freshness": "live-at-inspection",
+        "scope": "The public website and embedded phone image were visually inspected. This is an app-screen representation, not an installed or interacted-with native application."
+      },
+      "related": [
+        "visual-finch-companion",
+        "visual-things-task-hierarchy"
+      ],
+      "path": "library/entries/visual-gentler-streak-data-companion.md",
+      "card_sha256": "f66305207b102ebd900a77a77610fa42182bf909394899c3b24da1cd77f7b017",
+      "sources": [
+        {
+          "url": "https://gentlerstories.com/gentlerstreak",
+          "title": "Gentler Streak primary public page",
+          "locator": "Desktop hero and embedded iPhone dashboard preview",
+          "revision": "not-versioned; live page inspected 2026-11-07"
+        }
+      ]
+    },
+    {
+      "id": "visual-headspace-service-branches",
+      "kind": "example",
+      "title": "Headspace: illustrated content beside a human service offer",
+      "summary": "A public landing composition distinguishes self-guided app content from a clinician-led service using different imagery within a shared frame.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "explain",
+          "choose",
+          "welcome"
+        ],
+        "contexts": [
+          "consumer",
+          "multiple-offers",
+          "wellbeing"
+        ],
+        "platforms": [
+          "web"
+        ],
+        "character": [
+          "illustrated",
+          "warm",
+          "restrained"
+        ]
+      },
+      "evidence": {
+        "mode": [
+          "visual-inspected",
+          "source-inspected"
+        ],
+        "inspected_at": "2026-11-07",
+        "freshness": "live-at-inspection",
+        "scope": "Own native Chrome public HTTPS tab; desktop screenshot viewed directly. Public composition only; no account/product workflow or efficacy tested."
+      },
+      "related": [
+        "visual-finch-companion",
+        "visual-gentler-streak-data-companion"
+      ],
+      "path": "library/entries/visual-headspace-service-branches.md",
+      "card_sha256": "41440c5670d3d040b8a6d2ba514b9d0751ea4d0e9ef546d6f4c6a9ea154082bb",
+      "sources": [
+        {
+          "url": "https://www.headspace.com/",
+          "title": "Headspace primary public page",
+          "locator": "Desktop hero with app/tools and online-therapy offer panels",
+          "revision": "not-versioned; live page inspected 2026-11-07"
+        }
+      ]
+    },
+    {
+      "id": "visual-kagi-search-character",
+      "kind": "example",
+      "title": "Kagi: character beside a search-first surface",
+      "summary": "A restrained search landing page gives a small illustrated character identity while keeping the query field central.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "find",
+          "search",
+          "welcome"
+        ],
+        "contexts": [
+          "consumer",
+          "knowledge-work",
+          "search-tools"
+        ],
+        "platforms": [
+          "web"
+        ],
+        "character": [
+          "character-led",
+          "restrained",
+          "dark",
+          "search-led"
+        ]
+      },
+      "evidence": {
+        "mode": [
+          "visual-inspected",
+          "source-inspected"
+        ],
+        "inspected_at": "2026-11-07",
+        "freshness": "live-at-inspection",
+        "scope": "Own native Chrome public HTTPS tab; desktop screenshot viewed directly. Public composition only; no account/product workflow or efficacy tested."
+      },
+      "related": [
+        "visual-duolingo-welcome",
+        "visual-arena-text-led-community"
+      ],
+      "path": "library/entries/visual-kagi-search-character.md",
+      "card_sha256": "ac449a7c9f40d6dcac3c845305161e976ac04ca850590270928667ec3d547fe5",
+      "sources": [
+        {
+          "url": "https://kagi.com/",
+          "title": "Kagi primary public page",
+          "locator": "Desktop public search hero; no query submitted",
+          "revision": "not-versioned; live page inspected 2026-11-07"
+        }
+      ]
+    },
+    {
+      "id": "visual-linear-product-proof",
+      "kind": "example",
+      "title": "Linear: dense product proof within a restrained landing page",
+      "summary": "A restrained dark hero gives a large, detailed work-interface representation enough space to demonstrate its information model.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "explain",
+          "monitor",
+          "review"
+        ],
+        "contexts": [
+          "product-development",
+          "expert-work",
+          "collaboration"
+        ],
+        "platforms": [
+          "web",
+          "desktop"
+        ],
+        "character": [
+          "restrained",
+          "dark",
+          "dense",
+          "product-led"
+        ]
+      },
+      "evidence": {
+        "mode": [
+          "visual-inspected",
+          "source-inspected"
+        ],
+        "inspected_at": "2026-11-07",
+        "freshness": "live-at-inspection",
+        "scope": "Own native Chrome public HTTPS tab; desktop screenshot viewed directly. Public composition only; no account/product workflow or efficacy tested."
+      },
+      "related": [
+        "visual-raycast-list-detail",
+        "visual-things-task-hierarchy",
+        "flow-linear-triage-decisions"
+      ],
+      "path": "library/entries/visual-linear-product-proof.md",
+      "card_sha256": "3fd90876f96f6649adc396b2cd2eb55d393c9fb92294263c5b5b8018906340dc",
+      "sources": [
+        {
+          "url": "https://linear.app/",
+          "title": "Linear primary public page",
+          "locator": "Loaded desktop hero and large issue/activity product representation",
+          "revision": "not-versioned; live page inspected 2026-11-07"
+        }
+      ]
+    },
+    {
+      "id": "visual-monument-valley-world",
+      "kind": "example",
+      "title": "Monument Valley III: a coherent geometric world",
+      "summary": "A game-series landing hero uses architecture, character, palette and title treatment to establish one immersive visual world.",
+      "status": "curated",
+      "availability": "partial",
+      "facets": {
+        "tasks": [
+          "invite",
+          "explore",
+          "choose-direction"
+        ],
+        "contexts": [
+          "games",
+          "creative-world",
+          "storytelling"
+        ],
+        "platforms": [
+          "web",
+          "game-reference"
+        ],
+        "character": [
+          "immersive",
+          "geometric",
+          "pastel",
+          "illustrated"
+        ]
+      },
+      "evidence": {
+        "mode": [
+          "visual-inspected",
+          "source-inspected"
+        ],
+        "inspected_at": "2026-11-07",
+        "freshness": "live-at-inspection",
+        "scope": "Own native Chrome navigation from public HTTPS root entry produced a viewed /mv3 game hero. Independent direct /mv3 navigation returned Page not found, so access is partial; no gameplay or installation tested."
+      },
+      "related": [
+        "visual-poolsuite-retro-player",
+        "visual-teenage-engineering-object",
+        "standard-focus-motion"
+      ],
+      "path": "library/entries/visual-monument-valley-world.md",
+      "card_sha256": "d33e7929f79c1fb3fa9bb8cc54d60fc13fe7fd2b0b6d20f9250502a92a83f808",
+      "sources": [
+        {
+          "url": "https://www.monumentvalleygame.com/?lang=en",
+          "title": "Monument Valley III primary public page",
+          "locator": "Root series entry opened the client-rendered /mv3 hero; direct /mv3 reload failed in independent cross-check.",
+          "revision": "not-versioned; live page inspected 2026-11-07"
+        }
+      ]
+    },
+    {
+      "id": "visual-poolsuite-retro-player",
+      "kind": "example",
+      "title": "Poolsuite: leisure expressed as a retro desktop",
+      "summary": "A public media interface uses window chrome, pixel-style controls and a dock to make the product feel like a playful desktop environment.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "explore",
+          "listen",
+          "choose-direction"
+        ],
+        "contexts": [
+          "leisure",
+          "music",
+          "creative-tools"
+        ],
+        "platforms": [
+          "web",
+          "desktop"
+        ],
+        "character": [
+          "retro",
+          "playful",
+          "desktop-metaphor",
+          "dense"
+        ]
+      },
+      "evidence": {
+        "mode": [
+          "visual-inspected",
+          "source-inspected"
+        ],
+        "inspected_at": "2026-11-07",
+        "freshness": "live-at-inspection",
+        "scope": "Own native Chrome public HTTPS tab; desktop screenshot viewed directly. Public composition only; no account/product workflow or efficacy tested."
+      },
+      "related": [
+        "visual-raycast-list-detail",
+        "visual-monument-valley-world"
+      ],
+      "path": "library/entries/visual-poolsuite-retro-player.md",
+      "card_sha256": "b65cae098741e9928c95793fa54e2171e6d090a2b0dcc858f99f72d1bacc9892",
+      "sources": [
+        {
+          "url": "https://poolsuite.net/",
+          "title": "Poolsuite primary public page",
+          "locator": "Loaded public player desktop, stopped playback state",
+          "revision": "not-versioned; live page inspected 2026-11-07"
+        }
+      ]
+    },
+    {
+      "id": "visual-pudding-story-index",
+      "kind": "example",
+      "title": "The Pudding: editorial discovery through story-specific specimens",
+      "summary": "A visual-essay index uses varied subject-specific thumbnails, expressive labels and consistent metadata to support exploration.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "explore",
+          "find",
+          "compare"
+        ],
+        "contexts": [
+          "editorial",
+          "culture",
+          "visual-explanation"
+        ],
+        "platforms": [
+          "web"
+        ],
+        "character": [
+          "expressive",
+          "editorial",
+          "illustrated",
+          "dark"
+        ]
+      },
+      "evidence": {
+        "mode": [
+          "visual-inspected",
+          "source-inspected"
+        ],
+        "inspected_at": "2026-11-07",
+        "freshness": "live-at-inspection",
+        "scope": "Own native Chrome public HTTPS tab; desktop screenshot viewed directly. Public composition only; no account/product workflow or efficacy tested."
+      },
+      "related": [
+        "visual-arena-text-led-community",
+        "visual-brilliant-visible-problems"
+      ],
+      "path": "library/entries/visual-pudding-story-index.md",
+      "card_sha256": "085a0868d19ca87ae6d705e0672a6bc5c3e5e401fe69221fa350ba96fe33b59f",
+      "sources": [
+        {
+          "url": "https://pudding.cool/",
+          "title": "The Pudding primary public page",
+          "locator": "Desktop publication index, search/category row and first story rows",
+          "revision": "not-versioned; live page inspected 2026-11-07"
+        }
+      ]
+    },
+    {
+      "id": "visual-raycast-list-detail",
+      "kind": "example",
+      "title": "Raycast: compact list and preview within a desktop metaphor",
+      "summary": "An embedded launcher example pairs a searchable result list with a detail preview and action cues in one compact surface.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "find",
+          "inspect",
+          "choose"
+        ],
+        "contexts": [
+          "expert-work",
+          "desktop-tools",
+          "repeated-use"
+        ],
+        "platforms": [
+          "web",
+          "desktop",
+          "macos"
+        ],
+        "character": [
+          "compact",
+          "dark",
+          "product-led",
+          "desktop-metaphor"
+        ]
+      },
+      "evidence": {
+        "mode": [
+          "visual-inspected",
+          "source-inspected"
+        ],
+        "inspected_at": "2026-11-07",
+        "freshness": "live-at-inspection",
+        "scope": "Own native Chrome public HTTPS tab; desktop screenshot viewed directly. Public composition only; no account/product workflow or efficacy tested."
+      },
+      "related": [
+        "visual-linear-product-proof",
+        "visual-poolsuite-retro-player",
+        "flow-figma-ui3-state-visibility"
+      ],
+      "path": "library/entries/visual-raycast-list-detail.md",
+      "card_sha256": "b1ff735285cf805ca756cc64beab3e94681fa8d061a5407dc6e44abb5d837ce2",
+      "sources": [
+        {
+          "url": "https://www.raycast.com/",
+          "title": "Raycast primary public page",
+          "locator": "Take shortcuts, not detours section; clipboard-history product scene",
+          "revision": "not-versioned; live page inspected 2026-11-07"
+        }
+      ]
+    },
+    {
+      "id": "visual-stripe-press-book-detail",
+      "kind": "example",
+      "title": "Stripe Press: physical object and editorial detail",
+      "summary": "A book detail page lets a large physical product rendering and a substantial serif description carry the visual identity.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "inspect",
+          "explain",
+          "choose"
+        ],
+        "contexts": [
+          "editorial",
+          "commerce",
+          "publishing"
+        ],
+        "platforms": [
+          "web",
+          "desktop"
+        ],
+        "character": [
+          "object-led",
+          "editorial",
+          "serif",
+          "pastel"
+        ]
+      },
+      "evidence": {
+        "mode": [
+          "visual-inspected",
+          "source-inspected"
+        ],
+        "inspected_at": "2026-11-07",
+        "freshness": "live-at-inspection",
+        "scope": "Own native Chrome public HTTPS tab; desktop screenshot viewed directly. Public composition only; no account/product workflow or efficacy tested."
+      },
+      "related": [
+        "visual-teenage-engineering-object",
+        "visual-pudding-story-index"
+      ],
+      "path": "library/entries/visual-stripe-press-book-detail.md",
+      "card_sha256": "3a81c12254576f9e33649aa9cde74cff2381f734667112ff73f040b7d9fcd5bc",
+      "sources": [
+        {
+          "url": "https://press.stripe.com/nomad-letters",
+          "title": "Stripe Press primary public page",
+          "locator": "Nomad Letters desktop detail page after content settled",
+          "revision": "not-versioned; live page inspected 2026-11-07"
+        }
+      ]
+    },
+    {
+      "id": "visual-teenage-engineering-object",
+      "kind": "example",
+      "title": "teenage engineering: physical product as the visual center",
+      "summary": "Technical line icons and a dominant product photograph create an industrial identity tied to the object being presented.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "explore",
+          "inspect",
+          "explain"
+        ],
+        "contexts": [
+          "commerce",
+          "creative-tools",
+          "physical-products"
+        ],
+        "platforms": [
+          "web",
+          "desktop"
+        ],
+        "character": [
+          "object-led",
+          "industrial",
+          "dark",
+          "technical"
+        ]
+      },
+      "evidence": {
+        "mode": [
+          "visual-inspected",
+          "source-inspected"
+        ],
+        "inspected_at": "2026-11-07",
+        "freshness": "live-at-inspection",
+        "scope": "Own native Chrome public HTTPS tab; desktop screenshot viewed directly. Public composition only; no account/product workflow or efficacy tested."
+      },
+      "related": [
+        "visual-stripe-press-book-detail",
+        "visual-monument-valley-world"
+      ],
+      "path": "library/entries/visual-teenage-engineering-object.md",
+      "card_sha256": "74f32da0e96583b9837b4ef01aa13abb7c93d65c762b992040ee69261da88363",
+      "sources": [
+        {
+          "url": "https://teenage.engineering/",
+          "title": "teenage engineering primary public page",
+          "locator": "Loaded desktop homepage navigation and large device photograph",
+          "revision": "not-versioned; live page inspected 2026-11-07"
+        }
+      ]
+    },
+    {
+      "id": "visual-things-task-hierarchy",
+      "kind": "example",
+      "title": "Things: quiet task hierarchy across desktop and phone previews",
+      "summary": "Paired product images show lightweight list hierarchy, grouping and contextual navigation rather than a generic analytics dashboard.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "plan",
+          "scan",
+          "organize"
+        ],
+        "contexts": [
+          "personal-productivity",
+          "repeated-use",
+          "task-management"
+        ],
+        "platforms": [
+          "web",
+          "native-mobile",
+          "macos"
+        ],
+        "character": [
+          "restrained",
+          "light",
+          "product-led",
+          "list-based"
+        ]
+      },
+      "evidence": {
+        "mode": [
+          "visual-inspected",
+          "source-inspected"
+        ],
+        "inspected_at": "2026-11-07",
+        "freshness": "live-at-inspection",
+        "scope": "Public website composition and embedded Mac/iPhone task-list representations viewed. Native apps were not installed or interacted with."
+      },
+      "related": [
+        "visual-linear-product-proof",
+        "visual-raycast-list-detail"
+      ],
+      "path": "library/entries/visual-things-task-hierarchy.md",
+      "card_sha256": "b68639db80391fb5d0d54c375627ee6544c89984010b722e4405612c47d229f5",
+      "sources": [
+        {
+          "url": "https://culturedcode.com/things/",
+          "title": "Things primary public page",
+          "locator": "Simply Powerful section with Mac and iPhone task-list previews",
+          "revision": "not-versioned; live page inspected 2026-11-07"
+        }
+      ]
+    },
+    {
+      "id": "visual-toss-language-composition",
+      "kind": "example",
+      "title": "Toss: one photographic identity across English and Korean",
+      "summary": "A public language switch exposes how large English and Hangul headlines occupy the same photographic brand composition.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "explain",
+          "localize",
+          "choose-direction"
+        ],
+        "contexts": [
+          "consumer",
+          "localization",
+          "financial-product-marketing"
+        ],
+        "platforms": [
+          "web"
+        ],
+        "character": [
+          "photographic",
+          "large-type",
+          "restrained"
+        ]
+      },
+      "evidence": {
+        "mode": [
+          "visual-inspected",
+          "source-inspected",
+          "interaction-tested"
+        ],
+        "inspected_at": "2026-11-07",
+        "freshness": "live-at-inspection",
+        "scope": "English and Korean public hero screenshots viewed. Visible ENG menu opened and KOR selected; title and URL changed to Korean. No financial feature, download, account or transaction was used."
+      },
+      "related": [
+        "visual-headspace-service-branches",
+        "visual-things-task-hierarchy",
+        "principle-multilingual-layout",
+        "pattern-uswds-language"
+      ],
+      "path": "library/entries/visual-toss-language-composition.md",
+      "card_sha256": "b5efe4808c5400db6fba8d2e7b4da98d67e2c9dc48a1ea13434aa905063c2004",
+      "sources": [
+        {
+          "url": "https://toss.im/",
+          "title": "Toss primary public page",
+          "locator": "Public desktop hero in English and Korean; visible ENG/KOR language navigation",
+          "revision": "not-versioned; live page inspected 2026-11-07"
+        },
+        {
+          "url": "https://toss.im/en-us",
+          "title": "Toss English public website",
+          "locator": "English hero and ENG language menu",
+          "revision": "not-versioned; live page inspected 2026-11-07"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,1019 @@
+{
+  "reviewer": "independent reviewer A",
+  "status": "judgments frozen before condition labels revealed",
+  "scope": "Cases 01–04; neutral artifact labels only; source/reference packets plus applied outlines, no built UI.",
+  "inputs": [
+    "protocol.md",
+    "rubric.md",
+    "private-mapping.json (frozen key)",
+    "cases/01–04 prompts and evaluator-private notes",
+    "review-input/items.json",
+    "review-input/01-* through 04-*: request/result/work-log/receipts/conversation only"
+  ],
+  "excluded_inputs": [
+    "condition mapping",
+    "run manifest",
+    "workflow/guides/SKILL contents",
+    "original trials",
+    "other reviewer results",
+    "root result claims"
+  ],
+  "method_limits": [
+    "No public-source reinspection performed; authenticity/current-source attribution remains report-supported, not freshly corroborated.",
+    "Coordinator conversation contains normalized exact user relays plus assistant summaries, not complete native conversations.",
+    "No visual/native/live/test outcome inferred from source-card or receipt reports.",
+    "Ordinal scores saturate at 3 for good packets; equal ratings do not demonstrate equivalence or reliability.",
+    "Old pilot failures remain separate and unchanged."
+  ],
+  "delivery_notes": {
+    "01": "Both delivered identical context/logistics/keep-drop-mix block. Initial options only summarized; original option quality and exact before/after delta not fully inspectable.",
+    "02": "North received policy block after asking; south did not. The 30-second timer, asynchronous crew acceptance and pending reassignment are not silently imposed on south. This is conditional-script exposure asymmetry, not itself a coordinator violation; north’s added specificity cannot be attributed solely to workflow. Both received card pressure and permission to proceed under labeled assumption.",
+    "03": "Neither received optional beginner/evening/embarrassment/text-after-mic-refusal block. Both received no-guilt/no-red-correction feedback. Text fallback missing in both is recorded as private-key uncovered coverage, not delivered-instruction failure; north’s intermediate assumption does not contradict a delivered beginner fact.",
+    "04": "Neither received optional approval-email/name+email/pending-withdraw/approved-contact block. No withholding violation apparent because no question requesting that block is recorded. Withdrawal role remains 0/1 in frozen coverage but no penalty for omitting an undisclosed policy; no claim that generic contact controls meet it."
+  },
+  "artifacts": [
+    {
+      "artifact": "01-north",
+      "gates": {
+        "condition_isolation": "No contradiction reported; not independently verified from native traces. Condition labels not read.",
+        "same_corpus_sources_tools": "Unassessed: manifests and workflow intentionally withheld. Receipts show actual use, not availability equivalence.",
+        "coordinator_fidelity": "See pair delivery notes; no observed violation of conditional-delivery protocol.",
+        "permission_scope": "No breach observed in admissible packet; all original public-browser/source actions are runner reports, not independently verified.",
+        "evidence_integrity": "No demonstrated fabricated source or modality overclaim. Receipt support is report-level; first-person native observations not independently verified.",
+        "held_out_exposure": "Unassessed from packet; no author/curator history independently audited."
+      },
+      "dimensions": {
+        "context_and_proportional_initiative": {
+          "rating": 3,
+          "evidence_locator": "result.md:7–9,61–90",
+          "reason": "Uses supplied QR/adult/solo/logistics facts; host and reservation dependencies marked.",
+          "confidence": "high",
+          "material_defect_or_uncertainty": null
+        },
+        "discovery_coverage": {
+          "rating": 2,
+          "evidence_locator": "result.md:15–20; work-log.md:5–7,20–24",
+          "reason": "Orientation, attendance, belonging found; no frozen mobile-hierarchy source inspected.",
+          "confidence": "medium",
+          "material_defect_or_uncertainty": null
+        },
+        "contextual_relevance_and_mismatch": {
+          "rating": 3,
+          "evidence_locator": "result.md:15–20",
+          "reason": "Drops account/character identity, limits Discord/Meetup and adapts physical-visit analogues.",
+          "confidence": "high",
+          "material_defect_or_uncertainty": null
+        },
+        "evidence_discipline": {
+          "rating": 3,
+          "evidence_locator": "result.md:15–22,111–116; receipts.json:sources",
+          "reason": "Precise source portions, card/text/reported desktop screenshot boundaries and unavailable Eventbrite outcome are separated.",
+          "confidence": "medium",
+          "material_defect_or_uncertainty": null
+        },
+        "human_direction_and_revision": {
+          "rating": 3,
+          "evidence_locator": "result.md:7,26–31,51–82",
+          "reason": "Feedback changes activity identity, solo-arrival account and next-meeting grouping.",
+          "confidence": "high",
+          "material_defect_or_uncertainty": null
+        },
+        "substantive_application": {
+          "rating": 3,
+          "evidence_locator": "result.md:26–101",
+          "reason": "Concrete preview, actual date/time/location, solo welcome, optional reservation and unknown-result recovery.",
+          "confidence": "high",
+          "material_defect_or_uncertainty": null
+        },
+        "output_usefulness_and_scope": {
+          "rating": 3,
+          "evidence_locator": "result.md:11–31,118–120",
+          "reason": "Reviewable packet and usable content/flow; operational handoffs identified.",
+          "confidence": "high",
+          "material_defect_or_uncertainty": null
+        }
+      },
+      "role_coverage": {
+        "frozen_key_denominator": 4,
+        "retrieval_considered": [
+          "orientation",
+          "attendance",
+          "belonging"
+        ],
+        "selected_frozen_key_sources": [
+          "orientation",
+          "attendance",
+          "belonging"
+        ],
+        "application_in_outline_including_prompt_facts": [
+          "orientation",
+          "attendance",
+          "belonging",
+          "mobile-hierarchy"
+        ],
+        "retrieval_fraction": "3/4",
+        "selection_fraction": "3/4",
+        "application_fraction": "4/4",
+        "warning": "Role accounting is not a mandatory-card checklist. Application may derive directly from delivered facts; role completion need not establish external source support. Optional private-only facts are not imposed. Posthoc alternatives recorded separately."
+      },
+      "consequential_selected_sources": {
+        "fit": [],
+        "qualified_transfer": [
+          "visual-arena-text-led-community",
+          "visual-duolingo-welcome (action hierarchy only)",
+          "flow-discord-community-onboarding",
+          "flow-meetup-waitlist",
+          "candidate-repair-cafe-glasgow",
+          "candidate-ageuk-solihull-big-knit"
+        ],
+        "unsupported": [],
+        "mismatch": [],
+        "counts": {
+          "fit": 0,
+          "qualified_transfer": 6,
+          "unsupported": 0,
+          "mismatch": 0
+        },
+        "unit": "A materially used source ID counted once; no favorable ratio for unused bibliography. Fit refers only to the bounded selected mechanism/standard; no efficacy or full-product match."
+      },
+      "material_defects": [],
+      "unassessed": [
+        "rendered quality",
+        "interaction success",
+        "accessibility conformance",
+        "mobile/native usability",
+        "human preference satisfaction",
+        "source screenshots/native traces independently verified"
+      ]
+    },
+    {
+      "artifact": "01-south",
+      "gates": {
+        "condition_isolation": "No contradiction reported; not independently verified from native traces. Condition labels not read.",
+        "same_corpus_sources_tools": "Unassessed: manifests and workflow intentionally withheld. Receipts show actual use, not availability equivalence.",
+        "coordinator_fidelity": "See pair delivery notes; no observed violation of conditional-delivery protocol.",
+        "permission_scope": "No breach observed in admissible packet; all original public-browser/source actions are runner reports, not independently verified.",
+        "evidence_integrity": "No demonstrated fabricated source or modality overclaim. Receipt support is report-level; first-person native observations not independently verified.",
+        "held_out_exposure": "Unassessed from packet; no author/curator history independently audited."
+      },
+      "dimensions": {
+        "context_and_proportional_initiative": {
+          "rating": 3,
+          "evidence_locator": "result.md:3–15,59–94",
+          "reason": "Uses delivered context, preserves learner-only attendance and labels facilitation/data assumptions.",
+          "confidence": "high",
+          "material_defect_or_uncertainty": null
+        },
+        "discovery_coverage": {
+          "rating": 2,
+          "evidence_locator": "result.md:21–34; work-log.md:5–7,16–18",
+          "reason": "Useful orientation/attendance/belonging alternatives; frozen mobile-hierarchy sources absent.",
+          "confidence": "medium",
+          "material_defect_or_uncertainty": null
+        },
+        "contextual_relevance_and_mismatch": {
+          "rating": 3,
+          "evidence_locator": "result.md:21–36",
+          "reason": "Rejects start/account association, archive scale, registration and imported staffing promises.",
+          "confidence": "high",
+          "material_defect_or_uncertainty": null
+        },
+        "evidence_discipline": {
+          "rating": 3,
+          "evidence_locator": "result.md:21–36,117–121; receipts.json:sources",
+          "reason": "Inspection portions and modalities are separated; publisher advice not presented as empirical evidence.",
+          "confidence": "medium",
+          "material_defect_or_uncertainty": null
+        },
+        "human_direction_and_revision": {
+          "rating": 3,
+          "evidence_locator": "result.md:9–15,67–84",
+          "reason": "Keep/drop/mix changes concrete activity examples, meeting metadata and arrival explanation.",
+          "confidence": "high",
+          "material_defect_or_uncertainty": null
+        },
+        "substantive_application": {
+          "rating": 3,
+          "evidence_locator": "result.md:40–105",
+          "reason": "Detailed QR-to-preview-to-meeting flow, optional reservation and explicit outcome variants.",
+          "confidence": "high",
+          "material_defect_or_uncertainty": null
+        },
+        "output_usefulness_and_scope": {
+          "rating": 3,
+          "evidence_locator": "result.md:17–42,119–121",
+          "reason": "Actionable comparison, screen content and bounded publication dependencies.",
+          "confidence": "high",
+          "material_defect_or_uncertainty": null
+        }
+      },
+      "role_coverage": {
+        "frozen_key_denominator": 4,
+        "retrieval_considered": [
+          "orientation",
+          "attendance",
+          "belonging"
+        ],
+        "selected_frozen_key_sources": [
+          "orientation",
+          "attendance",
+          "belonging"
+        ],
+        "application_in_outline_including_prompt_facts": [
+          "orientation",
+          "attendance",
+          "belonging",
+          "mobile-hierarchy"
+        ],
+        "retrieval_fraction": "3/4",
+        "selection_fraction": "3/4",
+        "application_fraction": "4/4",
+        "warning": "Role accounting is not a mandatory-card checklist. Application may derive directly from delivered facts; role completion need not establish external source support. Optional private-only facts are not imposed. Posthoc alternatives recorded separately."
+      },
+      "consequential_selected_sources": {
+        "fit": [],
+        "qualified_transfer": [
+          "visual-arena-text-led-community",
+          "visual-pudding-story-index",
+          "flow-discord-community-onboarding",
+          "flow-meetup-waitlist",
+          "pattern-govuk-check-answers",
+          "external-repair-cafe-glasgow",
+          "external-come-alone-answers",
+          "external-parkrun-welcome"
+        ],
+        "unsupported": [],
+        "mismatch": [],
+        "counts": {
+          "fit": 0,
+          "qualified_transfer": 8,
+          "unsupported": 0,
+          "mismatch": 0
+        },
+        "unit": "A materially used source ID counted once; no favorable ratio for unused bibliography. Fit refers only to the bounded selected mechanism/standard; no efficacy or full-product match."
+      },
+      "material_defects": [],
+      "unassessed": [
+        "rendered quality",
+        "interaction success",
+        "accessibility conformance",
+        "mobile/native usability",
+        "human preference satisfaction",
+        "source screenshots/native traces independently verified"
+      ]
+    },
+    {
+      "artifact": "02-north",
+      "gates": {
+        "condition_isolation": "No contradiction reported; not independently verified from native traces. Condition labels not read.",
+        "same_corpus_sources_tools": "Unassessed: manifests and workflow intentionally withheld. Receipts show actual use, not availability equivalence.",
+        "coordinator_fidelity": "See pair delivery notes; no observed violation of conditional-delivery protocol.",
+        "permission_scope": "No breach observed in admissible packet; all original public-browser/source actions are runner reports, not independently verified.",
+        "evidence_integrity": "No demonstrated fabricated source or modality overclaim. Receipt support is report-level; first-person native observations not independently verified.",
+        "held_out_exposure": "Unassessed from packet; no author/curator history independently audited."
+      },
+      "dimensions": {
+        "context_and_proportional_initiative": {
+          "rating": 3,
+          "evidence_locator": "result.md:9–13,71,77–85",
+          "reason": "Resolves consequential undo policy; exact delivered 30-second/acceptance boundary controls recovery.",
+          "confidence": "high",
+          "material_defect_or_uncertainty": null
+        },
+        "discovery_coverage": {
+          "rating": 3,
+          "evidence_locator": "result.md:19–25",
+          "reason": "Dense comparison, attention/action, recovery and state visibility roles covered with qualified sources.",
+          "confidence": "medium",
+          "material_defect_or_uncertainty": null
+        },
+        "contextual_relevance_and_mismatch": {
+          "rating": 3,
+          "evidence_locator": "result.md:19–25,113–120",
+          "reason": "Keeps polish while rejecting sparse main queue; physical dispatch not equated to Slack read undo.",
+          "confidence": "high",
+          "material_defect_or_uncertainty": null
+        },
+        "evidence_discipline": {
+          "rating": 3,
+          "evidence_locator": "result.md:5,19–25,97–107; receipts.json:receipts",
+          "reason": "Historical/current/normative/card-only distinctions precise; no source visual claim.",
+          "confidence": "medium",
+          "material_defect_or_uncertainty": null
+        },
+        "human_direction_and_revision": {
+          "rating": 3,
+          "evidence_locator": "result.md:111–120; conversation.md:assignment-policy,density-not-settled",
+          "reason": "Huge-card request receives concrete tradeoffs and applied selected-card revision under explicit assumption.",
+          "confidence": "high",
+          "material_defect_or_uncertainty": null
+        },
+        "substantive_application": {
+          "rating": 3,
+          "evidence_locator": "result.md:33–93",
+          "reason": "Aligned queue, distinct acknowledgment/dispatch, async acceptance, timer race and pending reassignment specified.",
+          "confidence": "high",
+          "material_defect_or_uncertainty": null
+        },
+        "output_usefulness_and_scope": {
+          "rating": 3,
+          "evidence_locator": "result.md:27–47,95–120",
+          "reason": "Reviewable state contract and operational handoff within outline scope.",
+          "confidence": "high",
+          "material_defect_or_uncertainty": null
+        }
+      },
+      "role_coverage": {
+        "frozen_key_denominator": 4,
+        "retrieval_considered": [
+          "dense-comparison",
+          "lifecycle",
+          "recovery",
+          "state-access"
+        ],
+        "selected_frozen_key_sources": [
+          "dense-comparison",
+          "lifecycle",
+          "recovery",
+          "state-access"
+        ],
+        "application_in_outline_including_prompt_facts": [
+          "dense-comparison",
+          "lifecycle",
+          "recovery",
+          "state-access"
+        ],
+        "retrieval_fraction": "4/4",
+        "selection_fraction": "4/4",
+        "application_fraction": "4/4",
+        "warning": "Role accounting is not a mandatory-card checklist. Application may derive directly from delivered facts; role completion need not establish external source support. Optional private-only facts are not imposed. Posthoc alternatives recorded separately."
+      },
+      "consequential_selected_sources": {
+        "fit": [
+          "pattern-carbon-data-table",
+          "standard-wcag-conformance"
+        ],
+        "qualified_transfer": [
+          "flow-figma-ui3-state-visibility",
+          "flow-slack-catch-up"
+        ],
+        "unsupported": [],
+        "mismatch": [],
+        "counts": {
+          "fit": 2,
+          "qualified_transfer": 2,
+          "unsupported": 0,
+          "mismatch": 0
+        },
+        "unit": "A materially used source ID counted once; no favorable ratio for unused bibliography. Fit refers only to the bounded selected mechanism/standard; no efficacy or full-product match."
+      },
+      "material_defects": [],
+      "unassessed": [
+        "rendered quality",
+        "interaction success",
+        "accessibility conformance",
+        "mobile/native usability",
+        "human preference satisfaction",
+        "source screenshots/native traces independently verified"
+      ]
+    },
+    {
+      "artifact": "02-south",
+      "gates": {
+        "condition_isolation": "No contradiction reported; not independently verified from native traces. Condition labels not read.",
+        "same_corpus_sources_tools": "Unassessed: manifests and workflow intentionally withheld. Receipts show actual use, not availability equivalence.",
+        "coordinator_fidelity": "See pair delivery notes; no observed violation of conditional-delivery protocol.",
+        "permission_scope": "No breach observed in admissible packet; all original public-browser/source actions are runner reports, not independently verified.",
+        "evidence_integrity": "No demonstrated fabricated source or modality overclaim. Receipt support is report-level; first-person native observations not independently verified.",
+        "held_out_exposure": "Unassessed from packet; no author/curator history independently audited."
+      },
+      "dimensions": {
+        "context_and_proportional_initiative": {
+          "rating": 3,
+          "evidence_locator": "result.md:5,51–78,110; conversation.md",
+          "reason": "Detailed brief honored; unknown recall/dispatch authority explicitly conditional rather than invented.",
+          "confidence": "high",
+          "material_defect_or_uncertainty": null
+        },
+        "discovery_coverage": {
+          "rating": 3,
+          "evidence_locator": "result.md:11–19; work-log.md:5–9",
+          "reason": "Queue, lifecycle, recovery and state-access roles covered; PagerDuty coupling specifically rejected.",
+          "confidence": "medium",
+          "material_defect_or_uncertainty": null
+        },
+        "contextual_relevance_and_mismatch": {
+          "rating": 3,
+          "evidence_locator": "result.md:11–19,106–119",
+          "reason": "Component/attention analogies qualified and huge-card polish adapted without erasing comparison.",
+          "confidence": "high",
+          "material_defect_or_uncertainty": null
+        },
+        "evidence_discipline": {
+          "rating": 3,
+          "evidence_locator": "result.md:11–19,96; receipts.json:sources",
+          "reason": "Reported Carbon visual is limited to static sizing diagrams; source text, history and interaction boundaries explicit.",
+          "confidence": "medium",
+          "material_defect_or_uncertainty": null
+        },
+        "human_direction_and_revision": {
+          "rating": 3,
+          "evidence_locator": "result.md:104–119; conversation.md:5–15",
+          "reason": "Responds to huge cards with cost and concrete detail-card variant; labels unsettled preference.",
+          "confidence": "high",
+          "material_defect_or_uncertainty": null
+        },
+        "substantive_application": {
+          "rating": 3,
+          "evidence_locator": "result.md:39–92,113–119",
+          "reason": "Useful deliberate dispatch, unknown-result/conflict/reversal contract and all-record reachability; exact private undo policy was not delivered.",
+          "confidence": "high",
+          "material_defect_or_uncertainty": null
+        },
+        "output_usefulness_and_scope": {
+          "rating": 3,
+          "evidence_locator": "result.md:55–100,113–119",
+          "reason": "Concrete queue/action/recovery packet with backend-policy dependencies; no implementation claim.",
+          "confidence": "high",
+          "material_defect_or_uncertainty": null
+        }
+      },
+      "role_coverage": {
+        "frozen_key_denominator": 4,
+        "retrieval_considered": [
+          "dense-comparison",
+          "lifecycle",
+          "recovery",
+          "state-access"
+        ],
+        "selected_frozen_key_sources": [
+          "dense-comparison",
+          "lifecycle",
+          "recovery",
+          "state-access"
+        ],
+        "application_in_outline_including_prompt_facts": [
+          "dense-comparison",
+          "lifecycle",
+          "recovery",
+          "state-access"
+        ],
+        "retrieval_fraction": "4/4",
+        "selection_fraction": "4/4",
+        "application_fraction": "4/4",
+        "warning": "Role accounting is not a mandatory-card checklist. Application may derive directly from delivered facts; role completion need not establish external source support. Optional private-only facts are not imposed. Posthoc alternatives recorded separately."
+      },
+      "consequential_selected_sources": {
+        "fit": [
+          "pattern-carbon-data-table",
+          "pattern-fluent-dialog",
+          "standard-text-adaptation (versioned WCAG portions)"
+        ],
+        "qualified_transfer": [
+          "flow-figma-ui3-state-visibility",
+          "flow-linear-triage-decisions",
+          "flow-slack-catch-up",
+          "external-pagerduty-incidents (timeline only)"
+        ],
+        "unsupported": [],
+        "mismatch": [],
+        "counts": {
+          "fit": 3,
+          "qualified_transfer": 4,
+          "unsupported": 0,
+          "mismatch": 0
+        },
+        "unit": "A materially used source ID counted once; no favorable ratio for unused bibliography. Fit refers only to the bounded selected mechanism/standard; no efficacy or full-product match."
+      },
+      "material_defects": [],
+      "unassessed": [
+        "rendered quality",
+        "interaction success",
+        "accessibility conformance",
+        "mobile/native usability",
+        "human preference satisfaction",
+        "source screenshots/native traces independently verified"
+      ]
+    },
+    {
+      "artifact": "03-north",
+      "gates": {
+        "condition_isolation": "No contradiction reported; not independently verified from native traces. Condition labels not read.",
+        "same_corpus_sources_tools": "Unassessed: manifests and workflow intentionally withheld. Receipts show actual use, not availability equivalence.",
+        "coordinator_fidelity": "See pair delivery notes; no observed violation of conditional-delivery protocol.",
+        "permission_scope": "No breach observed in admissible packet; all original public-browser/source actions are runner reports, not independently verified.",
+        "evidence_integrity": "No demonstrated fabricated source or modality overclaim. Receipt support is report-level; first-person native observations not independently verified.",
+        "held_out_exposure": "Unassessed from packet; no author/curator history independently audited."
+      },
+      "dimensions": {
+        "context_and_proportional_initiative": {
+          "rating": 3,
+          "evidence_locator": "result.md:3–12,27; conversation.md:5–7",
+          "reason": "Delegated choice completed; intermediate English is labeled assumption, not hidden beginner fact.",
+          "confidence": "high",
+          "material_defect_or_uncertainty": null
+        },
+        "discovery_coverage": {
+          "rating": 2,
+          "evidence_locator": "result.md:18–21; work-log.md:15–20",
+          "reason": "Character and review/consent analogues found; no frozen correction-role source found. External audio-preview source fills a narrower gap.",
+          "confidence": "medium",
+          "material_defect_or_uncertainty": null
+        },
+        "contextual_relevance_and_mismatch": {
+          "rating": 3,
+          "evidence_locator": "result.md:18–23",
+          "reason": "Marketing does not become lesson evidence; review metaphor adapted and historical WhatsApp scope bounded.",
+          "confidence": "high",
+          "material_defect_or_uncertainty": null
+        },
+        "evidence_discipline": {
+          "rating": 3,
+          "evidence_locator": "result.md:18–23,83–85; receipts.json:sources",
+          "reason": "Reported source images, text-only draft-preview history, card-only leads and missing card separated.",
+          "confidence": "medium",
+          "material_defect_or_uncertainty": null
+        },
+        "human_direction_and_revision": {
+          "rating": 3,
+          "evidence_locator": "result.md:5,31,61–71",
+          "reason": "Missed-day and non-red-correction instruction controls poses, return copy and correction content.",
+          "confidence": "high",
+          "material_defect_or_uncertainty": null
+        },
+        "substantive_application": {
+          "rating": 3,
+          "evidence_locator": "result.md:43–79",
+          "reason": "Explicit cap/stop/listen/delete/send, one correction and retry/stop; denial state respects prompt and does not auto-start.",
+          "confidence": "high",
+          "material_defect_or_uncertainty": null
+        },
+        "output_usefulness_and_scope": {
+          "rating": 3,
+          "evidence_locator": "result.md:25–85",
+          "reason": "Coherent character purpose at task states and actionable flow; language/service checks bounded.",
+          "confidence": "high",
+          "material_defect_or_uncertainty": null
+        }
+      },
+      "role_coverage": {
+        "frozen_key_denominator": 3,
+        "retrieval_considered": [
+          "character",
+          "consent"
+        ],
+        "selected_frozen_key_sources": [
+          "character"
+        ],
+        "application_in_outline_including_prompt_facts": [
+          "character",
+          "consent",
+          "correction"
+        ],
+        "retrieval_fraction": "2/3",
+        "selection_fraction": "1/3",
+        "application_fraction": "3/3",
+        "warning": "Role accounting is not a mandatory-card checklist. Application may derive directly from delivered facts; role completion need not establish external source support. Optional private-only facts are not imposed. Posthoc alternatives recorded separately."
+      },
+      "consequential_selected_sources": {
+        "fit": [
+          "external-whatsapp-draft-preview (preview mechanism only)"
+        ],
+        "qualified_transfer": [
+          "visual-finch-companion",
+          "visual-duolingo-welcome",
+          "pattern-govuk-check-answers"
+        ],
+        "unsupported": [],
+        "mismatch": [],
+        "counts": {
+          "fit": 1,
+          "qualified_transfer": 3,
+          "unsupported": 0,
+          "mismatch": 0
+        },
+        "unit": "A materially used source ID counted once; no favorable ratio for unused bibliography. Fit refers only to the bounded selected mechanism/standard; no efficacy or full-product match."
+      },
+      "material_defects": [],
+      "unassessed": [
+        "rendered quality",
+        "interaction success",
+        "accessibility conformance",
+        "mobile/native usability",
+        "human preference satisfaction",
+        "source screenshots/native traces independently verified"
+      ]
+    },
+    {
+      "artifact": "03-south",
+      "gates": {
+        "condition_isolation": "No contradiction reported; not independently verified from native traces. Condition labels not read.",
+        "same_corpus_sources_tools": "Unassessed: manifests and workflow intentionally withheld. Receipts show actual use, not availability equivalence.",
+        "coordinator_fidelity": "See pair delivery notes; no observed violation of conditional-delivery protocol.",
+        "permission_scope": "No breach observed in admissible packet; all original public-browser/source actions are runner reports, not independently verified.",
+        "evidence_integrity": "No demonstrated fabricated source or modality overclaim. Receipt support is report-level; first-person native observations not independently verified.",
+        "held_out_exposure": "Unassessed from packet; no author/curator history independently audited."
+      },
+      "dimensions": {
+        "context_and_proportional_initiative": {
+          "rating": 3,
+          "evidence_locator": "result.md:3–5,24",
+          "reason": "Delegated character selection made, English-beginner copy marked assumption and adult tone carried through.",
+          "confidence": "high",
+          "material_defect_or_uncertainty": null
+        },
+        "discovery_coverage": {
+          "rating": 2,
+          "evidence_locator": "result.md:11–16; work-log.md:5–10",
+          "reason": "Character and contextual permission roles found; no dedicated correction-role reference or close audio-preview source.",
+          "confidence": "medium",
+          "material_defect_or_uncertainty": null
+        },
+        "contextual_relevance_and_mismatch": {
+          "rating": 3,
+          "evidence_locator": "result.md:11–16",
+          "reason": "Visual marketing and Android permission limits qualified; voice safety explicitly derives from brief.",
+          "confidence": "high",
+          "material_defect_or_uncertainty": null
+        },
+        "evidence_discipline": {
+          "rating": 3,
+          "evidence_locator": "result.md:11–16,78–80; receipts.json:sources",
+          "reason": "Card-only Kagi is not claimed viewed; reported screenshot scope and text permission evidence separated.",
+          "confidence": "medium",
+          "material_defect_or_uncertainty": null
+        },
+        "human_direction_and_revision": {
+          "rating": 3,
+          "evidence_locator": "result.md:22–24,64–68",
+          "reason": "No missed-day guilt and no red failure constrain character return/departure and inline correction.",
+          "confidence": "high",
+          "material_defect_or_uncertainty": null
+        },
+        "substantive_application": {
+          "rating": 3,
+          "evidence_locator": "result.md:36–74",
+          "reason": "Explicit 45-second stop, mandatory listening, unsent delete, one correction, retry/stop and permission failure.",
+          "confidence": "high",
+          "material_defect_or_uncertainty": null
+        },
+        "output_usefulness_and_scope": {
+          "rating": 3,
+          "evidence_locator": "result.md:26–80",
+          "reason": "Reviewable screen/content outline with specific correction example and implementation boundaries.",
+          "confidence": "high",
+          "material_defect_or_uncertainty": null
+        }
+      },
+      "role_coverage": {
+        "frozen_key_denominator": 3,
+        "retrieval_considered": [
+          "character",
+          "consent"
+        ],
+        "selected_frozen_key_sources": [
+          "character",
+          "consent"
+        ],
+        "application_in_outline_including_prompt_facts": [
+          "character",
+          "consent",
+          "correction"
+        ],
+        "retrieval_fraction": "2/3",
+        "selection_fraction": "2/3",
+        "application_fraction": "3/3",
+        "warning": "Role accounting is not a mandatory-card checklist. Application may derive directly from delivered facts; role completion need not establish external source support. Optional private-only facts are not imposed. Posthoc alternatives recorded separately."
+      },
+      "consequential_selected_sources": {
+        "fit": [],
+        "qualified_transfer": [
+          "visual-finch-companion",
+          "visual-duolingo-welcome",
+          "principle-contextual-permissions"
+        ],
+        "unsupported": [],
+        "mismatch": [],
+        "counts": {
+          "fit": 0,
+          "qualified_transfer": 3,
+          "unsupported": 0,
+          "mismatch": 0
+        },
+        "unit": "A materially used source ID counted once; no favorable ratio for unused bibliography. Fit refers only to the bounded selected mechanism/standard; no efficacy or full-product match."
+      },
+      "material_defects": [],
+      "unassessed": [
+        "rendered quality",
+        "interaction success",
+        "accessibility conformance",
+        "mobile/native usability",
+        "human preference satisfaction",
+        "source screenshots/native traces independently verified"
+      ]
+    },
+    {
+      "artifact": "04-north",
+      "gates": {
+        "condition_isolation": "No contradiction reported; not independently verified from native traces. Condition labels not read.",
+        "same_corpus_sources_tools": "Unassessed: manifests and workflow intentionally withheld. Receipts show actual use, not availability equivalence.",
+        "coordinator_fidelity": "See pair delivery notes; no observed violation of conditional-delivery protocol.",
+        "permission_scope": "No breach observed in admissible packet; all original public-browser/source actions are runner reports, not independently verified.",
+        "evidence_integrity": "No demonstrated fabricated source or modality overclaim. Receipt support is report-level; first-person native observations not independently verified.",
+        "held_out_exposure": "Unassessed from packet; no author/curator history independently audited."
+      },
+      "dimensions": {
+        "context_and_proportional_initiative": {
+          "rating": 3,
+          "evidence_locator": "result.md:3–11,29,37,65",
+          "reason": "Preserves three screens/non-reserving approval; contact and return mechanisms are explicit assumptions.",
+          "confidence": "high",
+          "material_defect_or_uncertainty": null
+        },
+        "discovery_coverage": {
+          "rating": 2,
+          "evidence_locator": "result.md:19–25",
+          "reason": "Review, approval and capacity roles covered; frozen withdrawal role not retrieved, and optional withdrawal facts not delivered.",
+          "confidence": "medium",
+          "material_defect_or_uncertainty": null
+        },
+        "contextual_relevance_and_mismatch": {
+          "rating": 3,
+          "evidence_locator": "result.md:19–25",
+          "reason": "Structural source fit is separated from appearance; payment, auto-promotion and calendar allure rejected.",
+          "confidence": "high",
+          "material_defect_or_uncertainty": null
+        },
+        "evidence_discipline": {
+          "rating": 3,
+          "evidence_locator": "result.md:15,19–24,75; receipts.json:receipts",
+          "reason": "Text/HTML source portions traceable, no screenshot/live-flow claim; card visuals not adopted.",
+          "confidence": "medium",
+          "material_defect_or_uncertainty": null
+        },
+        "human_direction_and_revision": {
+          "rating": 3,
+          "evidence_locator": "result.md:7,11,25",
+          "reason": "Delivered noticeboard direction consistently controls all screen variants.",
+          "confidence": "high",
+          "material_defect_or_uncertainty": null
+        },
+        "substantive_application": {
+          "rating": 3,
+          "evidence_locator": "result.md:35–73",
+          "reason": "Select/review/edit/pending/approved/unavailable and retained-contact early/late recovery specified.",
+          "confidence": "high",
+          "material_defect_or_uncertainty": null
+        },
+        "output_usefulness_and_scope": {
+          "rating": 3,
+          "evidence_locator": "result.md:27–77",
+          "reason": "Actionable three-screen contract and handoffs; no built-UI promise.",
+          "confidence": "high",
+          "material_defect_or_uncertainty": null
+        }
+      },
+      "role_coverage": {
+        "frozen_key_denominator": 4,
+        "retrieval_considered": [
+          "review",
+          "approval",
+          "capacity-recovery"
+        ],
+        "selected_frozen_key_sources": [
+          "review",
+          "approval",
+          "capacity-recovery"
+        ],
+        "application_in_outline_including_prompt_facts": [
+          "review",
+          "approval",
+          "capacity-recovery"
+        ],
+        "retrieval_fraction": "3/4",
+        "selection_fraction": "3/4",
+        "application_fraction": "3/4",
+        "warning": "Role accounting is not a mandatory-card checklist. Application may derive directly from delivered facts; role completion need not establish external source support. Optional private-only facts are not imposed. Posthoc alternatives recorded separately."
+      },
+      "consequential_selected_sources": {
+        "fit": [
+          "pattern-govuk-check-answers",
+          "pattern-govuk-error-summary",
+          "external-govuk-confirmation-pages"
+        ],
+        "qualified_transfer": [
+          "flow-meetup-waitlist",
+          "flow-google-docs-suggestions"
+        ],
+        "unsupported": [],
+        "mismatch": [],
+        "counts": {
+          "fit": 3,
+          "qualified_transfer": 2,
+          "unsupported": 0,
+          "mismatch": 0
+        },
+        "unit": "A materially used source ID counted once; no favorable ratio for unused bibliography. Fit refers only to the bounded selected mechanism/standard; no efficacy or full-product match."
+      },
+      "material_defects": [],
+      "unassessed": [
+        "rendered quality",
+        "interaction success",
+        "accessibility conformance",
+        "mobile/native usability",
+        "human preference satisfaction",
+        "source screenshots/native traces independently verified"
+      ]
+    },
+    {
+      "artifact": "04-south",
+      "gates": {
+        "condition_isolation": "No contradiction reported; not independently verified from native traces. Condition labels not read.",
+        "same_corpus_sources_tools": "Unassessed: manifests and workflow intentionally withheld. Receipts show actual use, not availability equivalence.",
+        "coordinator_fidelity": "See pair delivery notes; no observed violation of conditional-delivery protocol.",
+        "permission_scope": "No breach observed in admissible packet; all original public-browser/source actions are runner reports, not independently verified.",
+        "evidence_integrity": "No demonstrated fabricated source or modality overclaim. Receipt support is report-level; first-person native observations not independently verified.",
+        "held_out_exposure": "Unassessed from packet; no author/curator history independently audited."
+      },
+      "dimensions": {
+        "context_and_proportional_initiative": {
+          "rating": 3,
+          "evidence_locator": "result.md:3–11,38,72",
+          "reason": "Honors supplied lifecycle/style; actual contact, access and retention left for service discovery.",
+          "confidence": "high",
+          "material_defect_or_uncertainty": null
+        },
+        "discovery_coverage": {
+          "rating": 2,
+          "evidence_locator": "result.md:17–24",
+          "reason": "Review, capacity and proposal authority sources found; frozen withdrawal source role absent, optional fact block undelivered.",
+          "confidence": "medium",
+          "material_defect_or_uncertainty": null
+        },
+        "contextual_relevance_and_mismatch": {
+          "rating": 3,
+          "evidence_locator": "result.md:17–24",
+          "reason": "Differentiates approval structure from styling, rejection of promotion/payment/instant booking explicit.",
+          "confidence": "high",
+          "material_defect_or_uncertainty": null
+        },
+        "evidence_discipline": {
+          "rating": 3,
+          "evidence_locator": "result.md:17–24,88; receipts.json:sources",
+          "reason": "Source text/HTML versus unavailable screenshot, documented behavior versus untested proposal kept separate.",
+          "confidence": "medium",
+          "material_defect_or_uncertainty": null
+        },
+        "human_direction_and_revision": {
+          "rating": 3,
+          "evidence_locator": "result.md:7–11,60",
+          "reason": "Noticeboard instruction controls style and avoids celebratory Pending treatment.",
+          "confidence": "high",
+          "material_defect_or_uncertainty": null
+        },
+        "substantive_application": {
+          "rating": 3,
+          "evidence_locator": "result.md:34–74",
+          "reason": "Concrete review edits, submission receipt, approval and linked replacement preserving contact.",
+          "confidence": "high",
+          "material_defect_or_uncertainty": null
+        },
+        "output_usefulness_and_scope": {
+          "rating": 3,
+          "evidence_locator": "result.md:26–88",
+          "reason": "Three-screen outline and state variants are reviewable with future checks explicitly unexecuted.",
+          "confidence": "high",
+          "material_defect_or_uncertainty": null
+        }
+      },
+      "role_coverage": {
+        "frozen_key_denominator": 4,
+        "retrieval_considered": [
+          "review",
+          "approval",
+          "capacity-recovery"
+        ],
+        "selected_frozen_key_sources": [
+          "review",
+          "approval",
+          "capacity-recovery"
+        ],
+        "application_in_outline_including_prompt_facts": [
+          "review",
+          "approval",
+          "capacity-recovery"
+        ],
+        "retrieval_fraction": "3/4",
+        "selection_fraction": "3/4",
+        "application_fraction": "3/4",
+        "warning": "Role accounting is not a mandatory-card checklist. Application may derive directly from delivered facts; role completion need not establish external source support. Optional private-only facts are not imposed. Posthoc alternatives recorded separately."
+      },
+      "consequential_selected_sources": {
+        "fit": [
+          "pattern-govuk-check-answers",
+          "pattern-govuk-error-summary",
+          "direct-govuk-confirmation-pages"
+        ],
+        "qualified_transfer": [
+          "flow-meetup-waitlist",
+          "flow-google-docs-suggestions (authority only)"
+        ],
+        "unsupported": [],
+        "mismatch": [],
+        "counts": {
+          "fit": 3,
+          "qualified_transfer": 2,
+          "unsupported": 0,
+          "mismatch": 0
+        },
+        "unit": "A materially used source ID counted once; no favorable ratio for unused bibliography. Fit refers only to the bounded selected mechanism/standard; no efficacy or full-product match."
+      },
+      "material_defects": [],
+      "unassessed": [
+        "rendered quality",
+        "interaction success",
+        "accessibility conformance",
+        "mobile/native usability",
+        "human preference satisfaction",
+        "source screenshots/native traces independently verified"
+      ]
+    }
+  ],
+  "posthoc_defensible_alternatives": [
+    {
+      "case": "01",
+      "sources": [
+        "Repair Café Glasgow visit process",
+        "Age UK Solihull Big Knit / Knit with us",
+        "Come Alone answers",
+        "parkrun volunteer roles"
+      ],
+      "role": "orientation/belonging/attendance subroles",
+      "rationale": "Bounded visit explanation, explicit solo reassurance or grouped logistics; operational promises appropriately marked proposals. All remain report-supported candidate alternatives, not additions to frozen recall denominator."
+    },
+    {
+      "case": "01",
+      "sources": [
+        "visual-pudding-story-index",
+        "pattern-govuk-check-answers"
+      ],
+      "role": "activity specimens/meeting metadata and optional form correction",
+      "rationale": "Reasonable narrow supplemental transfers; not a substitute for full event/solo-arrival evidence or mobile accessibility source."
+    },
+    {
+      "case": "02",
+      "sources": [
+        "versioned WCAG 2.2 primary sections under standard-wcag-conformance or standard-text-adaptation",
+        "PagerDuty Incident Timeline"
+      ],
+      "role": "state-access / history",
+      "rationale": "Exact WCAG source supports bounded state criteria regardless of card ID. PagerDuty timeline is defensible only after rejecting ownership/escalation coupling."
+    },
+    {
+      "case": "03",
+      "sources": [
+        "pattern-govuk-check-answers",
+        "historical Meta/WhatsApp voice-message announcement"
+      ],
+      "role": "consent/review before commit and draft audio preview",
+      "rationale": "GOV.UK is limited review/return analogy; Meta historical announcement is closer to preview mechanism. Neither documents full recording/delete/correction loop. North consent selection expands 1/3 to 2/3 only under this separately reported admissibility, frozen key unchanged."
+    },
+    {
+      "case": "04",
+      "sources": [
+        "GOV.UK confirmation pages"
+      ],
+      "role": "receipt/next steps/return",
+      "rationale": "Both packets adapt intake receipt to Pending; source does not establish reserved place or withdrawal policy."
+    }
+  ],
+  "pair_comparisons": [
+    {
+      "case": "01",
+      "finding": "Both satisfy delivered activity/solo/meeting/optional RSVP flow. North uses a more direct Age UK logistics/solo grouping; south uses Pudding specimens plus explicit host proposal and form-retention source. Neither inspected a frozen mobile-hierarchy source. No universal preference or UI-quality inference."
+    },
+    {
+      "case": "02",
+      "finding": "Both preserve dense comparison and incorporate one spacious detail card. North has concrete timer/acceptance/reassignment races because policy was delivered; south gives conditional physical-dispatch recovery and stronger focused-review documentation. Report-delivered-facts distinction prevents treating the unequal lifecycle detail as controlled workflow evidence."
+    },
+    {
+      "case": "03",
+      "finding": "Both choose a meaningful expressive partner and preserve agency; north supplies a closer historical audio-preview source, south supplies explicit contextual permission primary guidance. Neither has a dedicated correction-role source. Neither received text-refusal requirement; both lack that optional capability."
+    },
+    {
+      "case": "04",
+      "finding": "Close substantive agreement: retained-contact correction, non-reserving receipt, later approval and quiet noticeboard. North spells out more early/late race cases; south keeps similar flow with review-context unavailable notice. Withdrawal/decision-email remains unspecified in both, consistently with delivered facts."
+    }
+  ],
+  "second_review_requests": [
+    {
+      "topic": "Consequential source authenticity or actual visual/source access",
+      "request": "If making an acceptance or integrity claim stronger than report-supported, inspect native traces with an independent reviewer; do not infer the original observation from receipts alone."
+    },
+    {
+      "topic": "03 alternative consent-source admissibility",
+      "request": "Second reviewer should confirm symmetric admission of narrow GOV.UK review and historical Meta voice-preview transfer before any expanded source-selection accounting. Frozen denominator is unchanged."
+    }
+  ],
+  "no_overall_winner": true
+}

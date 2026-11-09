@@ -1,0 +1,1 @@
+{"title":"Event","type":"object","required":["id","occurred_at"],"properties":{"id":{"type":"string"},"occurred_at":{"type":"string"},"source":{"type":"string"}},"additionalProperties":false}

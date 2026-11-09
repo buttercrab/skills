@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cedar · Supply requests</title>
+<style>
+:root{--ink:#182f2b;--accent:#17665a;--paper:#f3f4ed;--line:#cbd3c9;--muted:#52645b}*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.55 system-ui,sans-serif}header,main{max-width:1040px;margin:auto;padding:24px}header{display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--line);gap:16px}header strong{font-size:24px;letter-spacing:-1px}a{color:var(--accent);text-underline-offset:4px}header span,.muted{color:var(--muted)}h1{font-size:clamp(30px,5vw,44px);letter-spacing:-1.3px;line-height:1.15;margin:12px 0 16px}h2{font-size:22px;margin:0 0 12px}h3{font-size:18px;margin:0}p{margin:8px 0 16px}.eyebrow{font-size:13px;letter-spacing:1.4px;text-transform:uppercase;font-weight:700}.intro{max-width:650px;margin:16px 0 28px}.process{padding:20px 24px;background:#e4ebe0;border-left:4px solid var(--accent);margin-bottom:28px}.process ol{display:flex;gap:32px;padding-left:20px;margin:12px 0 0}.process li{flex:1;padding-left:3px}.process small{display:block;color:var(--muted);font-size:14px}.columns{display:grid;grid-template-columns:minmax(240px, .8fr) minmax(0,1.2fr);gap:24px;align-items:start}.panel{padding:24px;background:#fff;border:1px solid var(--line);border-radius:8px}label{display:block;font-weight:650;margin:18px 0 6px}button,select,input{font:inherit;min-height:44px;border-radius:5px}input,select{width:100%;padding:9px 12px;background:#fff;border:1px solid #82958a;color:var(--ink)}button{padding:10px 16px;border:1px solid transparent;cursor:pointer;background:var(--accent);color:#fff;font-weight:650}button.secondary{background:white;border-color:#81968a;color:var(--ink)}button:hover{filter:brightness(.93)}:focus-visible{outline:3px solid #9a4c12;outline-offset:3px}.full{width:100%;margin-top:20px}.hint{font-size:14px;color:var(--muted);margin-top:6px}.error{color:#9b2921;font-size:14px;font-weight:650}.error:empty{display:none}[aria-invalid=true]{border:2px solid #9b2921}.confirmation{background:#e8f0e5;border:1px solid #8da887;padding:18px 20px;margin:0 0 24px;border-radius:6px}.confirmation p{margin:4px 0}#requests{padding:0;list-style:none;margin:16px 0 0}.request{border-top:1px solid var(--line);padding:20px 0}.request:last-child{padding-bottom:0}.request-top{display:flex;justify-content:space-between;align-items:start;gap:12px;flex-wrap:wrap}.badge{font-size:13px;font-weight:650;padding:3px 9px;border-radius:4px;background:#f6edcc;color:#654a13}.badge.approved{background:#e3eee2;color:#28582e}.badge.declined{background:#f7e6df;color:#843a28}.request p{font-size:14px;margin:10px 0}.actions{display:flex;gap:8px;flex-wrap:wrap}.actions button{font-size:14px;flex:1}.demo-label{font-size:12px;font-weight:650;text-transform:uppercase;letter-spacing:.6px;color:var(--muted);margin-bottom:8px}.revision{padding:12px;background:var(--paper);margin-top:12px;border-radius:4px}.revision label{margin-top:0}.revision .actions{margin-top:12px}footer{border-top:1px solid var(--line);margin-top:32px;padding-top:20px;font-size:14px;color:var(--muted)}[hidden]{display:none!important}@media(max-width:720px){header,main{padding:20px}.columns{grid-template-columns:1fr}.process ol{display:block}.process li{margin:12px 0}.panel{padding:20px}header span{font-size:13px}.intro{margin-top:8px}}
+</style>
+</head>
+<body>
+<header><strong>Cedar<span aria-hidden="true"> /</span></strong><span>Community studio · Local demo</span></header>
+<main id="main">
+<div class="intro"><p class="eyebrow">Studio supplies</p><h1>Ask for what you need.</h1><p>Send a supply request for the studio manager to review. Submitting a request does not guarantee materials.</p></div>
+<section class="process" aria-labelledby="process-title"><h2 id="process-title">What happens next</h2><ol><li><strong>Join the review queue</strong><small>Your request is pending. No materials are reserved.</small></li><li><strong>The manager checks stock</strong><small>They approve or decline your request.</small></li><li><strong>Check your request status</strong><small>Materials are reserved only after approval. If declined, revise the quantity and try again.</small></li></ol></section>
+<section id="confirmation" class="confirmation" role="status" aria-live="polite" hidden></section>
+<div class="columns">
+<section class="panel" aria-labelledby="form-title"><h2 id="form-title">New request</h2><p class="muted">Choose an item and the quantity you need.</p>
+<form id="request-form" novalidate>
+<label for="item">Item</label><select id="item" name="item"><option>Clay</option><option>Glaze</option></select>
+<label for="quantity">Quantity</label><input id="quantity" name="quantity" type="number" min="1" max="20" step="1" value="1" required aria-describedby="quantity-hint quantity-error"><p id="quantity-hint" class="hint">Enter a whole number from 1 to 20.</p><p id="quantity-error" class="error" aria-live="polite"></p>
+<button class="full" type="submit">Send for review</button><p class="hint">Nothing is reserved until the studio manager approves.</p>
+</form></section>
+<section class="panel" aria-labelledby="list-title"><h2 id="list-title">Your requests <span id="count" class="muted">(0)</span></h2><p class="hint">This demo shows decisions here. Use the simulation controls to try each outcome.</p><p id="empty" class="muted">No requests yet. Your first request will appear here for review.</p><ul id="requests"></ul></section>
+</div>
+<footer>Local demo only. Requests and simulated decisions stay in this page and reset on refresh. No real orders, stock checks or reservations occur.</footer>
+</main>
+<script>
+'use strict';
+const requestForm = document.getElementById('request-form');
+const itemInput = document.getElementById('item');
+const quantityInput = document.getElementById('quantity');
+const quantityError = document.getElementById('quantity-error');
+const list = document.getElementById('requests');
+const confirmation = document.getElementById('confirmation');
+const records = [];
+let nextId = 1;
+function validQuantity(value) {
+  return String(value).trim() !== '' && Number.isInteger(Number(value)) && Number(value) >= 1 && Number(value) <= 20;
+}
+function announce(title, message) {
+  confirmation.hidden = false;
+  const heading = document.createElement('strong'); heading.textContent = title;
+  const paragraph = document.createElement('p'); paragraph.textContent = message;
+  confirmation.replaceChildren(heading, paragraph);
+}
+function validate(input, error) {
+  const valid = validQuantity(input.value);
+  input.setAttribute('aria-invalid', String(!valid));
+  error.textContent = valid ? '' : 'Enter a whole number from 1 to 20, then send for review again.';
+  if (!valid) input.focus();
+  return valid;
+}
+function setDecision(id, status) {
+  const record = records.find(entry => entry.id === id);
+  if (!record || record.status !== 'pending') return;
+  record.status = status;
+  render();
+  announce(`Request #${id}: ${status === 'approved' ? 'Approved (demo)' : 'Declined (demo)'}`, status === 'approved' ? `${record.item} × ${record.quantity}. Approval is the point at which materials would be reserved. No real reservation was made in this demo.` : `${record.item} × ${record.quantity} was declined. No materials are reserved. Revise the quantity below to send it for another review.`);
+  document.getElementById(`request-${id}`).focus();
+}
+function makeButton(text, handler, secondary = false) {
+  const button = document.createElement('button'); button.type = 'button'; button.textContent = text;
+  if (secondary) button.className = 'secondary';
+  button.addEventListener('click', handler); return button;
+}
+function render() {
+  list.replaceChildren();
+  document.getElementById('empty').hidden = records.length > 0;
+  document.getElementById('count').textContent = `(${records.length})`;
+  for (const record of records) {
+    const row = document.createElement('li'); row.className = 'request'; row.id = `request-${record.id}`; row.tabIndex = -1;
+    const top = document.createElement('div'); top.className = 'request-top';
+    const title = document.createElement('h3'); title.textContent = `#${record.id} · ${record.item} × ${record.quantity}`;
+    const badge = document.createElement('span'); badge.className = `badge ${record.status}`;
+    badge.textContent = {pending:'Pending review', approved:'Approved · demo', declined:'Declined · demo'}[record.status];
+    top.append(title, badge); row.append(top);
+    const detail = document.createElement('p');
+    detail.textContent = {pending:'Awaiting a studio manager’s stock check. No materials are reserved.', approved:'Approval would reserve these materials. This simulated decision made no real reservation.', declined:'No materials reserved. Change the quantity and resubmit for review.'}[record.status];
+    row.append(detail);
+    if (record.status === 'pending') {
+      const label = document.createElement('div'); label.className = 'demo-label'; label.textContent = 'Simulate a manager decision';
+      const actions = document.createElement('div'); actions.className = 'actions';
+      const approve = makeButton('Simulate approve', () => setDecision(record.id, 'approved'));
+      const decline = makeButton('Simulate decline', () => setDecision(record.id, 'declined'), true);
+      approve.setAttribute('aria-label', `Simulate approval of request ${record.id}`); decline.setAttribute('aria-label', `Simulate decline of request ${record.id}`);
+      actions.append(approve, decline); row.append(label, actions);
+    }
+    if (record.status === 'declined') {
+      const revision = document.createElement('form'); revision.className = 'revision'; revision.noValidate = true;
+      const label = document.createElement('label'); label.htmlFor = `revise-${record.id}`; label.textContent = 'Revised quantity';
+      const input = document.createElement('input'); input.id = label.htmlFor; input.type = 'number'; input.min = '1'; input.max = '20'; input.step = '1'; input.required = true; input.value = record.draft ?? record.quantity;
+      const hint = document.createElement('p'); hint.className = 'hint'; hint.id = `revision-hint-${record.id}`; hint.textContent = 'Whole number, 1–20. This starts another review; approval is not guaranteed.';
+      const error = document.createElement('p'); error.id = `revision-error-${record.id}`; error.className = 'error'; error.setAttribute('aria-live', 'polite');
+      input.setAttribute('aria-describedby', `${hint.id} ${error.id}`);
+      input.addEventListener('input', () => { record.draft = input.value; input.removeAttribute('aria-invalid'); error.textContent = ''; });
+      const send = document.createElement('button'); send.type = 'submit'; send.textContent = 'Resubmit for review'; send.className = 'full';
+      revision.append(label, input, hint, error, send);
+      revision.addEventListener('submit', event => {
+        event.preventDefault();
+        if (!validate(input, error)) return;
+        record.quantity = Number(input.value); record.status = 'pending'; record.draft = undefined; record.attempts++;
+        render(); announce(`Request #${record.id} resubmitted for review`, `${record.item} × ${record.quantity} is back in the review queue. No materials are reserved. The studio manager must check stock and approve or decline it.`);
+        document.getElementById(`request-${record.id}`).focus();
+      });
+      row.append(revision);
+    }
+    list.append(row);
+  }
+}
+quantityInput.addEventListener('input', () => { quantityInput.removeAttribute('aria-invalid'); quantityError.textContent = ''; });
+requestForm.addEventListener('submit', event => {
+  event.preventDefault();
+  if (!validate(quantityInput, quantityError)) return;
+  const record = {id:nextId++, item:itemInput.value, quantity:Number(quantityInput.value), status:'pending', attempts:1};
+  records.unshift(record); render();
+  announce(`Request #${record.id} added to the review queue`, `${record.item} × ${record.quantity} is pending review, not approved. No materials are reserved. The studio manager checks stock before approving or declining. Try a simulated decision in Your requests.`);
+});
+</script>
+</body>
+</html>

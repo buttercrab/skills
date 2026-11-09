@@ -1,0 +1,89 @@
+{
+  "prepared_utc": "2026-11-07T17:03:54.841060+00:00",
+  "protocol_sha256": "5eec2a654013895428c9c7eb753c12c11b242f535a022a4d08f3db7ceebe3529",
+  "package_manifest_sha256": "148765f445d037e73d0cd1227b329c9712518d8607fd2b074087a4d9c66c3fd6",
+  "runs": [
+    {
+      "run_id": "W01-answer",
+      "case": "W01-personal-angle",
+      "branch": "answer-eligible",
+      "path": "/private/tmp/writing-intent-assessment-20261108/W01-answer",
+      "inputs_sha256": {
+        "COMMON.md": "d9a6c9329fa71d49522b21be503ebe446d356752c526650f584dbca26eb4621a",
+        "FILES.txt": "733f6e3bec4292392cdade8f29c2aaa6dea7b4f8d7121301b67a30f701fb38f4",
+        "author-notes.md": "779f807ca772a9dd5bcd8a840baaf674656862a64b2fc4e56a47ceec083d6798",
+        "prompt.md": "9c41374fae03d5d7daa85c617bb7229af0e0a03a50f0f2f738fd4ef9b493fb6f"
+      },
+      "case_sums_sha256": "eb375673bb5ae92ab0ebd58618d9e6d27dd3bdc78cd974593a45420ff9b3f100"
+    },
+    {
+      "run_id": "W01-noanswer",
+      "case": "W01-personal-angle",
+      "branch": "no-answer",
+      "path": "/private/tmp/writing-intent-assessment-20261108/W01-noanswer",
+      "inputs_sha256": {
+        "COMMON.md": "794587f03ffd60dcb2ef39ad40b33d5838926cbd18e54083900b36d728fb4173",
+        "FILES.txt": "733f6e3bec4292392cdade8f29c2aaa6dea7b4f8d7121301b67a30f701fb38f4",
+        "author-notes.md": "779f807ca772a9dd5bcd8a840baaf674656862a64b2fc4e56a47ceec083d6798",
+        "prompt.md": "9c41374fae03d5d7daa85c617bb7229af0e0a03a50f0f2f738fd4ef9b493fb6f"
+      },
+      "case_sums_sha256": "eb375673bb5ae92ab0ebd58618d9e6d27dd3bdc78cd974593a45420ff9b3f100"
+    },
+    {
+      "run_id": "W02-technical-evidence",
+      "case": "W02-technical-evidence",
+      "branch": "ordinary",
+      "path": "/private/tmp/writing-intent-assessment-20261108/W02-technical-evidence",
+      "inputs_sha256": {
+        "COMMON.md": "cd457c64be201e6f61670b496c32d1f3ce1e3f03782a2e7d4ee07a6711f9d24e",
+        "FILES.txt": "cc606797e95e0d04c573e3d3fb908d018595c29711ece113f711c406abceeb4d",
+        "experiment-snapshot.md": "1969e810c9459707402d7babe90cf2f4194dfda85589be57f1b9008f49f3d110",
+        "prompt.md": "10ce889b24440141fabe7881c7ae7e573139a763ff5dcc01647ebed89dde4687",
+        "review-thread.md": "27b4a9a2acc2294fad4f7da708cad8f11d4cb6ef7d91cec4e4c9785bb2c88846"
+      },
+      "case_sums_sha256": "d7143a947e18ef935e9a735d07901b86641acbefda6fe8cae352760571e025ac"
+    },
+    {
+      "run_id": "W03-narrow-edit",
+      "case": "W03-narrow-edit",
+      "branch": "ordinary",
+      "path": "/private/tmp/writing-intent-assessment-20261108/W03-narrow-edit",
+      "inputs_sha256": {
+        "COMMON.md": "b27fbb671650c7ba7f749f15d4fa8eb37b434a1436dd829eb0d81cc48181ce6d",
+        "FILES.txt": "bb51eed5846b24dbd7b4b7d9a66d63d78557784d05c6c5b980bf3e3bb3e8fc7f",
+        "event-card.md": "4f50af9c18bb9cf8b6c46f8cba7c1057814998270f5e7cde995f34a468dd04f6",
+        "letter.txt": "2607130fc69f70a174392055f1f6da7301c59a195460e376b0a0740a78bf911d",
+        "prompt.md": "7e3ebc87e5305105de654376802d8625a46e9a85326c4a41a0af1368789c8286"
+      },
+      "case_sums_sha256": "ef8305ea1c2ba87a8ab7c5a032e196be1e7ed7ce121bba85ddb60cff6f6dfd93"
+    },
+    {
+      "run_id": "W04-prose-critique",
+      "case": "W04-prose-critique",
+      "branch": "ordinary",
+      "path": "/private/tmp/writing-intent-assessment-20261108/W04-prose-critique",
+      "inputs_sha256": {
+        "COMMON.md": "d6266b48a3992a38d650b21f09fcbd3d2eaf892ab2a5d77761eca4f31c28b961",
+        "FILES.txt": "0b760c56eb2b2eba46d7740bc81205470d2006adce9d080d876229df67e2bd3c",
+        "draft.md": "49bd6173a67cff564cb6a878e8bd6bcb6a19dee7b8ae19446dfb73d24aa04531",
+        "fact-sheet.md": "b7f5f8f6533704d1d7455e4f4027abdc05012c57433fcca106801d8a4ed34ef5",
+        "prompt.md": "e9b62dff033bf61f6f0faa41998714c5910c4bc911cff1bc85f20b63331a8966"
+      },
+      "case_sums_sha256": "7546e42e8fe8708f694af6c165cb8f8c866e5fc66181d06d1d3e4c04319eecd0"
+    },
+    {
+      "run_id": "W05-korean-notice",
+      "case": "W05-korean-notice",
+      "branch": "ordinary",
+      "path": "/private/tmp/writing-intent-assessment-20261108/W05-korean-notice",
+      "inputs_sha256": {
+        "COMMON.md": "49e6b12c0c4d4b2a1d6d924f535e14f1f5e4d2116aea7c435be2fa47dc9b3f5d",
+        "FILES.txt": "5e5022af49b4f46305f811ddad46a909f18a04ba22b9a93410e06aed7f76e218",
+        "prompt.md": "c99566f632585cfd2e570422d93bbd02bfeed8805152933dbab72d5c4358ef35",
+        "reference-label.txt": "77d4f74ac16b783c768b744c37ab0aa43168a5254a8f8a5b0a7c71d1af9792c6",
+        "service-note.md": "0dfd0514b898a9f987cd535483342ed3b40cc2edc29055d79c97fe0f73c10dbf"
+      },
+      "case_sums_sha256": "4ea8ef7637e170e0977c0d1c02eee7775b9bcf9ad166a1aa6d23c2cdf28542f7"
+    }
+  ]
+}

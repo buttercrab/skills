@@ -1,0 +1,3184 @@
+{
+  "schema_version": 1,
+  "generated_from": "library/entries/*.md",
+  "record_count": 48,
+  "status_counts": {
+    "curated": 48
+  },
+  "resources": [
+    {
+      "id": "docs-astro-localized-contracts",
+      "kind": "repository",
+      "title": "Astro docs: localized content contracts and separate validation jobs",
+      "summary": "Trace contribution routing, authored/generated page authority, content schemas and slug/link checks without treating translation tracking as translation correctness.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "document",
+          "localization",
+          "verify",
+          "generated-authority"
+        ],
+        "contexts": [
+          "documentation-site",
+          "community-contributions",
+          "localized-content"
+        ],
+        "languages": [
+          "typescript",
+          "mdx",
+          "markdown"
+        ],
+        "scale": [
+          "large-project"
+        ]
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected"
+        ],
+        "inspected_at": "2026-11-07",
+        "freshness": "versioned",
+        "scope": "Five pinned repository artifacts freshly read. Contributor entry and maintainer sections inspected, schema and slug checker followed into configured CI; no build or translation/deployment interaction."
+      },
+      "related": [
+        "docs-mdn-content-contracts",
+        "quality-generated-source-authority"
+      ],
+      "path": "library/entries/docs-astro-localized-contracts.md",
+      "card_sha256": "3619d9cad6bbfaa2ca4fb87c6206a06e9f6319423a42247d5b8e2207b2c09aaf",
+      "sources": [
+        {
+          "url": "https://github.com/withastro/docs/blob/c73a3bea5a635c1afce0f0516ff22ecb34a3d7d4/CONTRIBUTING.md",
+          "title": "withastro/docs: CONTRIBUTING.md",
+          "locator": "Types of Contributions; i18n; Pages generated from outside sources; maintainer release process",
+          "revision": "c73a3bea5a635c1afce0f0516ff22ecb34a3d7d4"
+        },
+        {
+          "url": "https://github.com/withastro/docs/blob/c73a3bea5a635c1afce0f0516ff22ecb34a3d7d4/package.json",
+          "title": "withastro/docs: package.json",
+          "locator": "check, docgen, lint:linkcheck and lint:slugcheck scripts",
+          "revision": "c73a3bea5a635c1afce0f0516ff22ecb34a3d7d4"
+        },
+        {
+          "url": "https://github.com/withastro/docs/blob/c73a3bea5a635c1afce0f0516ff22ecb34a3d7d4/src/content.config.ts",
+          "title": "withastro/docs: src/content.config.ts",
+          "locator": "docsCollectionSchema, docs collection and external loaders",
+          "revision": "c73a3bea5a635c1afce0f0516ff22ecb34a3d7d4"
+        },
+        {
+          "url": "https://github.com/withastro/docs/blob/c73a3bea5a635c1afce0f0516ff22ecb34a3d7d4/scripts/lint-slugcheck.mjs",
+          "title": "withastro/docs: scripts/lint-slugcheck.mjs",
+          "locator": "English counterpart discovery and failure exit",
+          "revision": "c73a3bea5a635c1afce0f0516ff22ecb34a3d7d4"
+        },
+        {
+          "url": "https://github.com/withastro/docs/blob/c73a3bea5a635c1afce0f0516ff22ecb34a3d7d4/.github/workflows/ci.yml",
+          "title": "withastro/docs: .github/workflows/ci.yml",
+          "locator": "astrocheck, eslint, slugcheck and linkcheck jobs",
+          "revision": "c73a3bea5a635c1afce0f0516ff22ecb34a3d7d4"
+        }
+      ]
+    },
+    {
+      "id": "docs-diataxis-reader-needs",
+      "kind": "guide",
+      "title": "Diataxis: organize around the reader need before moving folders",
+      "summary": "Use documentation purpose to improve a concrete page, without creating four empty sections as a repository-quality ritual.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "document",
+          "navigate"
+        ],
+        "contexts": [
+          "reader-needs",
+          "incremental-improvement"
+        ],
+        "languages": [
+          "language-agnostic"
+        ],
+        "scale": [
+          "cross-scale"
+        ]
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected",
+          "conceptual"
+        ],
+        "inspected_at": "2026-11-07",
+        "freshness": "live-at-inspection",
+        "scope": "Both primary framework pages freshly read; conceptual guidance, not a measured outcome or applied site migration."
+      },
+      "related": [
+        "docs-docs-as-code",
+        "docs-github-contribution-entry"
+      ],
+      "path": "library/entries/docs-diataxis-reader-needs.md",
+      "card_sha256": "c60e0e89b2316cf33afec38c072fd5e7c99a61140587d9c24e0cbcbc12a16470",
+      "sources": [
+        {
+          "url": "https://diataxis.fr/how-to-use-diataxis/",
+          "title": "Diataxis as a guide to work",
+          "locator": "Use as a guide, not a plan; Don’t worry about structure; Work one step at a time",
+          "revision": "Live primary framework guidance inspected 2026-11-07"
+        },
+        {
+          "url": "https://diataxis.fr/compass/",
+          "title": "Diataxis compass",
+          "locator": "action/cognition and acquisition/application decision table; Using the compass",
+          "revision": "Live primary framework guidance inspected 2026-11-07"
+        }
+      ]
+    },
+    {
+      "id": "docs-docs-as-code",
+      "kind": "guide",
+      "title": "Docs as code: shared change workflow with a usable writing path",
+      "summary": "Combine source control, review and relevant validation without mistaking tool adoption for documentation quality.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "document",
+          "contribute",
+          "verify"
+        ],
+        "contexts": [
+          "docs-as-code",
+          "writer-developer-collaboration"
+        ],
+        "languages": [
+          "language-agnostic"
+        ],
+        "scale": [
+          "cross-scale"
+        ]
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected"
+        ],
+        "inspected_at": "2026-11-07",
+        "freshness": "live-at-inspection",
+        "scope": "Two primary community guides freshly read; linked talks, books and toolchain not followed or treated as inspected evidence."
+      },
+      "related": [
+        "docs-mdn-content-contracts",
+        "docs-study-change-questions"
+      ],
+      "path": "library/entries/docs-docs-as-code.md",
+      "card_sha256": "2c64a03e0a1f8a48f2601354e7f14a638b3fc71ff090840c3b104bd8dfc1d531",
+      "sources": [
+        {
+          "url": "https://www.writethedocs.org/guide/docs-as-code/",
+          "title": "Write the Docs: Docs as code",
+          "locator": "definition, workflow tools, claimed benefits and further resources",
+          "revision": "Live primary community guide inspected 2026-11-07"
+        },
+        {
+          "url": "https://www.writethedocs.org/guide/writing/beginners-guide-to-docs/",
+          "title": "Write the Docs: How to write software documentation",
+          "locator": "audiences; problem/example/support/contribution/install; start simple",
+          "revision": "Live primary community guide inspected 2026-11-07"
+        }
+      ]
+    },
+    {
+      "id": "docs-github-codeowners",
+      "kind": "guide",
+      "title": "GitHub CODEOWNERS: routing and enforced review are separate",
+      "summary": "Inspect pattern precedence, branch identity and actual rules before claiming a committed owner map enforces review.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "ownership",
+          "review"
+        ],
+        "contexts": [
+          "github-hosting",
+          "review-routing"
+        ],
+        "languages": [
+          "language-agnostic"
+        ],
+        "scale": [
+          "cross-scale"
+        ]
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected"
+        ],
+        "inspected_at": "2026-11-07",
+        "freshness": "live-at-inspection",
+        "scope": "Official feature semantics freshly read, including syntax and enforcement sections; no repository settings, permissions or sample PR tested."
+      },
+      "related": [
+        "docs-github-contribution-entry",
+        "quality-scorecard-diagnostic-limits"
+      ],
+      "path": "library/entries/docs-github-codeowners.md",
+      "card_sha256": "fe8511ed96787829226e04ba2d1362d2a522179d55fff261d81f6c171e7fd0c2",
+      "sources": [
+        {
+          "url": "https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners",
+          "title": "GitHub Docs: About code owners",
+          "locator": "file location/base branch; syntax/last matching pattern; branch protection and multiple owners",
+          "revision": "Live official documentation inspected 2026-11-07"
+        }
+      ]
+    },
+    {
+      "id": "docs-github-contribution-entry",
+      "kind": "guide",
+      "title": "GitHub contribution entrypoints: discoverable guidance, not boilerplate completeness",
+      "summary": "Use surfaced contribution instructions and inherited community files to explain actual issue, change and support routes.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "contribute",
+          "document",
+          "navigate"
+        ],
+        "contexts": [
+          "github-hosting",
+          "newcomer-onboarding"
+        ],
+        "languages": [
+          "language-agnostic"
+        ],
+        "scale": [
+          "cross-scale"
+        ]
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected"
+        ],
+        "inspected_at": "2026-11-07",
+        "freshness": "live-at-inspection",
+        "scope": "Official contributor and inherited-community-file guidance freshly read. No organization defaults or live contributor path tested."
+      },
+      "related": [
+        "repo-small-click",
+        "docs-mdn-content-contracts"
+      ],
+      "path": "library/entries/docs-github-contribution-entry.md",
+      "card_sha256": "8ee43e15fab68ffdec1a9c1777fcb4ca5cec41b1b4998dff3aed72731c4b9438",
+      "sources": [
+        {
+          "url": "https://docs.github.com/en/communities/setting-up-your-project-for-healthy-contributions/setting-guidelines-for-repository-contributors",
+          "title": "GitHub Docs: contributor guidelines",
+          "locator": "surfaced links, file locations and precedence; suggested contents",
+          "revision": "Live official documentation inspected 2026-11-07"
+        },
+        {
+          "url": "https://docs.github.com/en/communities/setting-up-your-project-for-healthy-contributions/creating-a-default-community-health-file",
+          "title": "GitHub Docs: default community health files",
+          "locator": "default .github repository; supported files and precedence",
+          "revision": "Live official documentation inspected 2026-11-07"
+        }
+      ]
+    },
+    {
+      "id": "docs-google-change-review",
+      "kind": "guide",
+      "title": "Google review guidance: code health, scope and nonblocking preferences",
+      "summary": "Review concrete design, behavior, useful tests and affected documentation while separating requirements from optional polish.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "review",
+          "document",
+          "quality"
+        ],
+        "contexts": [
+          "maintainer-review",
+          "incremental-improvement"
+        ],
+        "languages": [
+          "language-agnostic"
+        ],
+        "scale": [
+          "cross-scale"
+        ]
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected"
+        ],
+        "inspected_at": "2026-11-07",
+        "freshness": "live-at-inspection",
+        "scope": "Two official review-guidance pages freshly read; no change review or organizational rollout executed."
+      },
+      "related": [
+        "docs-study-google-review",
+        "repo-small-p-limit"
+      ],
+      "path": "library/entries/docs-google-change-review.md",
+      "card_sha256": "4ec0aa37cf1e219067e46fb64dd1aff6ca1db825a660aabc5d1d10522b82d9b1",
+      "sources": [
+        {
+          "url": "https://google.github.io/eng-practices/review/reviewer/looking-for.html",
+          "title": "What to look for in a code review",
+          "locator": "Design; Complexity; Tests; Style; Documentation; Exceptions",
+          "revision": "Live primary guidance inspected 2026-11-07"
+        },
+        {
+          "url": "https://google.github.io/eng-practices/review/reviewer/standard.html",
+          "title": "The standard of code review",
+          "locator": "Continuous code-health improvement; Principles; Resolving Conflicts",
+          "revision": "Live primary guidance inspected 2026-11-07"
+        }
+      ]
+    },
+    {
+      "id": "docs-mdn-content-contracts",
+      "kind": "repository",
+      "title": "MDN content: page contracts and URL-preserving moves",
+      "summary": "Follow authored Markdown, front-matter schema, move-link repair and redirect validation as separate parts of a documentation change.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "document",
+          "verify",
+          "navigate"
+        ],
+        "contexts": [
+          "documentation-site",
+          "community-contributions",
+          "url-compatibility"
+        ],
+        "languages": [
+          "markdown",
+          "javascript"
+        ],
+        "scale": [
+          "large-project"
+        ]
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected"
+        ],
+        "inspected_at": "2026-11-07",
+        "freshness": "versioned",
+        "scope": "Six pinned source artifacts freshly read; current branch SHA resolved through GitHub. No install, generator, linter, CI, preview or published redirect tested."
+      },
+      "related": [
+        "docs-astro-localized-contracts",
+        "docs-diataxis-reader-needs"
+      ],
+      "path": "library/entries/docs-mdn-content-contracts.md",
+      "card_sha256": "83195af228b53170e381a85dd8488906fbce48047faa73e759d5cec5e73744ba",
+      "sources": [
+        {
+          "url": "https://github.com/mdn/content/blob/288e644117c29285df2acf37a2ac97f57546a146/CONTRIBUTING.md",
+          "title": "mdn/content: CONTRIBUTING.md",
+          "locator": "Documentation conventions; Front matter; Moving documents; Redirecting a document",
+          "revision": "288e644117c29285df2acf37a2ac97f57546a146"
+        },
+        {
+          "url": "https://github.com/mdn/content/blob/288e644117c29285df2acf37a2ac97f57546a146/package.json",
+          "title": "mdn/content: package.json",
+          "locator": "scripts content, lint:fm, start, build",
+          "revision": "288e644117c29285df2acf37a2ac97f57546a146"
+        },
+        {
+          "url": "https://github.com/mdn/content/blob/288e644117c29285df2acf37a2ac97f57546a146/front-matter-config.json",
+          "title": "mdn/content: front-matter-config.json",
+          "locator": "schema.required, additionalProperties and slug/page-type cases",
+          "revision": "288e644117c29285df2acf37a2ac97f57546a146"
+        },
+        {
+          "url": "https://github.com/mdn/content/blob/288e644117c29285df2acf37a2ac97f57546a146/scripts/front-matter_utils.js",
+          "title": "mdn/content: scripts/front-matter_utils.js",
+          "locator": "getAjvValidator and checkFrontMatter",
+          "revision": "288e644117c29285df2acf37a2ac97f57546a146"
+        },
+        {
+          "url": "https://github.com/mdn/content/blob/288e644117c29285df2acf37a2ac97f57546a146/scripts/update-moved-file-links.js",
+          "title": "mdn/content: scripts/update-moved-file-links.js",
+          "locator": "--check; Git rename detection; link replacements",
+          "revision": "288e644117c29285df2acf37a2ac97f57546a146"
+        },
+        {
+          "url": "https://github.com/mdn/content/blob/288e644117c29285df2acf37a2ac97f57546a146/.github/workflows/pr-check_redirects.yml",
+          "title": "mdn/content: .github/workflows/pr-check_redirects.yml",
+          "locator": "internal path filter and validate-redirects step",
+          "revision": "288e644117c29285df2acf37a2ac97f57546a146"
+        }
+      ]
+    },
+    {
+      "id": "docs-rust-api-contracts",
+      "kind": "guide",
+      "title": "Rust API documentation: examples and failure contracts",
+      "summary": "Connect public API examples to error, panic and safety obligations while keeping Rust-specific conventions contextual.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "document",
+          "api-contracts",
+          "verify"
+        ],
+        "contexts": [
+          "public-library",
+          "executable-examples"
+        ],
+        "languages": [
+          "rust"
+        ],
+        "scale": [
+          "single-package",
+          "multi-package"
+        ]
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected"
+        ],
+        "inspected_at": "2026-11-07",
+        "freshness": "live-at-inspection",
+        "scope": "Primary Rust API documentation guidance freshly read; no compilation, current Cargo-metadata audit or API completeness measurement."
+      },
+      "related": [
+        "repo-small-go-cmp",
+        "docs-google-change-review"
+      ],
+      "path": "library/entries/docs-rust-api-contracts.md",
+      "card_sha256": "588c323ce5f37ee93d5d1cc7079a7e187e61cc6e091827394fb44ea505de644a",
+      "sources": [
+        {
+          "url": "https://rust-lang.github.io/api-guidelines/documentation.html",
+          "title": "Rust API Guidelines: Documentation",
+          "locator": "C-CRATE-DOC, C-EXAMPLE, C-QUESTION-MARK, C-FAILURE and C-RELNOTES",
+          "revision": "Live primary guidelines inspected 2026-11-07"
+        }
+      ]
+    },
+    {
+      "id": "docs-rust-book-source-listings",
+      "kind": "repository",
+      "title": "Rust book: prose, included listings and publication snapshots",
+      "summary": "Locate the true input for an included code example and distinguish source, print snapshots, doctests and release-train publication.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "document",
+          "generated-authority",
+          "verify"
+        ],
+        "contexts": [
+          "documentation-site",
+          "executable-examples",
+          "release-trains"
+        ],
+        "languages": [
+          "rust",
+          "markdown",
+          "shell"
+        ],
+        "scale": [
+          "multi-package"
+        ]
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected"
+        ],
+        "inspected_at": "2026-11-07",
+        "freshness": "versioned",
+        "scope": "Eight pinned repository artifacts freshly read; source includes and CI path followed. No Rust/mdBook/tool download, executable example, package test or release run."
+      },
+      "related": [
+        "quality-generated-source-authority",
+        "docs-diataxis-reader-needs"
+      ],
+      "path": "library/entries/docs-rust-book-source-listings.md",
+      "card_sha256": "0f92eac0d34bb097e5927acc948d746e0fd663229e0f16875e8764e5c5c69604",
+      "sources": [
+        {
+          "url": "https://github.com/rust-lang/book/blob/2771df165f092a4fbb9f46b5b2e7450f19010adb/README.md",
+          "title": "rust-lang/book: README.md",
+          "locator": "Building; tests; contribution/release-train expectations",
+          "revision": "2771df165f092a4fbb9f46b5b2e7450f19010adb"
+        },
+        {
+          "url": "https://github.com/rust-lang/book/blob/2771df165f092a4fbb9f46b5b2e7450f19010adb/CONTRIBUTING.md",
+          "title": "rust-lang/book: CONTRIBUTING.md",
+          "locator": "Where to Edit; Checking for Fixes; Expectations",
+          "revision": "2771df165f092a4fbb9f46b5b2e7450f19010adb"
+        },
+        {
+          "url": "https://github.com/rust-lang/book/blob/2771df165f092a4fbb9f46b5b2e7450f19010adb/src/ch12-01-accepting-command-line-arguments.md",
+          "title": "rust-lang/book: src/ch12-01-accepting-command-line-arguments.md",
+          "locator": "Listings 12-1/12-2 rustdoc_include and included output",
+          "revision": "2771df165f092a4fbb9f46b5b2e7450f19010adb"
+        },
+        {
+          "url": "https://github.com/rust-lang/book/blob/2771df165f092a4fbb9f46b5b2e7450f19010adb/listings/ch12-an-io-project/listing-12-01/src/main.rs",
+          "title": "rust-lang/book: listings/ch12-an-io-project/listing-12-01/src/main.rs",
+          "locator": "executable listing source",
+          "revision": "2771df165f092a4fbb9f46b5b2e7450f19010adb"
+        },
+        {
+          "url": "https://github.com/rust-lang/book/blob/2771df165f092a4fbb9f46b5b2e7450f19010adb/book.toml",
+          "title": "rust-lang/book: book.toml",
+          "locator": "preprocessors, HTML redirects and nostarch sync comment",
+          "revision": "2771df165f092a4fbb9f46b5b2e7450f19010adb"
+        },
+        {
+          "url": "https://github.com/rust-lang/book/blob/2771df165f092a4fbb9f46b5b2e7450f19010adb/.github/workflows/main.yml",
+          "title": "rust-lang/book: .github/workflows/main.yml",
+          "locator": "trpl build before mdbook test; package_tests; lint",
+          "revision": "2771df165f092a4fbb9f46b5b2e7450f19010adb"
+        },
+        {
+          "url": "https://github.com/rust-lang/book/blob/2771df165f092a4fbb9f46b5b2e7450f19010adb/packages/trpl/Cargo.toml",
+          "title": "rust-lang/book: packages/trpl/Cargo.toml",
+          "locator": "standalone support crate workspace boundary",
+          "revision": "2771df165f092a4fbb9f46b5b2e7450f19010adb"
+        },
+        {
+          "url": "https://github.com/rust-lang/book/blob/2771df165f092a4fbb9f46b5b2e7450f19010adb/ci/validate.sh",
+          "title": "rust-lang/book: ci/validate.sh",
+          "locator": "link2print references loop",
+          "revision": "2771df165f092a4fbb9f46b5b2e7450f19010adb"
+        }
+      ]
+    },
+    {
+      "id": "docs-study-change-questions",
+      "kind": "study",
+      "title": "Sillito et al.: inspect connected change questions, not just the tree",
+      "summary": "Use qualitative observations of maintenance work to probe whether contributors can locate and connect the information a real change requires.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "navigate",
+          "contribute",
+          "quality"
+        ],
+        "contexts": [
+          "program-comprehension",
+          "maintenance-tasks"
+        ],
+        "languages": [
+          "language-agnostic",
+          "java"
+        ],
+        "scale": [
+          "large-project"
+        ]
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected",
+          "empirical"
+        ],
+        "inspected_at": "2026-11-07",
+        "freshness": "historical",
+        "scope": "Primary PDF methods, results categories and limitations freshly read. Historical qualitative evidence; no participant data reanalysis or repository experiment."
+      },
+      "related": [
+        "docs-github-contribution-entry",
+        "repo-small-p-limit"
+      ],
+      "path": "library/entries/docs-study-change-questions.md",
+      "card_sha256": "58d1fdb18c96a89b9b6a8a65aef80f6d595cb8c0c774dfe60f855ca29b8e76f6",
+      "sources": [
+        {
+          "url": "https://www.cs.ubc.ca/~murphy/papers/other/asking-answering-fse06.pdf",
+          "title": "Questions Programmers Ask During Software Evolution Tasks",
+          "locator": "Sections 3.1–3.2 methods; 4–5 question/answer categories; 7.1–7.2 limitations",
+          "revision": "FSE 2006 primary author PDF"
+        }
+      ]
+    },
+    {
+      "id": "docs-study-coverage-limits",
+      "kind": "study",
+      "title": "Inozemtseva and Holmes: coverage is an incomplete quality signal",
+      "summary": "Keep coverage, test-suite size and fault-detection evidence separate when deciding which tests a repository needs.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "metrics",
+          "test-selection",
+          "quality"
+        ],
+        "contexts": [
+          "coverage",
+          "regression-confidence"
+        ],
+        "languages": [
+          "java"
+        ],
+        "scale": [
+          "large-project"
+        ]
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected",
+          "empirical"
+        ],
+        "inspected_at": "2026-11-07",
+        "freshness": "historical",
+        "scope": "Historical substantive method/result inspection attributed to earlier repositories dossier REP-24; this lane refreshed opening pages only, then method/limits reads repeatedly timed out. No fresh full-method or empirical replication claim."
+      },
+      "related": [
+        "quality-python-distribution-checks",
+        "repo-large-django"
+      ],
+      "path": "library/entries/docs-study-coverage-limits.md",
+      "card_sha256": "d17a9a709bd3b1fc35874106985e18375fdffd96f14008488f135ba6e3f6a238",
+      "sources": [
+        {
+          "url": "https://cs.uwaterloo.ca/~rtholmes/papers/icse_2014_inozemtseva.pdf",
+          "title": "Coverage Is Not Strongly Correlated with Test Suite Effectiveness",
+          "locator": "Section 3 methods; results controlling suite size; section 6 threats",
+          "revision": "ICSE 2014 primary author PDF; method inspection retained from earlier 2026-11-07 REP-24 dossier"
+        }
+      ]
+    },
+    {
+      "id": "docs-study-google-review",
+      "kind": "study",
+      "title": "Sadowski et al.: review practices and tools co-evolve",
+      "summary": "Use the Google case to examine review context and analyzer feedback, without copying reviewer counts or turnaround targets as universal standards.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "review",
+          "quality",
+          "ownership"
+        ],
+        "contexts": [
+          "review-process",
+          "automated-feedback"
+        ],
+        "languages": [
+          "language-agnostic"
+        ],
+        "scale": [
+          "large-project"
+        ]
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected",
+          "empirical"
+        ],
+        "inspected_at": "2026-11-07",
+        "freshness": "historical",
+        "scope": "Primary PDF methods, review mechanics, analyzer feedback and limitations freshly read; historical observational mixed-method evidence."
+      },
+      "related": [
+        "docs-google-change-review",
+        "docs-github-codeowners"
+      ],
+      "path": "library/entries/docs-study-google-review.md",
+      "card_sha256": "5442b5a538a3bf0355ff9854a50cf26986023ebb9248d831569c1055c6266c25",
+      "sources": [
+        {
+          "url": "https://storage.googleapis.com/gweb-research2023-media/pubtools/4476.pdf",
+          "title": "Modern Code Review: A Case Study at Google",
+          "locator": "Sections 3.2–3.4 methods/limits; 5 review mechanics; 7.1–7.3 interpretation",
+          "revision": "ICSE-SEIP 2018; DOI 10.1145/3183519.3183525"
+        }
+      ]
+    },
+    {
+      "id": "quality-cargo-package-boundary",
+      "kind": "guide",
+      "title": "Cargo: inspect the crate that users will build",
+      "summary": "Treat package inclusion and normalized dependency metadata as a separate boundary from a successful workspace checkout build.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "package",
+          "verify",
+          "release"
+        ],
+        "contexts": [
+          "published-artifacts",
+          "path-dependencies"
+        ],
+        "languages": [
+          "rust"
+        ],
+        "scale": [
+          "single-package",
+          "multi-package"
+        ]
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected"
+        ],
+        "inspected_at": "2026-11-07",
+        "freshness": "live-at-inspection",
+        "scope": "Primary documentation sections read. No build, package installation, test, generator, publishing command, authentication change or upstream script executed."
+      },
+      "related": [
+        "quality-cargo-workspace-selection",
+        "repo-small-ripgrep"
+      ],
+      "path": "library/entries/quality-cargo-package-boundary.md",
+      "card_sha256": "8e27a3f9a4d90db1a56d4fe53720e6ac6eb7ce5d6cd6257da2c1bcb7e6abf4da",
+      "sources": [
+        {
+          "url": "https://doc.rust-lang.org/cargo/commands/cargo-package.html",
+          "title": "Cargo Book: cargo package",
+          "locator": "Archive creation; normalized manifest; path dependencies; extracted build verification; --list; VCS information",
+          "revision": "Live documentation read 2026-11-07; not a pinned implementation revision"
+        },
+        {
+          "url": "https://doc.rust-lang.org/cargo/commands/cargo-publish.html",
+          "title": "Cargo Book: cargo publish",
+          "locator": "Description; --dry-run; --no-verify; post-upload polling timeout",
+          "revision": "Live documentation read 2026-11-07; not a pinned implementation revision"
+        }
+      ]
+    },
+    {
+      "id": "quality-cargo-workspace-selection",
+      "kind": "guide",
+      "title": "Cargo: workspace convenience and selected validation scope",
+      "summary": "Identify workspace membership, default members and inherited configuration before interpreting a root command as repository-wide validation.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "organize",
+          "configure",
+          "test"
+        ],
+        "contexts": [
+          "workspace-scope",
+          "shared-configuration"
+        ],
+        "languages": [
+          "rust"
+        ],
+        "scale": [
+          "single-package",
+          "multi-package"
+        ]
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected"
+        ],
+        "inspected_at": "2026-11-07",
+        "freshness": "live-at-inspection",
+        "scope": "Primary documentation sections read. No build, package installation, test, generator, publishing command, authentication change or upstream script executed."
+      },
+      "related": [
+        "repo-small-uv",
+        "repo-large-rust"
+      ],
+      "path": "library/entries/quality-cargo-workspace-selection.md",
+      "card_sha256": "19f73c77018d4e17ac29b65eadfe91545f78cf1d1896e1f3b7905636c10d362a",
+      "sources": [
+        {
+          "url": "https://doc.rust-lang.org/cargo/reference/workspaces.html",
+          "title": "Cargo Book: Workspaces",
+          "locator": "Root/virtual workspaces; members/exclude/default-members; package selection and inheritance",
+          "revision": "Live documentation read 2026-11-07; not a pinned implementation revision"
+        },
+        {
+          "url": "https://doc.rust-lang.org/cargo/commands/cargo-publish.html",
+          "title": "Cargo Book: cargo publish",
+          "locator": "Package selection; default-members; workspace selection; dry-run versus upload",
+          "revision": "Live documentation read 2026-11-07; not a pinned implementation revision"
+        }
+      ]
+    },
+    {
+      "id": "quality-generated-source-authority",
+      "kind": "guide",
+      "title": "Generated source: review the authority and regeneration boundary",
+      "summary": "Trace source inputs, generator version, outputs and drift enforcement instead of editing generated files or assuming ordinary tests regenerate them.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "trace",
+          "generate",
+          "verify"
+        ],
+        "contexts": [
+          "generated-files",
+          "source-authority"
+        ],
+        "languages": [
+          "go",
+          "language-agnostic"
+        ],
+        "scale": [
+          "cross-scale"
+        ]
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected"
+        ],
+        "inspected_at": "2026-11-07",
+        "freshness": "live-at-inspection",
+        "scope": "Primary documentation sections read. No build, package installation, test, generator, publishing command, authentication change or upstream script executed."
+      },
+      "related": [
+        "repo-small-uv",
+        "repo-small-testify",
+        "repo-large-sqlite"
+      ],
+      "path": "library/entries/quality-generated-source-authority.md",
+      "card_sha256": "ec864ffe016ba47fe5117fecd44f00514cc88a9b262e65e5bc8153c80f642c8a",
+      "sources": [
+        {
+          "url": "https://pkg.go.dev/cmd/go#hdr-Generate_Go_files_by_processing_source",
+          "title": "Go command: Generate Go files by processing source",
+          "locator": "Generate directive semantics; explicit execution; generated-code marker; ordering",
+          "revision": "Page identifies go1.27.3; read 2026-11-07, not claimed latest toolchain"
+        },
+        {
+          "url": "https://go.dev/blog/generate",
+          "title": "Go Blog: Generating code",
+          "locator": "2014 motivation and explicit author-versus-consumer generation workflow",
+          "revision": "Rob Pike, 2014-12-22; historical account read 2026-11-07"
+        }
+      ]
+    },
+    {
+      "id": "quality-go-module-workspace-boundaries",
+      "kind": "guide",
+      "title": "Go: module release units versus local workspaces",
+      "summary": "Keep each module independently consumable where promised, even when go.work makes joint local development convenient.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "organize",
+          "test",
+          "release"
+        ],
+        "contexts": [
+          "module-boundaries",
+          "workspace-scope"
+        ],
+        "languages": [
+          "go"
+        ],
+        "scale": [
+          "single-package",
+          "multi-package"
+        ]
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected"
+        ],
+        "inspected_at": "2026-11-07",
+        "freshness": "live-at-inspection",
+        "scope": "Primary documentation sections read. No build, package installation, test, generator, publishing command, authentication change or upstream script executed."
+      },
+      "related": [
+        "repo-large-kubernetes",
+        "repo-small-go-cmp"
+      ],
+      "path": "library/entries/quality-go-module-workspace-boundaries.md",
+      "card_sha256": "b9fc7d92d928b4b6d0fa6d46e5d19d5fc04203576a1bca407f0a78c71a8db035",
+      "sources": [
+        {
+          "url": "https://go.dev/doc/modules/managing-source",
+          "title": "Go: Managing module source",
+          "locator": "Choosing repository scope; independent versioning; single/multiple modules",
+          "revision": "Live documentation read 2026-11-07; not a pinned implementation revision"
+        },
+        {
+          "url": "https://go.dev/ref/mod#workspaces",
+          "title": "Go Modules Reference",
+          "locator": "Workspaces; go.work use/replacement behavior; CI warning and committed-workspace exceptions",
+          "revision": "Live documentation read 2026-11-07; not a pinned implementation revision"
+        },
+        {
+          "url": "https://go.dev/doc/modules/release-workflow",
+          "title": "Go: Module release and versioning workflow",
+          "locator": "Local unpublished client development; release/version progression",
+          "revision": "Live documentation read 2026-11-07; not a pinned implementation revision"
+        }
+      ]
+    },
+    {
+      "id": "quality-npm-artifact-exports",
+      "kind": "guide",
+      "title": "npm and Node: file contents and public entry points are separate contracts",
+      "summary": "Review the packed files and exports map together so local imports do not hide missing output or accidental API breakage.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "package",
+          "verify",
+          "release"
+        ],
+        "contexts": [
+          "published-artifacts",
+          "public-api"
+        ],
+        "languages": [
+          "javascript",
+          "typescript"
+        ],
+        "scale": [
+          "single-package",
+          "multi-package"
+        ]
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected"
+        ],
+        "inspected_at": "2026-11-07",
+        "freshness": "live-at-inspection",
+        "scope": "Primary documentation sections read. No build, package installation, test, generator, publishing command, authentication change or upstream script executed."
+      },
+      "related": [
+        "repo-small-p-limit",
+        "quality-npm-workspace-scope"
+      ],
+      "path": "library/entries/quality-npm-artifact-exports.md",
+      "card_sha256": "b38c2b01017d1014d9d0970f313fec2b32d27488090fb64b09433621bbd1aba4",
+      "sources": [
+        {
+          "url": "https://docs.npmjs.com/cli/v11/configuring-npm/package-json/",
+          "title": "npm CLI 11: package.json",
+          "locator": "files/.npmignore inclusion; always included/excluded files; exports/main/private",
+          "revision": "CLI 11.21.2 documentation; live read 2026-11-07"
+        },
+        {
+          "url": "https://docs.npmjs.com/cli/v11/commands/npm-pack/",
+          "title": "npm CLI 11: npm pack",
+          "locator": "dry-run/json/ignore-scripts; description and file-list behavior",
+          "revision": "CLI 11.21.2 documentation; live read 2026-11-07"
+        },
+        {
+          "url": "https://nodejs.org/api/packages.html#package-entry-points",
+          "title": "Node.js: Packages",
+          "locator": "Package entry points; introducing exports; subpath encapsulation",
+          "revision": "Node.js v26.13.0 page inspected 2026-11-07"
+        }
+      ]
+    },
+    {
+      "id": "quality-npm-workspace-scope",
+      "kind": "guide",
+      "title": "npm: linked workspaces are not independent package evidence",
+      "summary": "Use workspace membership and script selection deliberately; local linking can conceal distribution and command-order assumptions.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "organize",
+          "configure",
+          "test"
+        ],
+        "contexts": [
+          "workspace-scope",
+          "local-linking"
+        ],
+        "languages": [
+          "javascript",
+          "typescript"
+        ],
+        "scale": [
+          "multi-package"
+        ]
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected"
+        ],
+        "inspected_at": "2026-11-07",
+        "freshness": "live-at-inspection",
+        "scope": "Primary documentation sections read. No build, package installation, test, generator, publishing command, authentication change or upstream script executed."
+      },
+      "related": [
+        "repo-large-vscode",
+        "quality-release-planning-workflows"
+      ],
+      "path": "library/entries/quality-npm-workspace-scope.md",
+      "card_sha256": "950d4031202dad223c853fd53e8b001f756e9600191477062c3e784b896b201a",
+      "sources": [
+        {
+          "url": "https://docs.npmjs.com/cli/v11/using-npm/workspaces/",
+          "title": "npm CLI 11: Workspaces",
+          "locator": "Defining/linking workspaces; commands; ordering; --if-present",
+          "revision": "CLI 11.21.2 documentation identifies itself Legacy; read 2026-11-07"
+        },
+        {
+          "url": "https://docs.npmjs.com/cli/v11/commands/npm-pack/",
+          "title": "npm CLI 11: npm pack",
+          "locator": "workspace/workspaces/include-workspace-root options",
+          "revision": "CLI 11.21.2 documentation; live read 2026-11-07"
+        }
+      ]
+    },
+    {
+      "id": "quality-python-build-metadata",
+      "kind": "guide",
+      "title": "Python: separate build inputs, package metadata and development tools",
+      "summary": "Make pyproject.toml ownership explicit so build requirements, installed dependencies and development configuration do not become interchangeable lists.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "configure",
+          "package",
+          "document"
+        ],
+        "contexts": [
+          "build-metadata",
+          "dependency-boundaries"
+        ],
+        "languages": [
+          "python"
+        ],
+        "scale": [
+          "single-package",
+          "multi-package"
+        ]
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected"
+        ],
+        "inspected_at": "2026-11-07",
+        "freshness": "live-at-inspection",
+        "scope": "Primary documentation sections read. No build, package installation, test, generator, publishing command, authentication change or upstream script executed."
+      },
+      "related": [
+        "quality-python-import-layout",
+        "quality-python-distribution-checks"
+      ],
+      "path": "library/entries/quality-python-build-metadata.md",
+      "card_sha256": "84cce092d313116a8895095163b0eb21a8f362f8671c0fd6f3b631e21c644fff",
+      "sources": [
+        {
+          "url": "https://packaging.python.org/en/latest/guides/writing-pyproject-toml/",
+          "title": "PyPA: Writing your pyproject.toml",
+          "locator": "Build backend; project/dependency groups/tool tables; scripts; requires-python; README/license fields",
+          "revision": "Live documentation read 2026-11-07; not a pinned implementation revision"
+        },
+        {
+          "url": "https://peps.python.org/pep-0517/",
+          "title": "PEP 517: build-system interface",
+          "locator": "build_wheel/build_sdist hooks; optional requirements hooks; build environment",
+          "revision": "Final packaging PEP; substantive hook/environment sections read 2026-11-07"
+        }
+      ]
+    },
+    {
+      "id": "quality-python-distribution-checks",
+      "kind": "guide",
+      "title": "Python: test the distributed artifact as well as editable code",
+      "summary": "Separate rapid source-tree feedback from checks that installation, metadata, entry points and packaged resources reach downstream users.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "test",
+          "package",
+          "verify"
+        ],
+        "contexts": [
+          "editable-installs",
+          "artifact-boundaries"
+        ],
+        "languages": [
+          "python"
+        ],
+        "scale": [
+          "single-package",
+          "multi-package"
+        ]
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected"
+        ],
+        "inspected_at": "2026-11-07",
+        "freshness": "live-at-inspection",
+        "scope": "Primary documentation sections read. No build, package installation, test, generator, publishing command, authentication change or upstream script executed."
+      },
+      "related": [
+        "repo-small-click",
+        "docs-study-coverage-limits"
+      ],
+      "path": "library/entries/quality-python-distribution-checks.md",
+      "card_sha256": "180fdf3a54c9cfe7c47d2a21eb0f3c567aba5353846887f605d22dd049e520e1",
+      "sources": [
+        {
+          "url": "https://peps.python.org/pep-0660/",
+          "title": "PEP 660: editable installs",
+          "locator": "Terminology/goals; build_editable metadata; changes requiring reinstallation",
+          "revision": "Final PEP 660; sections read 2026-11-07"
+        },
+        {
+          "url": "https://packaging.python.org/en/latest/flow/",
+          "title": "PyPA: The Packaging Flow",
+          "locator": "Source tree/configuration → sdist/wheel → distribution service → installation",
+          "revision": "Live documentation read 2026-11-07; not a pinned implementation revision"
+        },
+        {
+          "url": "https://docs.pytest.org/en/stable/explanation/goodpractices.html",
+          "title": "pytest: Good Integration Practices",
+          "locator": "External tests against installed or editable packages; in-package tests with --pyargs",
+          "revision": "Live documentation read 2026-11-07; not a pinned implementation revision"
+        }
+      ]
+    },
+    {
+      "id": "quality-python-import-layout",
+      "kind": "guide",
+      "title": "Python: layout should expose the import boundary",
+      "summary": "Choose src or flat layout by which code tests import and what developers must install, rather than imposing one directory tree.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "organize",
+          "test",
+          "package"
+        ],
+        "contexts": [
+          "import-boundaries",
+          "developer-setup"
+        ],
+        "languages": [
+          "python"
+        ],
+        "scale": [
+          "small-project",
+          "single-package"
+        ]
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected"
+        ],
+        "inspected_at": "2026-11-07",
+        "freshness": "live-at-inspection",
+        "scope": "Primary documentation sections read. No build, package installation, test, generator, publishing command, authentication change or upstream script executed."
+      },
+      "related": [
+        "repo-small-flask",
+        "quality-python-build-metadata"
+      ],
+      "path": "library/entries/quality-python-import-layout.md",
+      "card_sha256": "3ac1e9007b877e2cf82853211fe1bd13de63f87e647eb08a356059c0e3ad3e5d",
+      "sources": [
+        {
+          "url": "https://packaging.python.org/en/latest/discussions/src-layout-vs-flat-layout/",
+          "title": "PyPA: src layout vs flat layout",
+          "locator": "Behavior differences: installation, current-directory imports and editable path exposure",
+          "revision": "Live documentation read 2026-11-07; not a pinned implementation revision"
+        },
+        {
+          "url": "https://docs.pytest.org/en/stable/explanation/goodpractices.html",
+          "title": "pytest: Good Integration Practices",
+          "locator": "Choosing a test layout; tests outside application code; import modes",
+          "revision": "Live documentation read 2026-11-07; not a pinned implementation revision"
+        }
+      ]
+    },
+    {
+      "id": "quality-release-planning-workflows",
+      "kind": "tool",
+      "title": "Release planning: contributor change files versus commit-derived proposals",
+      "summary": "Compare Changesets and Release Please by how human release intent enters the repository, and keep preparation, GitHub releases and registry publication distinct.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "release",
+          "review",
+          "document"
+        ],
+        "contexts": [
+          "release-orchestration",
+          "monorepo-publication"
+        ],
+        "languages": [
+          "javascript",
+          "typescript",
+          "language-agnostic"
+        ],
+        "scale": [
+          "single-package",
+          "multi-package"
+        ]
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected"
+        ],
+        "inspected_at": "2026-11-07",
+        "freshness": "versioned",
+        "scope": "Pinned Release Please README/manifest guide and selected implementation methods read; pinned Changesets README/obsolete-doc notice and linked current guide/CLI pages read. Source/configuration and documented commands only; no release behavior executed."
+      },
+      "related": [
+        "quality-versioning-and-human-release-notes",
+        "quality-npm-workspace-scope"
+      ],
+      "path": "library/entries/quality-release-planning-workflows.md",
+      "card_sha256": "599d1043f049a94d13860dcccbba06589c9224c9642f7bb5b3eb44d795b71605",
+      "sources": [
+        {
+          "url": "https://github.com/googleapis/release-please/blob/ea20bc261acd75149f0be90890bb9c90e681eea7/README.md",
+          "title": "Release Please README",
+          "locator": "Release pull requests; Conventional Commits; scope excludes package-manager publication",
+          "revision": "ea20bc261acd75149f0be90890bb9c90e681eea7"
+        },
+        {
+          "url": "https://github.com/googleapis/release-please/blob/ea20bc261acd75149f0be90890bb9c90e681eea7/docs/manifest-releaser.md",
+          "title": "Release Please manifest releaser",
+          "locator": "Per-package configuration; released-version manifest; bootstrap/version behavior",
+          "revision": "ea20bc261acd75149f0be90890bb9c90e681eea7"
+        },
+        {
+          "url": "https://github.com/googleapis/release-please/blob/ea20bc261acd75149f0be90890bb9c90e681eea7/src/manifest.ts",
+          "title": "Release Please manifest implementation",
+          "locator": "buildPullRequests/createPullRequests; buildReleases/createReleases",
+          "revision": "ea20bc261acd75149f0be90890bb9c90e681eea7"
+        },
+        {
+          "url": "https://changesets.dev/guide/getting-started",
+          "title": "Changesets: Getting Started",
+          "locator": "Changeset files; contributor release intent; not every change needs a changeset",
+          "revision": "Site identifies v3.0.3; footer links 2f6995d; read 2026-11-07"
+        },
+        {
+          "url": "https://changesets.dev/guide/versioning-and-publishing",
+          "title": "Changesets: Versioning and Publishing",
+          "locator": "Reviewable versioning step separated from publication; tags",
+          "revision": "Site identifies v3.0.3; read 2026-11-07"
+        },
+        {
+          "url": "https://changesets.dev/guide/cli",
+          "title": "Changesets: CLI",
+          "locator": "version/publish/pack/publish-plan; private-package warning",
+          "revision": "Site identifies v3.0.3; read 2026-11-07"
+        },
+        {
+          "url": "https://github.com/changesets/changesets/blob/2f6995d5bbd3b1572d7a6cd897d2229bfc1ce8c1/README.md",
+          "title": "Changesets README",
+          "locator": "Development-branch notice and purpose",
+          "revision": "2f6995d5bbd3b1572d7a6cd897d2229bfc1ce8c1"
+        }
+      ]
+    },
+    {
+      "id": "quality-reproducible-build-evidence",
+      "kind": "guide",
+      "title": "Reproducible builds: define artifacts and controlled variation",
+      "summary": "Distinguish a repeatable setup from a bit-identical artifact claim, then investigate the specific sources of variation relevant to distribution.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "build",
+          "verify",
+          "release"
+        ],
+        "contexts": [
+          "reproducibility",
+          "artifact-boundaries"
+        ],
+        "languages": [
+          "language-agnostic"
+        ],
+        "scale": [
+          "cross-scale"
+        ]
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected"
+        ],
+        "inspected_at": "2026-11-07",
+        "freshness": "live-at-inspection",
+        "scope": "Primary documentation sections read. No build, package installation, test, generator, publishing command, authentication change or upstream script executed."
+      },
+      "related": [
+        "quality-slsa-provenance-verification",
+        "repo-large-sqlite"
+      ],
+      "path": "library/entries/quality-reproducible-build-evidence.md",
+      "card_sha256": "a61e78079b5f56a7b2f75914683ae08610ea2e7fba576ab8265947e5c933cb95",
+      "sources": [
+        {
+          "url": "https://reproducible-builds.org/docs/definition/",
+          "title": "Reproducible Builds: Definitions",
+          "locator": "Same source/environment/instructions; specified artifacts; bitwise comparison",
+          "revision": "Live documentation read 2026-11-07; not a pinned implementation revision"
+        },
+        {
+          "url": "https://reproducible-builds.org/docs/source-date-epoch/",
+          "title": "Reproducible Builds: SOURCE_DATE_EPOCH",
+          "locator": "Purpose; tool support and standardized-variable guidance",
+          "revision": "Live documentation read 2026-11-07; not a pinned implementation revision"
+        }
+      ]
+    },
+    {
+      "id": "quality-scorecard-diagnostic-limits",
+      "kind": "tool",
+      "title": "OpenSSF Scorecard: inspect checks, access and unknowns",
+      "summary": "Use individual security heuristics as investigative leads, preserving false positives, false negatives and permission-dependent visibility.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "assess",
+          "verify",
+          "prioritize"
+        ],
+        "contexts": [
+          "repository-security-signals",
+          "evidence-limits"
+        ],
+        "languages": [
+          "language-agnostic"
+        ],
+        "scale": [
+          "cross-scale"
+        ]
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected"
+        ],
+        "inspected_at": "2026-11-07",
+        "freshness": "versioned",
+        "scope": "Primary documentation sections read. No build, package installation, test, generator, publishing command, authentication change or upstream script executed."
+      },
+      "related": [
+        "docs-github-codeowners",
+        "quality-slsa-provenance-verification"
+      ],
+      "path": "library/entries/quality-scorecard-diagnostic-limits.md",
+      "card_sha256": "e8b81b4e9d40ce6d9c67e3185b2afd0f4573b288929a93bb4744b58d5ae48359",
+      "sources": [
+        {
+          "url": "https://github.com/ossf/scorecard/blob/b753b11c3523c5db8b4880c138858e7e7b8c614a/README.md",
+          "title": "OpenSSF Scorecard README",
+          "locator": "Scorecard checks; structured results/probes; false positives/negatives and aggregate-score limits",
+          "revision": "b753b11c3523c5db8b4880c138858e7e7b8c614a"
+        },
+        {
+          "url": "https://github.com/ossf/scorecard/blob/b753b11c3523c5db8b4880c138858e7e7b8c614a/docs/checks.md",
+          "title": "Scorecard check documentation",
+          "locator": "Branch-Protection permission notes; CI-Tests; Token-Permissions; Signed-Releases",
+          "revision": "b753b11c3523c5db8b4880c138858e7e7b8c614a"
+        }
+      ]
+    },
+    {
+      "id": "quality-slsa-provenance-verification",
+      "kind": "standard",
+      "title": "SLSA v1.2: provenance must be verified against expectations",
+      "summary": "Connect distributed artifacts to trusted build identities and expected source/parameters; do not treat an attestation filename as a quality certificate.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "verify",
+          "release",
+          "trace"
+        ],
+        "contexts": [
+          "provenance",
+          "distribution-trust"
+        ],
+        "languages": [
+          "language-agnostic"
+        ],
+        "scale": [
+          "cross-scale"
+        ]
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected"
+        ],
+        "inspected_at": "2026-11-07",
+        "freshness": "versioned",
+        "scope": "Primary documentation sections read. No build, package installation, test, generator, publishing command, authentication change or upstream script executed."
+      },
+      "related": [
+        "quality-reproducible-build-evidence",
+        "quality-scorecard-diagnostic-limits"
+      ],
+      "path": "library/entries/quality-slsa-provenance-verification.md",
+      "card_sha256": "6c93312eeda539be28ee5b07c58a74ee41403440fa8d554e666756371bf29d73",
+      "sources": [
+        {
+          "url": "https://slsa.dev/spec/v1.2/build-track-basics",
+          "title": "SLSA v1.2: Build Track Basics",
+          "locator": "Build L0–L3; purpose and protection progression",
+          "revision": "Approved SLSA v1.2 Build track; read 2026-11-07"
+        },
+        {
+          "url": "https://slsa.dev/spec/v1.2/verifying-artifacts",
+          "title": "SLSA v1.2: Build Verifying artifacts",
+          "locator": "How to verify; artifact digest/trust root; expected builder/source/buildType/externalParameters",
+          "revision": "Approved SLSA v1.2; read 2026-11-07"
+        }
+      ]
+    },
+    {
+      "id": "quality-versioning-and-human-release-notes",
+      "kind": "guide",
+      "title": "Versioning and release notes: define the contract and explain the change",
+      "summary": "Use an explicit compatibility policy and human-oriented notes together, without treating commit syntax or a version bump as proof of compatibility.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "release",
+          "document",
+          "review"
+        ],
+        "contexts": [
+          "public-api",
+          "change-communication"
+        ],
+        "languages": [
+          "language-agnostic"
+        ],
+        "scale": [
+          "cross-scale"
+        ]
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected"
+        ],
+        "inspected_at": "2026-11-07",
+        "freshness": "versioned",
+        "scope": "Primary documentation sections read. No build, package installation, test, generator, publishing command, authentication change or upstream script executed."
+      },
+      "related": [
+        "quality-release-planning-workflows",
+        "docs-rust-api-contracts"
+      ],
+      "path": "library/entries/quality-versioning-and-human-release-notes.md",
+      "card_sha256": "dc793d8505c2dac78b909820aa326a581b5fff525b8e054dcd2089a34a95ee22",
+      "sources": [
+        {
+          "url": "https://semver.org/spec/v2.0.0.html",
+          "title": "Semantic Versioning 2.0.0",
+          "locator": "Specification items 1–10: public API, immutability, pre-1.0, deprecation and compatibility increments",
+          "revision": "SemVer 2.0.0 specification"
+        },
+        {
+          "url": "https://keepachangelog.com/en/1.1.0/",
+          "title": "Keep a Changelog 1.1.0",
+          "locator": "Guiding principles; types of changes; Unreleased; commit-log and deprecation discussion",
+          "revision": "Guide version 1.1.0; inspected 2026-11-07"
+        }
+      ]
+    },
+    {
+      "id": "repo-large-cpython",
+      "kind": "repository",
+      "title": "CPython: pair native error-path changes with regression and generated-file scope",
+      "summary": "Trace a C-extension exception-path fix into Python regression coverage while distinguishing targeted tests from configured regeneration, ABI and platform jobs.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "navigate",
+          "test-selection",
+          "generated-files"
+        ],
+        "contexts": [
+          "native-extension",
+          "language-runtime",
+          "multi-platform"
+        ],
+        "languages": [
+          "c",
+          "python"
+        ],
+        "scale": [
+          "large-project"
+        ]
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected"
+        ],
+        "inspected_at": "2026-11-07",
+        "freshness": "versioned",
+        "scope": "Pinned primary source/configuration/documentation and specified diff portions read. No upstream code, generator, test, build, CI, publication or remote mutation executed."
+      },
+      "related": [
+        "repo-large-node",
+        "docs-study-coverage-limits"
+      ],
+      "path": "library/entries/repo-large-cpython.md",
+      "card_sha256": "52d62740f725043e5b533d3a5815c1a98afe0f39ac0b425070b5f554799e528a",
+      "sources": [
+        {
+          "url": "https://github.com/python/cpython/blob/6026791c977a1df2ff8a427aad294388992ae078/README.rst",
+          "title": "python/cpython: README.rst",
+          "locator": "Build instructions and contribution routing",
+          "revision": "6026791c977a1df2ff8a427aad294388992ae078"
+        },
+        {
+          "url": "https://github.com/python/cpython/blob/6026791c977a1df2ff8a427aad294388992ae078/.github/workflows/build.yml",
+          "title": "python/cpython: .github/workflows/build.yml",
+          "locator": "check-generated-files, check-autoconf-regen and platform job conditions",
+          "revision": "6026791c977a1df2ff8a427aad294388992ae078"
+        },
+        {
+          "url": "https://github.com/python/cpython/blob/6026791c977a1df2ff8a427aad294388992ae078/Lib/test/test_tcl.py",
+          "title": "python/cpython: Lib/test/test_tcl.py",
+          "locator": "test_setvar_evil, lines 604–627",
+          "revision": "6026791c977a1df2ff8a427aad294388992ae078"
+        },
+        {
+          "url": "https://github.com/python/cpython/commit/6026791c977a1df2ff8a427aad294388992ae078",
+          "title": "python/cpython: pinned change",
+          "locator": "Modules/_tkinter.c AsObjNested/SetVar diff and paired Python regression",
+          "revision": "6026791c977a1df2ff8a427aad294388992ae078"
+        }
+      ]
+    },
+    {
+      "id": "repo-large-django",
+      "kind": "repository",
+      "title": "Django: carry a widget contract through renderers, docs and release notes",
+      "summary": "A six-file feature change exposes a maintainable path across implementation, two template engines, regression helper, reference and release communication.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "navigate",
+          "test-selection",
+          "document",
+          "release-notes"
+        ],
+        "contexts": [
+          "framework",
+          "multiple-renderers",
+          "public-api"
+        ],
+        "languages": [
+          "python",
+          "html"
+        ],
+        "scale": [
+          "large-project"
+        ]
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected"
+        ],
+        "inspected_at": "2026-11-07",
+        "freshness": "versioned",
+        "scope": "Pinned primary source/configuration/documentation and specified diff portions read. No upstream code, generator, test, build, CI, publication or remote mutation executed."
+      },
+      "related": [
+        "repo-small-flask",
+        "quality-python-distribution-checks"
+      ],
+      "path": "library/entries/repo-large-django.md",
+      "card_sha256": "9081f59d49b5bee13258a7af8617564111b0c18c334395c2a05dce188aab05f9",
+      "sources": [
+        {
+          "url": "https://github.com/django/django/blob/a1f2b45ce5a327f42437bdb620a817839d0bd067/CONTRIBUTING.rst",
+          "title": "django/django: CONTRIBUTING.rst",
+          "locator": "Contribution entry and Trac routing",
+          "revision": "a1f2b45ce5a327f42437bdb620a817839d0bd067"
+        },
+        {
+          "url": "https://github.com/django/django/blob/a1f2b45ce5a327f42437bdb620a817839d0bd067/tests/forms_tests/widget_tests/base.py",
+          "title": "django/django: tests/forms_tests/widget_tests/base.py",
+          "locator": "WidgetTest.setUpClass and check_html",
+          "revision": "a1f2b45ce5a327f42437bdb620a817839d0bd067"
+        },
+        {
+          "url": "https://github.com/django/django/blob/a1f2b45ce5a327f42437bdb620a817839d0bd067/tests/runtests.py",
+          "title": "django/django: tests/runtests.py",
+          "locator": "Imports, warnings and test-module discovery",
+          "revision": "a1f2b45ce5a327f42437bdb620a817839d0bd067"
+        },
+        {
+          "url": "https://github.com/django/django/commit/a1f2b45ce5a327f42437bdb620a817839d0bd067",
+          "title": "django/django: pinned change",
+          "locator": "Textarea input_type addition across implementation, Django/Jinja templates, regression, reference and 6.2 notes",
+          "revision": "a1f2b45ce5a327f42437bdb620a817839d0bd067"
+        }
+      ]
+    },
+    {
+      "id": "repo-large-go",
+      "kind": "repository",
+      "title": "Go: distinguish compiler rule inputs from generated rewrites and target tests",
+      "summary": "A RISC-V lowering change links handwritten rules/operations, generated Go, backend emission and architecture-specific code-generation expectations.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "generated-files",
+          "navigate",
+          "test-selection",
+          "bootstrap"
+        ],
+        "contexts": [
+          "compiler",
+          "cross-compilation",
+          "language-runtime"
+        ],
+        "languages": [
+          "go",
+          "shell"
+        ],
+        "scale": [
+          "large-project"
+        ]
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected"
+        ],
+        "inspected_at": "2026-11-07",
+        "freshness": "versioned",
+        "scope": "Pinned primary source/configuration/documentation and specified diff portions read. No upstream code, generator, test, build, CI, publication or remote mutation executed."
+      },
+      "related": [
+        "quality-generated-source-authority",
+        "repo-small-cobra"
+      ],
+      "path": "library/entries/repo-large-go.md",
+      "card_sha256": "c702f9de4fdeb911269ab2f0d14b19cb6c944b69f1ec6cafad17d3f6efef81f9",
+      "sources": [
+        {
+          "url": "https://github.com/golang/go/blob/3568f0bb1559a1d395f599af61ddb1c0e9b02201/CONTRIBUTING.md",
+          "title": "golang/go: CONTRIBUTING.md",
+          "locator": "Contribution and issue-context entry",
+          "revision": "3568f0bb1559a1d395f599af61ddb1c0e9b02201"
+        },
+        {
+          "url": "https://github.com/golang/go/blob/3568f0bb1559a1d395f599af61ddb1c0e9b02201/src/make.bash",
+          "title": "golang/go: src/make.bash",
+          "locator": "Bootstrap/environment contract, first 180 lines",
+          "revision": "3568f0bb1559a1d395f599af61ddb1c0e9b02201"
+        },
+        {
+          "url": "https://github.com/golang/go/blob/3568f0bb1559a1d395f599af61ddb1c0e9b02201/src/run.bash",
+          "title": "golang/go: src/run.bash",
+          "locator": "dist test invocation and test environment",
+          "revision": "3568f0bb1559a1d395f599af61ddb1c0e9b02201"
+        },
+        {
+          "url": "https://github.com/golang/go/blob/3568f0bb1559a1d395f599af61ddb1c0e9b02201/src/cmd/compile/internal/ssa/rewrite/riscv64latelower/rewriteRISCV64latelower.go",
+          "title": "golang/go: src/cmd/compile/internal/ssa/rewrite/riscv64latelower/rewriteRISCV64latelower.go",
+          "locator": "Generated-source header and dispatcher",
+          "revision": "3568f0bb1559a1d395f599af61ddb1c0e9b02201"
+        },
+        {
+          "url": "https://github.com/golang/go/commit/3568f0bb1559a1d395f599af61ddb1c0e9b02201",
+          "title": "golang/go: pinned change",
+          "locator": "BSET/BSETI rules, operation declarations, backend support, generated rewrites and target-profile codegen tests",
+          "revision": "3568f0bb1559a1d395f599af61ddb1c0e9b02201"
+        }
+      ]
+    },
+    {
+      "id": "repo-large-godot",
+      "kind": "repository",
+      "title": "Godot: test discovery includes generated force-linking, not just test files",
+      "summary": "The C++ test build recursively discovers sources, generates force-link declarations/calls and explicitly invokes them from the test entrypoint.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "test-discovery",
+          "generated-files",
+          "navigate",
+          "contribute"
+        ],
+        "contexts": [
+          "game-engine",
+          "native-build",
+          "linker-registration"
+        ],
+        "languages": [
+          "cpp",
+          "python"
+        ],
+        "scale": [
+          "large-project"
+        ]
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected"
+        ],
+        "inspected_at": "2026-11-07",
+        "freshness": "versioned",
+        "scope": "Pinned primary source/configuration/documentation and specified diff portions read. No upstream code, generator, test, build, CI, publication or remote mutation executed."
+      },
+      "related": [
+        "repo-large-llvm",
+        "docs-github-codeowners"
+      ],
+      "path": "library/entries/repo-large-godot.md",
+      "card_sha256": "3fed051837c5009047f7cc00e7126df22ff14104bdb5ba65f81a686a7f044c9f",
+      "sources": [
+        {
+          "url": "https://github.com/godotengine/godot/blob/c51ff06e8836a70ea905701c081bf94124dcd6ce/CONTRIBUTING.md",
+          "title": "godotengine/godot: CONTRIBUTING.md",
+          "locator": "Bug reproduction, feature routing and focused contributions, first 120 lines",
+          "revision": "c51ff06e8836a70ea905701c081bf94124dcd6ce"
+        },
+        {
+          "url": "https://github.com/godotengine/godot/blob/c51ff06e8836a70ea905701c081bf94124dcd6ce/tests/SCsub",
+          "title": "godotengine/godot: tests/SCsub",
+          "locator": "Recursive sources, force_link.gen.h generation and tests library",
+          "revision": "c51ff06e8836a70ea905701c081bf94124dcd6ce"
+        },
+        {
+          "url": "https://github.com/godotengine/godot/blob/c51ff06e8836a70ea905701c081bf94124dcd6ce/tests/test_builders.py",
+          "title": "godotengine/godot: tests/test_builders.py",
+          "locator": "force_link_builder generated declarations and calls",
+          "revision": "c51ff06e8836a70ea905701c081bf94124dcd6ce"
+        },
+        {
+          "url": "https://github.com/godotengine/godot/blob/c51ff06e8836a70ea905701c081bf94124dcd6ce/tests/test_main.cpp",
+          "title": "godotengine/godot: tests/test_main.cpp",
+          "locator": "test_main invokes ForceLink::force_link_tests, around line 81",
+          "revision": "c51ff06e8836a70ea905701c081bf94124dcd6ce"
+        }
+      ]
+    },
+    {
+      "id": "repo-large-kubernetes",
+      "kind": "repository",
+      "title": "Kubernetes: one authoritative staging tree, several publication units",
+      "summary": "The staging guide, generated workspace and import-verification inputs make source authority and published module boundaries explicit rather than equating repositories with ownership.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "source-authority",
+          "module-boundaries",
+          "generated-files",
+          "distribution"
+        ],
+        "contexts": [
+          "monorepo",
+          "multi-module",
+          "published-libraries"
+        ],
+        "languages": [
+          "go",
+          "shell"
+        ],
+        "scale": [
+          "large-project",
+          "multi-package"
+        ]
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected"
+        ],
+        "inspected_at": "2026-11-07",
+        "freshness": "versioned",
+        "scope": "Pinned primary source/configuration/documentation and specified diff portions read. No upstream code, generator, test, build, CI, publication or remote mutation executed."
+      },
+      "related": [
+        "quality-go-module-workspace-boundaries",
+        "quality-generated-source-authority"
+      ],
+      "path": "library/entries/repo-large-kubernetes.md",
+      "card_sha256": "d6582cd879421412c8b0e5b2627671379f5c81ea4fa13f2323ac212af4194ebf",
+      "sources": [
+        {
+          "url": "https://github.com/kubernetes/kubernetes/blob/ac8d3ed1cdf6c8bb11e9d3eda8acf2a9f03915b8/staging/README.md",
+          "title": "kubernetes/kubernetes: staging/README.md",
+          "locator": "Authoritative copy, workspace use and repository creation workflow",
+          "revision": "ac8d3ed1cdf6c8bb11e9d3eda8acf2a9f03915b8"
+        },
+        {
+          "url": "https://github.com/kubernetes/kubernetes/blob/ac8d3ed1cdf6c8bb11e9d3eda8acf2a9f03915b8/go.work",
+          "title": "kubernetes/kubernetes: go.work",
+          "locator": "Generated workspace and staged module use entries",
+          "revision": "ac8d3ed1cdf6c8bb11e9d3eda8acf2a9f03915b8"
+        },
+        {
+          "url": "https://github.com/kubernetes/kubernetes/blob/ac8d3ed1cdf6c8bb11e9d3eda8acf2a9f03915b8/staging/publishing/import-restrictions.yaml",
+          "title": "kubernetes/kubernetes: staging/publishing/import-restrictions.yaml",
+          "locator": "Allowed imports and exclusions, first 100 lines",
+          "revision": "ac8d3ed1cdf6c8bb11e9d3eda8acf2a9f03915b8"
+        },
+        {
+          "url": "https://github.com/kubernetes/kubernetes/blob/ac8d3ed1cdf6c8bb11e9d3eda8acf2a9f03915b8/hack/verify-imports.sh",
+          "title": "kubernetes/kubernetes: hack/verify-imports.sh",
+          "locator": "Import-verifier invocation and policy input",
+          "revision": "ac8d3ed1cdf6c8bb11e9d3eda8acf2a9f03915b8"
+        }
+      ]
+    },
+    {
+      "id": "repo-large-llvm",
+      "kind": "repository",
+      "title": "LLVM: small regression inputs, generated checks and whole-program tests serve different claims",
+      "summary": "A vectorizer regression links a minimal IR specimen, a precise RUN pipeline, generated FileCheck expectations and separately scoped unit/whole-program suites.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "test-selection",
+          "generated-files",
+          "navigate",
+          "regression-design"
+        ],
+        "contexts": [
+          "compiler",
+          "monorepo",
+          "performance-sensitive"
+        ],
+        "languages": [
+          "cpp",
+          "llvm-ir",
+          "python"
+        ],
+        "scale": [
+          "large-project",
+          "multi-package"
+        ]
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected"
+        ],
+        "inspected_at": "2026-11-07",
+        "freshness": "versioned",
+        "scope": "Pinned primary source/configuration/documentation and specified diff portions read. No upstream code, generator, test, build, CI, publication or remote mutation executed."
+      },
+      "related": [
+        "repo-large-go",
+        "repo-small-bat"
+      ],
+      "path": "library/entries/repo-large-llvm.md",
+      "card_sha256": "1a41d89fe1d63fa3a3495622452d200c8a9f0e072ded247e2c00f0b3f54741c0",
+      "sources": [
+        {
+          "url": "https://github.com/llvm/llvm-project/blob/42c167cdcb873f16783bd8a2c68c527e1f82e2e9/llvm/docs/GettingStarted.md",
+          "title": "llvm/llvm-project: llvm/docs/GettingStarted.md",
+          "locator": "Build project selection and check targets, first 120 lines",
+          "revision": "42c167cdcb873f16783bd8a2c68c527e1f82e2e9"
+        },
+        {
+          "url": "https://github.com/llvm/llvm-project/blob/42c167cdcb873f16783bd8a2c68c527e1f82e2e9/llvm/docs/TestingGuide.md",
+          "title": "llvm/llvm-project: llvm/docs/TestingGuide.md",
+          "locator": "Unit/regression/test-suite organization and subset execution, first 160 lines",
+          "revision": "42c167cdcb873f16783bd8a2c68c527e1f82e2e9"
+        },
+        {
+          "url": "https://github.com/llvm/llvm-project/blob/42c167cdcb873f16783bd8a2c68c527e1f82e2e9/llvm/test/Transforms/SLPVectorizer/X86/reassociate-ops.ll",
+          "title": "llvm/llvm-project: llvm/test/Transforms/SLPVectorizer/X86/reassociate-ops.ll",
+          "locator": "RUN line, generated-check annotation and semantic comments, first 65 lines",
+          "revision": "42c167cdcb873f16783bd8a2c68c527e1f82e2e9"
+        },
+        {
+          "url": "https://github.com/llvm/llvm-project/blob/42c167cdcb873f16783bd8a2c68c527e1f82e2e9/llvm/utils/update_test_checks.py",
+          "title": "llvm/llvm-project: llvm/utils/update_test_checks.py",
+          "locator": "Expected-check regeneration workflow and tool selection, first 95 lines",
+          "revision": "42c167cdcb873f16783bd8a2c68c527e1f82e2e9"
+        }
+      ]
+    },
+    {
+      "id": "repo-large-node",
+      "kind": "repository",
+      "title": "Node.js: exercise public asynchronous behavior through the owning test harness",
+      "summary": "An fs.readFile path connects public JavaScript implementation, callback/abort regression cases, shared fixture helpers and the repository's test conventions.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "test-selection",
+          "navigate",
+          "contribute",
+          "async-correctness"
+        ],
+        "contexts": [
+          "language-runtime",
+          "native-boundaries",
+          "multi-platform"
+        ],
+        "languages": [
+          "javascript",
+          "python",
+          "cpp"
+        ],
+        "scale": [
+          "large-project"
+        ]
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected"
+        ],
+        "inspected_at": "2026-11-07",
+        "freshness": "versioned",
+        "scope": "Pinned primary source/configuration/documentation and specified diff portions read. No upstream code, generator, test, build, CI, publication or remote mutation executed."
+      },
+      "related": [
+        "repo-small-p-limit",
+        "docs-google-change-review"
+      ],
+      "path": "library/entries/repo-large-node.md",
+      "card_sha256": "c0a4590ba9a6bbc4536310f8d75176abf6da67d111157cd6588251e38a83e2d1",
+      "sources": [
+        {
+          "url": "https://github.com/nodejs/node/blob/d1a16216fda39bf65931e65d0a04cf9f3bb23e7d/CONTRIBUTING.md",
+          "title": "nodejs/node: CONTRIBUTING.md",
+          "locator": "Contribution routing and responsibility guidance",
+          "revision": "d1a16216fda39bf65931e65d0a04cf9f3bb23e7d"
+        },
+        {
+          "url": "https://github.com/nodejs/node/blob/d1a16216fda39bf65931e65d0a04cf9f3bb23e7d/doc/contributing/writing-tests.md",
+          "title": "nodejs/node: doc/contributing/writing-tests.md",
+          "locator": "Minimal isolated tests, shared helpers and async cleanup",
+          "revision": "d1a16216fda39bf65931e65d0a04cf9f3bb23e7d"
+        },
+        {
+          "url": "https://github.com/nodejs/node/blob/d1a16216fda39bf65931e65d0a04cf9f3bb23e7d/lib/fs.js",
+          "title": "nodejs/node: lib/fs.js",
+          "locator": "readFile/checkAborted/context setup, lines 350–480",
+          "revision": "d1a16216fda39bf65931e65d0a04cf9f3bb23e7d"
+        },
+        {
+          "url": "https://github.com/nodejs/node/blob/d1a16216fda39bf65931e65d0a04cf9f3bb23e7d/test/parallel/test-fs-readfile.js",
+          "title": "nodejs/node: test/parallel/test-fs-readfile.js",
+          "locator": "Size boundaries, data validation and cancellation, first 100 lines",
+          "revision": "d1a16216fda39bf65931e65d0a04cf9f3bb23e7d"
+        },
+        {
+          "url": "https://github.com/nodejs/node/blob/d1a16216fda39bf65931e65d0a04cf9f3bb23e7d/Makefile",
+          "title": "nodejs/node: Makefile",
+          "locator": "Build/test tool variables and documented target discovery, first 130 lines",
+          "revision": "d1a16216fda39bf65931e65d0a04cf9f3bb23e7d"
+        }
+      ]
+    },
+    {
+      "id": "repo-large-rust",
+      "kind": "repository",
+      "title": "Rust: stage-aware bootstrap and revision-specific diagnostic tests",
+      "summary": "Compiler diagnostics are owned alongside multi-revision UI tests, while bootstrap stages and repository/submodule routing constrain the relevant validation path.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "bootstrap",
+          "test-selection",
+          "navigate",
+          "ownership"
+        ],
+        "contexts": [
+          "compiler",
+          "generated-expectations",
+          "submodules"
+        ],
+        "languages": [
+          "rust",
+          "python"
+        ],
+        "scale": [
+          "large-project",
+          "multi-package"
+        ]
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected"
+        ],
+        "inspected_at": "2026-11-07",
+        "freshness": "versioned",
+        "scope": "Pinned primary source/configuration/documentation and specified diff portions read. No upstream code, generator, test, build, CI, publication or remote mutation executed."
+      },
+      "related": [
+        "quality-cargo-workspace-selection",
+        "repo-small-ripgrep"
+      ],
+      "path": "library/entries/repo-large-rust.md",
+      "card_sha256": "b671c84b1d76f408cfb32807c44800f10e1e33b32298370174abb1ea857b10af",
+      "sources": [
+        {
+          "url": "https://github.com/rust-lang/rust/blob/e30d778f3029b78bb9c2e0dbe11a3b7389b652c4/CONTRIBUTING.md",
+          "title": "rust-lang/rust: CONTRIBUTING.md",
+          "locator": "Compiler/std guides and submodule/subtree routing",
+          "revision": "e30d778f3029b78bb9c2e0dbe11a3b7389b652c4"
+        },
+        {
+          "url": "https://github.com/rust-lang/rust/blob/e30d778f3029b78bb9c2e0dbe11a3b7389b652c4/src/bootstrap/README.md",
+          "title": "rust-lang/rust: src/bootstrap/README.md",
+          "locator": "Introduction, build phases and directory layout",
+          "revision": "e30d778f3029b78bb9c2e0dbe11a3b7389b652c4"
+        },
+        {
+          "url": "https://github.com/rust-lang/rust/blob/e30d778f3029b78bb9c2e0dbe11a3b7389b652c4/bootstrap.example.toml",
+          "title": "rust-lang/rust: bootstrap.example.toml",
+          "locator": "Profiles, config change tracking and LLVM options, first 140 lines",
+          "revision": "e30d778f3029b78bb9c2e0dbe11a3b7389b652c4"
+        },
+        {
+          "url": "https://github.com/rust-lang/rust/blob/e30d778f3029b78bb9c2e0dbe11a3b7389b652c4/tests/ui/codegen/virtual-function-elimination/invalid-lto.rs",
+          "title": "rust-lang/rust: tests/ui/codegen/virtual-function-elimination/invalid-lto.rs",
+          "locator": "Three LTO revisions and backend exclusion",
+          "revision": "e30d778f3029b78bb9c2e0dbe11a3b7389b652c4"
+        },
+        {
+          "url": "https://github.com/rust-lang/rust/blob/e30d778f3029b78bb9c2e0dbe11a3b7389b652c4/tests/ui/codegen/virtual-function-elimination/invalid-lto.lto_thin.stderr",
+          "title": "rust-lang/rust: tests/ui/codegen/virtual-function-elimination/invalid-lto.lto_thin.stderr",
+          "locator": "Expected diagnostic",
+          "revision": "e30d778f3029b78bb9c2e0dbe11a3b7389b652c4"
+        },
+        {
+          "url": "https://github.com/rust-lang/rust/commit/e30d778f3029b78bb9c2e0dbe11a3b7389b652c4",
+          "title": "rust-lang/rust: pinned change",
+          "locator": "UnstableVirtualFunctionElimination diagnostic wording and three revision-specific stderr files",
+          "revision": "e30d778f3029b78bb9c2e0dbe11a3b7389b652c4"
+        }
+      ]
+    },
+    {
+      "id": "repo-large-sqlite",
+      "kind": "repository",
+      "title": "SQLite: the distributed amalgamation is not the source-authoring boundary",
+      "summary": "The source README, amalgamation generator and make targets distinguish authored inputs, generated distribution, development tests, release tests and Fossil authority.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "source-authority",
+          "generated-files",
+          "distribution",
+          "test-selection"
+        ],
+        "contexts": [
+          "native-library",
+          "source-distribution",
+          "repository-mirror"
+        ],
+        "languages": [
+          "c",
+          "tcl"
+        ],
+        "scale": [
+          "large-project",
+          "single-package"
+        ]
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected"
+        ],
+        "inspected_at": "2026-11-07",
+        "freshness": "versioned",
+        "scope": "Pinned primary source/configuration/documentation and specified diff portions read. No upstream code, generator, test, build, CI, publication or remote mutation executed."
+      },
+      "related": [
+        "quality-generated-source-authority",
+        "quality-reproducible-build-evidence"
+      ],
+      "path": "library/entries/repo-large-sqlite.md",
+      "card_sha256": "d692012a6146ef685ce3abc2c02bfe6e9ccad5d4b3e40b2537451c970e222283",
+      "sources": [
+        {
+          "url": "https://github.com/sqlite/sqlite/blob/425bfb8aa82e2fd7829d055335f164eaf617eae0/README.md",
+          "title": "sqlite/sqlite: README.md",
+          "locator": "Version control, compilation and source tree map, first 200 lines",
+          "revision": "425bfb8aa82e2fd7829d055335f164eaf617eae0"
+        },
+        {
+          "url": "https://github.com/sqlite/sqlite/blob/425bfb8aa82e2fd7829d055335f164eaf617eae0/manifest.uuid",
+          "title": "sqlite/sqlite: manifest.uuid",
+          "locator": "Canonical Fossil check-in associated with the inspected Git mirror",
+          "revision": "425bfb8aa82e2fd7829d055335f164eaf617eae0"
+        },
+        {
+          "url": "https://github.com/sqlite/sqlite/blob/425bfb8aa82e2fd7829d055335f164eaf617eae0/tool/mksqlite3c.tcl",
+          "title": "sqlite/sqlite: tool/mksqlite3c.tcl",
+          "locator": "Generator prerequisites, generated parser inputs and core-only output, first 120 lines",
+          "revision": "425bfb8aa82e2fd7829d055335f164eaf617eae0"
+        },
+        {
+          "url": "https://github.com/sqlite/sqlite/blob/425bfb8aa82e2fd7829d055335f164eaf617eae0/main.mk",
+          "title": "sqlite/sqlite: main.mk",
+          "locator": "sqlite3.c target around line 1146; test/releasetest targets around lines 1937–1948",
+          "revision": "425bfb8aa82e2fd7829d055335f164eaf617eae0"
+        }
+      ]
+    },
+    {
+      "id": "repo-large-vscode",
+      "kind": "repository",
+      "title": "VS Code: tooling workspaces and test entrypoints are explicit maintenance boundaries",
+      "summary": "The unit-runner workspace migration connects contributor package-manager guidance, root scripts, workspace membership and a private runner manifest.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "workspace-boundaries",
+          "test-selection",
+          "dependency-management",
+          "navigate"
+        ],
+        "contexts": [
+          "desktop-app",
+          "monorepo",
+          "tooling-workspaces"
+        ],
+        "languages": [
+          "typescript",
+          "javascript"
+        ],
+        "scale": [
+          "large-project",
+          "multi-package"
+        ]
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected"
+        ],
+        "inspected_at": "2026-11-07",
+        "freshness": "versioned",
+        "scope": "Pinned primary source/configuration/documentation and specified diff portions read. No upstream code, generator, test, build, CI, publication or remote mutation executed."
+      },
+      "related": [
+        "quality-npm-workspace-scope",
+        "repo-small-p-limit"
+      ],
+      "path": "library/entries/repo-large-vscode.md",
+      "card_sha256": "c3dfa9b5ff2c8c36aff525e50fb167c9ecb2c5a32d61bf1ed171f67e28168ea4",
+      "sources": [
+        {
+          "url": "https://github.com/microsoft/vscode/blob/f405fe233bbd3fd0647968e9356c2816362b2b3d/CONTRIBUTING.md",
+          "title": "microsoft/vscode: CONTRIBUTING.md",
+          "locator": "Contributing fixes and package-manager contract",
+          "revision": "f405fe233bbd3fd0647968e9356c2816362b2b3d"
+        },
+        {
+          "url": "https://github.com/microsoft/vscode/blob/f405fe233bbd3fd0647968e9356c2816362b2b3d/package.json",
+          "title": "microsoft/vscode: package.json",
+          "locator": "packageManager, test/compile/check scripts, first 110 lines",
+          "revision": "f405fe233bbd3fd0647968e9356c2816362b2b3d"
+        },
+        {
+          "url": "https://github.com/microsoft/vscode/blob/f405fe233bbd3fd0647968e9356c2816362b2b3d/test/unit/package.json",
+          "title": "microsoft/vscode: test/unit/package.json",
+          "locator": "Private runner dependencies",
+          "revision": "f405fe233bbd3fd0647968e9356c2816362b2b3d"
+        },
+        {
+          "url": "https://github.com/microsoft/vscode/commit/f405fe233bbd3fd0647968e9356c2816362b2b3d",
+          "title": "microsoft/vscode: pinned change",
+          "locator": "test/unit workspace member, dependency moves and lockfile importer changes",
+          "revision": "f405fe233bbd3fd0647968e9356c2816362b2b3d"
+        }
+      ]
+    },
+    {
+      "id": "repo-small-bat",
+      "kind": "repository",
+      "title": "bat: authored syntax inputs, derived assets and specialized test routes",
+      "summary": "A Rust CLI separates built-in syntax mapping inputs, binary assets and regression representations, with configuration that distinguishes ordinary tests from asset-refresh checks.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "generated-files",
+          "test",
+          "document",
+          "package"
+        ],
+        "contexts": [
+          "cli",
+          "embedded-assets",
+          "code-generation",
+          "platform-support"
+        ],
+        "languages": [
+          "rust",
+          "shell"
+        ],
+        "scale": [
+          "single-package",
+          "cross-scale"
+        ]
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected"
+        ],
+        "inspected_at": "2026-11-07",
+        "freshness": "versioned",
+        "scope": "Fresh primary repository metadata and selected substantive source/configuration/test/documentation sections inspected at the pinned commit. No upstream code, command, CI, build or release was executed."
+      },
+      "related": [
+        "quality-generated-source-authority",
+        "quality-cargo-package-boundary"
+      ],
+      "path": "library/entries/repo-small-bat.md",
+      "card_sha256": "cabdb5ac9a8f7d2b291b0874582b44445dbf27b1b7ac6d4ee754dd6440209dde",
+      "sources": [
+        {
+          "url": "https://github.com/sharkdp/bat/blob/c231941daa363e67657216922135e3cc2d5a4f93/CONTRIBUTING.md",
+          "title": "sharkdp/bat: CONTRIBUTING.md",
+          "locator": "functional regression, syntax testing and changelog guidance",
+          "revision": "c231941daa363e67657216922135e3cc2d5a4f93"
+        },
+        {
+          "url": "https://github.com/sharkdp/bat/blob/c231941daa363e67657216922135e3cc2d5a4f93/Cargo.toml",
+          "title": "sharkdp/bat: Cargo.toml",
+          "locator": "build script, excluded asset sources and application features",
+          "revision": "c231941daa363e67657216922135e3cc2d5a4f93"
+        },
+        {
+          "url": "https://github.com/sharkdp/bat/blob/c231941daa363e67657216922135e3cc2d5a4f93/src/syntax_mapping/builtins/README.md",
+          "title": "sharkdp/bat: src/syntax_mapping/builtins/README.md",
+          "locator": "authored TOML organization and platform-specific inclusion",
+          "revision": "c231941daa363e67657216922135e3cc2d5a4f93"
+        },
+        {
+          "url": "https://github.com/sharkdp/bat/blob/c231941daa363e67657216922135e3cc2d5a4f93/build/main.rs",
+          "title": "sharkdp/bat: build/main.rs",
+          "locator": "mapping generation and application-only man/completion generation",
+          "revision": "c231941daa363e67657216922135e3cc2d5a4f93"
+        },
+        {
+          "url": "https://github.com/sharkdp/bat/blob/c231941daa363e67657216922135e3cc2d5a4f93/doc/assets.md",
+          "title": "sharkdp/bat: doc/assets.md",
+          "locator": "syntax source/highlighted regression workflow",
+          "revision": "c231941daa363e67657216922135e3cc2d5a4f93"
+        },
+        {
+          "url": "https://github.com/sharkdp/bat/blob/c231941daa363e67657216922135e3cc2d5a4f93/assets/create.sh",
+          "title": "sharkdp/bat: assets/create.sh",
+          "locator": "cache clearing, patches and asset generation",
+          "revision": "c231941daa363e67657216922135e3cc2d5a4f93"
+        },
+        {
+          "url": "https://github.com/sharkdp/bat/blob/c231941daa363e67657216922135e3cc2d5a4f93/tests/snapshot_tests.rs",
+          "title": "sharkdp/bat: tests/snapshot_tests.rs",
+          "locator": "feature-gated style snapshot scenarios",
+          "revision": "c231941daa363e67657216922135e3cc2d5a4f93"
+        },
+        {
+          "url": "https://github.com/sharkdp/bat/blob/c231941daa363e67657216922135e3cc2d5a4f93/.github/workflows/CICD.yml",
+          "title": "sharkdp/bat: .github/workflows/CICD.yml",
+          "locator": "updated syntax/theme build and ignored-by-default checks",
+          "revision": "c231941daa363e67657216922135e3cc2d5a4f93"
+        }
+      ]
+    },
+    {
+      "id": "repo-small-click",
+      "kind": "repository",
+      "title": "Click: test helpers, process-global state and migration evidence",
+      "summary": "A src-layout Python library links test-runner behavior, deprecation guidance, replacement examples and distinct test environments instead of assuming its helper is safe in every parallel setting.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "test",
+          "document",
+          "maintain-api",
+          "package"
+        ],
+        "contexts": [
+          "library",
+          "cli",
+          "compatibility",
+          "test-isolation"
+        ],
+        "languages": [
+          "python"
+        ],
+        "scale": [
+          "single-package",
+          "cross-scale"
+        ]
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected"
+        ],
+        "inspected_at": "2026-11-07",
+        "freshness": "versioned",
+        "scope": "Fresh primary repository metadata and selected substantive source/configuration/test/documentation sections inspected at the pinned commit. No upstream code, command, CI, build or release was executed."
+      },
+      "related": [
+        "quality-python-distribution-checks",
+        "repo-small-requests"
+      ],
+      "path": "library/entries/repo-small-click.md",
+      "card_sha256": "546766083876d5d9096d08df8e5a76cc45fd3eda061f6916571a356a36dfa9f4",
+      "sources": [
+        {
+          "url": "https://github.com/pallets/click/blob/8abb77a8432e03ed14a95f972b44f905279415a7/README.md",
+          "title": "pallets/click: README.md",
+          "locator": "usage and contributing route",
+          "revision": "8abb77a8432e03ed14a95f972b44f905279415a7"
+        },
+        {
+          "url": "https://github.com/pallets/click/blob/8abb77a8432e03ed14a95f972b44f905279415a7/pyproject.toml",
+          "title": "pallets/click: pyproject.toml",
+          "locator": "Flit sdist, tox environments, pytest stress selection and typing",
+          "revision": "8abb77a8432e03ed14a95f972b44f905279415a7"
+        },
+        {
+          "url": "https://github.com/pallets/click/blob/8abb77a8432e03ed14a95f972b44f905279415a7/src/click/testing.py",
+          "title": "pallets/click: src/click/testing.py",
+          "locator": "CliRunner.invoke and isolated_filesystem deprecation/warning",
+          "revision": "8abb77a8432e03ed14a95f972b44f905279415a7"
+        },
+        {
+          "url": "https://github.com/pallets/click/blob/8abb77a8432e03ed14a95f972b44f905279415a7/tests/test_testing.py",
+          "title": "pallets/click: tests/test_testing.py",
+          "locator": "test_isolated_runner, replacement pattern and thread-safety explanation",
+          "revision": "8abb77a8432e03ed14a95f972b44f905279415a7"
+        },
+        {
+          "url": "https://github.com/pallets/click/blob/8abb77a8432e03ed14a95f972b44f905279415a7/.github/workflows/tests.yaml",
+          "title": "pallets/click: .github/workflows/tests.yaml",
+          "locator": "platform/interpreter matrix and typing job",
+          "revision": "8abb77a8432e03ed14a95f972b44f905279415a7"
+        }
+      ]
+    },
+    {
+      "id": "repo-small-cobra",
+      "kind": "repository",
+      "title": "Cobra: co-located Go tests and commands that do more than their names suggest",
+      "summary": "A Go CLI framework makes command/help behavior and regression scenarios easy to pair, while its Make targets reveal dependency-fetch side effects and CI-specific flags.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "navigate",
+          "test",
+          "maintain-api",
+          "check-compatibility"
+        ],
+        "contexts": [
+          "library",
+          "cli",
+          "co-located-tests",
+          "developer-commands"
+        ],
+        "languages": [
+          "go",
+          "make"
+        ],
+        "scale": [
+          "single-package",
+          "cross-scale"
+        ]
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected"
+        ],
+        "inspected_at": "2026-11-07",
+        "freshness": "versioned",
+        "scope": "Fresh primary repository metadata and selected substantive source/configuration/test/documentation sections inspected at the pinned commit. No upstream code, command, CI, build or release was executed."
+      },
+      "related": [
+        "quality-go-module-workspace-boundaries",
+        "repo-small-click"
+      ],
+      "path": "library/entries/repo-small-cobra.md",
+      "card_sha256": "fec43d69dc3aa749b4e885888559d8d8d4faabaed18df313ae70613629a13f17",
+      "sources": [
+        {
+          "url": "https://github.com/spf13/cobra/blob/adbc8813901bba65827259daa8e22ff94ec1f30e/CONTRIBUTING.md",
+          "title": "spf13/cobra: CONTRIBUTING.md",
+          "locator": "reproduction context and documented test commands",
+          "revision": "adbc8813901bba65827259daa8e22ff94ec1f30e"
+        },
+        {
+          "url": "https://github.com/spf13/cobra/blob/adbc8813901bba65827259daa8e22ff94ec1f30e/go.mod",
+          "title": "spf13/cobra: go.mod",
+          "locator": "module/dependency and Go directive",
+          "revision": "adbc8813901bba65827259daa8e22ff94ec1f30e"
+        },
+        {
+          "url": "https://github.com/spf13/cobra/blob/adbc8813901bba65827259daa8e22ff94ec1f30e/command.go",
+          "title": "spf13/cobra: command.go",
+          "locator": "ExecuteC and InitDefaultHelpCmd",
+          "revision": "adbc8813901bba65827259daa8e22ff94ec1f30e"
+        },
+        {
+          "url": "https://github.com/spf13/cobra/blob/adbc8813901bba65827259daa8e22ff94ec1f30e/command_test.go",
+          "title": "spf13/cobra: command_test.go",
+          "locator": "help command, shadowed flags and unknown-command scenarios",
+          "revision": "adbc8813901bba65827259daa8e22ff94ec1f30e"
+        },
+        {
+          "url": "https://github.com/spf13/cobra/blob/adbc8813901bba65827259daa8e22ff94ec1f30e/Makefile",
+          "title": "spf13/cobra: Makefile",
+          "locator": "test/richtest and install_deps",
+          "revision": "adbc8813901bba65827259daa8e22ff94ec1f30e"
+        },
+        {
+          "url": "https://github.com/spf13/cobra/blob/adbc8813901bba65827259daa8e22ff94ec1f30e/.github/workflows/test.yml",
+          "title": "spf13/cobra: .github/workflows/test.yml",
+          "locator": "test platforms/toolchains and macOS linker flags",
+          "revision": "adbc8813901bba65827259daa8e22ff94ec1f30e"
+        }
+      ]
+    },
+    {
+      "id": "repo-small-fd",
+      "kind": "repository",
+      "title": "fd: CLI declarations and filesystem fixtures with platform limits",
+      "summary": "A Rust CLI keeps argument rules discoverable in one definition surface and validates user-visible filesystem behavior through reusable integration fixtures with explicit operating-system limits.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "test",
+          "document",
+          "maintain-api",
+          "navigate"
+        ],
+        "contexts": [
+          "cli",
+          "filesystem",
+          "platform-support"
+        ],
+        "languages": [
+          "rust"
+        ],
+        "scale": [
+          "single-package",
+          "cross-scale"
+        ]
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected"
+        ],
+        "inspected_at": "2026-11-07",
+        "freshness": "versioned",
+        "scope": "Fresh primary repository metadata and selected substantive source/configuration/test/documentation sections inspected at the pinned commit. No upstream code, command, CI, build or release was executed."
+      },
+      "related": [
+        "repo-small-ripgrep",
+        "quality-cargo-package-boundary"
+      ],
+      "path": "library/entries/repo-small-fd.md",
+      "card_sha256": "5daca16961342f35a883bdf9dd5bc684af99d17fde561dc19e6750b93db331be",
+      "sources": [
+        {
+          "url": "https://github.com/sharkdp/fd/blob/39886c0cb34453cda21163df0c0c76fc9c011a21/CONTRIBUTING.md",
+          "title": "sharkdp/fd: CONTRIBUTING.md",
+          "locator": "contribution expectations and behavioral changelog boundary",
+          "revision": "39886c0cb34453cda21163df0c0c76fc9c011a21"
+        },
+        {
+          "url": "https://github.com/sharkdp/fd/blob/39886c0cb34453cda21163df0c0c76fc9c011a21/Cargo.toml",
+          "title": "sharkdp/fd: Cargo.toml",
+          "locator": "binary path, feature flags and test dependencies",
+          "revision": "39886c0cb34453cda21163df0c0c76fc9c011a21"
+        },
+        {
+          "url": "https://github.com/sharkdp/fd/blob/39886c0cb34453cda21163df0c0c76fc9c011a21/src/cli.rs",
+          "title": "sharkdp/fd: src/cli.rs",
+          "locator": "Opts hidden/follow flags, conflicts and negations",
+          "revision": "39886c0cb34453cda21163df0c0c76fc9c011a21"
+        },
+        {
+          "url": "https://github.com/sharkdp/fd/blob/39886c0cb34453cda21163df0c0c76fc9c011a21/tests/tests.rs",
+          "title": "sharkdp/fd: tests/tests.rs",
+          "locator": "test_hidden, Windows attribute case, test_follow and filesystem boundaries",
+          "revision": "39886c0cb34453cda21163df0c0c76fc9c011a21"
+        }
+      ]
+    },
+    {
+      "id": "repo-small-flask",
+      "kind": "repository",
+      "title": "Flask: framework tests are not a mandatory application layout",
+      "summary": "A Python framework separates source, tests and packaged documentation while testing client/session behavior without imposing that repository structure on downstream applications.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "organize",
+          "test",
+          "package",
+          "document"
+        ],
+        "contexts": [
+          "framework",
+          "application-boundary",
+          "dependency-compatibility"
+        ],
+        "languages": [
+          "python"
+        ],
+        "scale": [
+          "single-package",
+          "cross-scale"
+        ]
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected"
+        ],
+        "inspected_at": "2026-11-07",
+        "freshness": "versioned",
+        "scope": "Fresh primary repository metadata and selected substantive source/configuration/test/documentation sections inspected at the pinned commit. No upstream code, command, CI, build or release was executed."
+      },
+      "related": [
+        "quality-python-import-layout",
+        "repo-large-django"
+      ],
+      "path": "library/entries/repo-small-flask.md",
+      "card_sha256": "e99cf93efc1ea3789615d6836698f379e9a3e28cfcdbda4ef1016f2d2e5f61a3",
+      "sources": [
+        {
+          "url": "https://github.com/pallets/flask/blob/49943b5a94413a530761350f04e896f76e8d620e/README.md",
+          "title": "pallets/flask: README.md",
+          "locator": "project-layout stance and simple application example",
+          "revision": "49943b5a94413a530761350f04e896f76e8d620e"
+        },
+        {
+          "url": "https://github.com/pallets/flask/blob/49943b5a94413a530761350f04e896f76e8d620e/pyproject.toml",
+          "title": "pallets/flask: pyproject.toml",
+          "locator": "dependencies, Flit packaging, tests-min/tests-dev and docs/typing",
+          "revision": "49943b5a94413a530761350f04e896f76e8d620e"
+        },
+        {
+          "url": "https://github.com/pallets/flask/blob/49943b5a94413a530761350f04e896f76e8d620e/src/flask/testing.py",
+          "title": "pallets/flask: src/flask/testing.py",
+          "locator": "session_transaction and open",
+          "revision": "49943b5a94413a530761350f04e896f76e8d620e"
+        },
+        {
+          "url": "https://github.com/pallets/flask/blob/49943b5a94413a530761350f04e896f76e8d620e/tests/test_testing.py",
+          "title": "pallets/flask: tests/test_testing.py",
+          "locator": "session transaction, IPv6 and context cases",
+          "revision": "49943b5a94413a530761350f04e896f76e8d620e"
+        }
+      ]
+    },
+    {
+      "id": "repo-small-go-cmp",
+      "kind": "repository",
+      "title": "go-cmp: compact package boundaries and reasoned comparison cases",
+      "summary": "A Go comparison library combines a small module surface with scenario reasons, golden presentation tests and an explicit warning that diagnostic output is not a stable machine interface.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "test",
+          "maintain-api",
+          "document",
+          "check-compatibility"
+        ],
+        "contexts": [
+          "library",
+          "diagnostics",
+          "golden-tests",
+          "public-api"
+        ],
+        "languages": [
+          "go"
+        ],
+        "scale": [
+          "single-package",
+          "cross-scale"
+        ]
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected"
+        ],
+        "inspected_at": "2026-11-07",
+        "freshness": "versioned",
+        "scope": "Fresh primary repository metadata and selected substantive source/configuration/test/documentation sections inspected at the pinned commit. No upstream code, command, CI, build or release was executed."
+      },
+      "related": [
+        "quality-go-module-workspace-boundaries",
+        "docs-study-coverage-limits"
+      ],
+      "path": "library/entries/repo-small-go-cmp.md",
+      "card_sha256": "033a64f6608a90b1f31e51bfd54f071f04926a9d3f778a8484519e441a7961fd",
+      "sources": [
+        {
+          "url": "https://github.com/google/go-cmp/blob/5deca1c7dab7d33c102d8d7a26794da148485563/CONTRIBUTING.md",
+          "title": "google/go-cmp: CONTRIBUTING.md",
+          "locator": "local review and contribution terms",
+          "revision": "5deca1c7dab7d33c102d8d7a26794da148485563"
+        },
+        {
+          "url": "https://github.com/google/go-cmp/blob/5deca1c7dab7d33c102d8d7a26794da148485563/go.mod",
+          "title": "google/go-cmp: go.mod",
+          "locator": "module identity and Go directive",
+          "revision": "5deca1c7dab7d33c102d8d7a26794da148485563"
+        },
+        {
+          "url": "https://github.com/google/go-cmp/blob/5deca1c7dab7d33c102d8d7a26794da148485563/cmp/compare.go",
+          "title": "google/go-cmp: cmp/compare.go",
+          "locator": "Equal, Diff and comparison invariants",
+          "revision": "5deca1c7dab7d33c102d8d7a26794da148485563"
+        },
+        {
+          "url": "https://github.com/google/go-cmp/blob/5deca1c7dab7d33c102d8d7a26794da148485563/cmp/compare_test.go",
+          "title": "google/go-cmp: cmp/compare_test.go",
+          "locator": "TestDiff scenario reasons, panic expectations and golden updates",
+          "revision": "5deca1c7dab7d33c102d8d7a26794da148485563"
+        },
+        {
+          "url": "https://github.com/google/go-cmp/blob/5deca1c7dab7d33c102d8d7a26794da148485563/.github/workflows/test.yml",
+          "title": "google/go-cmp: .github/workflows/test.yml",
+          "locator": "race tests, formatting and interpreter/platform matrix",
+          "revision": "5deca1c7dab7d33c102d8d7a26794da148485563"
+        }
+      ]
+    },
+    {
+      "id": "repo-small-p-limit",
+      "kind": "repository",
+      "title": "p-limit: a flat tree with runtime, declaration and distribution boundaries",
+      "summary": "A tiny JavaScript library keeps public runtime/type exports, behavioral tests and published-file intent discoverable without introducing package layers.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "organize",
+          "test",
+          "package",
+          "navigate"
+        ],
+        "contexts": [
+          "library",
+          "public-api",
+          "flat-layout"
+        ],
+        "languages": [
+          "javascript",
+          "typescript"
+        ],
+        "scale": [
+          "small-project",
+          "single-package"
+        ]
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected"
+        ],
+        "inspected_at": "2026-11-07",
+        "freshness": "versioned",
+        "scope": "Fresh primary repository metadata and selected substantive source/configuration/test/documentation sections inspected at the pinned commit. No upstream code, command, CI, build or release was executed."
+      },
+      "related": [
+        "quality-npm-artifact-exports",
+        "repo-large-vscode"
+      ],
+      "path": "library/entries/repo-small-p-limit.md",
+      "card_sha256": "5e9c4463f49d64ce3541515a7d8425852db106e425d091835a7d5f4a3c747c96",
+      "sources": [
+        {
+          "url": "https://github.com/sindresorhus/p-limit/blob/a8a6fbec4e0e866d6d779b10889bb4f5567e70eb/package.json",
+          "title": "sindresorhus/p-limit: package.json",
+          "locator": "exports, scripts.test, files and engines",
+          "revision": "a8a6fbec4e0e866d6d779b10889bb4f5567e70eb"
+        },
+        {
+          "url": "https://github.com/sindresorhus/p-limit/blob/a8a6fbec4e0e866d6d779b10889bb4f5567e70eb/index.js",
+          "title": "sindresorhus/p-limit: index.js",
+          "locator": "clearQueue and map error handling",
+          "revision": "a8a6fbec4e0e866d6d779b10889bb4f5567e70eb"
+        },
+        {
+          "url": "https://github.com/sindresorhus/p-limit/blob/a8a6fbec4e0e866d6d779b10889bb4f5567e70eb/index.d.ts",
+          "title": "sindresorhus/p-limit: index.d.ts",
+          "locator": "public API declarations",
+          "revision": "a8a6fbec4e0e866d6d779b10889bb4f5567e70eb"
+        },
+        {
+          "url": "https://github.com/sindresorhus/p-limit/blob/a8a6fbec4e0e866d6d779b10889bb4f5567e70eb/test.js",
+          "title": "sindresorhus/p-limit: test.js",
+          "locator": "clearQueue, iterable-error and concurrency scenarios",
+          "revision": "a8a6fbec4e0e866d6d779b10889bb4f5567e70eb"
+        },
+        {
+          "url": "https://github.com/sindresorhus/p-limit/blob/a8a6fbec4e0e866d6d779b10889bb4f5567e70eb/readme.md",
+          "title": "sindresorhus/p-limit: readme.md",
+          "locator": "API: rejectOnClear, map, clearQueue",
+          "revision": "a8a6fbec4e0e866d6d779b10889bb4f5567e70eb"
+        },
+        {
+          "url": "https://github.com/sindresorhus/p-limit/blob/a8a6fbec4e0e866d6d779b10889bb4f5567e70eb/.github/workflows/main.yml",
+          "title": "sindresorhus/p-limit: .github/workflows/main.yml",
+          "locator": "Node matrix and npm test",
+          "revision": "a8a6fbec4e0e866d6d779b10889bb4f5567e70eb"
+        }
+      ]
+    },
+    {
+      "id": "repo-small-pytest",
+      "kind": "repository",
+      "title": "pytest: a test harness with explicit in-process and subprocess boundaries",
+      "summary": "A mature Python test framework uses its own isolated test-workspace helper and distinct documentation/doctest paths to make plugin and runner behavior inspectable.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "test",
+          "document",
+          "navigate",
+          "maintain-api"
+        ],
+        "contexts": [
+          "framework",
+          "plugins",
+          "test-isolation",
+          "generated-reference"
+        ],
+        "languages": [
+          "python"
+        ],
+        "scale": [
+          "single-package",
+          "large-project"
+        ]
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected"
+        ],
+        "inspected_at": "2026-11-07",
+        "freshness": "versioned",
+        "scope": "Fresh primary repository metadata and selected substantive source/configuration/test/documentation sections inspected at the pinned commit. No upstream code, command, CI, build or release was executed."
+      },
+      "related": [
+        "docs-study-coverage-limits",
+        "repo-small-click"
+      ],
+      "path": "library/entries/repo-small-pytest.md",
+      "card_sha256": "a9b62fcd71ae78c50e7cf31fe0b84638958c738fc991b832dd63f49aed760735",
+      "sources": [
+        {
+          "url": "https://github.com/pytest-dev/pytest/blob/171c924acfd66d03ab51d08da2509461da6233a7/CONTRIBUTING.rst",
+          "title": "pytest-dev/pytest: CONTRIBUTING.rst",
+          "locator": "reproduction guidance and documentation build/autodoc notes",
+          "revision": "171c924acfd66d03ab51d08da2509461da6233a7"
+        },
+        {
+          "url": "https://github.com/pytest-dev/pytest/blob/171c924acfd66d03ab51d08da2509461da6233a7/pyproject.toml",
+          "title": "pytest-dev/pytest: pyproject.toml",
+          "locator": "build backend and pytest testpaths/norecursedirs",
+          "revision": "171c924acfd66d03ab51d08da2509461da6233a7"
+        },
+        {
+          "url": "https://github.com/pytest-dev/pytest/blob/171c924acfd66d03ab51d08da2509461da6233a7/src/_pytest/pytester.py",
+          "title": "pytest-dev/pytest: src/_pytest/pytester.py",
+          "locator": "Pytester, runpytest and runpytest_subprocess",
+          "revision": "171c924acfd66d03ab51d08da2509461da6233a7"
+        },
+        {
+          "url": "https://github.com/pytest-dev/pytest/blob/171c924acfd66d03ab51d08da2509461da6233a7/testing/test_pytester.py",
+          "title": "pytest-dev/pytest: testing/test_pytester.py",
+          "locator": "makepyfile and inline-run module-cleanup tests",
+          "revision": "171c924acfd66d03ab51d08da2509461da6233a7"
+        },
+        {
+          "url": "https://github.com/pytest-dev/pytest/blob/171c924acfd66d03ab51d08da2509461da6233a7/tox.ini",
+          "title": "pytest-dev/pytest: tox.ini",
+          "locator": "testenv command and doctesting factor",
+          "revision": "171c924acfd66d03ab51d08da2509461da6233a7"
+        }
+      ]
+    },
+    {
+      "id": "repo-small-requests",
+      "kind": "repository",
+      "title": "Requests: follow a security-sensitive behavior beyond the friendly entry example",
+      "summary": "A compact user-facing API leads to session implementation, local and HTTP fixture tests, packaging metadata and distinct interpreter/environment declarations.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "test",
+          "maintain-api",
+          "package",
+          "check-compatibility"
+        ],
+        "contexts": [
+          "library",
+          "http",
+          "security-boundary",
+          "integration-tests"
+        ],
+        "languages": [
+          "python"
+        ],
+        "scale": [
+          "single-package",
+          "cross-scale"
+        ]
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected"
+        ],
+        "inspected_at": "2026-11-07",
+        "freshness": "versioned",
+        "scope": "Fresh primary repository metadata and selected substantive source/configuration/test/documentation sections inspected at the pinned commit. No upstream code, command, CI, build or release was executed."
+      },
+      "related": [
+        "quality-python-build-metadata",
+        "repo-small-click"
+      ],
+      "path": "library/entries/repo-small-requests.md",
+      "card_sha256": "c8fef39547cd7f233ccf025a3042ba27e14b7191a64ee3356c86028cad2d9bad",
+      "sources": [
+        {
+          "url": "https://github.com/psf/requests/blob/3c7baaa05ab4aa49cc819ce3a819d260de19c157/README.md",
+          "title": "psf/requests: README.md",
+          "locator": "usage and supported-version statement",
+          "revision": "3c7baaa05ab4aa49cc819ce3a819d260de19c157"
+        },
+        {
+          "url": "https://github.com/psf/requests/blob/3c7baaa05ab4aa49cc819ce3a819d260de19c157/pyproject.toml",
+          "title": "psf/requests: pyproject.toml",
+          "locator": "project metadata, src package discovery and test dependencies",
+          "revision": "3c7baaa05ab4aa49cc819ce3a819d260de19c157"
+        },
+        {
+          "url": "https://github.com/psf/requests/blob/3c7baaa05ab4aa49cc819ce3a819d260de19c157/tox.ini",
+          "title": "psf/requests: tox.ini",
+          "locator": "interpreter/extras environments and pytest target",
+          "revision": "3c7baaa05ab4aa49cc819ce3a819d260de19c157"
+        },
+        {
+          "url": "https://github.com/psf/requests/blob/3c7baaa05ab4aa49cc819ce3a819d260de19c157/src/requests/sessions.py",
+          "title": "psf/requests: src/requests/sessions.py",
+          "locator": "rebuild_auth and merge_setting",
+          "revision": "3c7baaa05ab4aa49cc819ce3a819d260de19c157"
+        },
+        {
+          "url": "https://github.com/psf/requests/blob/3c7baaa05ab4aa49cc819ce3a819d260de19c157/tests/test_requests.py",
+          "title": "psf/requests: tests/test_requests.py",
+          "locator": "redirect authentication and should_strip_auth cases",
+          "revision": "3c7baaa05ab4aa49cc819ce3a819d260de19c157"
+        }
+      ]
+    },
+    {
+      "id": "repo-small-ripgrep",
+      "kind": "repository",
+      "title": "ripgrep: flag ownership, co-located parsing tests and binary integration suites",
+      "summary": "A Rust CLI workspace connects declarative flag semantics and nearby parser tests with an explicitly registered integration suite, rather than relying on an undifferentiated tests directory.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "organize",
+          "test",
+          "document",
+          "navigate"
+        ],
+        "contexts": [
+          "cli",
+          "workspace",
+          "public-api",
+          "integration-tests"
+        ],
+        "languages": [
+          "rust"
+        ],
+        "scale": [
+          "multi-package",
+          "cross-scale"
+        ]
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected"
+        ],
+        "inspected_at": "2026-11-07",
+        "freshness": "versioned",
+        "scope": "Fresh primary repository metadata and selected substantive source/configuration/test/documentation sections inspected at the pinned commit. No upstream code, command, CI, build or release was executed."
+      },
+      "related": [
+        "quality-cargo-workspace-selection",
+        "repo-large-rust"
+      ],
+      "path": "library/entries/repo-small-ripgrep.md",
+      "card_sha256": "460e8437314e705021b2f12801dd60c64423fd017f27cee3df9e196ae3150cc0",
+      "sources": [
+        {
+          "url": "https://github.com/BurntSushi/ripgrep/blob/91f5d22ef48bde459d90a8c7dbeab416e97d0f2b/Cargo.toml",
+          "title": "BurntSushi/ripgrep: Cargo.toml",
+          "locator": "binary target, autotests=false, explicit integration target and workspace members",
+          "revision": "91f5d22ef48bde459d90a8c7dbeab416e97d0f2b"
+        },
+        {
+          "url": "https://github.com/BurntSushi/ripgrep/blob/91f5d22ef48bde459d90a8c7dbeab416e97d0f2b/CONTRIBUTING.md",
+          "title": "BurntSushi/ripgrep: CONTRIBUTING.md",
+          "locator": "route to project contribution policy",
+          "revision": "91f5d22ef48bde459d90a8c7dbeab416e97d0f2b"
+        },
+        {
+          "url": "https://github.com/BurntSushi/ripgrep/blob/91f5d22ef48bde459d90a8c7dbeab416e97d0f2b/crates/core/flags/defs.rs",
+          "title": "BurntSushi/ripgrep: crates/core/flags/defs.rs",
+          "locator": "Follow/Hidden definitions, negated names, docs and parser tests",
+          "revision": "91f5d22ef48bde459d90a8c7dbeab416e97d0f2b"
+        },
+        {
+          "url": "https://github.com/BurntSushi/ripgrep/blob/91f5d22ef48bde459d90a8c7dbeab416e97d0f2b/tests/tests.rs",
+          "title": "BurntSushi/ripgrep: tests/tests.rs",
+          "locator": "integration modules and feature/regression routing",
+          "revision": "91f5d22ef48bde459d90a8c7dbeab416e97d0f2b"
+        },
+        {
+          "url": "https://github.com/BurntSushi/ripgrep/blob/91f5d22ef48bde459d90a8c7dbeab416e97d0f2b/tests/feature.rs",
+          "title": "BurntSushi/ripgrep: tests/feature.rs",
+          "locator": "encoding scenarios using Dir/TestCommand",
+          "revision": "91f5d22ef48bde459d90a8c7dbeab416e97d0f2b"
+        }
+      ]
+    },
+    {
+      "id": "repo-small-testify",
+      "kind": "repository",
+      "title": "Testify: assertions as source, fatal wrappers as generated consumers",
+      "summary": "A Go testing module connects authored assertion semantics and templates to generated require wrappers, with CI explicitly checking generation drift before race-enabled tests.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "generated-files",
+          "test",
+          "maintain-api",
+          "navigate"
+        ],
+        "contexts": [
+          "library",
+          "testing-tools",
+          "code-generation",
+          "public-api"
+        ],
+        "languages": [
+          "go",
+          "shell"
+        ],
+        "scale": [
+          "multi-package",
+          "cross-scale"
+        ]
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected"
+        ],
+        "inspected_at": "2026-11-07",
+        "freshness": "versioned",
+        "scope": "Fresh primary repository metadata and selected substantive source/configuration/test/documentation sections inspected at the pinned commit. No upstream code, command, CI, build or release was executed."
+      },
+      "related": [
+        "quality-generated-source-authority",
+        "quality-go-module-workspace-boundaries"
+      ],
+      "path": "library/entries/repo-small-testify.md",
+      "card_sha256": "49685998e30c9246bffeb6e44b5fc6fdb79bb717612f86a271240cd9f1458007",
+      "sources": [
+        {
+          "url": "https://github.com/stretchr/testify/blob/87a7b9d57689f6579db2da795ab8deeab29cb724/CONTRIBUTING.md",
+          "title": "stretchr/testify: CONTRIBUTING.md",
+          "locator": "API usefulness, maintenance expectations and review context",
+          "revision": "87a7b9d57689f6579db2da795ab8deeab29cb724"
+        },
+        {
+          "url": "https://github.com/stretchr/testify/blob/87a7b9d57689f6579db2da795ab8deeab29cb724/go.mod",
+          "title": "stretchr/testify: go.mod",
+          "locator": "module identity and supported-version comment",
+          "revision": "87a7b9d57689f6579db2da795ab8deeab29cb724"
+        },
+        {
+          "url": "https://github.com/stretchr/testify/blob/87a7b9d57689f6579db2da795ab8deeab29cb724/assert/assertions.go",
+          "title": "stretchr/testify: assert/assertions.go",
+          "locator": "Equal behavior and argument validation",
+          "revision": "87a7b9d57689f6579db2da795ab8deeab29cb724"
+        },
+        {
+          "url": "https://github.com/stretchr/testify/blob/87a7b9d57689f6579db2da795ab8deeab29cb724/assert/assertions_test.go",
+          "title": "stretchr/testify: assert/assertions_test.go",
+          "locator": "TestEqual table of semantic cases",
+          "revision": "87a7b9d57689f6579db2da795ab8deeab29cb724"
+        },
+        {
+          "url": "https://github.com/stretchr/testify/blob/87a7b9d57689f6579db2da795ab8deeab29cb724/require/requirements.go",
+          "title": "stretchr/testify: require/requirements.go",
+          "locator": "go:generate directive",
+          "revision": "87a7b9d57689f6579db2da795ab8deeab29cb724"
+        },
+        {
+          "url": "https://github.com/stretchr/testify/blob/87a7b9d57689f6579db2da795ab8deeab29cb724/require/require.go.tmpl",
+          "title": "stretchr/testify: require/require.go.tmpl",
+          "locator": "fatal wrapper template",
+          "revision": "87a7b9d57689f6579db2da795ab8deeab29cb724"
+        },
+        {
+          "url": "https://github.com/stretchr/testify/blob/87a7b9d57689f6579db2da795ab8deeab29cb724/require/require.go",
+          "title": "stretchr/testify: require/require.go",
+          "locator": "generated header and Equal forwarding",
+          "revision": "87a7b9d57689f6579db2da795ab8deeab29cb724"
+        },
+        {
+          "url": "https://github.com/stretchr/testify/blob/87a7b9d57689f6579db2da795ab8deeab29cb724/_codegen/main.go",
+          "title": "stretchr/testify: _codegen/main.go",
+          "locator": "source parsing and generation entrypoint",
+          "revision": "87a7b9d57689f6579db2da795ab8deeab29cb724"
+        },
+        {
+          "url": "https://github.com/stretchr/testify/blob/87a7b9d57689f6579db2da795ab8deeab29cb724/.ci.gogenerate.sh",
+          "title": "stretchr/testify: .ci.gogenerate.sh",
+          "locator": "generation and git-diff failure condition",
+          "revision": "87a7b9d57689f6579db2da795ab8deeab29cb724"
+        },
+        {
+          "url": "https://github.com/stretchr/testify/blob/87a7b9d57689f6579db2da795ab8deeab29cb724/.github/workflows/main.yml",
+          "title": "stretchr/testify: .github/workflows/main.yml",
+          "locator": "generation, format, vet and race-test routes",
+          "revision": "87a7b9d57689f6579db2da795ab8deeab29cb724"
+        }
+      ]
+    },
+    {
+      "id": "repo-small-uv",
+      "kind": "repository",
+      "title": "uv: source-authoritative CLI reference and build-time regeneration",
+      "summary": "A multi-crate Rust/Python tool distinguishes authoring CLI declarations, generating reference pages, checking selected outputs and publishing rebuilt documentation.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "generated-files",
+          "document",
+          "test",
+          "release"
+        ],
+        "contexts": [
+          "cli",
+          "workspace",
+          "generated-reference",
+          "documentation-site"
+        ],
+        "languages": [
+          "rust",
+          "python",
+          "shell"
+        ],
+        "scale": [
+          "multi-package",
+          "large-project"
+        ]
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected"
+        ],
+        "inspected_at": "2026-11-07",
+        "freshness": "versioned",
+        "scope": "Fresh primary repository metadata and selected substantive source/configuration/test/documentation sections inspected at the pinned commit. No upstream code, command, CI, build or release was executed."
+      },
+      "related": [
+        "quality-generated-source-authority",
+        "quality-cargo-workspace-selection"
+      ],
+      "path": "library/entries/repo-small-uv.md",
+      "card_sha256": "9bc5e5821807e6dbac5ff9179b36992e89fc9cd99635b5efe6c520b728e4884e",
+      "sources": [
+        {
+          "url": "https://github.com/astral-sh/uv/blob/5ce34500b8a3d16d24bc7576bd8ac64879091cea/CONTRIBUTING.md",
+          "title": "astral-sh/uv: CONTRIBUTING.md",
+          "locator": "snapshot testing and Documentation section",
+          "revision": "5ce34500b8a3d16d24bc7576bd8ac64879091cea"
+        },
+        {
+          "url": "https://github.com/astral-sh/uv/blob/5ce34500b8a3d16d24bc7576bd8ac64879091cea/.cargo/config.toml",
+          "title": "astral-sh/uv: .cargo/config.toml",
+          "locator": "cargo dev alias",
+          "revision": "5ce34500b8a3d16d24bc7576bd8ac64879091cea"
+        },
+        {
+          "url": "https://github.com/astral-sh/uv/blob/5ce34500b8a3d16d24bc7576bd8ac64879091cea/crates/uv-cli/src/lib.rs",
+          "title": "astral-sh/uv: crates/uv-cli/src/lib.rs",
+          "locator": "Cli, TopLevelArgs and command argument declarations",
+          "revision": "5ce34500b8a3d16d24bc7576bd8ac64879091cea"
+        },
+        {
+          "url": "https://github.com/astral-sh/uv/blob/5ce34500b8a3d16d24bc7576bd8ac64879091cea/crates/uv-dev/src/generate_cli_reference.rs",
+          "title": "astral-sh/uv: crates/uv-dev/src/generate_cli_reference.rs",
+          "locator": "Mode handling, Clap build and reference rendering",
+          "revision": "5ce34500b8a3d16d24bc7576bd8ac64879091cea"
+        },
+        {
+          "url": "https://github.com/astral-sh/uv/blob/5ce34500b8a3d16d24bc7576bd8ac64879091cea/.github/workflows/check-generated-files.yml",
+          "title": "astral-sh/uv: .github/workflows/check-generated-files.yml",
+          "locator": "DryRun versus selected Check calls",
+          "revision": "5ce34500b8a3d16d24bc7576bd8ac64879091cea"
+        },
+        {
+          "url": "https://github.com/astral-sh/uv/blob/5ce34500b8a3d16d24bc7576bd8ac64879091cea/.github/workflows/check-docs.yml",
+          "title": "astral-sh/uv: .github/workflows/check-docs.yml",
+          "locator": "reference regeneration followed by strict docs build",
+          "revision": "5ce34500b8a3d16d24bc7576bd8ac64879091cea"
+        },
+        {
+          "url": "https://github.com/astral-sh/uv/blob/5ce34500b8a3d16d24bc7576bd8ac64879091cea/.github/workflows/publish-docs.yml",
+          "title": "astral-sh/uv: .github/workflows/publish-docs.yml",
+          "locator": "release documentation generation and publication inputs",
+          "revision": "5ce34500b8a3d16d24bc7576bd8ac64879091cea"
+        }
+      ]
+    }
+  ]
+}

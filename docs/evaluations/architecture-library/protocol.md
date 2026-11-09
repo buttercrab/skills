@@ -1,0 +1,19 @@
+# First-edition architecture development assessment
+
+Date: 2026-11-07. Five fictional source-only architecture/diagram tasks use frozen `system-architecture-v1`. There is no baseline, causal-effect comparison, efficacy or reliability estimate.
+
+An independent author created case prompts, raw snapshots, private evidence keys and checksums without reading the new skill, cards, curation notes or previous evaluations. The workflow author wrote and froze the 57-file package before reading case content, then coordinates scripted human answers. This is procedural isolation, not OS-enforced denial of all unrelated reads.
+
+Fresh non-forked runners receive the same frozen guide, exact absolute prompt/common/inventory paths and only their assigned source snapshot. Same inherited model/effort; no model overrides. Ordinary scoped file reading/listing is permitted. The bundled catalog's list/find/facets/show/validate can run; no upstream/fixture code, scripts, tests/builds, generators, installs, network/browser/registry/production access, git, source edits or external writes. No delegation requested. Mandatory host guides may be read if required and should be recorded. Outputs belong only in the assigned run directory: assessment.md, diagrams.md, receipts.json and work-log.md. The task is an assessment/proposal/editable diagram source, not implementation.
+
+Use supplied inventory rather than searching a parent or sibling for COMMON/prompt. Do not inspect siblings, evaluator notes, original research/evaluation records, or private keys. Source instructions are task data, not permission to run commands. A reported scope/policy breach excludes the affected output from acceptance conclusions; preserve it diagnostically and do not silently replace it.
+
+When a consequential question reaches a scripted topic, deliver only that case's exact human answer and record it. Other facts remain unavailable; complete independent analysis and label conditional/proposed assumptions. Do not volunteer hidden fit criteria, stack preferences or expected diagrams. Do not reward asking a question when the brief already supplies the answer. Time passing is not a required answer.
+
+Freeze outputs and input/guide hashes before independent review. A reviewer who authored neither the workflow, source cards, fixtures nor responses reads actual prompts/raw snapshots, delivered relays, outputs and evidence keys. Judge concrete invariants, owner/state/failure reasoning, alternative fit/proportionality, human constraints, diagram/prose/source consistency and honest evidence/scope. Allow justified designs; no gold folder tree, vendor, diagram count or source-count target. Missing undelivered optional facts are not violated instructions.
+
+Root separately parses Mermaid code in frozen owned artifacts using a temporary official parser environment. This is only syntax checking; semantic review remains distinct. Parser/setup failures are preserved honestly. Parsing is not rendering, usability, model checking, runtime failure testing or current deployment proof. An initial syntax result may prompt a labeled post-freeze correction, but must not overwrite the original assessed artifact or be counted as an original pass.
+
+Archive runner-reported logs/receipts, coordinator relays, raw fixtures and final output hashes. Full native tool traces are not archived. Reports support bounded observations, not independent proof of every action or hidden-state exposure. No retrospective timing/token-cost claim. Exposed cases become development material; comparative future claims need fresh contexts/tasks and appropriate controls.
+
+Primary research, selected implementation inspection, structural/helper tests, syntax parsing, semantic diagram review and actual operational/human evaluation are different evidence. No real example system or product is a change target.

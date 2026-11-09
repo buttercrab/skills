@@ -1,0 +1,50 @@
+{
+  "artifact": "completed Korean entrance notice",
+  "status": "final",
+  "language": "ko",
+  "operational_sources": [
+    {"path": "service-note.md", "scope": "Entire supplied fictional operating memo; sole authority for operating facts"},
+    {"path": "reference-label.txt", "scope": "Entire supplied fictional exhibition label; considered for genre contrast, no operating claims taken from it"}
+  ],
+  "instructions_read": [
+    "COMMON.md",
+    "prompt.md",
+    "FILES.txt",
+    "/private/tmp/writing-intent-assessment-20261108/guide/SKILL.md",
+    "/Users/jaeyong/.codex/skills/i-have-adhd/SKILL.md"
+  ],
+  "craft_material_read": [
+    "/private/tmp/writing-intent-assessment-20261108/guide/library/index.md",
+    "/private/tmp/writing-intent-assessment-20261108/guide/references/library-usage.md",
+    "/private/tmp/writing-intent-assessment-20261108/guide/references/evidence-and-voice.md",
+    "/private/tmp/writing-intent-assessment-20261108/guide/library/entries/practice-korean-public-language.md",
+    "/private/tmp/writing-intent-assessment-20261108/guide/library/entries/craft-mailchimp-voice-tone.md"
+  ],
+  "craft_transfer": [
+    {
+      "card": "practice-korean-public-language",
+      "mechanism": "Make the affected object, dates, action and exception explicit",
+      "fit": "Korean public information for first-time adult visitors",
+      "mismatch": "A historical institutional guide is not a binding house style or current policy authority",
+      "adaptation": "Separate visitor purposes and identify exactly which due dates change"
+    },
+    {
+      "card": "craft-mailchimp-voice-tone",
+      "mechanism": "Choose tone according to reader situation rather than copying an existing text's personality",
+      "fit": "Visitors need a usable operational notice rather than an exhibition invitation",
+      "mismatch": "English brand guidance does not dictate Korean public-notice register",
+      "adaptation": "Use restrained Korean polite instructions without the reference label's metaphors"
+    }
+  ],
+  "checks": {
+    "manual_fact_check": "All dates, weekdays, hours, closure scope, lending/reservations pause, return method, changed due-date scope and inquiry channel checked against service-note.md",
+    "manual_scope_check": "No year, September 13–14 status, earlier-reservation treatment, phone, URL, email, safety issue or improvement outcome invented",
+    "manual_whole_piece_review": "Title and full notice present; short purpose-based sections; editorial explanation kept outside notice",
+    "character_check": {"method": "wc -m piece.md", "result": 540, "scope": "Entire UTF-8 Markdown artifact including title, formatting and newlines; body is within requested approximate 450–700 character scale"},
+    "primary_source_inspection": "Supplied operating memo and label read directly; external originals linked in craft cards were not inspected",
+    "reader_testing": "Not performed"
+  },
+  "questions": [],
+  "material_limits": "September 13–14 operations and earlier reservations are unspecified and excluded from the notice",
+  "external_actions": "None; no network, publication, service, detector or contact calls"
+}

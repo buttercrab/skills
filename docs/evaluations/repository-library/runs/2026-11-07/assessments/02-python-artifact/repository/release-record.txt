@@ -1,0 +1,5 @@
+Fixture transcription, not a registry response:
+Tag: v1.4.0
+Release page: "riverfmt 1.4.0 is available; bundled defaults retained."
+Attached distribution filenames: riverfmt-1.4.0.tar.gz, riverfmt-1.4.0-py3-none-any.whl
+No hashes, build logs, archive contents, or consumer test results were preserved in this snapshot.

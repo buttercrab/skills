@@ -1,0 +1,98 @@
+[
+  {
+    "artifact": "01-north",
+    "case": "01-first-visit-community",
+    "path": "/private/tmp/design-library-matching-20261107/review-input/01-north",
+    "role": "Final source/reference packet plus applied outline; no built UI/native acceptance."
+  },
+  {
+    "artifact": "01-south",
+    "case": "01-first-visit-community",
+    "path": "/private/tmp/design-library-matching-20261107/review-input/01-south",
+    "role": "Final source/reference packet plus applied outline; no built UI/native acceptance."
+  },
+  {
+    "artifact": "02-north",
+    "case": "02-expert-response-desk",
+    "path": "/private/tmp/design-library-matching-20261107/review-input/02-north",
+    "role": "Final source/reference packet plus applied outline; no built UI/native acceptance."
+  },
+  {
+    "artifact": "02-south",
+    "case": "02-expert-response-desk",
+    "path": "/private/tmp/design-library-matching-20261107/review-input/02-south",
+    "role": "Final source/reference packet plus applied outline; no built UI/native acceptance."
+  },
+  {
+    "artifact": "03-north",
+    "case": "03-character-led-learning",
+    "path": "/private/tmp/design-library-matching-20261107/review-input/03-north",
+    "role": "Final source/reference packet plus applied outline; no built UI/native acceptance."
+  },
+  {
+    "artifact": "03-south",
+    "case": "03-character-led-learning",
+    "path": "/private/tmp/design-library-matching-20261107/review-input/03-south",
+    "role": "Final source/reference packet plus applied outline; no built UI/native acceptance."
+  },
+  {
+    "artifact": "04-north",
+    "case": "04-structure-over-skin",
+    "path": "/private/tmp/design-library-matching-20261107/review-input/04-north",
+    "role": "Final source/reference packet plus applied outline; no built UI/native acceptance."
+  },
+  {
+    "artifact": "04-south",
+    "case": "04-structure-over-skin",
+    "path": "/private/tmp/design-library-matching-20261107/review-input/04-south",
+    "role": "Final source/reference packet plus applied outline; no built UI/native acceptance."
+  },
+  {
+    "artifact": "05-north",
+    "case": "05-absent-and-conflicting-source",
+    "path": "/private/tmp/design-library-matching-20261107/review-input/05-north",
+    "role": "Final source/reference packet plus applied outline; no built UI/native acceptance."
+  },
+  {
+    "artifact": "05-south",
+    "case": "05-absent-and-conflicting-source",
+    "path": "/private/tmp/design-library-matching-20261107/review-input/05-south",
+    "role": "Final source/reference packet plus applied outline; no built UI/native acceptance."
+  },
+  {
+    "artifact": "06-north",
+    "case": "06-narrow-existing-copy-fix",
+    "path": "/private/tmp/design-library-matching-20261107/review-input/06-north",
+    "role": "Final source/reference packet plus applied outline; no built UI/native acceptance."
+  },
+  {
+    "artifact": "06-south",
+    "case": "06-narrow-existing-copy-fix",
+    "path": "/private/tmp/design-library-matching-20261107/review-input/06-south",
+    "role": "Final source/reference packet plus applied outline; no built UI/native acceptance."
+  },
+  {
+    "artifact": "07-north",
+    "case": "07-explore-only-editorial",
+    "path": "/private/tmp/design-library-matching-20261107/review-input/07-north",
+    "role": "Final source/reference packet plus applied outline; no built UI/native acceptance."
+  },
+  {
+    "artifact": "07-south",
+    "case": "07-explore-only-editorial",
+    "path": "/private/tmp/design-library-matching-20261107/review-input/07-south",
+    "role": "Final source/reference packet plus applied outline; no built UI/native acceptance."
+  },
+  {
+    "artifact": "08-north",
+    "case": "08-no-complete-match-specialist",
+    "path": "/private/tmp/design-library-matching-20261107/review-input/08-north",
+    "role": "Final source/reference packet plus applied outline; no built UI/native acceptance."
+  },
+  {
+    "artifact": "08-south",
+    "case": "08-no-complete-match-specialist",
+    "path": "/private/tmp/design-library-matching-20261107/review-input/08-south",
+    "role": "Final source/reference packet plus applied outline; no built UI/native acceptance."
+  }
+]

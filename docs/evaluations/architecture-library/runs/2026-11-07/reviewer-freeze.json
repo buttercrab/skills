@@ -1,0 +1,8 @@
+{
+  "status": "Original judgments frozen before follow-up or correction review.",
+  "files_sha256": {
+    "review.md": "eb56971830637657279609e3956c6364649f96261288c18996a12bab4cb1f7cd",
+    "review.json": "7b81cd0cdc795cad127ce880379f093237eb3f1aecc31912472573d7786b79f5"
+  },
+  "correction_review_sha256": "4630df725a255cc9a5a58d079f58bf5043f658b576ceffca042d87c83d04adc6"
+}

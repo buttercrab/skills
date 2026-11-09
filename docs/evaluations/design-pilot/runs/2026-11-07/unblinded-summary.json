@@ -1,0 +1,92 @@
+{
+  "core_review_sha256_before_unblinding": "0ca31e65c9cf9e639044af4a4c3b4dd574c2057193a6f9dbfe1d0c9c2ec9b11c",
+  "reviewer_knew_conditions": false,
+  "artifacts": [
+    {
+      "artifact": "01-alpha",
+      "trial": "case1-willow",
+      "condition": "baseline",
+      "case": "01-vague-operations",
+      "scores": {
+        "human_direction_and_answer_fidelity": 3,
+        "functional_completion_states_and_recovery": 2,
+        "creative_relevance_and_scope_fit": 2,
+        "necessary_friction_and_autonomy": 3
+      },
+      "acceptance": "unobserved: no rendered/native UI acceptance",
+      "browser_scope_breach": false
+    },
+    {
+      "artifact": "01-beta",
+      "trial": "case1-cedar",
+      "condition": "target",
+      "case": "01-vague-operations",
+      "scores": {
+        "human_direction_and_answer_fidelity": 3,
+        "functional_completion_states_and_recovery": 2,
+        "creative_relevance_and_scope_fit": 2,
+        "necessary_friction_and_autonomy": 3
+      },
+      "acceptance": "unobserved: no rendered/native UI acceptance",
+      "browser_scope_breach": false
+    },
+    {
+      "artifact": "02-alpha",
+      "trial": "case2-willow",
+      "condition": "baseline",
+      "case": "02-detailed-brief",
+      "scores": {
+        "human_direction_and_answer_fidelity": 3,
+        "functional_completion_states_and_recovery": 2,
+        "creative_relevance_and_scope_fit": 2,
+        "necessary_friction_and_autonomy": 3
+      },
+      "acceptance": "unobserved: no rendered/native UI acceptance",
+      "browser_scope_breach": true
+    },
+    {
+      "artifact": "02-beta",
+      "trial": "case2-cedar",
+      "condition": "target",
+      "case": "02-detailed-brief",
+      "scores": {
+        "human_direction_and_answer_fidelity": 3,
+        "functional_completion_states_and_recovery": 2,
+        "creative_relevance_and_scope_fit": 2,
+        "necessary_friction_and_autonomy": 3
+      },
+      "acceptance": "unobserved: no rendered/native UI acceptance",
+      "browser_scope_breach": true
+    },
+    {
+      "artifact": "03-alpha",
+      "trial": "case3-willow",
+      "condition": "target",
+      "case": "03-delegated-exploration",
+      "scores": {
+        "human_direction_and_answer_fidelity": 3,
+        "functional_completion_states_and_recovery": 2,
+        "creative_relevance_and_scope_fit": 2,
+        "necessary_friction_and_autonomy": 3
+      },
+      "acceptance": "unobserved: no rendered/native UI acceptance",
+      "browser_scope_breach": false
+    },
+    {
+      "artifact": "03-beta",
+      "trial": "case3-cedar",
+      "condition": "baseline",
+      "case": "03-delegated-exploration",
+      "scores": {
+        "human_direction_and_answer_fidelity": 3,
+        "functional_completion_states_and_recovery": 2,
+        "creative_relevance_and_scope_fit": 2,
+        "necessary_friction_and_autonomy": 3
+      },
+      "acceptance": "unobserved: no rendered/native UI acceptance",
+      "browser_scope_breach": true
+    }
+  ],
+  "interpretation": "No observed source-level advantage in coarse ratings. Not evidence of equivalence or efficacy; rendered comparisons invalid/unobserved as recorded.",
+  "boundary_mode": "unpaired boundary/development probes; no efficacy comparison"
+}

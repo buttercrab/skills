@@ -1,0 +1,102 @@
+[
+  {
+    "id": "catalog-no-kiosk-match",
+    "locator": "guide/library/index.md and guide/scripts/catalog.py find kiosk|Counterpoint|timeout|return|rtl",
+    "inspection_method": "local index text search and supplied standard-library helper",
+    "observed": "kiosk=0, Counterpoint=0, timeout=0, return=22 broad hits, rtl=6 substring hits",
+    "fit": "partial foundations and review pattern available",
+    "mismatch": "no end-to-end instrument-loan or timed shared kiosk reference found",
+    "selected_use": "explicit no-good-match finding",
+    "outline_decisions": [
+      "Do not fabricate a kiosk example or recommend a complete reference flow"
+    ]
+  },
+  {
+    "id": "unverified-counterpoint",
+    "query": "\"Counterpoint Kiosk 2027\"",
+    "url": null,
+    "locator": "public web search results",
+    "inspection_method": "exact-name search; no primary matching page identified or inspected",
+    "fit": "none established",
+    "mismatch": "unrelated results do not establish identity or a return flow",
+    "selected_use": "none",
+    "outline_decisions": [
+      "Name remains unverified; no source, visual or interaction claim"
+    ]
+  },
+  {
+    "id": "pattern-govuk-check-answers",
+    "url": "https://design-system.service.gov.uk/patterns/check-answers/",
+    "locator": "guide/library/entries/pattern-govuk-check-answers.md; primary When to use, Choose the right layout, Let users go back and change their answers",
+    "inspection_method": "full local card and first-party web text/HTML; no visual or interaction inspection",
+    "fit": "precommit review, targeted change actions, retained corrections",
+    "mismatch": "application form, not hardware return/shared privacy/Arabic; inspected example English-only; source-policy chronology unknown because policy date absent",
+    "selected_use": "flow mechanism only",
+    "outline_decisions": [
+      "Explicit Confirm loan",
+      "Change instrument/borrower returns to review",
+      "No personal example data on success",
+      "Retain correction mechanism only; Arabic/RTL/touch/privacy unverified"
+    ]
+  },
+  {
+    "id": "principle-multilingual-layout",
+    "url": "https://www.w3.org/International/questions/qa-html-dir",
+    "locator": "guide/library/entries/principle-multilingual-layout.md; primary Quick answer/base direction",
+    "inspection_method": "full local card and first-party source text",
+    "fit": "semantic direction and logical layout",
+    "mismatch": "no Arabic-reader or hardware usability evidence; Hangul source not inspected",
+    "selected_use": "English/Arabic direction specification",
+    "outline_decisions": [
+      "lang and dir set separately per locale",
+      "Logical alignment and content-driven wrapping",
+      "No blanket mirroring"
+    ]
+  },
+  {
+    "id": "w3c-inline-bidi",
+    "url": "https://www.w3.org/International/articles/inline-bidi-markup/",
+    "locator": "Quick answer; How to mark up inline bidi text",
+    "inspection_method": "first-party source text, followed from structural guidance",
+    "fit": "opposite-direction and unknown inserted text",
+    "mismatch": "no rendered kiosk verification",
+    "selected_use": "identifier and name direction specification",
+    "outline_decisions": [
+      "Canonical instrument/receipt IDs isolated LTR",
+      "Unknown names direction-aware",
+      "Never reverse stored strings"
+    ]
+  },
+  {
+    "id": "standard-wcag-conformance",
+    "url": "https://www.w3.org/TR/2024/REC-WCAG22-20241212/",
+    "locator": "guide/library/entries/standard-wcag-conformance.md; primary 2.1.1, 2.2.1, 2.5.8, conformance scope card",
+    "inspection_method": "full local card and versioned normative source text; targeted find/open",
+    "fit": "timing and input requirement boundaries",
+    "mismatch": "not current legal compliance or evaluated kiosk conformance",
+    "selected_use": "explicit timing conflict and future checks",
+    "outline_decisions": [
+      "15-second extension window flagged",
+      "Additional 40-second warning proposed pending room policy review",
+      "Touch accessibility and full-process checks remain unperformed"
+    ]
+  },
+  {
+    "id": "user-current-room-policy",
+    "url": null,
+    "locator": "request.md and coordinator-relayed scripted user reply",
+    "inspection_method": "supplied text, no original policy or workshop handout inspected",
+    "fit": "governing task requirements",
+    "mismatch": "not independent source verification or legal authority; policy publication date not supplied, so source-policy chronology not established",
+    "selected_use": "current explicit instruction overrides older workshop advice",
+    "outline_decisions": [
+      "Clear personal details at completion and 60 seconds idle",
+      "Warn at 45 seconds and offer Continue",
+      "Success only instrument ID/non-personal code",
+      "No staff-photo mode",
+      "Timeout does not commit transaction",
+      "Separate authenticated staff console",
+      "Arabic and English; touch"
+    ]
+  }
+]

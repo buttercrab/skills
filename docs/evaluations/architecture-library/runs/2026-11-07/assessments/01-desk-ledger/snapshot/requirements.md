@@ -1,0 +1,11 @@
+# Approved operating envelope, 2026-10-30
+- Two storeroom operators share one locked desktop in the office; they do not edit concurrently.
+- Inventory: 3,800 rows; CSV imports up to 9 MB, once each weekday; expected five-year ceiling 30,000 rows.
+- After import, an operator reviews errors and explicitly approves replacement of the active ledger.
+- Queries are exact item ID, substring label, and sorted CSV export; no natural-language search.
+- The tool must remain usable without internet for a full working day.
+- An approved import must either replace the complete ledger or leave the previous ledger intact.
+- A crash may require restarting the program. No unattended overnight processing is required.
+- Maintenance budget: one engineer, at most two hours/month; no operations team.
+- Recovery target: previous business day's approved ledger within two working hours.
+- Desktop hardware replacement and encryption are managed by office IT.

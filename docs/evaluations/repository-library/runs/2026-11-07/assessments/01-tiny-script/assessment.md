@@ -1,0 +1,29 @@
+# receipt-total: smallest useful maintenance plan
+
+Keep the single-file layout. Prioritize a friendly missing-argument message and a truthful worked example; leave the reported CSV failure open until its actual header is understood. This is a personal offline tool used twice a year, so a package, release workflow, contributor hierarchy or directory migration would add work without solving an observed problem.
+
+## Evidence and maintenance path
+
+The entire supplied snapshot contains `README.md`, `total.py`, `notes.md` and `examples/receipts.csv`. `README.md:2–4` points directly to the script, describes `date,amount` input and says installation/network access is unnecessary. `total.py:2–4` imports only Python standard-library modules. The amount calculation uses `Decimal` and a decimal zero (`total.py:7–9`), which is appropriate for the documented `0.10 + 0.20` example; this is source evidence, not an executed result.
+
+Representative change: make the next half-yearly receipt export easy to total and failures easy to diagnose. Discover the command in `README.md:2`, edit authoritative behavior in `total.py:7–13`, reuse `examples/receipts.csv:1–3` as the benign example, and reconcile `notes.md:1` with the actual accepted input. There is no generated copy, manifest, test suite, build or distribution workflow in this supplied snapshot. Consumption is direct script invocation from the checkout; no installed-package boundary is promised.
+
+## Ranked plan
+
+1. **Handle an omitted filename.** `notes.md:1` reports a traceback without an argument; `total.py:13` accesses `sys.argv[1]` without checking argument count. Add a small argument guard that prints the usage and returns a nonzero status. This directly removes a documented annoyance without adding dependencies. Verification later: invoke with no argument and check concise usage, nonzero status and no traceback; invoke with the example path and check `0.30`.
+2. **Improve the next-run instructions in the existing README.** Add `python3 total.py examples/receipts.csv` with expected output `0.30`, then show where to substitute a personal export path. Explain that totals use the header named exactly `amount` (order is irrelevant to named lookup), decimal-point values, and trusted local files. Record the Python version actually used after a future successful run rather than invent a compatibility range. The current generic `receipts.csv` argument is a user-supplied filename, not proof of a broken command. No new docs site or contribution document is needed.
+3. **Resolve the input report narrowly before claiming a fix.** `notes.md:1` attributes `KeyError: amount` to a BOM before `date` or reordered columns. `total.py:9` looks up the named `amount` field, so column order alone does not explain that failure; a BOM attached only to `date` also does not directly alter `amount`. The real failing file is absent. Inspect only its header representation locally, or make a synthetic anonymized header that reproduces the problem. A small required-`amount` header check with a clear error would make genuine missing/misspelled headers understandable. If spreadsheet BOM exports are a desired input, `utf-8-sig` is a small compatibility option at `total.py:8`, but it is not a demonstrated cure for the reported `KeyError`.
+
+Preserve the current behavior while making those changes. Do not introduce sorting by column position, floating-point totals, broad exception suppression or edits to private receipt data. A single small standard-library regression file is optional when changing parsing: cover the ordinary decimal total, reversed columns, a BOM before `date`, and an actually missing `amount` header. These distinguish the suspected cause from the failure that would justify the diagnostic. Add no coverage target or CI service for this maintenance plan. A deliberate decision to retain the current script and just improve the README remains reasonable if the traceback is tolerable.
+
+## Reference choices and limits
+
+The local `quality-python-import-layout` card, especially “What to borrow and adapt,” explicitly distinguishes a private one-file tool from an installed library. Its import-boundary reasoning supports retaining the current layout; its package-installation advice does not fit this tool. The neighboring `repo-small-p-limit` card supplies a contrasting small **published** JavaScript library: its visible implementation/test surface is useful, while exports, declaration tests and Node matrices are mismatches. The `docs-diataxis-reader-needs` card's incremental, task-oriented documentation advice supports improving the existing invocation example. The `docs-google-change-review` card supports prioritizing behavior and useful regression scenarios over optional style changes; its organizational review practices are unnecessary here.
+
+These are locally read annotations and source locators, not freshly inspected upstream primary sources. Network access and upstream execution were prohibited, so no upstream recommendation or check is represented as freshly verified. The recommendations above rest on the supplied fixture and stated maintenance intent.
+
+## What remains unknown
+
+No script, test, interpreter probe, installation, build or catalog command was executed. No green check, successful example run, Python compatibility promise, actual receipt-header diagnosis or historical “unchanged since 2022” verification is claimed. The source suggests `0.30` for the checked-in example, but that output was not observed. Handling of malformed amounts, missing cells, empty files and file-access errors has not been exercised; expand only if those inputs occur or a parsing change needs their coverage. No repository files were modified.
+
+Next action: add the missing-argument guard in `total.py:13` when implementation is authorized.

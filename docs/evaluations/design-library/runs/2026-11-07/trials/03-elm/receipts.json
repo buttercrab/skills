@@ -1,0 +1,89 @@
+{
+  "date": "2026-11-07",
+  "scope": "local concept/reference packet; no app",
+  "direction": {
+    "delegated": true,
+    "choice": "Pip, original pebble creature at seaside post office",
+    "feedback": "Expressive partner; no missed-day disappointment or red correction failure screen",
+    "result": "Returning welcome unchanged after absence; correction on warm paper note"
+  },
+  "sources": [
+    {
+      "id": "visual-finch-companion",
+      "url": "https://finchcare.com/",
+      "locator": "Public desktop hero, 2026-11-07",
+      "inspection_method": "Full local card plus native Chrome AX tree and actual screenshot",
+      "access_outcome": "available; visual and text inspected",
+      "fit": "Coherent character setting supports expressive partner",
+      "mismatch": "Self-care marketing; no language-task evidence",
+      "selected_use": "selected visual/world reference",
+      "outline_decisions": "Pip and post-office setting span prompt, recorder and reply; no pet obligation"
+    },
+    {
+      "id": "visual-duolingo-welcome",
+      "url": "https://www.duolingo.com/",
+      "locator": "Desktop first viewport, 2026-11-07",
+      "inspection_method": "Full local card plus native Chrome AX tree and actual screenshot",
+      "access_outcome": "available; visual and text inspected",
+      "fit": "Expressive learning identity beside obvious action",
+      "mismatch": "Marketing welcome only; no lesson or voice flow tested",
+      "selected_use": "selected supporting visual reference",
+      "outline_decisions": "One character and clear task invitation; no progression map"
+    },
+    {
+      "id": "pattern-govuk-check-answers",
+      "url": "https://design-system.service.gov.uk/patterns/check-answers/",
+      "locator": "When to use; Make the page easy to understand; Let users go back and change their answers; embedded example AX tree",
+      "inspection_method": "Full local card plus first-party Chrome AX text read",
+      "access_outcome": "available; text/example semantics inspected; no screenshot or interaction",
+      "fit": "Review and correction before explicit submission; retain context",
+      "mismatch": "Form summary styling and multi-section content too heavy",
+      "selected_use": "selected flow/system reference",
+      "outline_decisions": "Compact unsent preview; explicit Send; preserve prompt across rerecord and deletion"
+    },
+    {
+      "id": "external-whatsapp-draft-preview",
+      "url": "https://about.fb.com/news/2022/03/new-voice-message-features-on-whatsapp/",
+      "locator": "2022 article feature list, lines 239\u2013261",
+      "inspection_method": "Web search then primary article open; text only",
+      "access_outcome": "available; primary text inspected, no visual/app interaction",
+      "fit": "Direct documented voice draft preview mechanism",
+      "mismatch": "Historical announcement; no current full sequence, deletion or pedagogy evidence",
+      "selected_use": "selected external functional reference",
+      "outline_decisions": "Distinct stop/preview/send stages; cap, deletion and listen gate explicitly ours"
+    },
+    {
+      "id": "principle-informed-choice",
+      "url": "https://arxiv.org/html/1907.07032v2",
+      "locator": "guide/library/entries/principle-informed-choice.md",
+      "inspection_method": "Full supplied local card only",
+      "access_outcome": "card available; underlying paper not opened",
+      "fit": "Agency and understandable exit paths fit stop/retry choice",
+      "mismatch": "Historical commerce paper; no direct voice-learning evidence refreshed",
+      "selected_use": "considered; not independent empirical support",
+      "outline_decisions": "Keep Done available; no absence guilt or retention pressure"
+    },
+    {
+      "id": "pattern-apple-onboarding",
+      "url": "https://developer.apple.com/design/human-interface-guidelines/onboarding",
+      "locator": "guide/library/entries/pattern-apple-onboarding.md",
+      "inspection_method": "Full supplied local card only",
+      "access_outcome": "card available; underlying Apple source not opened",
+      "fit": "Contextual permission teaching matches first record",
+      "mismatch": "Native guidance; no implementation platform chosen",
+      "selected_use": "considered secondary annotation only",
+      "outline_decisions": "Permission explanation attached to Start recording; no long onboarding"
+    },
+    {
+      "id": "missing-voice-catalog-lead",
+      "url": null,
+      "locator": "guide/library/entries/flow-whatsapp-voice-preview.md",
+      "inspection_method": "Attempted direct local file read after survey",
+      "access_outcome": "not found",
+      "fit": "Voice-preview topic relevant",
+      "mismatch": "No such card exists at attempted locator",
+      "selected_use": "not selected; broadened to primary external lead",
+      "outline_decisions": "No invented local card or inspection claim"
+    }
+  ]
+}

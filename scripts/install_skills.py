@@ -365,14 +365,10 @@ def build_transaction(
     migrate: bool = False,
 ) -> dict:
     created: list[Path] = []
-    for target_dir in target_dirs:
-        for path in inspect_directory_chain(target_dir, "skill target directory"):
-            if path not in created:
-                created.append(path)
-
     operations: list[dict] = []
     backup_roots: list[Path] = []
     for target_dir in target_dirs:
+        missing = inspect_directory_chain(target_dir, "skill target directory")
         backup_root = target_dir / f".skills-install-backup-{txid}"
         if lexists(backup_root):
             raise InstallError(f"backup collision: {backup_root}")
@@ -417,6 +413,9 @@ def build_transaction(
                     "original": {"kind": "symlink", "target": os.readlink(target)},
                 })
         if target_operations:
+            for path in missing:
+                if path not in created:
+                    created.append(path)
             backup_roots.append(backup_root)
             operations.extend(target_operations)
     return {
@@ -503,12 +502,18 @@ def install(args) -> int:
         os.environ.get("CODEX_SKILLS_DIR", str(home / ".codex" / "skills")),
         "Codex skill directory",
     )
-    if agent_dir == codex_dir:
-        raise InstallError("Agent and Codex skill directories must be distinct")
-    if agent_dir in codex_dir.parents or codex_dir in agent_dir.parents:
-        raise InstallError("Agent and Codex skill directories must not overlap")
-    inspect_directory_chain(agent_dir, "Agent skill directory")
-    inspect_directory_chain(codex_dir, "Codex skill directory")
+    claude_dir = canonical_absolute(
+        os.environ.get("CLAUDE_SKILLS_DIR", str(home / ".claude" / "skills")),
+        "Claude skill directory",
+    )
+    target_dirs = [agent_dir, codex_dir, claude_dir]
+    for index, directory in enumerate(target_dirs):
+        for other in target_dirs[:index]:
+            if directory == other:
+                raise InstallError("Skill directories must be distinct")
+            if directory in other.parents or other in directory.parents:
+                raise InstallError("Skill directories must not overlap")
+        inspect_directory_chain(directory, "Skill directory")
 
     state_dir = canonical_absolute(
         os.environ.get("SKILLS_INSTALL_STATE_DIR", str(home / ".skills-install-state")),
@@ -537,7 +542,7 @@ def install(args) -> int:
         if TX_RE.fullmatch(txid) is None:
             raise InstallError("SKILLS_INSTALL_TXID is invalid")
         transaction = build_transaction(
-            repo, selected, catalog, [agent_dir, codex_dir], txid, migrate=migrate
+            repo, selected, catalog, target_dirs, txid, migrate=migrate
         )
         if not transaction["operations"]:
             print("Selected skills are already installed; no migration operations requested or needed.")
@@ -571,7 +576,7 @@ def install(args) -> int:
         journal_path.unlink()
         fsync_directory(journal_path.parent)
         print(
-            f"Installed {len(selected)} selected skills into {agent_dir} and {codex_dir}. "
+            f"Installed {len(selected)} selected skills into {', '.join(map(str, target_dirs))}. "
             f"Retired {sum(op['action'] == 'retire' for op in transaction['operations'])} owned links."
         )
         retained = [path for path in transaction["backup_roots"] if Path(path).is_dir()]

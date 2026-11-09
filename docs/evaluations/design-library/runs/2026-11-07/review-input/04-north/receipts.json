@@ -1,0 +1,91 @@
+{
+  "scope": "Source/reference/applied-outline only",
+  "receipts": [
+    {
+      "id": "pattern-govuk-check-answers",
+      "url": "https://design-system.service.gov.uk/patterns/check-answers/",
+      "card_locator": "guide/library/entries/pattern-govuk-check-answers.md",
+      "source_locator": "When to use; summary-list HTML; Let users go back and change their answers (lines 390\u2013429)",
+      "inspection_method": "Public HTTPS web open/click text and HTML extraction; no visual inspection or interaction execution",
+      "access_outcome": "Success; relevant documentation content returned",
+      "inspected_on": "2026-11-07",
+      "version": "Live unpinned documentation",
+      "fit": "Correction retains answers and returns directly to review",
+      "mismatch": "Government styling and transaction meaning differ",
+      "selected_use": "Primary flow reference",
+      "resulting_outline_decisions": "Screen 2 distinct change links; prefilled Screen 1 edits return to check"
+    },
+    {
+      "id": "pattern-govuk-error-summary",
+      "url": "https://design-system.service.gov.uk/components/error-summary/",
+      "card_locator": "guide/library/entries/pattern-govuk-error-summary.md",
+      "source_locator": "How it works; Linking from error summary (lines 105\u2013169)",
+      "inspection_method": "Public HTTPS web open/click text and HTML extraction; no visual inspection or interaction execution",
+      "access_outcome": "Success; relevant documentation content returned",
+      "inspected_on": "2026-11-07",
+      "version": "Live unpinned documentation",
+      "fit": "Focused links connect validation messages to inputs",
+      "mismatch": "Capacity loss is not user validation failure",
+      "selected_use": "Validation reference only",
+      "resulting_outline_decisions": "Retain values; linked field errors; separate capacity recovery message"
+    },
+    {
+      "id": "flow-meetup-waitlist",
+      "url": "https://help.meetup.com/hc/en-us/articles/41229648295181-How-to-Join-an-Event-Waitlist-on-Meetup",
+      "card_locator": "guide/library/entries/flow-meetup-waitlist.md",
+      "source_locator": "What Is a Waitlist; How to Join; promotion rules (lines 26\u201389)",
+      "inspection_method": "Public HTTPS web open/click text and HTML extraction; no visual inspection or interaction execution",
+      "access_outcome": "Success; relevant documentation content returned",
+      "inspected_on": "2026-11-07",
+      "version": "Live unpinned documentation",
+      "fit": "Request/interest and attendance have different meanings",
+      "mismatch": "Automatic promotion, paid priority and missing explicit waiting label conflict with rota",
+      "selected_use": "State comparison with explicit rejected mechanisms",
+      "resulting_outline_decisions": "Pending approval always named; no queue or automatic promotion"
+    },
+    {
+      "id": "flow-google-docs-suggestions",
+      "url": "https://support.google.com/docs/answer/6033474",
+      "card_locator": "guide/library/entries/flow-google-docs-suggestions.md",
+      "source_locator": "Introduction; Suggest changes; Accept or reject suggestions (lines 25\u201354)",
+      "inspection_method": "Public HTTPS web open/click text and HTML extraction; no visual inspection or interaction execution",
+      "access_outcome": "Success; relevant documentation content returned",
+      "inspected_on": "2026-11-07",
+      "version": "Live unpinned documentation",
+      "fit": "Proposal differs from owner-approved authoritative result",
+      "mismatch": "No limited capacity or shift allocation",
+      "selected_use": "Secondary decision-authority analogy",
+      "resulting_outline_decisions": "Only coordinator approval creates assigned shift"
+    },
+    {
+      "id": "external-govuk-confirmation-pages",
+      "url": "https://design-system.service.gov.uk/patterns/confirmation-pages/",
+      "card_locator": null,
+      "source_locator": "HTML example; How it works; Help users who bookmark (lines 63\u2013145)",
+      "inspection_method": "Public HTTPS web open/click text and HTML extraction; no visual inspection or interaction execution",
+      "access_outcome": "Success; relevant documentation content returned",
+      "inspected_on": "2026-11-07",
+      "version": "Live unpinned documentation",
+      "fit": "Receipt describes next steps and return visits",
+      "mismatch": "Transaction-complete language can overstate shift commitment",
+      "selected_use": "Selected external addition, discovered via Check answers link 30",
+      "resulting_outline_decisions": "Request received / Pending approval rather than booking success; private status return requirement"
+    },
+    {
+      "id": "user-travel-calendar-lead",
+      "url": null,
+      "source_locator": "request.md: unnamed colorful travel-booking calendar screenshot",
+      "inspection_method": "Brief text only; image not supplied",
+      "access_outcome": "Not inspected; no product identity or image available",
+      "fit": "Reported visual attractiveness only",
+      "mismatch": "Travel booking may promise immediate reservation; not evidence for approval or retained-data recovery",
+      "selected_use": "Not selected as structural or visual evidence",
+      "resulting_outline_decisions": "Preserve quiet noticeboard brief; select cross-domain documented mechanisms"
+    }
+  ],
+  "user_feedback": {
+    "stage": "After shortlist",
+    "text": "I'd rather keep the noticeboard character even if the most useful recovery reference is visually loud.",
+    "decision": "Keep noticeboard composition across all screens; borrow structural review/recovery mechanisms independently from source styling. No additional visual inspection claim."
+  }
+}

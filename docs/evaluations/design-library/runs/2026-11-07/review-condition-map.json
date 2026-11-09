@@ -1,0 +1,82 @@
+{
+  "01-north": {
+    "trial": "01-birch",
+    "condition": "baseline",
+    "result_sha256": "637348928e7beda141766de1f2a04bd88db6dcd142637c8fcc977845f586c650"
+  },
+  "01-south": {
+    "trial": "01-elm",
+    "condition": "library",
+    "result_sha256": "27464d64c87afece3e09442401a99186159356d2f4ea7689b8c31c1e268eaba1"
+  },
+  "02-north": {
+    "trial": "02-elm",
+    "condition": "baseline",
+    "result_sha256": "892b9b34cd3dfe9fe7473247428464c6bc367dd84e916706be5a2a5081ddca66"
+  },
+  "02-south": {
+    "trial": "02-birch",
+    "condition": "library",
+    "result_sha256": "62cb3aba0be4b7c4e8fd3076139a8d6d903e772e3959584b805e9d53bde34e61"
+  },
+  "03-north": {
+    "trial": "03-elm",
+    "condition": "library",
+    "result_sha256": "674755296a08b31d828d7794bd05e77251d056f27c50cde45c4307f0e3c7b1be"
+  },
+  "03-south": {
+    "trial": "03-birch",
+    "condition": "baseline",
+    "result_sha256": "bd99501c4e6ae3a2f572d1267b3ea3e290b7ad2dfc8b93639590423039d34550"
+  },
+  "04-north": {
+    "trial": "04-birch",
+    "condition": "library",
+    "result_sha256": "03abbd2e0da7c6c7ca3512010017d3d62a4bbb0deea453ee128790f4738800b5"
+  },
+  "04-south": {
+    "trial": "04-elm",
+    "condition": "baseline",
+    "result_sha256": "6efd24191426171c7563eb384c71d82518745639ae1239b6af01fdd7215ab5b3"
+  },
+  "05-north": {
+    "trial": "05-elm",
+    "condition": "baseline",
+    "result_sha256": "e92680989121f37906113516d61f2c935d8ed9611ed04c6347aa1c43306d3093"
+  },
+  "05-south": {
+    "trial": "05-birch",
+    "condition": "library",
+    "result_sha256": "d57adfdb7cff226c697fbfd2d159dca61d82cb0d7b19389904de7c508ee0639e"
+  },
+  "06-north": {
+    "trial": "06-birch",
+    "condition": "baseline",
+    "result_sha256": "c9719d4f658efb292e0fe4fb70c97f6f8870e5b1edc4ca9c1881948a01097d3b"
+  },
+  "06-south": {
+    "trial": "06-elm",
+    "condition": "library",
+    "result_sha256": "93869f558d933c025d511c956d04d07703fb0fba1cad33e658b6aa26ece045a6"
+  },
+  "07-north": {
+    "trial": "07-elm",
+    "condition": "baseline",
+    "result_sha256": "783c315e00c48c6c489140fed1427ad51c01c288bd640c0f9bbe3d31dddaaa29"
+  },
+  "07-south": {
+    "trial": "07-birch",
+    "condition": "library",
+    "result_sha256": "075a585fc02871019a7ab107ffd9c30aaa12dda64ed73c5b3b1a3b5751406cc9"
+  },
+  "08-north": {
+    "trial": "08-birch",
+    "condition": "baseline",
+    "result_sha256": "63e5a222a4979fb34bd42aa4561fb9a57b30f8946cdcd7c4a1c549f24bb754ef"
+  },
+  "08-south": {
+    "trial": "08-elm",
+    "condition": "library",
+    "result_sha256": "db2cec5238f4c45e7b345cac90dcbfff348f495e48617d91ab12ca81371c3f8d"
+  }
+}

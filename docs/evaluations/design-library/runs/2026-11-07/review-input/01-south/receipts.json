@@ -1,0 +1,153 @@
+{
+  "date": "2026-11-07",
+  "scope": "local reference and applied outline; no build",
+  "sources": [
+    {
+      "id": "visual-arena-text-led-community",
+      "card": "guide/library/entries/visual-arena-text-led-community.md",
+      "urls": [
+        "https://www.are.na/"
+      ],
+      "locator": "Desktop opening definition and beginning of How it works",
+      "inspection_method": "full local card; primary HTTPS text; own native Chrome desktop screenshot and accessibility tree",
+      "access_outcome": "success",
+      "fit": "Activity-first community explanation",
+      "mismatch": "Abstract definition and signup actions; no attendance journey",
+      "selected_use": "selected",
+      "resulting_outline_decisions": "Plain definition and what-happens section; public meeting-first action",
+      "limits": "No authenticated workflow, efficacy, accessibility or mobile behavior tested; card evidence not substituted for own inspection."
+    },
+    {
+      "id": "visual-pudding-story-index",
+      "card": "guide/library/entries/visual-pudding-story-index.md",
+      "urls": [
+        "https://pudding.cool/"
+      ],
+      "locator": "Desktop index, search/category row and first story rows",
+      "inspection_method": "full local card; own native Chrome desktop screenshot and accessibility tree",
+      "access_outcome": "success",
+      "fit": "Concrete specimens with consistent date/number metadata",
+      "mismatch": "Editorial archive scale distracts from a first meeting",
+      "selected_use": "selected partially",
+      "resulting_outline_decisions": "Ordinary activity examples and labeled meeting facts, no archive/search at entry",
+      "limits": "No authenticated workflow, efficacy, accessibility or mobile behavior tested; card evidence not substituted for own inspection."
+    },
+    {
+      "id": "visual-duolingo-welcome",
+      "card": "guide/library/entries/visual-duolingo-welcome.md",
+      "urls": [
+        "https://www.duolingo.com/"
+      ],
+      "locator": "Desktop first viewport",
+      "inspection_method": "full local card; own native Chrome desktop screenshot and accessibility tree",
+      "access_outcome": "success",
+      "fit": "Clear action beside a social cast",
+      "mismatch": "Illustration/start-account direction conflicts with ordinary activity emphasis after feedback",
+      "selected_use": "rejected direction",
+      "resulting_outline_decisions": "No mascot, get-started funnel, gamification or membership framing",
+      "limits": "No authenticated workflow, efficacy, accessibility or mobile behavior tested; card evidence not substituted for own inspection."
+    },
+    {
+      "id": "flow-discord-community-onboarding",
+      "card": "guide/library/entries/flow-discord-community-onboarding.md",
+      "urls": [
+        "https://support.discord.com/hc/en-us/articles/11074987197975-Community-Onboarding-FAQ"
+      ],
+      "locator": "Here\u2019s how it works; default channels; customization and later changes",
+      "inspection_method": "full local card; primary HTTPS documentation text",
+      "access_outcome": "success",
+      "fit": "Questions have an actual consequence; useful defaults",
+      "mismatch": "Channel and role setup unnecessary for first-time attendance",
+      "selected_use": "selected principle only",
+      "resulting_outline_decisions": "No interest quiz or qualification/profile gate",
+      "limits": "No authenticated workflow, efficacy, accessibility or mobile behavior tested; card evidence not substituted for own inspection."
+    },
+    {
+      "id": "flow-meetup-waitlist",
+      "card": "guide/library/entries/flow-meetup-waitlist.md",
+      "urls": [
+        "https://help.meetup.com/hc/en-us/articles/41229648295181-How-to-Join-an-Event-Waitlist-on-Meetup"
+      ],
+      "locator": "Joining; status; promotion; leaving",
+      "inspection_method": "full local card; primary HTTPS documentation text",
+      "access_outcome": "success",
+      "fit": "Distinguish reserved attendance from interest/waiting",
+      "mismatch": "Paid-priority and automatic queue mechanics not Lantern policy",
+      "selected_use": "selected principle only",
+      "resulting_outline_decisions": "Explicit success only after reservation succeeds; no invented waitlist",
+      "limits": "No authenticated workflow, efficacy, accessibility or mobile behavior tested; card evidence not substituted for own inspection."
+    },
+    {
+      "id": "pattern-govuk-check-answers",
+      "card": "guide/library/entries/pattern-govuk-check-answers.md",
+      "urls": [
+        "https://design-system.service.gov.uk/patterns/check-answers/"
+      ],
+      "locator": "When to use; HTML example; Let users go back and change their answers",
+      "inspection_method": "full local card; primary HTTPS documentation text; no own visual inspection",
+      "access_outcome": "success",
+      "fit": "Retained values and deliberate final action",
+      "mismatch": "Separate application review excessive for one-chair optional form",
+      "selected_use": "selected adapted",
+      "resulting_outline_decisions": "Summary and editable values on one RSVP screen; preserve answers during correction",
+      "limits": "No authenticated workflow, efficacy, accessibility or mobile behavior tested; card evidence not substituted for own inspection."
+    },
+    {
+      "id": "external-repair-cafe-glasgow",
+      "card": null,
+      "urls": [
+        "https://repaircafeglasgow.org/visit-a-cafe/"
+      ],
+      "locator": "Repair Caf\u00e9 Process: preparation, welcome, observing, repair participation, next caf\u00e9",
+      "inspection_method": "primary public HTTPS text opened with web tool; relevant source sections read",
+      "access_outcome": "success",
+      "fit": "Concrete physical visit sequence and direct next-event connection",
+      "mismatch": "Repair check-in, equipment, queues and refreshments are different",
+      "selected_use": "selected",
+      "resulting_outline_decisions": "Explain arriving, seeing, trying, optionally sharing; verify actual facilitation before publication",
+      "limits": "No images visually inspected or live participation flow tested."
+    },
+    {
+      "id": "external-come-alone-answers",
+      "card": null,
+      "urls": [
+        "https://www.comealone.app/answers/"
+      ],
+      "locator": "Getting started: first time going alone and not knowing anyone",
+      "inspection_method": "primary public HTTPS text opened with web tool; relevant source sections read",
+      "access_outcome": "success",
+      "fit": "Addresses the exact solo-arrival concern absent from initial shortlist",
+      "mismatch": "Publisher advice with app promotion, not empirical usability evidence",
+      "selected_use": "selected",
+      "resulting_outline_decisions": "Prominent Coming on your own section; activity focus and simple first hello; no app or chat gate",
+      "limits": "No images visually inspected or live participation flow tested."
+    },
+    {
+      "id": "external-parkrun-welcome",
+      "card": null,
+      "urls": [
+        "https://volunteer.parkrun.com/hc/en-us/articles/16857694255890-3-2-What-do-the-volunteers-do"
+      ],
+      "locator": "Role account and Communications Person guidance, especially identifiable volunteers and greeting apprehensive first-time arrivals",
+      "inspection_method": "primary public HTTPS text opened with web tool; relevant source sections read",
+      "access_outcome": "success",
+      "fit": "A visible human contact makes welcome operational",
+      "mismatch": "Sporting volunteer system is different; Lantern staffing unknown",
+      "selected_use": "selected as operational proposal",
+      "resulting_outline_decisions": "Confirm an identifiable host and precise arrival point before publishing promises",
+      "limits": "No images visually inspected or live participation flow tested."
+    }
+  ],
+  "additional_search_leads_not_promoted": [
+    {
+      "url": "https://www.repaircafe.org/en/faq/",
+      "method": "search result excerpt only",
+      "use": "not selected; local Glasgow process provided more specific evidence"
+    },
+    {
+      "url": "https://www.repaircafe.org/en/about/",
+      "method": "search result excerpt only",
+      "use": "not selected; no visual/flow claim"
+    }
+  ]
+}

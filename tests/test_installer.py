@@ -45,6 +45,7 @@ class InstallerTests(unittest.TestCase):
                 "SKILLS_INSTALL_STATE_DIR": str(state),
                 "AGENT_SKILLS_DIR": str(agent),
                 "CODEX_SKILLS_DIR": str(codex),
+                "CLAUDE_SKILLS_DIR": str(base / "claude"),
                 "PYTHONDONTWRITEBYTECODE": "1",
             }
         )
@@ -109,6 +110,7 @@ class InstallerTests(unittest.TestCase):
         for name in CATALOG:
             self.assert_link(agent, name)
             self.assert_link(codex, name)
+            self.assert_link(Path(environment["CLAUDE_SKILLS_DIR"]), name)
 
         excluded, excluded_agent, excluded_codex, _ = self.fixture("excluded")
         self.remove_go(excluded)
@@ -117,6 +119,96 @@ class InstallerTests(unittest.TestCase):
         self.assertFalse((excluded_codex / "responsive-coordinator").exists())
         for directory in (excluded_agent, excluded_codex):
             self.assert_link(directory, "audit-technical-work")
+
+    def test_claude_default_location_and_selective_install(self):
+        environment, _, _, _ = self.fixture("claude-default")
+        del environment["CLAUDE_SKILLS_DIR"]
+        self.run_installer(["--only", "writing-with-intent"], environment=environment)
+        claude = Path(environment["HOME"]) / ".claude" / "skills"
+        self.assert_link(claude, "writing-with-intent")
+        self.assertTrue((claude / "writing-with-intent" / "library" / "index.md").is_file())
+        self.assertFalse((claude / "audit-technical-work").exists())
+
+        excluded, *_ = self.fixture("claude-excluded")
+        self.run_installer(["--exclude", "responsive-coordinator"], environment=excluded)
+        claude = Path(excluded["CLAUDE_SKILLS_DIR"])
+        self.assert_link(claude, "writing-with-intent")
+        self.assertFalse((claude / "responsive-coordinator").exists())
+
+    def test_claude_conflicts_fail_before_any_installation(self):
+        for kind in ("nonlink", "equal-agent", "inside-codex", "symlink-parent"):
+            with self.subTest(kind=kind):
+                environment, agent, codex, state = self.fixture("claude-conflict-" + kind)
+                claude = Path(environment["CLAUDE_SKILLS_DIR"])
+                if kind == "nonlink":
+                    claude.mkdir()
+                    (claude / "audit-technical-work").write_text("keep")
+                elif kind == "equal-agent":
+                    environment["CLAUDE_SKILLS_DIR"] = str(agent)
+                elif kind == "inside-codex":
+                    environment["CLAUDE_SKILLS_DIR"] = str(codex / "nested")
+                else:
+                    real = claude.parent / "real"
+                    real.mkdir()
+                    claude.symlink_to(real, target_is_directory=True)
+                self.run_installer(["--only", "audit-technical-work"],
+                                   environment=environment, expected=1)
+                self.assertFalse(agent.exists())
+                self.assertFalse(codex.exists())
+                self.assertFalse((state / "journal.json").exists())
+                if kind == "nonlink":
+                    self.assertEqual("keep", (claude / "audit-technical-work").read_text())
+
+    def test_third_target_mutation_failures_restore_all_three(self):
+        for index, boundary in enumerate(("after-backup-dir:3", "after-backup:3",
+                                           "after-link:3", "before-cleanup")):
+            with self.subTest(boundary=boundary):
+                environment, agent, codex, state = self.fixture(f"claude-rollback-{index}")
+                claude = Path(environment["CLAUDE_SKILLS_DIR"])
+                self.original_links(agent, codex)
+                claude.mkdir()
+                (claude / "audit-technical-work").symlink_to("/original/claude")
+                environment["SKILLS_INSTALL_FAIL_AT"] = boundary
+                result = self.run_installer(["--only", "audit-technical-work"],
+                                            environment=environment, expected=1)
+                self.assertIn("rollback completed", result.stderr)
+                self.assert_original_links(agent, codex)
+                self.assertEqual("/original/claude", os.readlink(claude / "audit-technical-work"))
+                self.assertFalse((state / "journal.json").exists())
+
+    def test_third_target_crash_recovers_all_three(self):
+        environment, agent, codex, state = self.fixture("claude-crash")
+        claude = Path(environment["CLAUDE_SKILLS_DIR"])
+        crashed = environment.copy()
+        crashed["SKILLS_INSTALL_CRASH_AT"] = "after-link:3"
+        self.run_installer(["--only", "audit-technical-work"], environment=crashed, expected=97)
+        self.assertTrue((state / "journal.json").is_file())
+        result = self.run_installer(["--only", "audit-technical-work"], environment=environment)
+        self.assertIn("Recovered interrupted", result.stdout)
+        for directory in (agent, codex, claude):
+            self.assert_link(directory, "audit-technical-work")
+        self.assertFalse((state / "journal.json").exists())
+
+    def test_claude_retirement_preserves_foreign_material_and_rolls_back(self):
+        environment, agent, codex, state = self.fixture("claude-retire")
+        claude = Path(environment["CLAUDE_SKILLS_DIR"])
+        claude.mkdir()
+        owned = claude / "align-work"
+        owned.symlink_to(ROOT / "skills" / "align-work")
+        (claude / "agent-mail").symlink_to("/foreign/agent-mail")
+        (claude / "execute-goal-loop").mkdir()
+        failed = environment.copy()
+        failed["SKILLS_INSTALL_FAIL_AT"] = "before-cleanup"
+        self.run_installer(["--only", "audit-technical-work", "--migrate"],
+                           environment=failed, expected=1)
+        self.assertEqual(str(ROOT / "skills" / "align-work"), os.readlink(owned))
+        for directory in (agent, codex, claude):
+            self.assertFalse(os.path.lexists(directory / "audit-technical-work"))
+        self.run_installer(["--only", "audit-technical-work", "--migrate"], environment=environment)
+        self.assertFalse(os.path.lexists(owned))
+        self.assertEqual("/foreign/agent-mail", os.readlink(claude / "agent-mail"))
+        self.assertTrue((claude / "execute-goal-loop").is_dir())
+        self.assertFalse((state / "journal.json").exists())
 
     def test_nonlink_and_symlink_parent_fail_before_other_target_mutation(self):
         environment, agent, codex, state = self.fixture("hostile")
@@ -422,6 +514,7 @@ class InstallerTests(unittest.TestCase):
         for directory in (agent, codex):
             self.assertFalse(os.path.lexists(directory / "align-work"))
             self.assertFalse(os.path.lexists(directory / "audit-technical-work"))
+        self.assertFalse(Path(environment["CLAUDE_SKILLS_DIR"]).exists())
 
     def test_migration_failure_rolls_back_installs_and_retirements_in_both_targets(self):
         for index, boundary in enumerate(("after-retire:2", "after-retire:4", "before-cleanup")):

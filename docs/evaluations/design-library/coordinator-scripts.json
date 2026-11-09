@@ -1,0 +1,157 @@
+{
+  "schema_version": 1,
+  "purpose": "Runtime coordinator relay only; no resource IDs, private fit criteria or grading hints. Withhold this script from runners; deliver only triggered text.",
+  "matching": "Match questions by meaning; combine relevant reply blocks for combined questions.",
+  "unspecified_question_reply": "That is not settled; make and label a reasonable assumption if it doesn't block the outline.",
+  "trigger_protocol": "Deliver each once-triggered after-shortlist/packet direction once at first substantive matching point, even if no question is asked. If runner finishes without shortlist, send as one revision request. Case06 requires no shortlist and no catalog-pushing feedback. Within predeclared limits log unmet trigger rather than unequal extra work. Log trigger, exact delivered text and revision.",
+  "cases": [
+    {
+      "case_id": "01",
+      "replies": [
+        {
+          "trigger": "When asked about audience, first action, belonging, barriers or relevant success",
+          "text": "Mostly adults who don't know anyone in the group. They arrive from a printed QR code on their phone. Let them see what happens at a table and find the next meeting before asking them to join. Coming once without teaching anything is welcome. We are informal and warm, but I don't want it to feel like a club you have to qualify for."
+        },
+        {
+          "trigger": "When logistics are needed",
+          "text": "Next meeting is Saturday 21 November, 14:00–16:00, at Alder Library. Free. Step-free entrance. People can arrive alone; no account is needed to see details. RSVP is optional and just reserves a chair."
+        },
+        {
+          "trigger": "Once at first substantive shortlist, regardless of aesthetics",
+          "text": "Keep the option that best explains what actually happens at a table. Drop the direction that feels most like recruiting members. Borrow the clearest next-meeting treatment from a different option. If none explains arriving alone, find something that does. I'd rather see ordinary people and specific activities than a polished club identity."
+        },
+        {
+          "trigger": "If shortlist lacks a recruitment-heavy option, append to first-shortlist reply",
+          "text": "None needs to be recruiting; keep that true as you combine them."
+        }
+      ]
+    },
+    {
+      "case_id": "02",
+      "replies": [
+        {
+          "trigger": "When asked to repeat supplied facts",
+          "text": "Use the brief as given."
+        },
+        {
+          "trigger": "When asked a consequential missing fact",
+          "text": "Requests can be reassigned. Undo is allowed for 30 seconds unless the crew has accepted; then the dispatcher must request reassignment and the pending state must be visible. Crew acceptance arrives asynchronously. Keep all 30 requests reachable without switching to a separate page."
+        },
+        {
+          "trigger": "When further product facts requested",
+          "text": "Make and label a reasonable assumption; don't invent live operational policy."
+        },
+        {
+          "trigger": "Once after initial reference packet",
+          "text": "The sparse option looks the most polished. Could we make every request a huge card like that?"
+        }
+      ]
+    },
+    {
+      "case_id": "03",
+      "replies": [
+        {
+          "trigger": "When asked consequential audience/context",
+          "text": "Adult beginners using a phone in short evening sessions. They may be embarrassed by their own voice. The creature is a practice partner, not a scorekeeper. Voice is not automatically sent. If microphone access is declined, offer a text practice alternative."
+        },
+        {
+          "trigger": "When asked aesthetic preference",
+          "text": "That choice is delegated to you."
+        },
+        {
+          "trigger": "Once at first chosen direction",
+          "text": "I like an expressive partner. Please don't make a missed day disappoint the creature, and don't turn corrections into a red failure screen."
+        }
+      ]
+    },
+    {
+      "case_id": "04",
+      "replies": [
+        {
+          "trigger": "When asked to view the described screenshot",
+          "text": "I don't have that screenshot available; don't treat my description as visual evidence. You can use other accessible material."
+        },
+        {
+          "trigger": "When asked meaningful lifecycle facts",
+          "text": "The coordinator approves later by email. Contact is name plus email. Volunteers can withdraw while pending; an approved shift needs a coordinator contact link. Don't imply payment or instant booking."
+        },
+        {
+          "trigger": "Once after shortlist",
+          "text": "I'd rather keep the noticeboard character even if the most useful recovery reference is visually loud."
+        }
+      ]
+    },
+    {
+      "case_id": "05",
+      "replies": [
+        {
+          "trigger": "When asked authoritative room policy or lifecycle",
+          "text": "Current room policy: show only instrument ID and a non-personal receipt code after checkout/return. Clear name and contact details at completion and after 60 seconds idle; warn at 45 seconds and let the person continue. No staff photograph of borrower details. Timeout does not automatically complete a loan or return. Staff can help from a separate authenticated console. Arabic and English are required."
+        },
+        {
+          "trigger": "When asked for original handout",
+          "text": "I don't have it. Treat that sentence as an unverified historical claim, not a source."
+        },
+        {
+          "trigger": "When asked hardware",
+          "text": "Touch kiosk; no keyboard assumed. You may flag hardware-specific unknowns."
+        },
+        {
+          "trigger": "Once after a promising source is proposed",
+          "text": "If this source predates the policy or only demonstrates English, please keep its useful bits but make the unresolved parts explicit."
+        }
+      ]
+    },
+    {
+      "case_id": "06",
+      "replies": [
+        {
+          "trigger": "When asked visual preferences",
+          "text": "Keep them as they are."
+        },
+        {
+          "trigger": "When asked whether payment occurs",
+          "text": "The brief already says only review submission."
+        },
+        {
+          "trigger": "When asked legitimate idempotency/display uncertainty",
+          "text": "A pending retry checks whether the request already exists before showing success. While checking, don't invite another send. If status is unknown, say so and offer Check status."
+        }
+      ]
+    },
+    {
+      "case_id": "07",
+      "replies": [
+        {
+          "trigger": "When asked readership/context",
+          "text": "Curious adults on phones, often outdoors; some just browse pictures, others read the notes. Species identification is tentative and should be labeled. Sound must be user-started, with a text description."
+        },
+        {
+          "trigger": "When asked to select among directions",
+          "text": "I want to sit with the alternatives; keep them open."
+        },
+        {
+          "trigger": "Once packet appears",
+          "text": "Can one direction be less image-led, for people who are here to read? Keep the photo-led option too."
+        }
+      ]
+    },
+    {
+      "case_id": "08",
+      "replies": [
+        {
+          "trigger": "When asked actual hardware/gloves/light",
+          "text": "Unknown; mark it as field validation work. Assume neither touch nor voice will necessarily work."
+        },
+        {
+          "trigger": "When asked authoritative data",
+          "text": "Capture object ID, observation note, tentative material and optional photo. A provisional record is not an approved finding. Keep both versions of a sync conflict available; only the senior reviewer can resolve it. No automatic overwriting."
+        },
+        {
+          "trigger": "Once after candidate packet",
+          "text": "The references seem adjacent. Please don't imply their usability carries over to gloved work."
+        }
+      ]
+    }
+  ]
+}

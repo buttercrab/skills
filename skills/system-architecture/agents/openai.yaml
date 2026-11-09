@@ -1,0 +1,4 @@
+interface:
+  display_name: "System Architecture"
+  short_description: "Choose system boundaries and explain them with diagrams"
+  default_prompt: "Use $system-architecture to assess this system, compare contextual alternatives, and explain the chosen boundaries and failure behavior with appropriate diagrams."

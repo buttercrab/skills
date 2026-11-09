@@ -1,0 +1,4 @@
+interface:
+  display_name: "Design with Intent"
+  short_description: "Curated design references, human direction, deliberate execution"
+  default_prompt: "Use $design-with-intent to clarify my direction, find and compare relevant design resources, and apply the selected ideas to this work."

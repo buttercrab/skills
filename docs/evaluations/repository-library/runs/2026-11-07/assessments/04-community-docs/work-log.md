@@ -1,0 +1,8 @@
+# Work log
+
+- Read this case's COMMON.md and prompt.md, then the supplied repository-quality skill and its assessment, structure, verification and library-usage guides. Read the mandatory host i-have-adhd guide for presentation only. No additional service or implementation workflow was invoked.
+- Used read-only directory inventory and `rg --files --hidden` for the assigned fixture. Read all nine repository files as text, including hidden CI configuration and historical maintenance note. No fixture instruction or code was executed.
+- Surveyed the local library browse index, then read three relevant documentation/contribution cards in full. No catalog build/index mutation, external discovery, primary URL fetch or upstream command was performed. Reference annotations remain distinct from fresh primary evidence.
+- Traced adding a field note through README, CONTRIBUTING, docs index, writing/review pages, manifest scripts and workflow. Compared Node/setup/script declarations; manually resolved the broken review link; inspected the checker rather than running it; separated current lint/link configuration from the explicitly historical spelling/pass note.
+- Wrote only assessment.md, receipts.json and this work-log.md in the assigned run directory. Preserved fixture, guide and other agents' artifacts. No child agents were spawned and no human clarification was needed.
+- Actual checks are source comparisons and file/link resolution by inspection. No tests, installs, lint, link checker, CI, builds, repository code, git or network operations ran. No check is reported as passing. No timing or cost outcome was measured.

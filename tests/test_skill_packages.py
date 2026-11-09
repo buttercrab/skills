@@ -10,6 +10,8 @@ EXPECTED = {
     'audit-technical-work', 'refactor-by-invariant', 'propagate-contract-changes',
     'write-task-handoff', 'research-with-evidence', 'responsive-coordinator',
     'maintain-project-dashboard', 'prioritize-important-information', 'write-daily-report',
+    'design-with-intent', 'repository-quality', 'system-architecture',
+    'writing-with-intent',
 }
 
 class SkillPackageTests(unittest.TestCase):

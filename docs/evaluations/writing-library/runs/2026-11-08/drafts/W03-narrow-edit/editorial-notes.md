@@ -1,0 +1,2 @@
+- Replaced two comma splices with semicolons.
+- Moved “by email” beside “tell Neri” to clarify how to reply.

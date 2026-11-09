@@ -1,0 +1,4 @@
+snapshot/README.md
+snapshot/client-and-operations.md
+snapshot/deployment.yaml
+snapshot/intake.ts

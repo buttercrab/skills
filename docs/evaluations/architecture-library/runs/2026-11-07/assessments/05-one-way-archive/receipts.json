@@ -1,0 +1,27 @@
+{
+  "status": "final_source_only_proposal",
+  "scope": "/private/tmp/system-architecture-assessment-20261107/05-one-way-archive",
+  "snapshot_evidence": [
+    {"path":"snapshot/approved-constraints.md","lines":"2,4,6","inspection":"actual line-numbered read","supports":"approved one-way/paper policy; retention, identity, capacity and objective"},
+    {"path":"snapshot/current-state.md","lines":"2-4","inspection":"actual line-numbered read","supports":"reported prototype behavior and available fields; no runtime proof"},
+    {"path":"snapshot/transfer-spec.md","lines":"2-6","inspection":"actual line-numbered read","supports":"device revision 3 loss/duplicate/delay/corruption semantics, A local transaction capability, clock skew, authenticity gap"}
+  ],
+  "guide_reads": ["SKILL.md", "references/context-and-tradeoffs.md", "references/boundaries-and-failure.md", "references/library-usage.md", "references/diagram-contract.md", "references/verification-and-evolution.md", "library/index.md"],
+  "guide_root": "/private/tmp/system-architecture-assessment-20261107/guide",
+  "local_cards": [
+    {"id":"foundation-end-to-end-guarantees","inspection":"full local card only","transfer":"application-owned identity and end-to-end verification","mismatch":"not device-specific; no original paper inspected"},
+    {"id":"pattern-request-reply-versus-messaging","inspection":"full local card only","transfer":"separate acceptance, completion and acknowledgment","mismatch":"request/reply unavailable across one-way link"},
+    {"id":"pattern-retry-budget-and-breaker","inspection":"full local card only","transfer":"unknown results and stable replay intent","mismatch":"no circuit breaker or automatic network retry prescribed"},
+    {"id":"pattern-transactional-outbox","inspection":"full local card only","transfer":"local effect and identity atomicity","mismatch":"no cross-domain transaction or delivery guarantee; no broker introduced"}
+  ],
+  "claims": {
+    "proposed": ["canonical transfer manifests and bounded packaging", "S durable intent and attempt ledger", "A quarantine, stable identities, local deduplication and receipts", "daily paper workflow and exact-match manual entry", "retention and operator recovery states", "admission holds under finite capacity"],
+    "inferred": ["S may lack acknowledgment after A commit", "loss can repeat indefinitely so supplied semantics do not establish SLO attainment", "transport delays permit original and reviewed resend overlap"],
+    "unknown": ["approved trust root and verification-key enrollment", "authentic export approval verification", "paper anti-forgery assurance beyond approved custody process", "landing directory atomicity and overwrite behavior", "aggregate receipt finalization capability", "actual durable-store implementation and payload placement", "storage footprint and SLO performance"]
+  },
+  "checks": ["manual comparison of proposal and diagram semantics with all three snapshot files", "review of directionality, allowed paper fields, retention start, duplicate handling and commit scope"],
+  "not_performed": ["fixture or upstream execution", "tests", "syntax parsing", "rendering", "build or install", "network or external primary inspection", "hardware probes", "production observation", "implementation or infrastructure changes"],
+  "outputs": ["assessment.md", "diagrams.md", "receipts.json", "work-log.md"],
+  "additional_host_guides": [],
+  "human_policy_question_required": false
+}

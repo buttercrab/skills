@@ -1,0 +1,1 @@
+{"name":"open-field-notes-checks","private":true,"engines":{"node":">=20"},"scripts":{"lint":"markdownlint-cli2 'docs/**/*.md'","links":"node tools/check-links.mjs"},"devDependencies":{"markdownlint-cli2":"0.15.0"}}

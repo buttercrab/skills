@@ -1,0 +1,1057 @@
+{
+  "schema_version": 1,
+  "status": "FROZEN CONDITION-BLIND JUDGMENTS",
+  "reviewer": "review-b",
+  "cases": [
+    "05",
+    "06",
+    "07",
+    "08"
+  ],
+  "frozen_before_condition_labels": true,
+  "inputs": "Protocol/rubric; case prompts and evaluator-private criteria; frozen private mapping; neutral review-input request/conversation/result/receipts/work-log only. No condition map, manifests, workflow or original trial bodies read. Guide paths mentioned within runner work logs were treated only as reports.",
+  "gates": {
+    "reviewer_isolation": "Condition labels and workflow text not read. Private mapping kept in assigned files.",
+    "controlled_pair_status": "Unassessed beyond supplied neutral artifacts. Equal corpus/tools, randomization, held-out exposure and original condition isolation cannot be independently certified from runner reports; no overall controlled-effect claim.",
+    "coordinator_fidelity": "05 and 08 material fact/feedback relays present identically; 06 no clarification needed; 07 reading-led trigger present identically. Optional private 06 status-check and 07 audience facts not delivered; not enforced as instructions. Pre/post revisions and trigger timing not independently proven by native traces.",
+    "permission_scope": "No outcome-level policy denial/workaround or local app/browser/server use reported. 07 reports public HTTPS native browsing only. 05-south self-reports temporary validation file outside trial folder, then removal; bounded filesystem/output-location deviation, no demonstrated disallowed outcome or source-service mutation. Flag for coordinator reconciliation against actual common permission text; not enough evidence here to certify blanket compliance or invalidate all independent source judgments.",
+    "evidence_integrity": "No fabrication demonstrated. First-person source/visual reports are not independently verified native traces. 07 screenshot-view claims remain unassessed as observed evidence; no rendered/live/beauty/physical/conformance credit.",
+    "acceptance": "Source-reference/application judgments only; interaction, rendered accessibility, beauty, hardware usability, live performance and real-user preference satisfaction unassessed."
+  },
+  "evidence_modalities": {
+    "source_card": "Reported per receipts; reviewer inspected neutral reports, not cards themselves.",
+    "primary_source": "Reported per receipts; independent reviewer read-only HTTPS spot-checks below. Spot-checks do not authenticate runner access history.",
+    "visual_sample": "07 north reports 3 desktop screenshots, south 4; no screenshot/native trace supplied to reviewer, actual views unassessed. 05/06/08 none reported.",
+    "documented_flow": "Text-documented portions reported; outline states are proposals.",
+    "interaction_tested": "Unassessed throughout. 07 north failed detached-node route attempt is no completed flow evidence."
+  },
+  "reviewer_primary_spot_checks": [
+    {
+      "url": "https://design.tax.service.gov.uk/hmrc-design-patterns/service-timeout/",
+      "locator": "When to use; How it works; signed-in/answers-deleted states",
+      "result": "Supports qualified warning/continue/ending transfer; different 13/15 minute timing, no Arabic kiosk proof."
+    },
+    {
+      "url": "https://docs.getodk.org/collect-forms/#editing-drafts",
+      "locator": "Editing drafts / Finalizing drafts",
+      "result": "Supports draft edit versus finalized/ready-to-send distinction; approval not inferred."
+    },
+    {
+      "url": "https://docs.getodk.org/central-entities/#managing-entity-conflicts",
+      "locator": "Managing Entity conflicts; What are Entity conflicts; Addressing parallel updates",
+      "result": "Confirms base-version explanation and arrival-order update behavior; south expressly rejects latter. No UI sample viewed."
+    }
+  ],
+  "posthoc_alternatives": [
+    {
+      "case": "05",
+      "items": [
+        "HMRC service timeout",
+        "W3C timing explanation",
+        "Bethel self-check checkout only",
+        "Bibliotheca dated physical-return/account description"
+      ],
+      "rationale": "Admitted only for named narrow mechanisms; no retroactive change to frozen catalog denominator. HMRC primary text independently spot-checked."
+    },
+    {
+      "case": "06",
+      "items": [
+        "GOV.UK confirmation pages"
+      ],
+      "rationale": "Valid narrow banner reference despite omission from frozen candidate list; same admissibility applies to both artifacts."
+    },
+    {
+      "case": "07",
+      "items": [
+        "Walkachusetts opening only",
+        "Radio aporee text description",
+        "W3C prerecorded audio explanation"
+      ],
+      "rationale": "Qualified visual-journal opening/environmental-listening/audio alternative roles, not tested flows. No live or visual credit derived from links."
+    },
+    {
+      "case": "08",
+      "items": [
+        "Linear triage review ownership",
+        "ODK drafts/transmission",
+        "ODK parallel/base explanation",
+        "GOV.UK correction",
+        "W3C target-size scope boundary"
+      ],
+      "rationale": "Qualified role-level transfers; ODK overwrite behavior is counterexample explicitly rejected. Frozen mapping remains unchanged; symmetry applies if either artifact used them."
+    }
+  ],
+  "records": [
+    {
+      "case": "05",
+      "artifact": "05-north",
+      "dimensions": {
+        "context_and_proportional_initiative": {
+          "rating": 3,
+          "evidence_locator": "05-north/result.md \u2014 Decisions carried forward / Direction now settled",
+          "judgment": "Clarified policy controls clearing, receipt-only success, Arabic/English and touch assumptions.",
+          "confidence": "high",
+          "material_defect_or_uncertainty": null
+        },
+        "discovery_coverage": {
+          "rating": 2,
+          "evidence_locator": "05-north/result.md \u2014 What the catalog can responsibly supply / What responsibly matches",
+          "judgment": "Relevant review, bidi and timing references found; honest complete-match gap; no selected catalog privacy resource.",
+          "confidence": "high",
+          "material_defect_or_uncertainty": "Privacy application is requirement-led rather than catalog coverage."
+        },
+        "contextual_relevance_and_mismatch": {
+          "rating": 3,
+          "evidence_locator": "05-north/result.md \u2014 Reference table and source-age/language limits",
+          "judgment": "English application guidance and web direction mechanisms are bounded; no presumed end-to-end kiosk fit.",
+          "confidence": "high",
+          "material_defect_or_uncertainty": null
+        },
+        "evidence_discipline": {
+          "rating": 3,
+          "evidence_locator": "05-north/result.md \u2014 Reference table; receipts.json; work-log.md",
+          "judgment": "Source/card/visual/test modes are separated; locators and dates supplied.",
+          "confidence": "medium",
+          "material_defect_or_uncertainty": "Primary access is runner-reported except reviewer spot-checks noted globally; native traces unavailable."
+        },
+        "human_direction_and_revision": {
+          "rating": 3,
+          "evidence_locator": "05-north/result.md \u2014 Source-age/language limits after feedback",
+          "judgment": "Retains useful older/English mechanisms while exposing unknown chronology and unresolved Arabic/hardware checks.",
+          "confidence": "high",
+          "material_defect_or_uncertainty": null
+        },
+        "substantive_application": {
+          "rating": 3,
+          "evidence_locator": "05-north/result.md \u2014 Checkout; Return; Timeout",
+          "judgment": "Explicit review/commit, completion clearing and unknown outcomes; timeout does not commit; staff boundary explicit.",
+          "confidence": "high",
+          "material_defect_or_uncertainty": null
+        },
+        "output_usefulness_and_scope": {
+          "rating": 3,
+          "evidence_locator": "05-north/result.md \u2014 Applied screens and remaining checks",
+          "judgment": "Actionable checkout/return/timeout outline with consequential assumptions and future checks.",
+          "confidence": "high",
+          "material_defect_or_uncertainty": null
+        }
+      },
+      "role_accounting": {
+        "declared_applicable_roles": [
+          "privacy",
+          "bidi",
+          "timeout",
+          "transaction"
+        ],
+        "denominator": 4,
+        "retrieval_coverage": {
+          "catalog_roles": [
+            "bidi",
+            "timeout",
+            "transaction"
+          ],
+          "count": "3/4",
+          "expanded_roles": [
+            "bidi",
+            "timeout",
+            "transaction"
+          ]
+        },
+        "selection_coverage": {
+          "catalog_roles": [
+            "bidi",
+            "timeout",
+            "transaction"
+          ],
+          "count": "3/4",
+          "expanded_count": "3/4"
+        },
+        "application_coverage": {
+          "roles": [
+            "privacy",
+            "bidi",
+            "timeout",
+            "transaction"
+          ],
+          "count": "4/4"
+        },
+        "notes": "Catalog privacy candidates were not reported inspected. Policy directly supplies shared-screen clearing. South HMRC is admitted post hoc only as a limited warn/continue/delete-answers mechanism, not proof of shared-kiosk privacy."
+      },
+      "consequential_selected_recommendations": {
+        "unit": "Distinct material reference mechanisms; supplied product policy excluded; rejected leads excluded",
+        "fit": 0,
+        "qualified_transfer": 4,
+        "unsupported": 0,
+        "mismatch": 0,
+        "details": "North: GOV.UK review, W3C structural direction, inline bidi, versioned WCAG timing/check boundary. South additionally USWDS language coverage, HMRC warning/ending, W3C timing explanation, Bethel checkout-only, Bibliotheca physical-return/account distinction; WCAG card used only as conformance boundary.",
+        "precision_ratio": "not calculated; ordinal fit categories and actual effects reported"
+      },
+      "application_audit": [
+        {
+          "requirement": "Current policy supersedes photograph advice",
+          "source": "Supplied conversation policy",
+          "decision": "Receipt fields restricted and personal session cleared immediately",
+          "outline": "Completion rows"
+        },
+        {
+          "requirement": "45-second warning / 60-second expiry; no automatic completion",
+          "source": "Policy plus timing reference",
+          "decision": "Continue resets idle timer; pending operation reconciled independently; 40-second warning offered only as proposed policy review",
+          "outline": "Timeout table and timing issue"
+        },
+        {
+          "requirement": "Arabic/English",
+          "source": "W3C direction and inline bidi",
+          "decision": "lang/dir, logical layout, isolate IDs, do not mirror photos/identifiers",
+          "outline": "Shared composition / Arabic-English contract"
+        }
+      ],
+      "limitations": [
+        "All kiosk rendering, translations, touch usability, privacy teardown and transaction reconciliation are proposed and untested.",
+        "South work log self-reports a temporary validation output outside the trial directory, removed; see gates."
+      ],
+      "artifact_sha256": {
+        "result.md": "e92680989121f37906113516d61f2c935d8ed9611ed04c6347aa1c43306d3093",
+        "conversation.md": "a56cbc98be11bfeb1452fc57624636e3004a6e4adcadcd9be589ebd932845a91",
+        "receipts.json": "b29a114bd32fa3291ee880c1721d26b4fa642131695a1f1324cf97ba79765341",
+        "work-log.md": "3b8ecbfa4f8521484fd05e8839d4331ecf55735f65b6c3e966ed262e68dffb1a"
+      }
+    },
+    {
+      "case": "05",
+      "artifact": "05-south",
+      "dimensions": {
+        "context_and_proportional_initiative": {
+          "rating": 3,
+          "evidence_locator": "05-south/result.md \u2014 Decisions carried forward / Direction now settled",
+          "judgment": "Clarified policy controls clearing, receipt-only success, Arabic/English and touch assumptions.",
+          "confidence": "high",
+          "material_defect_or_uncertainty": null
+        },
+        "discovery_coverage": {
+          "rating": 3,
+          "evidence_locator": "05-south/result.md \u2014 What responsibly matches",
+          "judgment": "Review, bidi and timing covered; external timeout and library checkout/return analogues add limited discovery; no complete match is forced.",
+          "confidence": "high",
+          "material_defect_or_uncertainty": null
+        },
+        "contextual_relevance_and_mismatch": {
+          "rating": 3,
+          "evidence_locator": "05-south/result.md \u2014 Reference table and source-age/language limits",
+          "judgment": "English application guidance and web direction mechanisms are bounded; no presumed end-to-end kiosk fit.",
+          "confidence": "high",
+          "material_defect_or_uncertainty": null
+        },
+        "evidence_discipline": {
+          "rating": 3,
+          "evidence_locator": "05-south/result.md \u2014 Reference table; receipts.json; work-log.md",
+          "judgment": "Source/card/visual/test modes are separated; locators and dates supplied.",
+          "confidence": "medium",
+          "material_defect_or_uncertainty": "Primary access is runner-reported except reviewer spot-checks noted globally; native traces unavailable."
+        },
+        "human_direction_and_revision": {
+          "rating": 3,
+          "evidence_locator": "05-south/result.md \u2014 Source-age/language limits after feedback",
+          "judgment": "Retains useful older/English mechanisms while exposing unknown chronology and unresolved Arabic/hardware checks.",
+          "confidence": "high",
+          "material_defect_or_uncertainty": null
+        },
+        "substantive_application": {
+          "rating": 3,
+          "evidence_locator": "05-south/result.md \u2014 Checkout; Return; Timeout",
+          "judgment": "Explicit review/commit, completion clearing and unknown outcomes; timeout does not commit; staff boundary explicit.",
+          "confidence": "high",
+          "material_defect_or_uncertainty": null
+        },
+        "output_usefulness_and_scope": {
+          "rating": 3,
+          "evidence_locator": "05-south/result.md \u2014 Applied screens and remaining checks",
+          "judgment": "Actionable checkout/return/timeout outline with consequential assumptions and future checks.",
+          "confidence": "high",
+          "material_defect_or_uncertainty": null
+        }
+      },
+      "role_accounting": {
+        "declared_applicable_roles": [
+          "privacy",
+          "bidi",
+          "timeout",
+          "transaction"
+        ],
+        "denominator": 4,
+        "retrieval_coverage": {
+          "catalog_roles": [
+            "bidi",
+            "timeout",
+            "transaction"
+          ],
+          "count": "3/4",
+          "expanded_roles": [
+            "privacy",
+            "bidi",
+            "timeout",
+            "transaction"
+          ]
+        },
+        "selection_coverage": {
+          "catalog_roles": [
+            "bidi",
+            "timeout",
+            "transaction"
+          ],
+          "count": "3/4",
+          "expanded_count": "4/4 (qualified HMRC session-end transfer)"
+        },
+        "application_coverage": {
+          "roles": [
+            "privacy",
+            "bidi",
+            "timeout",
+            "transaction"
+          ],
+          "count": "4/4"
+        },
+        "notes": "Catalog privacy candidates were not reported inspected. Policy directly supplies shared-screen clearing. South HMRC is admitted post hoc only as a limited warn/continue/delete-answers mechanism, not proof of shared-kiosk privacy."
+      },
+      "consequential_selected_recommendations": {
+        "unit": "Distinct material reference mechanisms; supplied product policy excluded; rejected leads excluded",
+        "fit": 0,
+        "qualified_transfer": 9,
+        "unsupported": 0,
+        "mismatch": 0,
+        "details": "North: GOV.UK review, W3C structural direction, inline bidi, versioned WCAG timing/check boundary. South additionally USWDS language coverage, HMRC warning/ending, W3C timing explanation, Bethel checkout-only, Bibliotheca physical-return/account distinction; WCAG card used only as conformance boundary.",
+        "precision_ratio": "not calculated; ordinal fit categories and actual effects reported"
+      },
+      "application_audit": [
+        {
+          "requirement": "Current policy supersedes photograph advice",
+          "source": "Supplied conversation policy",
+          "decision": "Receipt fields restricted and personal session cleared immediately",
+          "outline": "Completion rows"
+        },
+        {
+          "requirement": "45-second warning / 60-second expiry; no automatic completion",
+          "source": "Policy plus timing reference",
+          "decision": "Continue resets idle timer; pending operation reconciled independently; 40-second warning offered only as proposed policy review",
+          "outline": "Timeout table and timing issue"
+        },
+        {
+          "requirement": "Arabic/English",
+          "source": "W3C direction and inline bidi",
+          "decision": "lang/dir, logical layout, isolate IDs, do not mirror photos/identifiers",
+          "outline": "Shared composition / Arabic-English contract"
+        }
+      ],
+      "limitations": [
+        "All kiosk rendering, translations, touch usability, privacy teardown and transaction reconciliation are proposed and untested.",
+        "South work log self-reports a temporary validation output outside the trial directory, removed; see gates."
+      ],
+      "artifact_sha256": {
+        "result.md": "d57adfdb7cff226c697fbfd2d159dca61d82cb0d7b19389904de7c508ee0639e",
+        "conversation.md": "a56cbc98be11bfeb1452fc57624636e3004a6e4adcadcd9be589ebd932845a91",
+        "receipts.json": "2d518b153aa9c3ebf4c98fc1f4cd6843c8849c0bda6a69d09f3df343a9eaa2e4",
+        "work-log.md": "566af1b6917f1ebb95f3e2877082767dab85672006872fadf06b5e1a87745d97"
+      }
+    },
+    {
+      "case": "06",
+      "artifact": "06-north",
+      "dimensions": {
+        "context_and_proportional_initiative": {
+          "rating": 3,
+          "evidence_locator": "06-north/result.md \u2014 Opening and state table",
+          "judgment": "Honors exact wording/state repair and preserves design/navigation; no unnecessary clarification.",
+          "confidence": "high",
+          "material_defect_or_uncertainty": null
+        },
+        "discovery_coverage": {
+          "rating": "N/A",
+          "evidence_locator": "06-north/result.md \u2014 Brief rationale and reference match",
+          "judgment": "Broad retrieval is N/A; a facts-based repair is sufficient.",
+          "confidence": "high",
+          "material_defect_or_uncertainty": null
+        },
+        "contextual_relevance_and_mismatch": {
+          "rating": 3,
+          "evidence_locator": "06-north/result.md \u2014 Reference match",
+          "judgment": "GOV.UK confirmation duties adapt to existing banner; full page/branding rejected.",
+          "confidence": "high",
+          "material_defect_or_uncertainty": null
+        },
+        "evidence_discipline": {
+          "rating": 3,
+          "evidence_locator": "06-north/result.md \u2014 Receipts and checks/limits",
+          "judgment": "Primary-text versus card-only versus tested behavior separated; backend safe retry specified as a requirement.",
+          "confidence": "medium",
+          "material_defect_or_uncertainty": "Native tool traces unavailable; no independent backend verification."
+        },
+        "human_direction_and_revision": {
+          "rating": 3,
+          "evidence_locator": "06-north/result.md \u2014 Opening; no revision relay",
+          "judgment": "Explicit preserve-design/no-build direction followed. No subsequent scripted revision occurred; revision response itself unassessed.",
+          "confidence": "high",
+          "material_defect_or_uncertainty": null
+        },
+        "substantive_application": {
+          "rating": 3,
+          "evidence_locator": "06-north/result.md \u2014 State outline and safe retry requirement",
+          "judgment": "Replaces Paid, identifies R-1842, pending finance review and usual three working days; retains inputs; separates known failure from unknown outcome and requires same-operation recovery.",
+          "confidence": "high",
+          "material_defect_or_uncertainty": null
+        },
+        "output_usefulness_and_scope": {
+          "rating": 3,
+          "evidence_locator": "06-north/result.md \u2014 Entire bounded outline",
+          "judgment": "Reviewable wording table and brief rationale; source use remains supporting rather than a tour.",
+          "confidence": "high",
+          "material_defect_or_uncertainty": null
+        }
+      },
+      "role_accounting": {
+        "declared_applicable_roles": [
+          "submission"
+        ],
+        "retrieval_coverage": "N/A",
+        "selection_coverage": "N/A",
+        "application_coverage": "1/1 mandatory facts-based submission role",
+        "notes": "Optional private checking/Check status reply was not delivered to either artifact. Try again with an explicitly required idempotent contract is a valid alternative against the actual prompt. No penalty for not using never-delivered exact copy."
+      },
+      "consequential_selected_recommendations": {
+        "unit": "Distinct material reference mechanisms; supplied product policy excluded; rejected leads excluded",
+        "fit": 0,
+        "qualified_transfer": 2,
+        "unsupported": 0,
+        "mismatch": 0,
+        "details": "GOV.UK confirmation content duties used in banner; north additionally uses precise field-error linkage. Catalog search quantity is not scored.",
+        "precision_ratio": "not calculated; ordinal fit categories and actual effects reported"
+      },
+      "application_audit": [
+        {
+          "requirement": "Backend creates review request, does not pay",
+          "source": "Supplied prompt; confirmation content guidance supporting only",
+          "decision": "Submit request \u2192 Request submitted / awaiting finance review / no payment",
+          "outline": "Success row"
+        },
+        {
+          "requirement": "Failure retains amount/attachment and retries cannot duplicate",
+          "source": "Supplied facts",
+          "decision": "Retain payload and stable operation identity; do not call unknown response a failure",
+          "outline": "Failure/unknown rows and recovery requirement"
+        }
+      ],
+      "limitations": [
+        "Neither implementation of idempotency nor runtime checking state has been tested. The proposed Try again action depends on that backend contract; both say so."
+      ],
+      "artifact_sha256": {
+        "result.md": "c9719d4f658efb292e0fe4fb70c97f6f8870e5b1edc4ca9c1881948a01097d3b",
+        "conversation.md": "00d4f9dcd3c0174124572683645d4ef4b9c1e385b50e6938823f79b0cf937a0c",
+        "receipts.json": "982dc4ec2bb7926275de7b65c3bcc139d6b894cc8bcaf5538be18fa4fa0d09db",
+        "work-log.md": "164bd8e06d828cb51ddfb69cdcd6aaf4a76abe5b1404a7430d5867d41ab4a576"
+      }
+    },
+    {
+      "case": "06",
+      "artifact": "06-south",
+      "dimensions": {
+        "context_and_proportional_initiative": {
+          "rating": 3,
+          "evidence_locator": "06-south/result.md \u2014 Opening and state table",
+          "judgment": "Honors exact wording/state repair and preserves design/navigation; no unnecessary clarification.",
+          "confidence": "high",
+          "material_defect_or_uncertainty": null
+        },
+        "discovery_coverage": {
+          "rating": "N/A",
+          "evidence_locator": "06-south/result.md \u2014 Brief rationale and reference match",
+          "judgment": "Broad retrieval is N/A; a facts-based repair is sufficient.",
+          "confidence": "high",
+          "material_defect_or_uncertainty": null
+        },
+        "contextual_relevance_and_mismatch": {
+          "rating": 3,
+          "evidence_locator": "06-south/result.md \u2014 Reference match",
+          "judgment": "GOV.UK confirmation duties adapt to existing banner; full page/branding rejected.",
+          "confidence": "high",
+          "material_defect_or_uncertainty": null
+        },
+        "evidence_discipline": {
+          "rating": 3,
+          "evidence_locator": "06-south/result.md \u2014 Receipts and checks/limits",
+          "judgment": "Primary-text versus card-only versus tested behavior separated; backend safe retry specified as a requirement.",
+          "confidence": "medium",
+          "material_defect_or_uncertainty": "Native tool traces unavailable; no independent backend verification."
+        },
+        "human_direction_and_revision": {
+          "rating": 3,
+          "evidence_locator": "06-south/result.md \u2014 Opening; no revision relay",
+          "judgment": "Explicit preserve-design/no-build direction followed. No subsequent scripted revision occurred; revision response itself unassessed.",
+          "confidence": "high",
+          "material_defect_or_uncertainty": null
+        },
+        "substantive_application": {
+          "rating": 3,
+          "evidence_locator": "06-south/result.md \u2014 State outline and safe retry requirement",
+          "judgment": "Replaces Paid, identifies R-1842, pending finance review and usual three working days; retains inputs; separates known failure from unknown outcome and requires same-operation recovery.",
+          "confidence": "high",
+          "material_defect_or_uncertainty": null
+        },
+        "output_usefulness_and_scope": {
+          "rating": 3,
+          "evidence_locator": "06-south/result.md \u2014 Entire bounded outline",
+          "judgment": "Reviewable wording table and brief rationale; source use remains supporting rather than a tour.",
+          "confidence": "high",
+          "material_defect_or_uncertainty": null
+        }
+      },
+      "role_accounting": {
+        "declared_applicable_roles": [
+          "submission"
+        ],
+        "retrieval_coverage": "N/A",
+        "selection_coverage": "N/A",
+        "application_coverage": "1/1 mandatory facts-based submission role",
+        "notes": "Optional private checking/Check status reply was not delivered to either artifact. Try again with an explicitly required idempotent contract is a valid alternative against the actual prompt. No penalty for not using never-delivered exact copy."
+      },
+      "consequential_selected_recommendations": {
+        "unit": "Distinct material reference mechanisms; supplied product policy excluded; rejected leads excluded",
+        "fit": 0,
+        "qualified_transfer": 1,
+        "unsupported": 0,
+        "mismatch": 0,
+        "details": "GOV.UK confirmation content duties used in banner; north additionally uses precise field-error linkage. Catalog search quantity is not scored.",
+        "precision_ratio": "not calculated; ordinal fit categories and actual effects reported"
+      },
+      "application_audit": [
+        {
+          "requirement": "Backend creates review request, does not pay",
+          "source": "Supplied prompt; confirmation content guidance supporting only",
+          "decision": "Submit request \u2192 Request submitted / awaiting finance review / no payment",
+          "outline": "Success row"
+        },
+        {
+          "requirement": "Failure retains amount/attachment and retries cannot duplicate",
+          "source": "Supplied facts",
+          "decision": "Retain payload and stable operation identity; do not call unknown response a failure",
+          "outline": "Failure/unknown rows and recovery requirement"
+        }
+      ],
+      "limitations": [
+        "Neither implementation of idempotency nor runtime checking state has been tested. The proposed Try again action depends on that backend contract; both say so."
+      ],
+      "artifact_sha256": {
+        "result.md": "93869f558d933c025d511c956d04d07703fb0fba1cad33e658b6aa26ece045a6",
+        "conversation.md": "00d4f9dcd3c0174124572683645d4ef4b9c1e385b50e6938823f79b0cf937a0c",
+        "receipts.json": "04fcaec4608a574c98808de3186552495c143105c7e44f7a46d3bc4666c67929",
+        "work-log.md": "5b1f65acdb4616a0365157b653032eb17edcfc339e15dfaec515ca6d2e99775c"
+      }
+    },
+    {
+      "case": "07",
+      "artifact": "07-north",
+      "dimensions": {
+        "context_and_proportional_initiative": {
+          "rating": 3,
+          "evidence_locator": "07-north/result.md \u2014 Opening assumptions and comparison",
+          "judgment": "Author-led journal assumption is labeled; audience remains unconfirmed; alternatives stay open.",
+          "confidence": "high",
+          "material_defect_or_uncertainty": null
+        },
+        "discovery_coverage": {
+          "rating": 2,
+          "evidence_locator": "07-north/result.md \u2014 References and receipts",
+          "judgment": "Editorial, reading and player roles found; no uncertainty/provenance reference family materially retrieved.",
+          "confidence": "high",
+          "material_defect_or_uncertainty": "Uncertainty is applied as original editorial treatment, not sourced coverage."
+        },
+        "contextual_relevance_and_mismatch": {
+          "rating": 3,
+          "evidence_locator": "07-north/result.md \u2014 Borrow/change sections",
+          "judgment": "Are.na platform, Pudding production scope and Poolsuite radio/desktop mismatch explicitly adapted.",
+          "confidence": "high",
+          "material_defect_or_uncertainty": null
+        },
+        "evidence_discipline": {
+          "rating": 3,
+          "evidence_locator": "07-north/result.md \u2014 Evidence and next conversation; receipts",
+          "judgment": "Precise sample locators and stated desktop-only, stopped-player and failed-route limitations.",
+          "confidence": "medium",
+          "material_defect_or_uncertainty": "Personally viewed screenshots are runner reports only; reviewer has no screenshot/native trace corroboration, so actual visual view remains unassessed."
+        },
+        "human_direction_and_revision": {
+          "rating": 3,
+          "evidence_locator": "07-north/result.md \u2014 Direction 1 and retained Direction 2",
+          "judgment": "Reading-led revision moves full prose ahead of media and removes archive thumbnails; photo-led direction preserved; no winner.",
+          "confidence": "high",
+          "material_defect_or_uncertainty": null
+        },
+        "substantive_application": {
+          "rating": 3,
+          "evidence_locator": "07-north/result.md \u2014 Three article/archive outlines; common behavior",
+          "judgment": "Different organizing units; concrete note/image/audio handling, tentative interpretation, no-media/failure paths and archive return.",
+          "confidence": "high",
+          "material_defect_or_uncertainty": null
+        },
+        "output_usefulness_and_scope": {
+          "rating": 3,
+          "evidence_locator": "07-north/result.md \u2014 Comparison and three alternatives",
+          "judgment": "Useful divergent packet with reactions rather than final selection.",
+          "confidence": "high",
+          "material_defect_or_uncertainty": null
+        }
+      },
+      "role_accounting": {
+        "declared_applicable_roles": [
+          "archive",
+          "reading",
+          "uncertainty",
+          "audio"
+        ],
+        "denominator": 4,
+        "retrieval_coverage": {
+          "roles": [
+            "archive",
+            "reading",
+            "audio"
+          ],
+          "count": "3/4"
+        },
+        "selection_coverage": {
+          "roles": [
+            "archive",
+            "reading",
+            "audio"
+          ],
+          "count": "3/4"
+        },
+        "application_coverage": {
+          "roles": [
+            "archive",
+            "reading",
+            "uncertainty",
+            "audio"
+          ],
+          "count": "4/4"
+        },
+        "notes": "Uncertainty treatment derives from the proposal, not a retrieved provenance reference. Optional private phone/outdoor/uncertain-species/audio fact block was never delivered; do not grade its absence as disobedience."
+      },
+      "consequential_selected_recommendations": {
+        "unit": "Distinct material reference mechanisms; supplied product policy excluded; rejected leads excluded",
+        "fit": 0,
+        "qualified_transfer": 4,
+        "unsupported": 0,
+        "mismatch": 0,
+        "details": "Are.na text-led opening, Pudding archive, Walkachusetts opening-only conceptual sequence, Poolsuite named stopped player. Actual route success and playback are expressly unclaimed.",
+        "precision_ratio": "not calculated; ordinal fit categories and actual effects reported"
+      },
+      "application_audit": [
+        {
+          "requirement": "Less image-led direction; retain photo-led",
+          "source": "Delivered after-packet relay; Are.na opening",
+          "decision": "Complete prose first and thumbnail-free excerpt archive; photo-led microessay retained",
+          "outline": "Directions 1 and 2"
+        },
+        {
+          "requirement": "Occasional sound with close observation",
+          "source": "Poolsuite partial player analogy; original adaptation",
+          "decision": "Finite optional clips, authored descriptions, silent entries normal; sound not evidence of insect species",
+          "outline": "Direction 3 and common behavior"
+        }
+      ],
+      "limitations": [
+        "Visual-view reports cannot establish the actual viewed samples from this review packet. No beauty, mobile rendering, audio operation or accessibility credit."
+      ],
+      "artifact_sha256": {
+        "result.md": "783c315e00c48c6c489140fed1427ad51c01c288bd640c0f9bbe3d31dddaaa29",
+        "conversation.md": "40eabed67796b6bb1fed14710620e7194746ff749bdc244747c9b58c7ec10495",
+        "receipts.json": "edd6c722506160947e270cdcef5be26900c3615f22101cdbd0cc7f9f8cf9f66e",
+        "work-log.md": "2b3a29a6ea6ba2099372db45e63dd9bce18d674df8101403a6368621f27498dc"
+      }
+    },
+    {
+      "case": "07",
+      "artifact": "07-south",
+      "dimensions": {
+        "context_and_proportional_initiative": {
+          "rating": 3,
+          "evidence_locator": "07-south/result.md \u2014 Working assumption and comparison",
+          "judgment": "Small authored journal assumption labeled; no invented audience commitments or forced final choice.",
+          "confidence": "high",
+          "material_defect_or_uncertainty": null
+        },
+        "discovery_coverage": {
+          "rating": 3,
+          "evidence_locator": "07-south/result.md \u2014 Reference matches and receipts",
+          "judgment": "Archive, reading, provenance and audio roles found; meaningful primary external environmental-listening alternative and audio equivalent support.",
+          "confidence": "high",
+          "material_defect_or_uncertainty": null
+        },
+        "contextual_relevance_and_mismatch": {
+          "rating": 3,
+          "evidence_locator": "07-south/result.md \u2014 Match/borrow/change per direction",
+          "judgment": "Commerce, desktop radio, research authoring and global soundmap mismatches explicitly bounded.",
+          "confidence": "high",
+          "material_defect_or_uncertainty": null
+        },
+        "evidence_discipline": {
+          "rating": 3,
+          "evidence_locator": "07-south/result.md \u2014 Inspection boundary and receipts",
+          "judgment": "Claim-specific locators, text/desktop-view distinctions, unavailable museum lead and untested behavior kept separate.",
+          "confidence": "medium",
+          "material_defect_or_uncertainty": "Actual screenshot views remain runner-reported and uncorroborated by native traces; no visual acceptance granted."
+        },
+        "human_direction_and_revision": {
+          "rating": 3,
+          "evidence_locator": "07-south/result.md \u2014 A earlier reference adjusted; B retained",
+          "judgment": "Adds Are.na after direction, removes dominant object image and archive thumbnails; retains photo-led B and open C.",
+          "confidence": "high",
+          "material_defect_or_uncertainty": null
+        },
+        "substantive_application": {
+          "rating": 3,
+          "evidence_locator": "07-south/result.md \u2014 A/B/C article and archive outlines",
+          "judgment": "Each integrates notes, media and uncertain identity; Zotero shapes full-scene/source links, Aporee shapes place groups, W3C shapes audio text equivalents.",
+          "confidence": "high",
+          "material_defect_or_uncertainty": null
+        },
+        "output_usefulness_and_scope": {
+          "rating": 3,
+          "evidence_locator": "07-south/result.md \u2014 Comparison, outlines, reaction prompt",
+          "judgment": "Concrete different directions with comparable fictional scaffold, useful tradeoffs and no selection demand.",
+          "confidence": "high",
+          "material_defect_or_uncertainty": null
+        }
+      },
+      "role_accounting": {
+        "declared_applicable_roles": [
+          "archive",
+          "reading",
+          "uncertainty",
+          "audio"
+        ],
+        "denominator": 4,
+        "retrieval_coverage": {
+          "roles": [
+            "archive",
+            "reading",
+            "uncertainty",
+            "audio"
+          ],
+          "count": "4/4"
+        },
+        "selection_coverage": {
+          "roles": [
+            "archive",
+            "reading",
+            "uncertainty",
+            "audio"
+          ],
+          "count": "4/4"
+        },
+        "application_coverage": {
+          "roles": [
+            "archive",
+            "reading",
+            "uncertainty",
+            "audio"
+          ],
+          "count": "4/4"
+        },
+        "notes": "Radio aporee and W3C prerecorded audio admitted as qualified external additions; frozen catalog mapping unchanged. Optional private audience facts were not delivered."
+      },
+      "consequential_selected_recommendations": {
+        "unit": "Distinct material reference mechanisms; supplied product policy excluded; rejected leads excluded",
+        "fit": 0,
+        "qualified_transfer": 8,
+        "unsupported": 0,
+        "mismatch": 0,
+        "details": "Are.na reading composition; superseded Stripe prose/object comparison; Pudding archive; Zotero provenance; Poolsuite player state; Aporee place/listening; W3C reflow and audio equivalent. Superseded Stripe counts as a retained qualified comparison only, not a second chosen reading direction.",
+        "precision_ratio": "not calculated; ordinal fit categories and actual effects reported"
+      },
+      "application_audit": [
+        {
+          "requirement": "Reading-led revision plus retained photo option",
+          "source": "Delivered relay; Are.na opening",
+          "decision": "A prose first and excerpt archive; B retains specimen imagery",
+          "outline": "A and B"
+        },
+        {
+          "requirement": "Careful observation with occasional audio",
+          "source": "Zotero context linking; Aporee environmental listening; W3C audio alternative",
+          "decision": "Full-scene/detail links, broad-place walk archive, optional described sound without species attribution",
+          "outline": "B evidence; C listening; shared commitments"
+        }
+      ],
+      "limitations": [
+        "Visual inspection, playback, responsive rendering, conformance and real-reader preference remain unassessed."
+      ],
+      "artifact_sha256": {
+        "result.md": "075a585fc02871019a7ab107ffd9c30aaa12dda64ed73c5b3b1a3b5751406cc9",
+        "conversation.md": "40eabed67796b6bb1fed14710620e7194746ff749bdc244747c9b58c7ec10495",
+        "receipts.json": "4167122b54c594c64b7dec08ac45b47d527bbb2899d4b50349f5e059f86c8ed9",
+        "work-log.md": "3a0975158cd3fcd1149de394b451a139c0336f52193c2607f050ae438596bae4"
+      }
+    },
+    {
+      "case": "08",
+      "artifact": "08-north",
+      "dimensions": {
+        "context_and_proportional_initiative": {
+          "rating": 3,
+          "evidence_locator": "08-north/result.md \u2014 Settled direction / Direction carried",
+          "judgment": "Consequential review/authority questions relayed; review-with-uncertainty remains labeled assumption; no hardware recommendation.",
+          "confidence": "high",
+          "material_defect_or_uncertainty": null
+        },
+        "discovery_coverage": {
+          "rating": 2,
+          "evidence_locator": "08-north/result.md \u2014 Reference matches and evidence boundary",
+          "judgment": "Credible bounded offline/review transfers and honest physical-context gap. No selected source directly supports editable sync conflict; outline correctly relies on user requirements.",
+          "confidence": "high",
+          "material_defect_or_uncertainty": null
+        },
+        "contextual_relevance_and_mismatch": {
+          "rating": 3,
+          "evidence_locator": "08-north/result.md \u2014 Reference mismatch columns",
+          "judgment": "Maps and Docs do not establish gloved conservation workflow; physical claims and device endorsement are expressly withheld.",
+          "confidence": "high",
+          "material_defect_or_uncertainty": null
+        },
+        "evidence_discipline": {
+          "rating": 3,
+          "evidence_locator": "08-north/result.md \u2014 Receipts and actual verification",
+          "judgment": "Precise first-party text locators, card-only distinctions and no visual/live/hardware claims.",
+          "confidence": "medium",
+          "material_defect_or_uncertainty": "Source access is runner-reported except reviewer ODK spot-check; native traces absent."
+        },
+        "human_direction_and_revision": {
+          "rating": 3,
+          "evidence_locator": "08-north/result.md \u2014 Evidence boundary and conflict detail",
+          "judgment": "Adjacent-reference feedback controls the artifact; senior-only no-overwrite instruction implemented throughout.",
+          "confidence": "high",
+          "material_defect_or_uncertainty": null
+        },
+        "substantive_application": {
+          "rating": 3,
+          "evidence_locator": "08-north/result.md \u2014 Capture; review; conflict outline",
+          "judgment": "Local persistence, sync acknowledgement and review distinct; both versions/provenance preserved, uncertain material allowed, resolution not approval.",
+          "confidence": "high",
+          "material_defect_or_uncertainty": null
+        },
+        "output_usefulness_and_scope": {
+          "rating": 3,
+          "evidence_locator": "08-north/result.md \u2014 Discussion packet and next decision",
+          "judgment": "Concrete discussion outline with explicit authority question and specific future validation plan.",
+          "confidence": "high",
+          "material_defect_or_uncertainty": null
+        }
+      },
+      "role_accounting": {
+        "declared_applicable_roles": [
+          "offline",
+          "review",
+          "conflict"
+        ],
+        "denominator": 3,
+        "retrieval_coverage": {
+          "roles": [
+            "offline",
+            "review",
+            "conflict"
+          ],
+          "count": "3/3 at permissive frozen candidate level",
+          "material_role_evidence": "2/3 material transfers"
+        },
+        "selection_coverage": {
+          "roles": [
+            "offline",
+            "review"
+          ],
+          "count": "2/3 material sourced roles"
+        },
+        "application_coverage": {
+          "roles": [
+            "offline",
+            "review",
+            "conflict"
+          ],
+          "count": "3/3"
+        },
+        "notes": "Docs suggestions is admissible for both review/conflict in frozen mapping, so literal candidate retrieval is 3/3 in both. North explicitly does not select it to justify conflict design: material source-selection coverage is 2/3, with policy fully supporting application. Physical role unmatched/N/A; complete-match recall N/A."
+      },
+      "consequential_selected_recommendations": {
+        "unit": "Distinct material reference mechanisms; supplied product policy excluded; rejected leads excluded",
+        "fit": 0,
+        "qualified_transfer": 3,
+        "unsupported": 0,
+        "mismatch": 0,
+        "details": "North: Maps local scope, Docs proposal/authority and Linear review ownership. Linear admitted as qualified posthoc review support. South: Maps, Docs, GOV.UK correction, ODK drafts/transmission, ODK parallel/base explanation with overwrite rejected, W3C target-size boundary.",
+        "precision_ratio": "not calculated; ordinal fit categories and actual effects reported"
+      },
+      "application_audit": [
+        {
+          "requirement": "Provisional record remains usable offline",
+          "source": "Maps scope analogy plus supplied requirement",
+          "decision": "Verified local save distinct from queued/acknowledged/reviewed; missing photos distinguished from absent photos",
+          "outline": "Preparation and capture"
+        },
+        {
+          "requirement": "Both versions; only senior resolves; no automatic overwrite",
+          "source": "Delivered user policy",
+          "decision": "Retain versions, provenance and resulting revision; new divergence stops blind commit; conflict resolution does not approve material",
+          "outline": "Conflict detail"
+        },
+        {
+          "requirement": "No inferred glove usability",
+          "source": "Delivered feedback and catalog gap",
+          "decision": "No device, target size or palette endorsed; representative gloves/light/tasks remain future evaluation",
+          "outline": "Evidence boundary and field checks"
+        }
+      ],
+      "limitations": [
+        "Physical usability, durable offline persistence, sync correctness, expert authority enforcement and conservation safety are not demonstrated.",
+        "Review-complete-with-uncertainty is an explicitly delegated assumption, not a policy violation."
+      ],
+      "artifact_sha256": {
+        "result.md": "63e5a222a4979fb34bd42aa4561fb9a57b30f8946cdcd7c4a1c549f24bb754ef",
+        "conversation.md": "f8e37e9c7625333a2a7863172a530908cca3c03b9f91bd81734261e065e739a1",
+        "receipts.json": "a0c17bb56d0909684177cbcad873c48c018cf9022d54fbb7c360387d52a59b23",
+        "work-log.md": "b711a919d9cb0d8d8cca1d3df92c473ffd21e58c6b0da8f527edd398a03cc27f"
+      }
+    },
+    {
+      "case": "08",
+      "artifact": "08-south",
+      "dimensions": {
+        "context_and_proportional_initiative": {
+          "rating": 3,
+          "evidence_locator": "08-south/result.md \u2014 Settled direction / Direction carried",
+          "judgment": "Consequential review/authority questions relayed; review-with-uncertainty remains labeled assumption; no hardware recommendation.",
+          "confidence": "high",
+          "material_defect_or_uncertainty": null
+        },
+        "discovery_coverage": {
+          "rating": 3,
+          "evidence_locator": "08-south/result.md \u2014 Reference matches and evidence boundary",
+          "judgment": "Credible bounded offline/review transfers and honest physical-context gap. External ODK fills draft/transmission and parallel-update explanation; incompatible overwrite behavior rejected.",
+          "confidence": "high",
+          "material_defect_or_uncertainty": null
+        },
+        "contextual_relevance_and_mismatch": {
+          "rating": 3,
+          "evidence_locator": "08-south/result.md \u2014 Reference mismatch columns",
+          "judgment": "Maps and Docs do not establish gloved conservation workflow; physical claims and device endorsement are expressly withheld.",
+          "confidence": "high",
+          "material_defect_or_uncertainty": null
+        },
+        "evidence_discipline": {
+          "rating": 3,
+          "evidence_locator": "08-south/result.md \u2014 Receipts and actual verification",
+          "judgment": "Precise first-party text locators, card-only distinctions and no visual/live/hardware claims.",
+          "confidence": "medium",
+          "material_defect_or_uncertainty": "Source access is runner-reported except reviewer ODK spot-check; native traces absent."
+        },
+        "human_direction_and_revision": {
+          "rating": 3,
+          "evidence_locator": "08-south/result.md \u2014 Evidence boundary and conflict detail",
+          "judgment": "Adjacent-reference feedback controls the artifact; senior-only no-overwrite instruction implemented throughout.",
+          "confidence": "high",
+          "material_defect_or_uncertainty": null
+        },
+        "substantive_application": {
+          "rating": 3,
+          "evidence_locator": "08-south/result.md \u2014 Capture; review; conflict outline",
+          "judgment": "Local persistence, sync acknowledgement and review distinct; both versions/provenance preserved, uncertain material allowed, resolution not approval.",
+          "confidence": "high",
+          "material_defect_or_uncertainty": null
+        },
+        "output_usefulness_and_scope": {
+          "rating": 3,
+          "evidence_locator": "08-south/result.md \u2014 Discussion packet and next decision",
+          "judgment": "Concrete discussion outline with explicit authority question and specific future validation plan.",
+          "confidence": "high",
+          "material_defect_or_uncertainty": null
+        }
+      },
+      "role_accounting": {
+        "declared_applicable_roles": [
+          "offline",
+          "review",
+          "conflict"
+        ],
+        "denominator": 3,
+        "retrieval_coverage": {
+          "roles": [
+            "offline",
+            "review",
+            "conflict"
+          ],
+          "count": "3/3 at permissive frozen candidate level",
+          "material_role_evidence": "3/3 with external ODK"
+        },
+        "selection_coverage": {
+          "roles": [
+            "offline",
+            "review",
+            "conflict"
+          ],
+          "count": "3/3 including qualified external conflict explanation"
+        },
+        "application_coverage": {
+          "roles": [
+            "offline",
+            "review",
+            "conflict"
+          ],
+          "count": "3/3"
+        },
+        "notes": "Docs suggestions is admissible for both review/conflict in frozen mapping, so literal candidate retrieval is 3/3 in both. North explicitly does not select it to justify conflict design: material source-selection coverage is 2/3, with policy fully supporting application. Physical role unmatched/N/A; complete-match recall N/A."
+      },
+      "consequential_selected_recommendations": {
+        "unit": "Distinct material reference mechanisms; supplied product policy excluded; rejected leads excluded",
+        "fit": 0,
+        "qualified_transfer": 6,
+        "unsupported": 0,
+        "mismatch": 0,
+        "details": "North: Maps local scope, Docs proposal/authority and Linear review ownership. Linear admitted as qualified posthoc review support. South: Maps, Docs, GOV.UK correction, ODK drafts/transmission, ODK parallel/base explanation with overwrite rejected, W3C target-size boundary.",
+        "precision_ratio": "not calculated; ordinal fit categories and actual effects reported"
+      },
+      "application_audit": [
+        {
+          "requirement": "Provisional record remains usable offline",
+          "source": "Maps scope analogy; ODK drafts/send plus supplied requirement",
+          "decision": "Verified local save distinct from queued/acknowledged/reviewed; missing photos distinguished from absent photos",
+          "outline": "Preparation and capture"
+        },
+        {
+          "requirement": "Both versions; only senior resolves; no automatic overwrite",
+          "source": "Delivered user policy; ODK parallel-base explanation only",
+          "decision": "Retain versions, provenance and resulting revision; new divergence stops blind commit; conflict resolution does not approve material",
+          "outline": "Conflict detail"
+        },
+        {
+          "requirement": "No inferred glove usability",
+          "source": "Delivered feedback and catalog gap",
+          "decision": "No device, target size or palette endorsed; representative gloves/light/tasks remain future evaluation",
+          "outline": "Evidence boundary and field checks"
+        }
+      ],
+      "limitations": [
+        "Physical usability, durable offline persistence, sync correctness, expert authority enforcement and conservation safety are not demonstrated.",
+        "Review-complete-with-uncertainty is an explicitly delegated assumption, not a policy violation."
+      ],
+      "artifact_sha256": {
+        "result.md": "db2cec5238f4c45e7b345cac90dcbfff348f495e48617d91ab12ca81371c3f8d",
+        "conversation.md": "f8e37e9c7625333a2a7863172a530908cca3c03b9f91bd81734261e065e739a1",
+        "receipts.json": "4318230bdcd65a82e7c17f09e6f016b70e757ed64648481b34cf1e42acd82b14",
+        "work-log.md": "3529c15af675032b80614c32005b13ef1806e65ec84f159e8aaf108c8143bac9"
+      }
+    }
+  ],
+  "comparative_judgments": {
+    "05": "Both honor current policy, uncertainty about fictional lead, explicit 45/60 transaction behavior and RTL limits. South adds broader qualified external discovery; north is narrower and equally coherent in core policy application. No demonstrated visual/live difference.",
+    "06": "Both fully repair the supplied semantics with bounded source support. North reads more optional references; south is narrower. No meaningful quality separation; checking/Check status private reply was never delivered.",
+    "07": "Both materially implement reading-first revision, retain photo option and keep alternatives open. South covers provenance and environmental/audio roles more explicitly; north misses sourced uncertainty role but applies uncertainty editorially. Both visual reports remain uncorroborated; no visual winner.",
+    "08": "Both correctly declare physical-context gap and apply supplied non-destructive senior conflict policy. South adds checked ODK source support for draft/transmission and parallel-version explanation while rejecting overwrite. North conflict application is policy-led and valid, with narrower material source coverage."
+  },
+  "aggregate": "No pooled ordinal score, overall winner, effectiveness, equivalence or reliability inference."
+}

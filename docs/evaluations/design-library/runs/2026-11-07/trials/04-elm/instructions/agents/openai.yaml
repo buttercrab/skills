@@ -1,0 +1,4 @@
+interface:
+  display_name: "Design with Intent"
+  short_description: "Human direction, coherent flows, deliberate interface craft"
+  default_prompt: "Use $design-with-intent to shape this interface around my goals, ask about consequential choices, and carry the direction through the work."

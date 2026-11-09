@@ -1,0 +1,15 @@
+{
+  "frozen_utc": "2026-11-07T17:21:45.677541+00:00",
+  "files_sha256": {
+    "FILES.txt": "733f6e3bec4292392cdade8f29c2aaa6dea7b4f8d7121301b67a30f701fb38f4",
+    "COMMON.md": "42afbf694af7c45f94e13d10adf59dfc80ef92b2c5f1a6db41cb0cfae12c6df6",
+    "editorial-notes.md": "0466e01015237392a2909ab22adf57d16a5863d1a03b91dd80fda5b1d048ab3e",
+    "work-log.md": "942bfc2aa8cf3c843fc4d5e1735f670e9f8fed5af66f670f64c9ed105409390e",
+    "piece.md": "7f449918fed838ebc38d524df60fb6128025a06967b73013b2656e22308cdef9",
+    "prompt.md": "0542553d099a718d7045349b57ca6bef46c01f6c303bebac937b9de9c77e4895",
+    "receipts.json": "c5d3fd97518ea928d430adae11c7fdd8c0e6bdc40bcf309650af2ebf3e91074c",
+    "author-notes.md": "13142ac53fa5ee713e06f8eee50ac1f0eb77ae754f79691ff3d840d25132ecaf"
+  },
+  "coordinator_events_sha256": "9c2e7edf0fe8fac2a06356f394dd83fccdf450762fb2340be1c49d51ee8c803c",
+  "integrity": "All original inputs, case files and active/isolated guide hashes match before output freeze."
+}

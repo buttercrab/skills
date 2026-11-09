@@ -1,0 +1,136 @@
+{
+  "scope": "Local source/reference and unbuilt flow/content outline",
+  "sources": [
+    {
+      "id": "visual-arena-text-led-community",
+      "url": "https://www.are.na/",
+      "locator": "Opening definition, community paragraph, action pair and beginning of How it works",
+      "inspection_method": [
+        "supplied card read",
+        "primary HTTPS text",
+        "native Chrome screenshot at 1552 x 1036"
+      ],
+      "access": "success",
+      "fit": "Activity-led explanation; restrained text and actions",
+      "mismatch": "Abstract definition; signup/download actions; dark theme not required",
+      "selected_use": "Keep activity-led direction A, adapt to literal table exchange",
+      "outline_decisions": [
+        "Opening explanation and concrete example before longer background",
+        "Quiet action hierarchy; no membership step"
+      ]
+    },
+    {
+      "id": "visual-duolingo-welcome",
+      "url": "https://www.duolingo.com/",
+      "locator": "Desktop welcome first viewport",
+      "inspection_method": [
+        "supplied card read",
+        "native Chrome screenshot and accessibility state"
+      ],
+      "access": "web text insufficient (iframe only); native visual inspection succeeded",
+      "fit": "Clear main and secondary action distinction",
+      "mismatch": "Character universe and start/account framing distract from ordinary local visit",
+      "selected_use": "Drop direction B identity; keep only relative action emphasis",
+      "outline_decisions": [
+        "Meeting details above optional reservation",
+        "No character creation, signup or account gate"
+      ]
+    },
+    {
+      "id": "flow-discord-community-onboarding",
+      "url": "https://support.discord.com/hc/en-us/articles/11074987197975-Community-Onboarding-FAQ",
+      "locator": "Here is how it works; Add Default Channels; Create Customization Questions",
+      "inspection_method": [
+        "supplied card read",
+        "primary HTTPS documentation text"
+      ],
+      "access": "success",
+      "fit": "Useful default path, questions with consequences, revisable choices",
+      "mismatch": "Server roles/channels irrelevant; historical support account not live tested",
+      "selected_use": "Default open route instead of entry questionnaire",
+      "outline_decisions": [
+        "See all meeting details without interests profile",
+        "No mandatory teaching category"
+      ]
+    },
+    {
+      "id": "flow-meetup-waitlist",
+      "url": "https://help.meetup.com/hc/en-us/articles/41229648295181-How-to-Join-an-Event-Waitlist-on-Meetup",
+      "locator": "What Is a Waitlist; How to Join; promotion and status sections",
+      "inspection_method": [
+        "supplied card read",
+        "primary HTTPS documentation text"
+      ],
+      "access": "success",
+      "fit": "Distinguishes waiting from confirmed participation",
+      "mismatch": "Paid priority and waitlist not Lantern requirements; status absence not desirable to transfer",
+      "selected_use": "Reservation-state wording only",
+      "outline_decisions": [
+        "Success says chair reserved only after confirmation",
+        "Unknown result and no-reservable-chairs state explicit; no invented queue"
+      ]
+    },
+    {
+      "id": "candidate-repair-cafe-glasgow",
+      "url": "https://repaircafeglasgow.org/visit-a-cafe/",
+      "locator": "The Repair Caf\u00e9 Process, Prepare your item through Check the date of our next caf\u00e9",
+      "inspection_method": [
+        "public HTTPS search discovery",
+        "primary HTTPS text"
+      ],
+      "access": "success; no visual inspection",
+      "fit": "Ordinary activity, welcome team and sitting together while explanation happens",
+      "mismatch": "Repair-service registration, food, donation and specific staffing are not Lantern facts",
+      "selected_use": "Arrival-to-table narrative; user-facing explanation of watching/trying",
+      "outline_decisions": [
+        "Four-moment first visit outline",
+        "Host support marked proposed pending organizer confirmation",
+        "Specific activity explicitly illustrative"
+      ]
+    },
+    {
+      "id": "candidate-ageuk-solihull-big-knit",
+      "url": "https://www.ageuk.org.uk/solihull/get-involved/fundraising/big-knit/",
+      "locator": "Knit with us! section, source lines 106\u2013115 in inspected extraction",
+      "inspection_method": [
+        "public HTTPS search discovery",
+        "primary HTTPS text"
+      ],
+      "access": "success; no visual inspection",
+      "fit": "Solo arrival invitation directly adjacent to time, place, cost and no-booking statement",
+      "mismatch": "Knitting supplies, fundraising, Facebook community and schedule not transferable",
+      "selected_use": "New task-specific source filling solo-arrival and meeting-information gaps",
+      "outline_decisions": [
+        "Come alone reassurance beside dated meeting summary",
+        "Visible date/time/venue/free/step-free/optional-RSVP block",
+        "No community recruitment pitch"
+      ]
+    },
+    {
+      "id": "discovery-eventbrite-agc",
+      "url": "https://www.eventbrite.co.uk/e/arab-girls-collective-first-run-club-beginner-3k-tickets-2001883287803?aff=ebdssbdestsearch",
+      "locator": "Search result only; direct page unavailable",
+      "inspection_method": [
+        "search result excerpt",
+        "attempted primary HTTPS open"
+      ],
+      "access": "HTTP 429 fetch failure; stopped this outcome, no retry or alternate surface",
+      "fit": "Search excerpt mentions solo arrival",
+      "mismatch": "Source body unavailable; search snippet not sufficient to rely on",
+      "selected_use": "Not selected",
+      "outline_decisions": []
+    }
+  ],
+  "reaction": {
+    "audience": "Mostly adults arriving alone from printed QR on phone",
+    "completion": "Understand table and find next meeting before joining",
+    "decision": "Keep activity explanation; drop recruiting emphasis; find solo-arrival source",
+    "confirmed_meeting": "Saturday 21 November, 14:00\u201316:00, Alder Library, free, step-free entrance; optional RSVP reserves a chair"
+  },
+  "evidence_limits": [
+    "No live product or reservation operations",
+    "Only Are.na and Duolingo desktop screenshots directly viewed",
+    "New external sources remain candidates, not modifications to read-only library",
+    "No asset copying or generation"
+  ]
+}

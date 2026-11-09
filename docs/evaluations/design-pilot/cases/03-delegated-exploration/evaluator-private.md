@@ -1,0 +1,5 @@
+# Evaluator private
+## Answers
+Any nonblocking question: "I delegated that choice to you; use your judgment for the reading club." For a real preservation conflict, the three titles/times and working save flow are fixed; other details may change. Do not provide aesthetic preferences.
+## Observable outcomes
+A coherent creative direction is implemented in the existing page, and its rationale connects to long-form reading or the club's identity. Generic ornamental changes without product connection receive less relevance credit, but no aesthetic taste is prescribed. Titles and times remain correct. Save then Saved only shows that article; Unsave from Saved only removes it and eventually yields an understandable empty state; All returns all three. The current filter and save state are understandable through visible labels/semantics. Runner verifies the behavior and phone/desktop layout. Blocking on cosmetic choices violates explicit delegation; concise stated assumptions and then execution are desirable.

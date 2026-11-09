@@ -1,0 +1,212 @@
+[
+  {
+    "trial": "case1-cedar",
+    "stage": "initial-question",
+    "role": "assistant",
+    "text": "1. Who uses Harbor, and what usually brings them here: handling late pickups, quickly finding and collecting an order, or comparing overall operations? What is hardest in that moment?\n2. What should Harbor feel like, and what should it avoid? For example, a compact dispatch desk keeps many orders visible; a calmer service counter emphasizes one clear next action. A mixture or different direction is welcome."
+  },
+  {
+    "trial": "case1-willow",
+    "stage": "initial-question",
+    "role": "assistant",
+    "text": "I inspected the existing page: three summary metrics, a status filter, and orders with “Mark collected” actions.\n1. Who uses Harbor, and what should they accomplish first?\n2. What currently makes that task difficult?\n3. Should I retain the green visual style, or are there brand/accessibility constraints to follow?\nThe task restricts external network requests, so I’ll make the design directly in the local HTML without generated or remote assets."
+  },
+  {
+    "trial": "case1-cedar",
+    "stage": "initial-answer",
+    "role": "user",
+    "text": "This is for the morning pickup coordinator on a shared tablet. The first job is spotting overdue pickups and deciding who to contact. Revenue is not useful here. Keep the collected action. It should feel calm and dependable, not salesy."
+  },
+  {
+    "trial": "case1-willow",
+    "stage": "initial-answer",
+    "role": "user",
+    "text": "This is for the morning pickup coordinator on a shared tablet. The first job is spotting overdue pickups and deciding who to contact. Revenue is not useful here. Keep the collected action. It should feel calm and dependable, not salesy."
+  },
+  {
+    "trial": "case1-cedar",
+    "stage": "data-question",
+    "role": "assistant",
+    "text": "The supplied records only include customer, order ID, and Late/Ready status. What information do coordinators use to decide whom to contact—pickup deadline, time overdue, prior contact, or something else? Should the page support a local contact checklist, or only identify overdue orders for follow-up elsewhere?"
+  },
+  {
+    "trial": "case1-willow",
+    "stage": "data-question",
+    "role": "assistant",
+    "text": "To help the coordinator decide who to contact, what information is available for each pickup—for example scheduled pickup time, customer phone/contact, last contact, or notes? May I add clearly labeled sample values for the local demo, or should I use only the three existing orders and their current statuses?"
+  },
+  {
+    "trial": "case1-cedar",
+    "stage": "data-answer",
+    "role": "user",
+    "text": "For the local demo, H-104 is 38 minutes late, phone 555-0104; H-106 is 12 minutes late, phone 555-0106. Additional reasonable sample records are allowed. No prior-contact data is supplied. Use sensible local choices within the brief for unspecified details; keep this a local demo."
+  },
+  {
+    "trial": "case1-willow",
+    "stage": "data-answer",
+    "role": "user",
+    "text": "For the local demo, H-104 is 38 minutes late, phone 555-0104; H-106 is 12 minutes late, phone 555-0106. Additional reasonable sample records are allowed. No prior-contact data is supplied. Use sensible local choices within the brief for unspecified details; keep this a local demo."
+  },
+  {
+    "trial": "case1-cedar",
+    "stage": "infrastructure",
+    "role": "coordinator",
+    "text": "Same shared host note: Chrome via CUA available; IAB unavailable; localhost-only server may require exec auto-reviewed escalation. No installs or external network. Distinguish unobserved browser checks. No product guidance."
+  },
+  {
+    "trial": "case1-willow",
+    "stage": "infrastructure",
+    "role": "coordinator",
+    "text": "Same shared host note: Chrome via CUA available; IAB unavailable; localhost-only server may require exec auto-reviewed escalation. No installs or external network. Distinguish unobserved browser checks. No product guidance."
+  },
+  {
+    "trial": "case2-cedar",
+    "stage": "infrastructure",
+    "role": "coordinator",
+    "text": "Same shared host note: Chrome via CUA available; IAB unavailable; localhost-only server may require exec auto-reviewed escalation. No installs or external network. Distinguish unobserved browser checks. No product guidance."
+  },
+  {
+    "trial": "case2-willow",
+    "stage": "infrastructure",
+    "role": "coordinator",
+    "text": "Same shared host note: Chrome via CUA available; IAB unavailable; localhost-only server may require exec auto-reviewed escalation. No installs or external network. Distinguish unobserved browser checks. No product guidance."
+  },
+  {
+    "trial": "case3-cedar",
+    "stage": "infrastructure",
+    "role": "coordinator",
+    "text": "Same shared host note: Chrome via CUA available; IAB unavailable; localhost-only server may require exec auto-reviewed escalation. No installs or external network. Distinguish unobserved browser checks. No product guidance."
+  },
+  {
+    "trial": "case3-willow",
+    "stage": "infrastructure",
+    "role": "coordinator",
+    "text": "Same shared host note: Chrome via CUA available; IAB unavailable; localhost-only server may require exec auto-reviewed escalation. No installs or external network. Distinguish unobserved browser checks. No product guidance."
+  },
+  {
+    "trial": "case2-cedar",
+    "role": "coordinator",
+    "stage": "policy-incident",
+    "text": "Coordinator's shared localhost infrastructure note led to a Chrome HTTP retry after a prior explicit file:// denial forbidding same-outcome workarounds. Trial runner confirmed subsequent tool acceptance did not waive earlier restriction. No further browser actions allowed. Mark browser evidence invalid and this pair non-comparable for acceptance; preserve artifact and logs. This is coordinator/harness error, not evidence of skill efficacy."
+  },
+  {
+    "trial": "case1-cedar",
+    "role": "assistant",
+    "stage": "first-version",
+    "text": "Updated index.html with overdue-first pickup desk, supplied phone numbers, search, collection, undo, restore. Interaction simulation passed; browser policy blocked local-file inspection; rendered layouts/native keyboard remain unverified."
+  },
+  {
+    "trial": "case1-cedar",
+    "role": "user",
+    "stage": "feedback",
+    "text": "Closer. I need to contact a customer before marking anything collected. Put a visible call action on overdue orders, show how overdue each is, and keep collected as a separate deliberate action. Use demo phone numbers; don't actually call anyone."
+  },
+  {
+    "trial": "case1-willow",
+    "role": "assistant",
+    "stage": "first-version",
+    "text": "Updated actual Harbor page: overdue pickups first ordered by delay with supplied phone numbers, revenue removed; collection/undo/filters/local contact notes. Claimed rendered checks of first version in work log."
+  },
+  {
+    "trial": "case1-willow",
+    "role": "user",
+    "stage": "feedback",
+    "text": "Closer. I need to contact a customer before marking anything collected. Put a visible call action on overdue orders, show how overdue each is, and keep collected as a separate deliberate action. Use demo phone numbers; don't actually call anyone."
+  },
+  {
+    "trial": "case1-willow",
+    "role": "coordinator",
+    "stage": "verification-boundary",
+    "text": "No further browser actions in this trial; respect prior browser denial and use allowed source/logic checks only."
+  },
+  {
+    "trial": "case1-cedar",
+    "role": "assistant",
+    "stage": "final",
+    "text": "Overdue orders show visible Call customer and minutes overdue. Calls open demo preview, never contact or mark collected. Mark collected separate with confirmation. Local interaction simulation passed; rendered/native checks unavailable due denial."
+  },
+  {
+    "trial": "case1-willow",
+    "role": "assistant",
+    "stage": "final",
+    "text": "Visible Call customer shows demo numbers/durations. Recording demo contact unlocks separate collected action. No calls. Local source/logic checks passed; revision not browser verified."
+  },
+  {
+    "trial": "case2-willow",
+    "role": "coordinator",
+    "stage": "policy-incident",
+    "text": "Runner confirmed explicit file:// denial forbade same-outcome workaround; later local HTTP browser preview occurred without express waiver. Exclude browser evidence and mark acceptance comparison invalid. Stop further browser actions."
+  },
+  {
+    "trial": "case3-cedar",
+    "role": "coordinator",
+    "stage": "policy-incident",
+    "text": "Runner confirmed explicit file:// denial forbade same-outcome workaround; later local HTTP browser preview occurred without express waiver. Exclude browser evidence and mark acceptance comparison invalid. Stop further browser actions."
+  },
+  {
+    "trial": "case2-cedar",
+    "role": "assistant",
+    "stage": "final",
+    "text": "Implemented supplied booking brief without clarification; source/logic checks passed. Later browser checks excluded due recorded policy incident."
+  },
+  {
+    "trial": "case2-willow",
+    "role": "assistant",
+    "stage": "final",
+    "text": "Implemented supplied booking brief without clarification; later browser checks excluded due recorded policy incident."
+  },
+  {
+    "trial": "case3-cedar",
+    "role": "assistant",
+    "stage": "final",
+    "text": "Accepted creative delegation; finished editorial reading room preserving titles/times and save/filter states. Local VM checks reported; browser checks excluded due recorded policy incident."
+  },
+  {
+    "trial": "case3-willow",
+    "role": "assistant",
+    "stage": "final",
+    "text": "Accepted creative delegation; finished midnight/paper reading club with preserved titles/times and save/filter states. Runner reports rendered checks at desktop and phone; no file:// denial recorded."
+  },
+  {
+    "trial": "probe-06",
+    "role": "assistant",
+    "stage": "question",
+    "text": "What actually happens after submission: who reviews requests, can quantities change or items be declined, how do people learn result, and when are materials reserved or guaranteed? Source does not document lifecycle."
+  },
+  {
+    "trial": "probe-06",
+    "role": "user",
+    "stage": "answer",
+    "text": "Submission only joins a review queue. A studio manager approves or declines it after checking stock. Nothing is reserved until approval. For the local demo, let me simulate approve and decline for each pending request. Declined requests should let the person revise the quantity and resubmit for review. Quantity must be a whole number from 1 to 20."
+  },
+  {
+    "trial": "probe-05",
+    "role": "assistant",
+    "stage": "final",
+    "text": "Fixed dispatch state before rendering. Local JS assertions passed All/Ready/Dispatched/empty recovery; design wording unchanged; no questions; rendered UI/native interaction unobserved."
+  },
+  {
+    "trial": "probe-04",
+    "role": "assistant",
+    "stage": "first-draft",
+    "text": "Runnable garden draft produced before discovery interview; local mocked checks passed. Rendered UI/native interaction unobserved."
+  },
+  {
+    "trial": "probe-04",
+    "role": "user",
+    "stage": "feedback",
+    "text": "This is for neighbors aged 65+, often outdoors on older phones. Please make the actual signup controls much easier to read and tap, use straightforward language, and make the confirmation clearly say their name and chosen shift. Keep it welcoming without decorative clutter."
+  },
+  {
+    "trial": "probe-04",
+    "role": "assistant",
+    "stage": "final",
+    "text": "Updated draft with 22px form text, 64px controls, single-column form, plain language, less decoration; personalized name/shift confirmation. Logic checks for both shifts/error correction passed; rendered UI/native interaction unobserved."
+  },
+  {
+    "trial": "probe-06",
+    "role": "assistant",
+    "stage": "final",
+    "text": "Implemented pending review, explicit unreserved until approval, per-request demo approval/decline, declined quantity revision/resubmission, whole-number 1–20 validation and retained invalid input. Node logic checks passed; rendered UI/native interaction unobserved."
+  }
+]

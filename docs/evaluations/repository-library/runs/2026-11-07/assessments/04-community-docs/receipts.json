@@ -1,0 +1,28 @@
+{
+  "artifact": "source-only contributor experience assessment and short plan",
+  "snapshot_root": "/private/tmp/repository-quality-assessment-20261107/04-community-docs/repository",
+  "fixture_revision": "supplied fictional snapshot; no git inspection performed",
+  "representative_task": "Add a Markdown field note, index it, follow writing/review guidance and identify validation for the pull request",
+  "fixture_reads": [
+    {"path":"README.md","portion":"lines 1-4","evidence":"Contribution entry, any-renderer preview, no site build, claimed spelling checks and manual accuracy review"},
+    {"path":"CONTRIBUTING.md","portion":"lines 1-4","evidence":"Node 16, npm ci, absent npm run check command, advisory claim, index update instruction, 2022 date"},
+    {"path":"package.json","portion":"line 1","evidence":"Private validation tooling; Node >=20; lint and links scripts only"},
+    {"path":".github/workflows/docs.yml","portion":"lines 1-14","evidence":"Current configured push/PR job; Node 22; npm install --ignore-scripts; lint and links; no spelling or continue-on-error"},
+    {"path":"docs/index.md","portion":"lines 1-3","evidence":"Existing index links writing.md and review.md"},
+    {"path":"docs/writing.md","portion":"lines 1-3","evidence":"Source distinction guidance and broken review-checklist.md relative link"},
+    {"path":"docs/review.md","portion":"lines 1-2","evidence":"Existing clarity, sources, terminology and maintainer topic review"},
+    {"path":"tools/check-links.mjs","portion":"entire file, especially lines 4-12","evidence":"Top-level docs Markdown scan, filesystem target existence, missing target sets exit code; no network/anchor validation"},
+    {"path":"maintenance/last-check.txt","portion":"lines 1-2","evidence":"2023 historical pass, spelling in old task runner, explicitly stale note"}
+  ],
+  "inventory_evidence": "Read-only rg --files --hidden returned nine files including hidden workflow; no package lockfile or review-checklist.md in supplied snapshot. No claim about absent files in a larger original repository.",
+  "references": [
+    {"card_id":"docs-github-contribution-entry","path":"/private/tmp/repository-quality-assessment-20261107/guide/library/entries/docs-github-contribution-entry.md","portions":["What to inspect","What to borrow and adapt","Mismatches and limits"],"fit":"Short contributor route and links to existing guidance","mismatch":"Card cannot establish live GitHub surfacing, inherited organization defaults or maintainer responsiveness","decision":"Repair existing entry guidance; avoid boilerplate file-count scoring","inspection":"Local card only; underlying primary URLs not opened"},
+    {"card_id":"docs-docs-as-code","path":"/private/tmp/repository-quality-assessment-20261107/guide/library/entries/docs-docs-as-code.md","portions":["What to inspect","What to borrow and adapt","Mismatches and limits"],"fit":"Documentation is the actual product; existing Markdown, review and check path should be usable by writers","mismatch":"Tool adoption does not establish readability or technical accuracy; no need to introduce a site generator","decision":"Align documented checks to configured checks and retain manual accuracy review","inspection":"Local card only; underlying primary URLs not opened"},
+    {"card_id":"docs-diataxis-reader-needs","path":"/private/tmp/repository-quality-assessment-20261107/guide/library/entries/docs-diataxis-reader-needs.md","portions":["What to inspect","What to borrow and adapt","Mismatches and limits"],"fit":"One concrete contributor journey has repairable navigation problems","mismatch":"Conceptual framework does not mandate a universal directory layout or prove usability","decision":"Keep flat docs and improve links rather than creating four documentation sections","inspection":"Local card only; underlying primary URLs not opened"}
+  ],
+  "neighboring_references": {"source":"guide/library/index.md","survey":"Documentation contribution, docs-as-code and reader-needs entries contrasted with runtime packaging/distribution entries","decision":"No installed-artifact or runtime coverage recommendations for this docs-only community repository"},
+  "guides_read": ["COMMON.md","prompt.md","guide/SKILL.md","guide/references/questions-and-assessment.md","guide/references/structure-and-documentation.md","guide/references/verification-and-distribution.md","guide/references/library-usage.md","guide/library/index.md","/Users/jaeyong/.codex/skills/i-have-adhd/SKILL.md"],
+  "checks": {"performed":["Read all nine supplied repository files","Compared guide command names and Node versions with package scripts and CI","Manually traced writing.md relative review link against file inventory and checker implementation","Compared README spelling claim with current CI and historical note"],"not_run":["npm install or npm ci","lint","link checker","CI","builds/tests","external URL requests","fixture code or commands"],"status":"Static findings only; no passing execution claim"},
+  "limits": ["No fresh upstream primary inspection; reference cards are secondary local annotations","No live repository, commit, branch protection or maintainer activity evidence","Historical 2023 check note is not evidence of current success","No runtime package is shipped; package.json is development check tooling","No implementation or real-project edits"],
+  "human_intent": "Sufficient brief to assess directly; no question required. Proposed support channel must be supplied by maintainers rather than invented."
+}

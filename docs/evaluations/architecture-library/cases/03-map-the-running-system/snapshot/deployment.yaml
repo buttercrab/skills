@@ -1,0 +1,22 @@
+# Rendered deployment inventory captured 2026-11-05T09:00Z.
+releaseRevision: 7f12a6b
+region: A
+workloads:
+  intake:
+    imageRevision: 7f12a6b
+    replicas: 2
+    entrypoint: http-server
+  parse-runner:
+    imageRevision: 7f12a6b
+    replicas: 1
+    entrypoint: queue-consumer
+    visibilitySeconds: 120
+    maxDeliveries: 4
+    deadLetterQueue: intake-failed
+storage:
+  documentBlobs: regional-object-store-A
+  metadataAndText: managed-database-A
+queues:
+  intake: managed-task-queue-A
+  intake-failed: managed-task-queue-A
+# This inventory covers the intake application account only.

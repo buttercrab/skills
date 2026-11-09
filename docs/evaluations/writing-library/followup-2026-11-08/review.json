@@ -1,0 +1,97 @@
+{
+  "review_kind": "independent fresh review",
+  "verdict_status": "original verdicts frozen",
+  "overall_verdict": "pass_for_authorized_provisional_practical_article",
+  "scope_integrity": {
+    "verdict": "acceptable_with_evidence_limits",
+    "manifest_comparisons": 18,
+    "all_compared_hashes_match": true,
+    "guide_package_independently_checked": false,
+    "evidence_type": "reported receipts/logs plus scoped local file/hash checks; not native complete traces or OS isolation"
+  },
+  "truth_inference": {
+    "verdict": "pass",
+    "material_factual_failures": [],
+    "invented_personal_belief_or_events_found": false,
+    "unsupported_emotional_arc_found": false,
+    "supported_first_person_actions": true,
+    "observed_limit_preservation": [
+      "No comparative predecessor-time claim",
+      "No rehearsal-efficiency claim",
+      "No spare-list trend",
+      "No guest endorsement or inferred emotion"
+    ]
+  },
+  "human_direction": {
+    "verdict": "pass_for_no_answer_fallback",
+    "question_focused": true,
+    "exact_relay": "Please continue with the information available.",
+    "relay_consistent": true,
+    "conspicuous_author_gap": true,
+    "gap_actionable_without_prescribed_belief": true,
+    "personal_inquiry_resolved": false
+  },
+  "completion": {
+    "verdict": "pass",
+    "ready_body_words_whitespace": 275,
+    "total_words_whitespace": 332,
+    "author_gap_count": 1,
+    "substantial_coherent_usable_prose": true,
+    "length_alone_used_as_gate": false,
+    "ready_to_send_without_author_review": false
+  },
+  "whole_piece": {
+    "verdict": "pass_with_craft_limitations",
+    "strengths": [
+      "Specific supported opening",
+      "List origin, tray complication, evidence limit and January endpoint create progression",
+      "Known-members practical register",
+      "Gap is proportionate; finished body remains usable if removed"
+    ],
+    "limitations": [
+      "Middle largely compresses the chronology of the notes",
+      "Evidence-caveat sentence is editorial in register",
+      "Practical ending has limited resonance; personal center remains unresolved"
+    ]
+  },
+  "material_failures": [],
+  "interpretation_craft_limitations_separate_from_factual_scope_failures": true,
+  "reviewer_actions": {
+    "read_scope": [
+      "protocol.md",
+      "input-manifest.json",
+      "output-manifest.json",
+      "coordinator-events.json",
+      "case/prompt.md",
+      "case/author-notes.md",
+      "case/evaluator-notes.md",
+      "case/SHA256SUMS",
+      "run/prompt.md",
+      "run/author-notes.md",
+      "run/COMMON.md",
+      "run/FILES.txt",
+      "run/piece.md",
+      "run/editorial-notes.md",
+      "run/receipts.json",
+      "run/work-log.md"
+    ],
+    "owned_writes": [
+      "review.md",
+      "review.json"
+    ],
+    "network": false,
+    "external_services_or_detectors": false,
+    "upstream_execution": false,
+    "installations": false,
+    "children": false,
+    "runner_outputs_modified": false
+  },
+  "claims_not_supported": [
+    "Baseline comparison",
+    "Causal skill effectiveness",
+    "Human author or reader approval",
+    "Complete native execution isolation",
+    "Finished personal essay"
+  ],
+  "reported_piece_sha256": "7f449918fed838ebc38d524df60fb6128025a06967b73013b2656e22308cdef9"
+}

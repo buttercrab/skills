@@ -1,0 +1,15 @@
+[desktop]
+instances = 1
+storage = "local-encrypted-disk"
+launch = "operator starts local application"
+
+[backup]
+when = "after each approved import"
+method = "database backup API to IT-managed encrypted share"
+retention_business_days = 20
+last_restore_drill = "2026-10-16: restored prior-day ledger in 14 minutes"
+
+[network]
+required_for_reading = false
+required_for_import = false
+backup_share_may_be_offline = true

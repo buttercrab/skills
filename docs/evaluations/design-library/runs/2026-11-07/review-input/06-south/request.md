@@ -1,0 +1,3 @@
+# Request
+
+Please fix this exact screen outline, keeping the existing visual design and navigation. Current screen: heading “Submit reimbursement”, amount field, receipt attachment, Send button, then success banner “Paid!” The backend only creates a request for finance review; it does not pay anyone. Update the action/status wording and outline the success and error states so people understand what happened. Existing facts: a request gets ID R-1842, finance usually replies within three working days, failed submission keeps amount and attachment, and retry must not create a duplicate request. Give the revised content/state outline and a brief rationale. No redesign or app build.

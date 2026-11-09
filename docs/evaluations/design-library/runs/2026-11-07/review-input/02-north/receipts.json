@@ -1,0 +1,77 @@
+{
+  "scope": "Reference and concept outline only; no source visuals or live flows inspected in this run",
+  "receipts": [
+    {
+      "id": "pattern-carbon-data-table",
+      "url": "https://www.carbondesignsystem.com/building-blocks/core/components/data-table/guidelines",
+      "locator": "Overview; Formatting / Sizing; Variants; toolbar",
+      "inspection_method": "Local full card and public web text inspected; no visual or live demo inspection",
+      "access_outcome": "Local card readable; public text readable",
+      "fit": "Record comparison and density guidance",
+      "mismatch": "Generic enterprise component; no emergency workflow or keyboard efficacy evidence",
+      "selected_use": "Selected structure",
+      "resulting_outline_decisions": "Full-width 1248px comparison table; context workspace; no bulk dispatch"
+    },
+    {
+      "id": "flow-figma-ui3-state-visibility",
+      "url": "https://www.figma.com/blog/our-approach-to-designing-ui3/",
+      "locator": "Blend modes lines 124\u2013130; clip content lines 136\u2013141",
+      "inspection_method": "Local full card and historical first-party web text inspected; no visuals",
+      "access_outcome": "Local card readable; public text readable",
+      "fit": "Repeated expert state inspection",
+      "mismatch": "Creative tool retrospective; no controlled effect estimate or current behavior verified",
+      "selected_use": "Selected mechanism",
+      "resulting_outline_decisions": "Always-readable crew, freshness and acceptance qualifiers"
+    },
+    {
+      "id": "flow-slack-catch-up",
+      "url": "https://slack.com/help/articles/226410907-View-all-your-unread-messages",
+      "locator": "Official redirect https://slack.com/intl/ja-jp/help/articles/226410907-\u3059\u3079\u3066\u306e\u672a\u8aad\u30e1\u30c3\u30bb\u30fc\u30b8\u3092\u78ba\u8a8d\u3059\u308b; desktop mark-read / undo lines 62\u201371; refresh lines 78\u201384",
+      "inspection_method": "Local full card and official Japanese public web text inspected; no live workflow",
+      "access_outcome": "Local card readable; public text readable",
+      "fit": "Separate attention acknowledgement, source action, new updates and reversal",
+      "mismatch": "Read state has different consequences from dispatch; no transfer of swipe or bulk read",
+      "selected_use": "Selected analogy",
+      "resulting_outline_decisions": "Acknowledgement has no dispatch effect; durable recovery and visible updates"
+    },
+    {
+      "id": "standard-wcag-conformance",
+      "url": "https://www.w3.org/TR/2024/REC-WCAG22-20241212/",
+      "locator": "1.4.1 Use of Color; 1.4.3 Contrast; 2.4.7 Focus Visible; 2.4.11 Focus Not Obscured",
+      "inspection_method": "Local full card and versioned normative public web text inspected",
+      "access_outcome": "Local card readable; public text readable",
+      "fit": "Noncolor meaning and keyboard/focus requirements",
+      "mismatch": "No application conformance, testing or fatigue evidence",
+      "selected_use": "Selected requirements basis",
+      "resulting_outline_decisions": "Severity shape/code/text; explicit focus and verification scenarios"
+    },
+    {
+      "id": "visual-linear-product-proof",
+      "url": "https://linear.app/",
+      "locator": "Local card visual_evidence and Mismatches and limits",
+      "inspection_method": "Local full card only; current public source and visuals not inspected",
+      "access_outcome": "Local card readable; original not accessed",
+      "fit": "Candidate restrained composition",
+      "mismatch": "Marketing representation; no verified operational fit",
+      "selected_use": "Deferred visual candidate",
+      "resulting_outline_decisions": "Do not copy dark marketing margins or claim workflow performance"
+    },
+    {
+      "id": "principle-appeal-task-distinction",
+      "url": "https://www.eecs.harvard.edu/~kgajos/papers/2014/reinecke14visual.pdf",
+      "locator": "Local card What to borrow and adapt / Mismatches and limits; second listed source https://talaugust.github.io/assets/pdf/Baughan2020KeepIS.pdf",
+      "inspection_method": "Local full card only; original papers not inspected",
+      "access_outcome": "Local card readable; original not accessed",
+      "fit": "Caution about substituting screenshot preference for task outcome",
+      "mismatch": "Original methods not independently examined in this run",
+      "selected_use": "Context only, no empirical claim",
+      "resulting_outline_decisions": "Do not infer operational usability from unspecified sparse portfolio examples"
+    }
+  ],
+  "relayed_feedback": {
+    "preference": "Sparse option polish; huge cards requested as a possibility",
+    "follow_up": "Priority not settled; make and label a reasonable assumption if it does not block outline",
+    "assumption": "Rapid 30-request comparison remains primary; compact queue with spacious selected-request card",
+    "evidence_limit": "Human direction relayed by coordinator; no sparse visual inspected"
+  }
+}

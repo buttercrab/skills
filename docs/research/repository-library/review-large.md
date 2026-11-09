@@ -1,0 +1,29 @@
+# Independent source review: Kubernetes and SQLite cards
+
+Date: 2026-11-07. Reviewer authored the separate small-repository lane, not these two cards. Scope: read the two annotations, reopen their eight exact-revision primary files, and check the stated authority, publication/test route and evidence limits. No code, generator, test, build, Fossil operation, account action or remote mutation was executed. This is a bounded source review, not acceptance of either repository or its releases.
+
+## Kubernetes: no demonstrated material defect
+
+Reviewed `repo-large-kubernetes` at `ac8d3ed1cdf6c8bb11e9d3eda8acf2a9f03915b8`.
+
+- **Source authority:** [staging/README.md](https://github.com/kubernetes/kubernetes/blob/ac8d3ed1cdf6c8bb11e9d3eda8acf2a9f03915b8/staging/README.md), lines 43–59, explicitly identifies the staging copy as authoritative and explains workspace/replace resolution. The card accurately separates source-authoring location from downstream repositories.
+- **Generated workspace:** [go.work](https://github.com/kubernetes/kubernetes/blob/ac8d3ed1cdf6c8bb11e9d3eda8acf2a9f03915b8/go.work), full 45-line file, is marked generated and includes the staged module paths. The card does not invent a hand-edit requirement or certify dependency behavior from the listing alone.
+- **Executable policy route:** [import-restrictions.yaml](https://github.com/kubernetes/kubernetes/blob/ac8d3ed1cdf6c8bb11e9d3eda8acf2a9f03915b8/staging/publishing/import-restrictions.yaml), first 100 lines, contains allowed imports, temporary exceptions, ignored subtrees and test exclusions. [verify-imports.sh](https://github.com/kubernetes/kubernetes/blob/ac8d3ed1cdf6c8bb11e9d3eda8acf2a9f03915b8/hack/verify-imports.sh), lines 17–33, identifies that input, builds/installs the local import verifier with GOPROXY off and invokes it. This supports the card's intended-mechanics claim; the verifier implementation and an actual run were not inspected.
+- **Publication/governance limit:** staging/README.md lines 62–121 names the approval path, generated module update route, publishing rules/bot and access/protection setup. The card correctly treats this as documentation, not live repository settings or a verified publication. Its explicit statement that the bot/job/distributed package were not fully followed should remain.
+
+No correction required from these reads. If later expanding the annotation to claim actual import enforcement or release qualification, inspect the verifier implementation, full policy, owning CI and concrete publishing rules; do not promote the present configuration trace into executed evidence. This is a future claim boundary, not a current defect.
+
+## SQLite: no demonstrated material defect; canonical authority access remains partial
+
+Reviewed `repo-large-sqlite` at Git mirror revision `425bfb8aa82e2fd7829d055335f164eaf617eae0`.
+
+- **Repository versus mirror authority:** [README.md](https://github.com/sqlite/sqlite/blob/425bfb8aa82e2fd7829d055335f164eaf617eae0/README.md), lines 14–28, identifies Fossil authority and distinguishes its canonical check-in names from Git identifiers. Lines 3–12 and 190–213 separate source documentation, user documentation, primary source and test/tool roles. The card's author/consumer distinction is supported.
+- **Canonical identifier:** [manifest.uuid](https://github.com/sqlite/sqlite/blob/425bfb8aa82e2fd7829d055335f164eaf617eae0/manifest.uuid) contains `bb091549d416041e01bf27eaac7306283b6748c2a603e967c6aad5ab3488982b`. An attempted read of its [Fossil info page](https://sqlite.org/src/info/bb091549d416041e01bf27eaac7306283b6748c2a603e967c6aad5ab3488982b) returned an inaccessible-tool error. Therefore the independent review also cannot reconcile that identifier against the live Fossil view. The existing card states this limit accurately; do not remove it.
+- **Amalgamation dependency route:** [tool/mksqlite3c.tcl](https://github.com/sqlite/sqlite/blob/425bfb8aa82e2fd7829d055335f164eaf617eae0/tool/mksqlite3c.tcl), first 120 lines, describes prepared `tsrc` inputs including generated parser/keyword products and explains that core amalgamation excludes the shell/test/Tcl interfaces. [main.mk](https://github.com/sqlite/sqlite/blob/425bfb8aa82e2fd7829d055335f164eaf617eae0/main.mk), lines 1141–1150, makes sqlite3.c depend on prepared sources, the header, generator and source verifier, then invokes the generator. These support the narrow generator/target relationship claimed; the complete grammar-generation chain was not checked.
+- **Development versus release tests:** main.mk lines 1927–1949 shows generated-source checking, release-runner prerequisites and legacy test aliases: test/quicktest route to devtest, while fulltest/alltest/soaktest route to releasetest. README lines 94–134 separately documents developer versus full release targets and prerequisites. The card neither claims all tests ran nor treats missing separately maintained suites as absent.
+
+No source correction required. Optional editorial improvement: expose the canonical identifier in the card body as well as its linked source when a consumer needs to communicate about the exact check-in. That would improve verification cost, not change the supported conclusion. No claim is made here about license interpretation, source authenticity verification, compilation success, private tests or shipped artifacts.
+
+## Outcome
+
+Both cards keep their central mechanism appropriately scoped to inspected source/configuration. No demonstrated material source-authority, publication/test-path or execution-evidence defect found in this sample. Eight primary files were re-read; none of the underlying commands or behaviors was exercised. The inaccessible Fossil page remains an explicit evidence gap. No cards, example repositories, frozen mappings or assessment fixtures were edited during the review.

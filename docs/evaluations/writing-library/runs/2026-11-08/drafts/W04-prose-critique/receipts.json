@@ -1,0 +1,31 @@
+{
+  "artifact": "piece.md",
+  "task": "Three passage-specific critique observations followed by a revised first-visit bulletin article",
+  "article_word_count": 322,
+  "word_count_scope": "Article body only; excludes title and critique",
+  "word_count_method": "sed section selection, tail title exclusion, wc -w",
+  "inputs_read": ["COMMON.md", "prompt.md", "FILES.txt", "draft.md", "fact-sheet.md"],
+  "guide_reads": [
+    "../guide/SKILL.md",
+    "../guide/library/index.md",
+    "../guide/references/structure-and-revision.md",
+    "../guide/references/ai-writing-and-evaluation.md",
+    "../guide/library/entries/craft-diataxis-reader-purpose.md",
+    "../guide/library/entries/craft-wisconsin-reverse-outline.md",
+    "../guide/library/entries/craft-mailchimp-voice-tone.md"
+  ],
+  "host_guides_read": ["/Users/jaeyong/.codex/skills/i-have-adhd/SKILL.md"],
+  "reference_access": "Local cards only; no primary linked sources inspected in this run",
+  "checks": {
+    "length_300_to_450_words": "passed: 322 words",
+    "three_specific_critique_observations": "passed: manual count and passage comparison",
+    "fact_alignment": "manual comparison against fact-sheet.md",
+    "unsupported_accessibility_or_environmental_claims": "none in revision",
+    "invented_quote_or_anecdote": "none",
+    "authorship_inference_or_detector_use": "none",
+    "missing_policy": "Local boundary and accepted address-document types remain unspecified and are disclosed"
+  },
+  "external_actions": [],
+  "outputs": ["piece.md", "editorial-notes.md", "receipts.json", "work-log.md"],
+  "limits": "No reader testing or measured improvement claim; no external fact verification"
+}

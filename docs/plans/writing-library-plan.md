@@ -1,0 +1,13 @@
+# Writing library: implementation scope
+
+Authorized by “go next,” 2026-11-08 (Asia/Seoul), after design, repository quality and system architecture. Deliver a reusable `writing-with-intent` skill and contextual reference library for articles, essays and explanations. No real author's article, project or publication account is an edit target.
+
+Research lanes cover varied primary article/craft/revision examples; reader/argument/structure/editing guidance; original AI-writing/verification/detection studies with methods and counterevidence; reporting/source discipline, multilingual/Korean practice and optional tool limits. Prefer actual bodies/sections/diffs over snippets or reputation. Preserve whole/partial access, dates, evidence class and limits. Earlier writing research is a lead or explicitly attributed retained evidence, not automatically fresh inspection.
+
+The operating workflow asks consequential author/reader/angle questions, preserves complete briefs and delegation, selects reference mechanisms without cloning a named author's voice, produces the requested draft/edit, and revises substance before cosmetic prose. “AI slop” should be diagnosed as observable editorial failures, not inferred from punctuation or detector scores. Never invent personal experience, interviews, statistics or citations to make writing sound human. Style preferences and genres can conflict without one universally winning.
+
+Package original annotations in canonical Markdown/JSON cards with generated browse/search views and a Python-stdlib helper. Detailed conditional guidance belongs in references. Primary articles/papers/protected passages are not redistributed. No mandatory hosted editing, detector, grammar or publishing service.
+
+Five independent fictional source-only writing fixtures are authored before package exposure; require actual drafts/revisions, not only plans. Freeze first package before reading private fixture contents, use fresh exact-path-scoped runners and independent review, preserve questions/answers, originals and failures. No publication, external accounts, network, detector calls, real project edits or fixture execution during trials. Keep structural tests, source review, evidence fidelity and human literary judgment distinct; no efficacy claim from a small developmental cohort.
+
+Validate metadata/helper/indexes/links, portable package use and installer discovery. Integrate inventory/tests for the thirteenth skill. Return supported trial lessons to the skill while preserving frozen artifacts. No global skill installation, commit, push, publishing, recurring task or Taster work.

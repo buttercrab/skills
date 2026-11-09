@@ -1,0 +1,23 @@
+{
+  "scope": "Source-only assessment and editable Mermaid source; no redesign or live verification",
+  "revision": "7f12a6b",
+  "inputs": [
+    {"path":"snapshot/README.md","lines":"1-4","kind":"historical documentation","claims":"Database upload storage, event stream, Region B parser, sockets, multi-region active-active; disputed by newer supplied evidence"},
+    {"path":"snapshot/intake.ts","lines":"1-15","kind":"directly inspected implementation","claims":"Sequential object put, metadata insert, task send, 202; DB status read; parse/read/update ready without failure-state write"},
+    {"path":"snapshot/deployment.yaml","lines":"1-22","kind":"supplied captured rendered inventory","claims":"Region A; intake 2 and parse-runner 1 replicas; stores/queues and four deliveries; account scope only"},
+    {"path":"snapshot/client-and-operations.md","lines":"2-6","kind":"supplied captured evidence narrative, not inspected client or adapter code","claims":"Polling, queue ack/redelivery/DLQ contract, weekday operations review, rollout record and coverage limits"}
+  ],
+  "guides_read": ["COMMON.md","prompt.md","FILES.txt","../guide/SKILL.md","../guide/references/diagram-contract.md","../guide/references/boundaries-and-failure.md"],
+  "architecture_cards_read": [],
+  "fresh_external_primary_inspection": false,
+  "local_card_annotations_used": false,
+  "inferences": [
+    {"claim":"Dead-lettered document can remain pending","basis":["snapshot/intake.ts:10-15","snapshot/client-and-operations.md:4"],"status":"possible source-derived outcome, not observed incident"},
+    {"claim":"Sequential upload effects can leave partial state or uncertain enqueue outcome","basis":["snapshot/intake.ts:3-6"],"status":"inferred failure exposure; storage and queue contracts unknown"},
+    {"claim":"Uncertain acknowledgment can cause repeat processing after ready write","basis":["snapshot/intake.ts:14","snapshot/client-and-operations.md:4"],"status":"possible outcome; no end-to-end idempotency proof"}
+  ],
+  "unknowns": ["live topology","parser dependency placement","route binding and authentication","global routing and disaster recovery","third-party replication","storage and queue durability contracts","idempotency/concurrency behavior","cleanup and reconciliation"],
+  "proposed_architecture": null,
+  "checks": {"all_manifest_snapshot_files_read":true,"manual_source_diagram_consistency_review":true,"mermaid_parser":false,"rendered_visual_inspection":false,"runtime_tests":false,"builds":false,"network_or_production_queries":false},
+  "outputs": ["assessment.md","diagrams.md","receipts.json","work-log.md"]
+}

@@ -1,0 +1,2742 @@
+{
+  "schema_version": 1,
+  "status": "pre-run frozen independent relevance mapping",
+  "created_utc": "2026-11-07T09:10:33.992584+00:00",
+  "corpus_path": "/private/tmp/design-library-matching-20261107/corpus",
+  "corpus_manifest_path": "/private/tmp/design-library-matching-20261107/corpus-manifest.json",
+  "corpus_manifest_sha256": "949f666fb9d52c652ae388cd992f5d8bea50bfbfedf655f67bafa276491ea774",
+  "independence": {
+    "did_not_curate": true,
+    "did_not_author_workflow_or_cases": true,
+    "case_keys_read_before_cards": true,
+    "workflow_or_prior_condition_outputs_read": false
+  },
+  "evidence_scope": {
+    "mapper_card_access": "All 107 card summaries screened; role-relevant candidate bodies inspected. Broad unrelated tools/implementation skills screened by summary only.",
+    "underlying_primary_sources_opened": [],
+    "visual_samples_viewed": [],
+    "interactions_tested": [],
+    "upstream_frozen": false,
+    "card_claims": "Curator evidence is attributed metadata only, never mapper observation.",
+    "gap_policy": "Absence is bounded to this corpus and screened portions, not global source nonexistence."
+  },
+  "relevance_denominator_policy": "Role families, not card count. Interchangeable candidates cover one role. Case06 broad retrieval N/A; case08 full-match recall N/A. Unmatched portions recorded separately; case facts can fully justify mandatory application.",
+  "cases": [
+    {
+      "case_id": "01",
+      "complete_match_availability": "No single complete catalog match; useful orientation and attendance transfers exist.",
+      "roles": [
+        {
+          "role_id": "orientation",
+          "description": "Newcomer participation preview",
+          "coverage_status": "applicable",
+          "admissible_candidates": [
+            {
+              "card_id": "pattern-apple-onboarding",
+              "card_path": "library/entries/pattern-apple-onboarding.md",
+              "useful_card_sections": [
+                "What to inspect",
+                "What to borrow and adapt",
+                "Mismatches and limits"
+              ],
+              "source_portions": [
+                {
+                  "url": "https://developer.apple.com/design/human-interface-guidelines/onboarding",
+                  "title": "Onboarding",
+                  "locator": "Best practices; tutorials; tips; setup and permissions",
+                  "revision": "Visible change log: 2024-06-10 clarification; 2023-06-21 visionOS"
+                }
+              ],
+              "transfer": "Optional introduction around a meaningful first action; postpone nonessential setup.",
+              "context_mismatch_and_limits": "Native-app guidance must adapt to QR mobile web; no proof of event attendance.",
+              "mapper_evidence": "card-only; original source not opened",
+              "curator_reported_evidence": {
+                "mode": [
+                  "source-inspected",
+                  "documented-flow"
+                ],
+                "inspected_at": "2026-11-07",
+                "freshness": "live-at-inspection",
+                "scope": "Onboarding text inspected in native Chrome; source-described learning paths only; no native tutorial or permission interaction."
+              },
+              "further_inspection": "Inspect cited primary portion before attributing current source behavior; actual image view required for first-person visual claims."
+            },
+            {
+              "card_id": "visual-arena-text-led-community",
+              "card_path": "library/entries/visual-arena-text-led-community.md",
+              "useful_card_sections": [
+                "What to inspect",
+                "What to borrow and adapt",
+                "Mismatches and limits"
+              ],
+              "source_portions": [
+                {
+                  "url": "https://www.are.na/",
+                  "title": "Are.na primary public page",
+                  "locator": "Desktop introduction and beginning of How it works",
+                  "revision": "not-versioned; live page inspected 2026-11-07"
+                }
+              ],
+              "transfer": "Explain community through activity/material and concrete examples.",
+              "context_mismatch_and_limits": "Editorial public introduction is not a tested newcomer flow; adapt unusual vocabulary.",
+              "mapper_evidence": "card-only; original source not opened",
+              "curator_reported_evidence": {
+                "mode": [
+                  "visual-inspected",
+                  "source-inspected"
+                ],
+                "inspected_at": "2026-11-07",
+                "freshness": "live-at-inspection",
+                "scope": "Own native Chrome public HTTPS tab; desktop screenshot viewed directly. Public composition only; no account/product workflow or efficacy tested."
+              },
+              "further_inspection": "Inspect cited primary portion before attributing current source behavior; actual image view required for first-person visual claims."
+            },
+            {
+              "card_id": "visual-brilliant-visible-problems",
+              "card_path": "library/entries/visual-brilliant-visible-problems.md",
+              "useful_card_sections": [
+                "What to inspect",
+                "What to borrow and adapt",
+                "Mismatches and limits"
+              ],
+              "source_portions": [
+                {
+                  "url": "https://brilliant.org/",
+                  "title": "Brilliant primary public page",
+                  "locator": "Desktop tutor hero and fan of mathematical/coding problem panels",
+                  "revision": "not-versioned; live page inspected 2026-11-07"
+                }
+              ],
+              "transfer": "Show actual table activity or artifact instead of generic benefits.",
+              "context_mismatch_and_limits": "Learning marketing composition; neither actual people photos nor solo-arrival flow verified.",
+              "mapper_evidence": "card-only; original source not opened",
+              "curator_reported_evidence": {
+                "mode": [
+                  "visual-inspected",
+                  "source-inspected"
+                ],
+                "inspected_at": "2026-11-07",
+                "freshness": "live-at-inspection",
+                "scope": "Own native Chrome public HTTPS tab; desktop screenshot viewed directly. Public composition only; no account/product workflow or efficacy tested."
+              },
+              "further_inspection": "Inspect cited primary portion before attributing current source behavior; actual image view required for first-person visual claims."
+            }
+          ],
+          "gap": null,
+          "alternatives_policy": "Set is non-exhaustive. Accept additional defensible role-specific transfers after blind symmetric adjudication; no favorite brand required."
+        },
+        {
+          "role_id": "attendance",
+          "description": "Event details and low-commitment optional attendance",
+          "coverage_status": "applicable",
+          "admissible_candidates": [
+            {
+              "card_id": "flow-meetup-waitlist",
+              "card_path": "library/entries/flow-meetup-waitlist.md",
+              "useful_card_sections": [
+                "What to inspect",
+                "What to borrow and adapt",
+                "Mismatches and limits"
+              ],
+              "source_portions": [
+                {
+                  "url": "https://help.meetup.com/hc/en-us/articles/41229648295181-How-to-Join-an-Event-Waitlist-on-Meetup",
+                  "title": "Meetup Help: How to Join an Event Waitlist",
+                  "locator": "What is a Waitlist; joining; promotion order; mandatory fees; status",
+                  "revision": "not-versioned; documentation inspected 2026-11-07"
+                }
+              ],
+              "transfer": "Separate interest/waiting/confirmed chair status, explain notifications.",
+              "context_mismatch_and_limits": "Do not import mandatory membership, paid priority, required RSVP or automatic promotion.",
+              "mapper_evidence": "card-only; original source not opened",
+              "curator_reported_evidence": {
+                "mode": [
+                  "source-inspected",
+                  "documented-flow"
+                ],
+                "inspected_at": "2026-11-07",
+                "freshness": "live-at-inspection",
+                "scope": "Relevant first-party documented sequence/state account inspected; no authenticated live product workflow exercised."
+              },
+              "further_inspection": "Inspect cited primary portion before attributing current source behavior; actual image view required for first-person visual claims."
+            },
+            {
+              "card_id": "flow-airbnb-collaborative-wishlist",
+              "card_path": "library/entries/flow-airbnb-collaborative-wishlist.md",
+              "useful_card_sections": [
+                "What to inspect",
+                "What to borrow and adapt",
+                "Mismatches and limits"
+              ],
+              "source_portions": [
+                {
+                  "url": "https://www.airbnb.com/help/article/1236",
+                  "title": "Airbnb Help: Use wishlists to save listings",
+                  "locator": "Save to a wishlist; Collaborate; collaborative/view-only sharing; unavailable listings",
+                  "revision": "not-versioned; documentation inspected 2026-11-07"
+                }
+              ],
+              "transfer": "Separate viewing/planning/saving from commitment.",
+              "context_mismatch_and_limits": "Travel planning is only structural; not event logistics or capacity evidence.",
+              "mapper_evidence": "card-only; original source not opened",
+              "curator_reported_evidence": {
+                "mode": [
+                  "source-inspected",
+                  "documented-flow"
+                ],
+                "inspected_at": "2026-11-07",
+                "freshness": "live-at-inspection",
+                "scope": "Relevant first-party documented sequence/state account inspected; no authenticated live product workflow exercised."
+              },
+              "further_inspection": "Inspect cited primary portion before attributing current source behavior; actual image view required for first-person visual claims."
+            }
+          ],
+          "gap": "No card fully covers no-account entry plus optional RSVP plus solo arrival; supplied facts control these.",
+          "alternatives_policy": "Set is non-exhaustive. Accept additional defensible role-specific transfers after blind symmetric adjudication; no favorite brand required."
+        },
+        {
+          "role_id": "belonging",
+          "description": "Belonging without membership pressure",
+          "coverage_status": "applicable",
+          "admissible_candidates": [
+            {
+              "card_id": "flow-discord-community-onboarding",
+              "card_path": "library/entries/flow-discord-community-onboarding.md",
+              "useful_card_sections": [
+                "What to inspect",
+                "What to borrow and adapt",
+                "Mismatches and limits"
+              ],
+              "source_portions": [
+                {
+                  "url": "https://support.discord.com/hc/en-us/articles/11074987197975-Community-Onboarding-FAQ",
+                  "title": "Discord Support: Community Onboarding FAQ",
+                  "locator": "Here is how it works; Default Channels; Customization Questions; post-join changes",
+                  "revision": "2023-03-31 support account; live body inspected 2026-11-07"
+                }
+              ],
+              "transfer": "Keep useful default entry; optional interests and revisable choices.",
+              "context_mismatch_and_limits": "Account/role assignment is wrong if copied as required entry or qualification.",
+              "mapper_evidence": "card-only; original source not opened",
+              "curator_reported_evidence": {
+                "mode": [
+                  "source-inspected",
+                  "documented-flow"
+                ],
+                "inspected_at": "2026-11-07",
+                "freshness": "historical",
+                "scope": "Relevant first-party documented sequence/state account inspected; no authenticated live product workflow exercised."
+              },
+              "further_inspection": "Inspect cited primary portion before attributing current source behavior; actual image view required for first-person visual claims."
+            },
+            {
+              "card_id": "visual-arena-text-led-community",
+              "card_path": "library/entries/visual-arena-text-led-community.md",
+              "useful_card_sections": [
+                "What to inspect",
+                "What to borrow and adapt",
+                "Mismatches and limits"
+              ],
+              "source_portions": [
+                {
+                  "url": "https://www.are.na/",
+                  "title": "Are.na primary public page",
+                  "locator": "Desktop introduction and beginning of How it works",
+                  "revision": "not-versioned; live page inspected 2026-11-07"
+                }
+              ],
+              "transfer": "Activity-led explanation rather than recruitment identity.",
+              "context_mismatch_and_limits": "No observed community outcome or actual people/activity image evidence.",
+              "mapper_evidence": "card-only; original source not opened",
+              "curator_reported_evidence": {
+                "mode": [
+                  "visual-inspected",
+                  "source-inspected"
+                ],
+                "inspected_at": "2026-11-07",
+                "freshness": "live-at-inspection",
+                "scope": "Own native Chrome public HTTPS tab; desktop screenshot viewed directly. Public composition only; no account/product workflow or efficacy tested."
+              },
+              "further_inspection": "Inspect cited primary portion before attributing current source behavior; actual image view required for first-person visual claims."
+            }
+          ],
+          "gap": null,
+          "alternatives_policy": "Set is non-exhaustive. Accept additional defensible role-specific transfers after blind symmetric adjudication; no favorite brand required."
+        },
+        {
+          "role_id": "mobile-hierarchy",
+          "description": "Accessible mobile hierarchy",
+          "coverage_status": "applicable",
+          "admissible_candidates": [
+            {
+              "card_id": "standard-text-adaptation",
+              "card_path": "library/entries/standard-text-adaptation.md",
+              "useful_card_sections": [
+                "What to inspect",
+                "What to borrow and adapt",
+                "Mismatches and limits"
+              ],
+              "source_portions": [
+                {
+                  "url": "https://www.w3.org/TR/2024/REC-WCAG22-20241212/",
+                  "title": "WCAG 2.2",
+                  "locator": "SC 1.4.3, 1.4.10, 1.4.11 and 1.4.12",
+                  "revision": "Recommendation 12 December 2024"
+                },
+                {
+                  "url": "https://www.w3.org/WAI/WCAG22/Understanding/text-spacing.html",
+                  "title": "Understanding Text Spacing",
+                  "locator": "SC; notes; Author Responsibility",
+                  "revision": "Informative explanation accessed 2026-11-07"
+                },
+                {
+                  "url": "https://www.w3.org/WAI/WCAG22/Understanding/reflow.html",
+                  "title": "Understanding Reflow",
+                  "locator": "SC; two-dimensional exceptions; reflowing applications",
+                  "revision": "Informative explanation accessed 2026-11-07"
+                },
+                {
+                  "url": "https://www.w3.org/WAI/WCAG22/Understanding/contrast-minimum.html",
+                  "title": "Understanding Contrast Minimum",
+                  "locator": "Thresholds; large text; incidental and logo exceptions; rendering notes",
+                  "revision": "Informative explanation accessed 2026-11-07"
+                }
+              ],
+              "transfer": "Preserve real labels/actions at larger text and narrow widths.",
+              "context_mismatch_and_limits": "No rendered mobile evidence or conformance claim.",
+              "mapper_evidence": "card-only; original source not opened",
+              "curator_reported_evidence": {
+                "mode": [
+                  "source-inspected"
+                ],
+                "inspected_at": "2026-11-07",
+                "freshness": "versioned",
+                "scope": "Versioned normative criteria and live explanatory text inspected. No contrast measurements or rendered adaptation tests of a product."
+              },
+              "further_inspection": "Inspect cited primary portion before attributing current source behavior; actual image view required for first-person visual claims."
+            },
+            {
+              "card_id": "principle-native-semantics",
+              "card_path": "library/entries/principle-native-semantics.md",
+              "useful_card_sections": [
+                "What to inspect",
+                "What to borrow and adapt",
+                "Mismatches and limits"
+              ],
+              "source_portions": [
+                {
+                  "url": "https://www.w3.org/WAI/ARIA/apg/about/introduction/",
+                  "title": "APG Introduction",
+                  "locator": "APG is Not a Normative Standard; Exercise Caution If Deviating; APG is not a UI Design System",
+                  "revision": "Live APG introduction inspected 2026-11-07"
+                },
+                {
+                  "url": "https://www.w3.org/WAI/ARIA/apg/practices/read-me-first/",
+                  "title": "APG Read Me First",
+                  "locator": "A role is a promise; browser/assistive-technology support; mobile/touch limits",
+                  "revision": "Live APG guidance accessed 2026-11-07"
+                },
+                {
+                  "url": "https://www.w3.org/WAI/ARIA/apg/patterns/button/",
+                  "title": "APG Button Pattern",
+                  "locator": "Keyboard interaction; roles/states/properties; toggle-label alternatives",
+                  "revision": "Live pattern accessed 2026-11-07"
+                }
+              ],
+              "transfer": "Distinguish navigation link from RSVP action and label controls.",
+              "context_mismatch_and_limits": "Informative behavior guidance, not event design proof.",
+              "mapper_evidence": "card-only; original source not opened",
+              "curator_reported_evidence": {
+                "mode": [
+                  "source-inspected"
+                ],
+                "inspected_at": "2026-11-07",
+                "freshness": "live-at-inspection",
+                "scope": "APG Introduction, Read Me First and button pattern inspected, not executed. Informative patterns illustrate permitted variations; they are not a production-ready design system or universal compatibility guarantees."
+              },
+              "further_inspection": "Inspect cited primary portion before attributing current source behavior; actual image view required for first-person visual claims."
+            }
+          ],
+          "gap": null,
+          "alternatives_policy": "Set is non-exhaustive. Accept additional defensible role-specific transfers after blind symmetric adjudication; no favorite brand required."
+        }
+      ],
+      "wrong_context_or_overclaim_traps": [
+        "Account-first Discord flow copied literally",
+        "Polished editorial mood or character hero used as proof of belonging",
+        "Mandatory RSVP or teaching contribution invented"
+      ],
+      "application_checks": [
+        "entry → activity preview → actual next-meeting details → optional chair RSVP",
+        "explicit welcome to come alone and observe",
+        "triggered keep/drop/mix materially changes outline"
+      ]
+    },
+    {
+      "case_id": "02",
+      "complete_match_availability": "Complementary queue/state sources; no complete flood dispatch lifecycle.",
+      "roles": [
+        {
+          "role_id": "dense-comparison",
+          "description": "Expert comparison of about 30 reachable requests",
+          "coverage_status": "applicable",
+          "admissible_candidates": [
+            {
+              "card_id": "pattern-carbon-data-table",
+              "card_path": "library/entries/pattern-carbon-data-table.md",
+              "useful_card_sections": [
+                "What to inspect",
+                "What to borrow and adapt",
+                "Mismatches and limits"
+              ],
+              "source_portions": [
+                {
+                  "url": "https://www.carbondesignsystem.com/building-blocks/core/components/data-table/guidelines",
+                  "title": "Data table guidelines",
+                  "locator": "Sizing; selection and batch actions; expandable rows; toolbar; loading",
+                  "revision": "Stable; page updated 2026-09-30; React context inspected"
+                }
+              ],
+              "transfer": "Use task-based density, stable comparison columns, selection and bounded expansion.",
+              "context_mismatch_and_limits": "Carbon sizes are not mandatory pixels; keyboard/performance untested.",
+              "mapper_evidence": "card-only; original source not opened",
+              "curator_reported_evidence": {
+                "mode": [
+                  "source-inspected",
+                  "documented-flow",
+                  "visual-inspected"
+                ],
+                "inspected_at": "2026-11-07",
+                "freshness": "live-at-inspection",
+                "scope": "Guidelines text and native Chrome sizing section inspected. Static density comparisons viewed; no live table actions executed."
+              },
+              "further_inspection": "Inspect cited primary portion before attributing current source behavior; actual image view required for first-person visual claims."
+            },
+            {
+              "card_id": "flow-figma-ui3-state-visibility",
+              "card_path": "library/entries/flow-figma-ui3-state-visibility.md",
+              "useful_card_sections": [
+                "What to inspect",
+                "What to borrow and adapt",
+                "Mismatches and limits"
+              ],
+              "source_portions": [
+                {
+                  "url": "https://www.figma.com/blog/our-approach-to-designing-ui3/",
+                  "title": "Figma on Figma: Our approach to designing UI3",
+                  "locator": "Docked panels; Blend modes: Bridging past and present; clip-content discussion",
+                  "revision": "2024-10-01 first-party account"
+                }
+              ],
+              "transfer": "Keep frequently inspected crew/stale/nondefault values visible.",
+              "context_mismatch_and_limits": "Historical editor account not dispatcher evidence.",
+              "mapper_evidence": "card-only; original source not opened",
+              "curator_reported_evidence": {
+                "mode": [
+                  "source-inspected",
+                  "documented-flow",
+                  "visual-inspected"
+                ],
+                "inspected_at": "2026-11-07",
+                "freshness": "historical",
+                "scope": "Historical first-party redesign account read; embedded blend-mode and clip-content exploration screenshots visually inspected. No authenticated current-product interaction."
+              },
+              "further_inspection": "Inspect cited primary portion before attributing current source behavior; actual image view required for first-person visual claims."
+            },
+            {
+              "card_id": "flow-notion-view-sharing",
+              "card_path": "library/entries/flow-notion-view-sharing.md",
+              "useful_card_sections": [
+                "What to inspect",
+                "What to borrow and adapt",
+                "Mismatches and limits"
+              ],
+              "source_portions": [
+                {
+                  "url": "https://www.notion.com/help/views-filters-and-sorts",
+                  "title": "Notion Help: Views, filters, sorts and groups",
+                  "locator": "View settings; Open pages in; Filters; Sorts",
+                  "revision": "not-versioned; documentation inspected 2026-11-07"
+                }
+              ],
+              "transfer": "Keep common records separate from filters; detail opening retains comparison context.",
+              "context_mismatch_and_limits": "Filtering is not permission; no workspace tested.",
+              "mapper_evidence": "card-only; original source not opened",
+              "curator_reported_evidence": {
+                "mode": [
+                  "source-inspected",
+                  "documented-flow"
+                ],
+                "inspected_at": "2026-11-07",
+                "freshness": "live-at-inspection",
+                "scope": "Relevant first-party documented sequence/state account inspected; no authenticated live product workflow exercised."
+              },
+              "further_inspection": "Inspect cited primary portion before attributing current source behavior; actual image view required for first-person visual claims."
+            },
+            {
+              "card_id": "visual-raycast-list-detail",
+              "card_path": "library/entries/visual-raycast-list-detail.md",
+              "useful_card_sections": [
+                "What to inspect",
+                "What to borrow and adapt",
+                "Mismatches and limits"
+              ],
+              "source_portions": [
+                {
+                  "url": "https://www.raycast.com/",
+                  "title": "Raycast primary public page",
+                  "locator": "Take shortcuts, not detours section; clipboard-history product scene",
+                  "revision": "not-versioned; live page inspected 2026-11-07"
+                }
+              ],
+              "transfer": "Compact list + selected detail preserves scanning context.",
+              "context_mismatch_and_limits": "Embedded launcher imagery does not establish operational density or keyboard behavior.",
+              "mapper_evidence": "card-only; original source not opened",
+              "curator_reported_evidence": {
+                "mode": [
+                  "visual-inspected",
+                  "source-inspected"
+                ],
+                "inspected_at": "2026-11-07",
+                "freshness": "live-at-inspection",
+                "scope": "Own native Chrome public HTTPS tab; desktop screenshot viewed directly. Public composition only; no account/product workflow or efficacy tested."
+              },
+              "further_inspection": "Inspect cited primary portion before attributing current source behavior; actual image view required for first-person visual claims."
+            }
+          ],
+          "gap": null,
+          "alternatives_policy": "Set is non-exhaustive. Accept additional defensible role-specific transfers after blind symmetric adjudication; no favorite brand required."
+        },
+        {
+          "role_id": "lifecycle",
+          "description": "Acknowledgment separate from deliberate assignment; async acceptance",
+          "coverage_status": "applicable",
+          "admissible_candidates": [
+            {
+              "card_id": "flow-linear-triage-decisions",
+              "card_path": "library/entries/flow-linear-triage-decisions.md",
+              "useful_card_sections": [
+                "What to inspect",
+                "What to borrow and adapt",
+                "Mismatches and limits"
+              ],
+              "source_portions": [
+                {
+                  "url": "https://linear.app/docs/triage",
+                  "title": "Linear Docs: Triage",
+                  "locator": "Basics → Create issues / Take actions; Configure",
+                  "revision": "not-versioned; live documentation inspected 2026-11-07"
+                }
+              ],
+              "transfer": "Explicit disposition model and durable outcome/ownership.",
+              "context_mismatch_and_limits": "Triage acceptance is not crew acceptance; preserve exact supplied labels.",
+              "mapper_evidence": "card-only; original source not opened",
+              "curator_reported_evidence": {
+                "mode": [
+                  "source-inspected",
+                  "documented-flow"
+                ],
+                "inspected_at": "2026-11-07",
+                "freshness": "live-at-inspection",
+                "scope": "Relevant first-party text and described transitions inspected; no authenticated product interaction or visual inspection."
+              },
+              "further_inspection": "Inspect cited primary portion before attributing current source behavior; actual image view required for first-person visual claims."
+            },
+            {
+              "card_id": "flow-slack-catch-up",
+              "card_path": "library/entries/flow-slack-catch-up.md",
+              "useful_card_sections": [
+                "What to inspect",
+                "What to borrow and adapt",
+                "Mismatches and limits"
+              ],
+              "source_portions": [
+                {
+                  "url": "https://slack.com/help/articles/226410907-View-all-your-unread-messages",
+                  "title": "Slack Help: View all your unread messages",
+                  "locator": "View/Navigate unread messages; Mark as read; Refresh; Reply",
+                  "revision": "not-versioned; documentation inspected 2026-11-07"
+                }
+              ],
+              "transfer": "Seen/acknowledged distinct from completed or assigned.",
+              "context_mismatch_and_limits": "Read state cannot establish dispatch; mobile swipes not desktop contract.",
+              "mapper_evidence": "card-only; original source not opened",
+              "curator_reported_evidence": {
+                "mode": [
+                  "source-inspected",
+                  "documented-flow"
+                ],
+                "inspected_at": "2026-11-07",
+                "freshness": "live-at-inspection",
+                "scope": "Relevant first-party documented sequence/state account inspected; no authenticated live product workflow exercised."
+              },
+              "further_inspection": "Inspect cited primary portion before attributing current source behavior; actual image view required for first-person visual claims."
+            },
+            {
+              "card_id": "flow-steam-family-roles",
+              "card_path": "library/entries/flow-steam-family-roles.md",
+              "useful_card_sections": [
+                "What to inspect",
+                "What to borrow and adapt",
+                "Mismatches and limits"
+              ],
+              "source_portions": [
+                {
+                  "url": "https://help.steampowered.com/en/faqs/view/054C-3167-DD7F-49D4?l=english",
+                  "title": "Steam Support: Steam Families User Guide and FAQ",
+                  "locator": "Feature overview; setup; adult/child roles; purchase requests; sharing limitations",
+                  "revision": "not-versioned; documentation inspected 2026-11-07"
+                }
+              ],
+              "transfer": "Requester, authorizer and resulting actor-specific state differ.",
+              "context_mismatch_and_limits": "Household roles are analogy only, not dispatch async policy.",
+              "mapper_evidence": "card-only; original source not opened",
+              "curator_reported_evidence": {
+                "mode": [
+                  "source-inspected",
+                  "documented-flow",
+                  "visual-inspected"
+                ],
+                "inspected_at": "2026-11-07",
+                "freshness": "live-at-inspection",
+                "scope": "Relevant first-party documented sequence/state account inspected; no authenticated live product workflow exercised."
+              },
+              "further_inspection": "Inspect cited primary portion before attributing current source behavior; actual image view required for first-person visual claims."
+            }
+          ],
+          "gap": "30-second undo and crew acceptance boundary come from case facts, not these sources.",
+          "alternatives_policy": "Set is non-exhaustive. Accept additional defensible role-specific transfers after blind symmetric adjudication; no favorite brand required."
+        },
+        {
+          "role_id": "recovery",
+          "description": "Undo, reassignment and conflict recovery",
+          "coverage_status": "applicable",
+          "admissible_candidates": [
+            {
+              "card_id": "flow-slack-catch-up",
+              "card_path": "library/entries/flow-slack-catch-up.md",
+              "useful_card_sections": [
+                "What to inspect",
+                "What to borrow and adapt",
+                "Mismatches and limits"
+              ],
+              "source_portions": [
+                {
+                  "url": "https://slack.com/help/articles/226410907-View-all-your-unread-messages",
+                  "title": "Slack Help: View all your unread messages",
+                  "locator": "View/Navigate unread messages; Mark as read; Refresh; Reply",
+                  "revision": "not-versioned; documentation inspected 2026-11-07"
+                }
+              ],
+              "transfer": "Reversible premature acknowledgement and clear return to original item.",
+              "context_mismatch_and_limits": "Does not authorize undo after crew accepts.",
+              "mapper_evidence": "card-only; original source not opened",
+              "curator_reported_evidence": {
+                "mode": [
+                  "source-inspected",
+                  "documented-flow"
+                ],
+                "inspected_at": "2026-11-07",
+                "freshness": "live-at-inspection",
+                "scope": "Relevant first-party documented sequence/state account inspected; no authenticated live product workflow exercised."
+              },
+              "further_inspection": "Inspect cited primary portion before attributing current source behavior; actual image view required for first-person visual claims."
+            },
+            {
+              "card_id": "pattern-fluent-dialog",
+              "card_path": "library/entries/pattern-fluent-dialog.md",
+              "useful_card_sections": [
+                "What to inspect",
+                "What to borrow and adapt",
+                "Mismatches and limits"
+              ],
+              "source_portions": [
+                {
+                  "url": "https://fluent2.microsoft.design/components/web/react/core/dialog/usage",
+                  "title": "Dialog usage",
+                  "locator": "Types; behavior; dismissal; accessibility; form and scrolling guidance",
+                  "revision": "Web React core dialog; preview status at inspection"
+                }
+              ],
+              "transfer": "Deliberate consequential action with clear consequence/cancel/focus contract.",
+              "context_mismatch_and_limits": "Interruption pattern does not supply undo semantics.",
+              "mapper_evidence": "card-only; original source not opened",
+              "curator_reported_evidence": {
+                "mode": [
+                  "source-inspected",
+                  "documented-flow"
+                ],
+                "inspected_at": "2026-11-07",
+                "freshness": "live-at-inspection",
+                "scope": "Source text inspected; no visual inspection or live component execution."
+              },
+              "further_inspection": "Inspect cited primary portion before attributing current source behavior; actual image view required for first-person visual claims."
+            }
+          ],
+          "gap": null,
+          "alternatives_policy": "Set is non-exhaustive. Accept additional defensible role-specific transfers after blind symmetric adjudication; no favorite brand required."
+        },
+        {
+          "role_id": "state-access",
+          "description": "Non-color states, keyboard and recent-change visibility",
+          "coverage_status": "applicable",
+          "admissible_candidates": [
+            {
+              "card_id": "principle-native-semantics",
+              "card_path": "library/entries/principle-native-semantics.md",
+              "useful_card_sections": [
+                "What to inspect",
+                "What to borrow and adapt",
+                "Mismatches and limits"
+              ],
+              "source_portions": [
+                {
+                  "url": "https://www.w3.org/WAI/ARIA/apg/about/introduction/",
+                  "title": "APG Introduction",
+                  "locator": "APG is Not a Normative Standard; Exercise Caution If Deviating; APG is not a UI Design System",
+                  "revision": "Live APG introduction inspected 2026-11-07"
+                },
+                {
+                  "url": "https://www.w3.org/WAI/ARIA/apg/practices/read-me-first/",
+                  "title": "APG Read Me First",
+                  "locator": "A role is a promise; browser/assistive-technology support; mobile/touch limits",
+                  "revision": "Live APG guidance accessed 2026-11-07"
+                },
+                {
+                  "url": "https://www.w3.org/WAI/ARIA/apg/patterns/button/",
+                  "title": "APG Button Pattern",
+                  "locator": "Keyboard interaction; roles/states/properties; toggle-label alternatives",
+                  "revision": "Live pattern accessed 2026-11-07"
+                }
+              ],
+              "transfer": "Choose operations and control state consistently with keyboard behavior.",
+              "context_mismatch_and_limits": "Not automatically tested or normative conformance.",
+              "mapper_evidence": "card-only; original source not opened",
+              "curator_reported_evidence": {
+                "mode": [
+                  "source-inspected"
+                ],
+                "inspected_at": "2026-11-07",
+                "freshness": "live-at-inspection",
+                "scope": "APG Introduction, Read Me First and button pattern inspected, not executed. Informative patterns illustrate permitted variations; they are not a production-ready design system or universal compatibility guarantees."
+              },
+              "further_inspection": "Inspect cited primary portion before attributing current source behavior; actual image view required for first-person visual claims."
+            },
+            {
+              "card_id": "standard-focus-motion",
+              "card_path": "library/entries/standard-focus-motion.md",
+              "useful_card_sections": [
+                "What to inspect",
+                "What to borrow and adapt",
+                "Mismatches and limits"
+              ],
+              "source_portions": [
+                {
+                  "url": "https://www.w3.org/TR/2024/REC-WCAG22-20241212/",
+                  "title": "WCAG 2.2",
+                  "locator": "SC 2.4.7, 2.4.13, 2.2.2 and 2.3.3",
+                  "revision": "Recommendation 12 December 2024"
+                },
+                {
+                  "url": "https://www.w3.org/WAI/WCAG22/Understanding/focus-visible.html",
+                  "title": "Understanding Focus Visible",
+                  "locator": "SC and mode-of-operation explanation",
+                  "revision": "Level AA; accessed 2026-11-07"
+                },
+                {
+                  "url": "https://www.w3.org/WAI/WCAG22/Understanding/focus-appearance.html",
+                  "title": "Understanding Focus Appearance",
+                  "locator": "SC; minimum area; contrast; exceptions",
+                  "revision": "Level AAA; accessed 2026-11-07"
+                },
+                {
+                  "url": "https://www.w3.org/WAI/WCAG22/Understanding/animation-from-interactions.html",
+                  "title": "Understanding Animation from Interactions",
+                  "locator": "SC; essential exception; relation to automatic movement",
+                  "revision": "Level AAA; accessed 2026-11-07"
+                }
+              ],
+              "transfer": "Keep interaction point/state perceivable through changes.",
+              "context_mismatch_and_limits": "Not a keyboard test; AA/AAA criteria differ.",
+              "mapper_evidence": "card-only; original source not opened",
+              "curator_reported_evidence": {
+                "mode": [
+                  "source-inspected"
+                ],
+                "inspected_at": "2026-11-07",
+                "freshness": "versioned",
+                "scope": "Normative and informative clauses inspected. No keyboard, vestibular-accessibility or browser compatibility test performed."
+              },
+              "further_inspection": "Inspect cited primary portion before attributing current source behavior; actual image view required for first-person visual claims."
+            },
+            {
+              "card_id": "flow-figma-ui3-state-visibility",
+              "card_path": "library/entries/flow-figma-ui3-state-visibility.md",
+              "useful_card_sections": [
+                "What to inspect",
+                "What to borrow and adapt",
+                "Mismatches and limits"
+              ],
+              "source_portions": [
+                {
+                  "url": "https://www.figma.com/blog/our-approach-to-designing-ui3/",
+                  "title": "Figma on Figma: Our approach to designing UI3",
+                  "locator": "Docked panels; Blend modes: Bridging past and present; clip-content discussion",
+                  "revision": "2024-10-01 first-party account"
+                }
+              ],
+              "transfer": "Show repeatedly checked values instead of hiding behind icons.",
+              "context_mismatch_and_limits": "No color-independent dispatch encoding supplied; write labels/shapes explicitly.",
+              "mapper_evidence": "card-only; original source not opened",
+              "curator_reported_evidence": {
+                "mode": [
+                  "source-inspected",
+                  "documented-flow",
+                  "visual-inspected"
+                ],
+                "inspected_at": "2026-11-07",
+                "freshness": "historical",
+                "scope": "Historical first-party redesign account read; embedded blend-mode and clip-content exploration screenshots visually inspected. No authenticated current-product interaction."
+              },
+              "further_inspection": "Inspect cited primary portion before attributing current source behavior; actual image view required for first-person visual claims."
+            }
+          ],
+          "gap": null,
+          "alternatives_policy": "Set is non-exhaustive. Accept additional defensible role-specific transfers after blind symmetric adjudication; no favorite brand required."
+        }
+      ],
+      "wrong_context_or_overclaim_traps": [
+        "visual-linear-product-proof is admissible composition polish only, not a dispatch interaction source",
+        "visual-stripe-press-book-detail large object framing is a mismatch for repeated 30-row comparison",
+        "Huge cards may work only if concrete simultaneous comparison/reachability remains"
+      ],
+      "application_checks": [
+        "age/location/people/crew/stale data",
+        "New/Acknowledged/Assigned/Resolved preserved",
+        "acknowledge ≠ dispatch",
+        "pending acceptance, undo expiry or acceptance cutoff, request reassignment visibly pending"
+      ]
+    },
+    {
+      "case_id": "03",
+      "complete_match_availability": "Character and learning/control fragments; no complete voice consent loop.",
+      "roles": [
+        {
+          "role_id": "character",
+          "description": "Expressive partner with meaningful state roles",
+          "coverage_status": "applicable",
+          "admissible_candidates": [
+            {
+              "card_id": "visual-finch-companion",
+              "card_path": "library/entries/visual-finch-companion.md",
+              "useful_card_sections": [
+                "What to inspect",
+                "What to borrow and adapt",
+                "Mismatches and limits"
+              ],
+              "source_portions": [
+                {
+                  "url": "https://finchcare.com/",
+                  "title": "Finch public website",
+                  "locator": "Public landing hero and footer-visible landscape after one downward scroll",
+                  "revision": "not-versioned; live page inspected 2026-11-07"
+                }
+              ],
+              "transfer": "Coherent original companion world; map partner presence to practice invitation.",
+              "context_mismatch_and_limits": "Marketing only; no habit/therapeutic efficacy or guilt mechanics justified.",
+              "mapper_evidence": "card-only; original source not opened",
+              "curator_reported_evidence": {
+                "mode": [
+                  "visual-inspected",
+                  "source-inspected"
+                ],
+                "inspected_at": "2026-11-07",
+                "freshness": "live-at-inspection",
+                "scope": "Own native Chrome public HTTPS tab; actual desktop screenshot inspected. Marketing composition only; no product interaction or efficacy tested."
+              },
+              "further_inspection": "Inspect cited primary portion before attributing current source behavior; actual image view required for first-person visual claims."
+            },
+            {
+              "card_id": "visual-duolingo-welcome",
+              "card_path": "library/entries/visual-duolingo-welcome.md",
+              "useful_card_sections": [
+                "What to inspect",
+                "What to borrow and adapt",
+                "Mismatches and limits"
+              ],
+              "source_portions": [
+                {
+                  "url": "https://www.duolingo.com/",
+                  "title": "Duolingo public website",
+                  "locator": "Desktop public landing-page first viewport",
+                  "revision": "not-versioned; live page inspected 2026-11-07"
+                }
+              ],
+              "transfer": "Clear next action and expressive cast with adult-appropriate adaptation.",
+              "context_mismatch_and_limits": "Desktop marketing hero not lesson/recording screen; avoid copied owl/streak policy.",
+              "mapper_evidence": "card-only; original source not opened",
+              "curator_reported_evidence": {
+                "mode": [
+                  "visual-inspected",
+                  "source-inspected"
+                ],
+                "inspected_at": "2026-11-07",
+                "freshness": "live-at-inspection",
+                "scope": "Own native Chrome public HTTPS tab; actual desktop screenshot inspected. Marketing composition only; no product interaction or efficacy tested."
+              },
+              "further_inspection": "Inspect cited primary portion before attributing current source behavior; actual image view required for first-person visual claims."
+            },
+            {
+              "card_id": "visual-gentler-streak-data-companion",
+              "card_path": "library/entries/visual-gentler-streak-data-companion.md",
+              "useful_card_sections": [
+                "What to inspect",
+                "What to borrow and adapt",
+                "Mismatches and limits"
+              ],
+              "source_portions": [
+                {
+                  "url": "https://gentlerstories.com/gentlerstreak",
+                  "title": "Gentler Streak primary public page",
+                  "locator": "Desktop hero and embedded iPhone dashboard preview",
+                  "revision": "not-versioned; live page inspected 2026-11-07"
+                }
+              ],
+              "transfer": "Character + concise interpretation while actions remain explicit.",
+              "context_mismatch_and_limits": "Embedded health image is not learning behavior.",
+              "mapper_evidence": "card-only; original source not opened",
+              "curator_reported_evidence": {
+                "mode": [
+                  "visual-inspected",
+                  "source-inspected"
+                ],
+                "inspected_at": "2026-11-07",
+                "freshness": "live-at-inspection",
+                "scope": "The public website and embedded phone image were visually inspected. This is an app-screen representation, not an installed or interacted-with native application."
+              },
+              "further_inspection": "Inspect cited primary portion before attributing current source behavior; actual image view required for first-person visual claims."
+            },
+            {
+              "card_id": "visual-kagi-search-character",
+              "card_path": "library/entries/visual-kagi-search-character.md",
+              "useful_card_sections": [
+                "What to inspect",
+                "What to borrow and adapt",
+                "Mismatches and limits"
+              ],
+              "source_portions": [
+                {
+                  "url": "https://kagi.com/",
+                  "title": "Kagi primary public page",
+                  "locator": "Desktop public search hero; no query submitted",
+                  "revision": "not-versioned; live page inspected 2026-11-07"
+                }
+              ],
+              "transfer": "Personality may coexist with prominent core task.",
+              "context_mismatch_and_limits": "Static character alone is insufficient for requested contextual partner.",
+              "mapper_evidence": "card-only; original source not opened",
+              "curator_reported_evidence": {
+                "mode": [
+                  "visual-inspected",
+                  "source-inspected"
+                ],
+                "inspected_at": "2026-11-07",
+                "freshness": "live-at-inspection",
+                "scope": "Own native Chrome public HTTPS tab; desktop screenshot viewed directly. Public composition only; no account/product workflow or efficacy tested."
+              },
+              "further_inspection": "Inspect cited primary portion before attributing current source behavior; actual image view required for first-person visual claims."
+            }
+          ],
+          "gap": null,
+          "alternatives_policy": "Set is non-exhaustive. Accept additional defensible role-specific transfers after blind symmetric adjudication; no favorite brand required."
+        },
+        {
+          "role_id": "consent",
+          "description": "Record → preview → delete or explicitly send; user-controlled stop",
+          "coverage_status": "applicable",
+          "admissible_candidates": [
+            {
+              "card_id": "principle-contextual-permissions",
+              "card_path": "library/entries/principle-contextual-permissions.md",
+              "useful_card_sections": [
+                "What to inspect",
+                "What to borrow and adapt",
+                "Mismatches and limits"
+              ],
+              "source_portions": [
+                {
+                  "url": "https://developer.android.com/training/permissions/requesting",
+                  "title": "Request runtime permissions",
+                  "locator": "Basic principles; workflow; handle permission denial",
+                  "revision": "Live platform documentation inspected 2026-11-07"
+                },
+                {
+                  "url": "https://arxiv.org/pdf/1504.03747",
+                  "title": "Android Permissions Remystified: A Field Study on Contextual Integrity",
+                  "locator": "Section 3 methodology/exit survey; sections 5.1–5.2 expectations and blocking",
+                  "revision": "Wijesekera et al., arXiv 1504.03747v1, 2015"
+                }
+              ],
+              "transfer": "Ask microphone access at task boundary, respect denial, retain useful text alternative.",
+              "context_mismatch_and_limits": "Android paths version-dependent; does not document a voice recorder.",
+              "mapper_evidence": "card-only; original source not opened",
+              "curator_reported_evidence": {
+                "mode": [
+                  "source-inspected",
+                  "empirical"
+                ],
+                "inspected_at": "2026-11-07",
+                "freshness": "live-at-inspection",
+                "scope": "Current official guidance and original historical field-study PDF inspected. Platform behavior is version-dependent; no current device test or consent-effectiveness measurement."
+              },
+              "further_inspection": "Inspect cited primary portion before attributing current source behavior; actual image view required for first-person visual claims."
+            },
+            {
+              "card_id": "flow-mediawiki-review-publish",
+              "card_path": "library/entries/flow-mediawiki-review-publish.md",
+              "useful_card_sections": [
+                "What to inspect",
+                "What to borrow and adapt",
+                "Mismatches and limits"
+              ],
+              "source_portions": [
+                {
+                  "url": "https://www.mediawiki.org/wiki/Help:VisualEditor/User_guide/en",
+                  "title": "MediaWiki Help: VisualEditor User guide",
+                  "locator": "Publishing changes; Resume editing; switching editor; local-wiki differences",
+                  "revision": "not-versioned; documentation inspected 2026-11-07"
+                }
+              ],
+              "transfer": "Preparation remains revisable before deliberate external commit.",
+              "context_mismatch_and_limits": "Publishing analogy only; no audio preview/delete mechanism established.",
+              "mapper_evidence": "card-only; original source not opened",
+              "curator_reported_evidence": {
+                "mode": [
+                  "source-inspected",
+                  "documented-flow"
+                ],
+                "inspected_at": "2026-11-07",
+                "freshness": "live-at-inspection",
+                "scope": "Relevant first-party documented sequence/state account inspected; no authenticated live product workflow exercised."
+              },
+              "further_inspection": "Inspect cited primary portion before attributing current source behavior; actual image view required for first-person visual claims."
+            },
+            {
+              "card_id": "principle-informed-choice",
+              "card_path": "library/entries/principle-informed-choice.md",
+              "useful_card_sections": [
+                "What to inspect",
+                "What to borrow and adapt",
+                "Mismatches and limits"
+              ],
+              "source_portions": [
+                {
+                  "url": "https://arxiv.org/html/1907.07032v2",
+                  "title": "Dark Patterns at Scale: Findings from a Crawl of 11K Shopping Websites",
+                  "locator": "Taxonomy section 3; crawl/method section 4; findings/examples section 5; limitations 6.4",
+                  "revision": "Mathur et al., arXiv 1907.07032v2, 20 September 2019; DOI 10.1145/3359183"
+                }
+              ],
+              "transfer": "Make consequences, alternatives and exit paths legible.",
+              "context_mismatch_and_limits": "Historical taxonomy is not recording consent evidence.",
+              "mapper_evidence": "card-only; original source not opened",
+              "curator_reported_evidence": {
+                "mode": [
+                  "source-inspected",
+                  "empirical"
+                ],
+                "inspected_at": "2026-11-07",
+                "freshness": "historical",
+                "scope": "Original taxonomy/method/limitations refreshed; historical text-oriented crawl and expert classification, not a new product audit or modern prevalence estimate."
+              },
+              "further_inspection": "Inspect cited primary portion before attributing current source behavior; actual image view required for first-person visual claims."
+            }
+          ],
+          "gap": "No catalog-specific 45-second recorder/preview/delete/send flow. Correct case-fact application can supply it; primary research could add evidence.",
+          "alternatives_policy": "Set is non-exhaustive. Accept additional defensible role-specific transfers after blind symmetric adjudication; no favorite brand required."
+        },
+        {
+          "role_id": "correction",
+          "description": "Encouraging adult learning and low-pressure retry",
+          "coverage_status": "applicable",
+          "admissible_candidates": [
+            {
+              "card_id": "principle-human-ai-control",
+              "card_path": "library/entries/principle-human-ai-control.md",
+              "useful_card_sections": [
+                "What to inspect",
+                "What to borrow and adapt",
+                "Mismatches and limits"
+              ],
+              "source_portions": [
+                {
+                  "url": "https://www.microsoft.com/en-us/research/wp-content/uploads/2019/01/Guidelines-for-Human-AI-Interaction-camera-ready.pdf",
+                  "title": "Guidelines for Human-AI Interaction",
+                  "locator": "Table 1; development/validation sections; Discussion and Future Work",
+                  "revision": "Amershi et al., CHI 2019; DOI 10.1145/3290605.3300233"
+                }
+              ],
+              "transfer": "Correct/dismiss uncertain suggestions, make capabilities clear.",
+              "context_mismatch_and_limits": "Not language pedagogy proof; 2019 paper limits.",
+              "mapper_evidence": "card-only; original source not opened",
+              "curator_reported_evidence": {
+                "mode": [
+                  "source-inspected",
+                  "conceptual"
+                ],
+                "inspected_at": "2026-11-07",
+                "freshness": "historical",
+                "scope": "Original guideline synthesis and practitioner-evaluation paper refreshed. Relevance/clarity evaluation is not causal proof of end-user improvement or generative-agent coverage."
+              },
+              "further_inspection": "Inspect cited primary portion before attributing current source behavior; actual image view required for first-person visual claims."
+            },
+            {
+              "card_id": "flow-duolingo-guided-path",
+              "card_path": "library/entries/flow-duolingo-guided-path.md",
+              "useful_card_sections": [
+                "What to inspect",
+                "What to borrow and adapt",
+                "Mismatches and limits"
+              ],
+              "source_portions": [
+                {
+                  "url": "https://blog.duolingo.com/new-duolingo-home-screen-design/",
+                  "title": "Introducing the new Duolingo learning path",
+                  "locator": "Quick overview; learning-path explanation; progress-transfer and return-to-lesson FAQs",
+                  "revision": "2022 launch account; source inspected 2026-11-07"
+                }
+              ],
+              "transfer": "Explicit next practice and return/review route.",
+              "context_mismatch_and_limits": "Historical progression is not encouragement efficacy or authority for streak guilt.",
+              "mapper_evidence": "card-only; original source not opened",
+              "curator_reported_evidence": {
+                "mode": [
+                  "source-inspected",
+                  "documented-flow",
+                  "visual-inspected"
+                ],
+                "inspected_at": "2026-11-07",
+                "freshness": "historical",
+                "scope": "Relevant first-party documented sequence/state account inspected; no authenticated live product workflow exercised."
+              },
+              "further_inspection": "Inspect cited primary portion before attributing current source behavior; actual image view required for first-person visual claims."
+            },
+            {
+              "card_id": "visual-brilliant-visible-problems",
+              "card_path": "library/entries/visual-brilliant-visible-problems.md",
+              "useful_card_sections": [
+                "What to inspect",
+                "What to borrow and adapt",
+                "Mismatches and limits"
+              ],
+              "source_portions": [
+                {
+                  "url": "https://brilliant.org/",
+                  "title": "Brilliant primary public page",
+                  "locator": "Desktop tutor hero and fan of mathematical/coding problem panels",
+                  "revision": "not-versioned; live page inspected 2026-11-07"
+                }
+              ],
+              "transfer": "Use specific practice material.",
+              "context_mismatch_and_limits": "No observed correction interaction.",
+              "mapper_evidence": "card-only; original source not opened",
+              "curator_reported_evidence": {
+                "mode": [
+                  "visual-inspected",
+                  "source-inspected"
+                ],
+                "inspected_at": "2026-11-07",
+                "freshness": "live-at-inspection",
+                "scope": "Own native Chrome public HTTPS tab; desktop screenshot viewed directly. Public composition only; no account/product workflow or efficacy tested."
+              },
+              "further_inspection": "Inspect cited primary portion before attributing current source behavior; actual image view required for first-person visual claims."
+            }
+          ],
+          "gap": null,
+          "alternatives_policy": "Set is non-exhaustive. Accept additional defensible role-specific transfers after blind symmetric adjudication; no favorite brand required."
+        }
+      ],
+      "wrong_context_or_overclaim_traps": [
+        "Child-only visual vocabulary copied without adult adaptation",
+        "Mascot only in hero with no state role",
+        "red failure screen, disappointment for missed day, automatic voice submission"
+      ],
+      "application_checks": [
+        "choose prompt; record ≤45 sec; stop; listen before send; delete unsent; send intentionally",
+        "mic refusal → text",
+        "one encouraging correction sample plus try again/stop",
+        "creative choice delegated; no color/species interview"
+      ]
+    },
+    {
+      "case_id": "04",
+      "complete_match_availability": "Strong structural fragments, no complete noticeboard approval/conflict product.",
+      "roles": [
+        {
+          "role_id": "review",
+          "description": "Select → review/edit → request",
+          "coverage_status": "applicable",
+          "admissible_candidates": [
+            {
+              "card_id": "pattern-govuk-check-answers",
+              "card_path": "library/entries/pattern-govuk-check-answers.md",
+              "useful_card_sections": [
+                "What to inspect",
+                "What to borrow and adapt",
+                "Mismatches and limits"
+              ],
+              "source_portions": [
+                {
+                  "url": "https://design-system.service.gov.uk/patterns/check-answers/",
+                  "title": "Check answers",
+                  "locator": "When to use; How it works; Let users go back and change their answers; HTML summary-list example",
+                  "revision": "live documentation inspected 2026-11-07"
+                }
+              ],
+              "transfer": "Specific change links, retained values and return to review.",
+              "context_mismatch_and_limits": "Review example cannot establish persistence or approval server semantics.",
+              "mapper_evidence": "card-only; original source not opened",
+              "curator_reported_evidence": {
+                "mode": [
+                  "source-inspected",
+                  "documented-flow",
+                  "visual-inspected"
+                ],
+                "inspected_at": "2026-11-07",
+                "freshness": "live-at-inspection",
+                "scope": "Pattern explanation and HTML example inspected as text; embedded review screen visually inspected in native Chrome. Correction sequence documented, not executed."
+              },
+              "further_inspection": "Inspect cited primary portion before attributing current source behavior; actual image view required for first-person visual claims."
+            },
+            {
+              "card_id": "flow-mediawiki-review-publish",
+              "card_path": "library/entries/flow-mediawiki-review-publish.md",
+              "useful_card_sections": [
+                "What to inspect",
+                "What to borrow and adapt",
+                "Mismatches and limits"
+              ],
+              "source_portions": [
+                {
+                  "url": "https://www.mediawiki.org/wiki/Help:VisualEditor/User_guide/en",
+                  "title": "MediaWiki Help: VisualEditor User guide",
+                  "locator": "Publishing changes; Resume editing; switching editor; local-wiki differences",
+                  "revision": "not-versioned; documentation inspected 2026-11-07"
+                }
+              ],
+              "transfer": "Revisable draft with deliberate commit.",
+              "context_mismatch_and_limits": "Publication commits immediately in source; museum commit is only a request.",
+              "mapper_evidence": "card-only; original source not opened",
+              "curator_reported_evidence": {
+                "mode": [
+                  "source-inspected",
+                  "documented-flow"
+                ],
+                "inspected_at": "2026-11-07",
+                "freshness": "live-at-inspection",
+                "scope": "Relevant first-party documented sequence/state account inspected; no authenticated live product workflow exercised."
+              },
+              "further_inspection": "Inspect cited primary portion before attributing current source behavior; actual image view required for first-person visual claims."
+            },
+            {
+              "card_id": "flow-shopify-checkout-layout",
+              "card_path": "library/entries/flow-shopify-checkout-layout.md",
+              "useful_card_sections": [
+                "What to inspect",
+                "What to borrow and adapt",
+                "Mismatches and limits"
+              ],
+              "source_portions": [
+                {
+                  "url": "https://help.shopify.com/en/manual/checkout-settings/customize-checkout-configurations/one-page-checkout",
+                  "title": "Shopify Help: One-page checkout",
+                  "locator": "Comparing layouts; Change your checkout layout; language customizations",
+                  "revision": "not-versioned; documentation inspected 2026-11-07"
+                }
+              ],
+              "transfer": "Separate grouping burden from number of screens.",
+              "context_mismatch_and_limits": "Payment/instant booking cannot transfer unchanged.",
+              "mapper_evidence": "card-only; original source not opened",
+              "curator_reported_evidence": {
+                "mode": [
+                  "source-inspected",
+                  "documented-flow"
+                ],
+                "inspected_at": "2026-11-07",
+                "freshness": "live-at-inspection",
+                "scope": "Shopper information grouping and separate merchant configuration instructions read. Native-mobile facet refers only to documented merchant Shopify-app configuration; no shopper native checkout or live workflow tested."
+              },
+              "further_inspection": "Inspect cited primary portion before attributing current source behavior; actual image view required for first-person visual claims."
+            }
+          ],
+          "gap": null,
+          "alternatives_policy": "Set is non-exhaustive. Accept additional defensible role-specific transfers after blind symmetric adjudication; no favorite brand required."
+        },
+        {
+          "role_id": "approval",
+          "description": "Requested versus approved allocation and actor authority",
+          "coverage_status": "applicable",
+          "admissible_candidates": [
+            {
+              "card_id": "flow-etsy-custom-request",
+              "card_path": "library/entries/flow-etsy-custom-request.md",
+              "useful_card_sections": [
+                "What to inspect",
+                "What to borrow and adapt",
+                "Mismatches and limits"
+              ],
+              "source_portions": [
+                {
+                  "url": "https://help.etsy.com/hc/en-us/articles/115015440167-How-to-Request-a-Personalized-or-Custom-Item",
+                  "title": "Etsy Help: Request a Personalized or Custom Item",
+                  "locator": "Personalize an item; Request custom item; After you send a request",
+                  "revision": "not-versioned; documentation inspected 2026-11-07"
+                }
+              ],
+              "transfer": "Request starts later decision, not instant transaction.",
+              "context_mismatch_and_limits": "Commerce negotiation/payment not required here.",
+              "mapper_evidence": "card-only; original source not opened",
+              "curator_reported_evidence": {
+                "mode": [
+                  "source-inspected",
+                  "documented-flow"
+                ],
+                "inspected_at": "2026-11-07",
+                "freshness": "live-at-inspection",
+                "scope": "Relevant first-party documented sequence/state account inspected; no authenticated live product workflow exercised."
+              },
+              "further_inspection": "Inspect cited primary portion before attributing current source behavior; actual image view required for first-person visual claims."
+            },
+            {
+              "card_id": "flow-steam-family-roles",
+              "card_path": "library/entries/flow-steam-family-roles.md",
+              "useful_card_sections": [
+                "What to inspect",
+                "What to borrow and adapt",
+                "Mismatches and limits"
+              ],
+              "source_portions": [
+                {
+                  "url": "https://help.steampowered.com/en/faqs/view/054C-3167-DD7F-49D4?l=english",
+                  "title": "Steam Support: Steam Families User Guide and FAQ",
+                  "locator": "Feature overview; setup; adult/child roles; purchase requests; sharing limitations",
+                  "revision": "not-versioned; documentation inspected 2026-11-07"
+                }
+              ],
+              "transfer": "Requester and authorizer differ; result belongs to specific actor.",
+              "context_mismatch_and_limits": "Household and purchasing rules not museum policy.",
+              "mapper_evidence": "card-only; original source not opened",
+              "curator_reported_evidence": {
+                "mode": [
+                  "source-inspected",
+                  "documented-flow",
+                  "visual-inspected"
+                ],
+                "inspected_at": "2026-11-07",
+                "freshness": "live-at-inspection",
+                "scope": "Relevant first-party documented sequence/state account inspected; no authenticated live product workflow exercised."
+              },
+              "further_inspection": "Inspect cited primary portion before attributing current source behavior; actual image view required for first-person visual claims."
+            },
+            {
+              "card_id": "flow-google-docs-suggestions",
+              "card_path": "library/entries/flow-google-docs-suggestions.md",
+              "useful_card_sections": [
+                "What to inspect",
+                "What to borrow and adapt",
+                "Mismatches and limits"
+              ],
+              "source_portions": [
+                {
+                  "url": "https://support.google.com/docs/answer/6033474",
+                  "title": "Google Docs Help: Suggest edits",
+                  "locator": "Suggest changes; Accept/reject one; Review suggested edits; permissions",
+                  "revision": "not-versioned; documentation inspected 2026-11-07"
+                }
+              ],
+              "transfer": "Proposal distinct from authoritative accepted result.",
+              "context_mismatch_and_limits": "Document edits not actual shift reservation.",
+              "mapper_evidence": "card-only; original source not opened",
+              "curator_reported_evidence": {
+                "mode": [
+                  "source-inspected",
+                  "documented-flow"
+                ],
+                "inspected_at": "2026-11-07",
+                "freshness": "live-at-inspection",
+                "scope": "Relevant first-party documented sequence/state account inspected; no authenticated live product workflow exercised."
+              },
+              "further_inspection": "Inspect cited primary portion before attributing current source behavior; actual image view required for first-person visual claims."
+            }
+          ],
+          "gap": null,
+          "alternatives_policy": "Set is non-exhaustive. Accept additional defensible role-specific transfers after blind symmetric adjudication; no favorite brand required."
+        },
+        {
+          "role_id": "capacity-recovery",
+          "description": "Unavailable capacity, retain contact and allow changed shift",
+          "coverage_status": "applicable",
+          "admissible_candidates": [
+            {
+              "card_id": "flow-meetup-waitlist",
+              "card_path": "library/entries/flow-meetup-waitlist.md",
+              "useful_card_sections": [
+                "What to inspect",
+                "What to borrow and adapt",
+                "Mismatches and limits"
+              ],
+              "source_portions": [
+                {
+                  "url": "https://help.meetup.com/hc/en-us/articles/41229648295181-How-to-Join-an-Event-Waitlist-on-Meetup",
+                  "title": "Meetup Help: How to Join an Event Waitlist",
+                  "locator": "What is a Waitlist; joining; promotion order; mandatory fees; status",
+                  "revision": "not-versioned; documentation inspected 2026-11-07"
+                }
+              ],
+              "transfer": "Requested/waiting/confirmed must differ.",
+              "context_mismatch_and_limits": "Do not invent automatic promotion or reserved place on submission.",
+              "mapper_evidence": "card-only; original source not opened",
+              "curator_reported_evidence": {
+                "mode": [
+                  "source-inspected",
+                  "documented-flow"
+                ],
+                "inspected_at": "2026-11-07",
+                "freshness": "live-at-inspection",
+                "scope": "Relevant first-party documented sequence/state account inspected; no authenticated live product workflow exercised."
+              },
+              "further_inspection": "Inspect cited primary portion before attributing current source behavior; actual image view required for first-person visual claims."
+            },
+            {
+              "card_id": "pattern-govuk-check-answers",
+              "card_path": "library/entries/pattern-govuk-check-answers.md",
+              "useful_card_sections": [
+                "What to inspect",
+                "What to borrow and adapt",
+                "Mismatches and limits"
+              ],
+              "source_portions": [
+                {
+                  "url": "https://design-system.service.gov.uk/patterns/check-answers/",
+                  "title": "Check answers",
+                  "locator": "When to use; How it works; Let users go back and change their answers; HTML summary-list example",
+                  "revision": "live documentation inspected 2026-11-07"
+                }
+              ],
+              "transfer": "Change selection retaining prior answers and review context.",
+              "context_mismatch_and_limits": "Does not prove concurrent capacity handling.",
+              "mapper_evidence": "card-only; original source not opened",
+              "curator_reported_evidence": {
+                "mode": [
+                  "source-inspected",
+                  "documented-flow",
+                  "visual-inspected"
+                ],
+                "inspected_at": "2026-11-07",
+                "freshness": "live-at-inspection",
+                "scope": "Pattern explanation and HTML example inspected as text; embedded review screen visually inspected in native Chrome. Correction sequence documented, not executed."
+              },
+              "further_inspection": "Inspect cited primary portion before attributing current source behavior; actual image view required for first-person visual claims."
+            },
+            {
+              "card_id": "pattern-govuk-error-summary",
+              "card_path": "library/entries/pattern-govuk-error-summary.md",
+              "useful_card_sections": [
+                "What to inspect",
+                "What to borrow and adapt",
+                "Mismatches and limits"
+              ],
+              "source_portions": [
+                {
+                  "url": "https://design-system.service.gov.uk/components/error-summary/",
+                  "title": "Error summary",
+                  "locator": "When to use; How it works; accessibility and focus guidance",
+                  "revision": "live documentation; not pinned to a source commit"
+                }
+              ],
+              "transfer": "Explain resolvable problem and retain valid values.",
+              "context_mismatch_and_limits": "Capacity race is not invalid contact data; no server persistence proof.",
+              "mapper_evidence": "card-only; original source not opened",
+              "curator_reported_evidence": {
+                "mode": [
+                  "source-inspected",
+                  "documented-flow"
+                ],
+                "inspected_at": "2026-11-07",
+                "freshness": "live-at-inspection",
+                "scope": "Source text inspected; no visual inspection or live component execution."
+              },
+              "further_inspection": "Inspect cited primary portion before attributing current source behavior; actual image view required for first-person visual claims."
+            }
+          ],
+          "gap": null,
+          "alternatives_policy": "Set is non-exhaustive. Accept additional defensible role-specific transfers after blind symmetric adjudication; no favorite brand required."
+        },
+        {
+          "role_id": "withdrawal",
+          "description": "Pending withdrawal versus approved contact route",
+          "coverage_status": "applicable",
+          "admissible_candidates": [
+            {
+              "card_id": "flow-etsy-custom-request",
+              "card_path": "library/entries/flow-etsy-custom-request.md",
+              "useful_card_sections": [
+                "What to inspect",
+                "What to borrow and adapt",
+                "Mismatches and limits"
+              ],
+              "source_portions": [
+                {
+                  "url": "https://help.etsy.com/hc/en-us/articles/115015440167-How-to-Request-a-Personalized-or-Custom-Item",
+                  "title": "Etsy Help: Request a Personalized or Custom Item",
+                  "locator": "Personalize an item; Request custom item; After you send a request",
+                  "revision": "not-versioned; documentation inspected 2026-11-07"
+                }
+              ],
+              "transfer": "Separate preliminary request and later commitment.",
+              "context_mismatch_and_limits": "Source not evidence for exact withdrawal permission; case facts control.",
+              "mapper_evidence": "card-only; original source not opened",
+              "curator_reported_evidence": {
+                "mode": [
+                  "source-inspected",
+                  "documented-flow"
+                ],
+                "inspected_at": "2026-11-07",
+                "freshness": "live-at-inspection",
+                "scope": "Relevant first-party documented sequence/state account inspected; no authenticated live product workflow exercised."
+              },
+              "further_inspection": "Inspect cited primary portion before attributing current source behavior; actual image view required for first-person visual claims."
+            },
+            {
+              "card_id": "flow-steam-family-roles",
+              "card_path": "library/entries/flow-steam-family-roles.md",
+              "useful_card_sections": [
+                "What to inspect",
+                "What to borrow and adapt",
+                "Mismatches and limits"
+              ],
+              "source_portions": [
+                {
+                  "url": "https://help.steampowered.com/en/faqs/view/054C-3167-DD7F-49D4?l=english",
+                  "title": "Steam Support: Steam Families User Guide and FAQ",
+                  "locator": "Feature overview; setup; adult/child roles; purchase requests; sharing limitations",
+                  "revision": "not-versioned; documentation inspected 2026-11-07"
+                }
+              ],
+              "transfer": "Action availability follows actor and stage.",
+              "context_mismatch_and_limits": "No actual museum withdrawal flow.",
+              "mapper_evidence": "card-only; original source not opened",
+              "curator_reported_evidence": {
+                "mode": [
+                  "source-inspected",
+                  "documented-flow",
+                  "visual-inspected"
+                ],
+                "inspected_at": "2026-11-07",
+                "freshness": "live-at-inspection",
+                "scope": "Relevant first-party documented sequence/state account inspected; no authenticated live product workflow exercised."
+              },
+              "further_inspection": "Inspect cited primary portion before attributing current source behavior; actual image view required for first-person visual claims."
+            }
+          ],
+          "gap": null,
+          "alternatives_policy": "Set is non-exhaustive. Accept additional defensible role-specific transfers after blind symmetric adjudication; no favorite brand required."
+        }
+      ],
+      "wrong_context_or_overclaim_traps": [
+        "Travel-calendar screenshot unavailable; description cannot count as visual view",
+        "Instant confirmed booking/payment copy wrong",
+        "Style match cannot outrank approval structure"
+      ],
+      "application_checks": [
+        "three screens may include variants",
+        "pending request does not reserve; approval later by email",
+        "capacity conflict keeps name/email",
+        "pending withdraw; approved coordinator contact",
+        "noticeboard character retained despite loud structural source"
+      ]
+    },
+    {
+      "case_id": "05",
+      "complete_match_availability": "No complete kiosk/privacy/timeout/Arabic checkout-return match.",
+      "roles": [
+        {
+          "role_id": "privacy",
+          "description": "Shared-device privacy and staff boundary",
+          "coverage_status": "applicable",
+          "admissible_candidates": [
+            {
+              "card_id": "flow-signal-usernames",
+              "card_path": "library/entries/flow-signal-usernames.md",
+              "useful_card_sections": [
+                "What to inspect",
+                "What to borrow and adapt",
+                "Mismatches and limits"
+              ],
+              "source_portions": [
+                {
+                  "url": "https://support.signal.org/hc/en-us/articles/6712070553754-Phone-Number-Privacy-and-Usernames",
+                  "title": "Signal Support: Phone Number Privacy and Usernames",
+                  "locator": "Phone-number settings and Android/iOS/Desktop paths; Share username; Start a chat by username; Receiving a message request via username",
+                  "revision": "not-versioned; documentation inspected 2026-11-07"
+                }
+              ],
+              "transfer": "Precisely distinguish identity visibility from other promises.",
+              "context_mismatch_and_limits": "Native messaging settings do not prove shared-device clearing or kiosk security.",
+              "mapper_evidence": "card-only; original source not opened",
+              "curator_reported_evidence": {
+                "mode": [
+                  "source-inspected",
+                  "documented-flow"
+                ],
+                "inspected_at": "2026-11-07",
+                "freshness": "live-at-inspection",
+                "scope": "First-party Android/iOS/Desktop settings and actor-specific contact account read; support website and shared URL are not evidence of a web client. No account settings or messaging exercised."
+              },
+              "further_inspection": "Inspect cited primary portion before attributing current source behavior; actual image view required for first-person visual claims."
+            },
+            {
+              "card_id": "principle-informed-choice",
+              "card_path": "library/entries/principle-informed-choice.md",
+              "useful_card_sections": [
+                "What to inspect",
+                "What to borrow and adapt",
+                "Mismatches and limits"
+              ],
+              "source_portions": [
+                {
+                  "url": "https://arxiv.org/html/1907.07032v2",
+                  "title": "Dark Patterns at Scale: Findings from a Crawl of 11K Shopping Websites",
+                  "locator": "Taxonomy section 3; crawl/method section 4; findings/examples section 5; limitations 6.4",
+                  "revision": "Mathur et al., arXiv 1907.07032v2, 20 September 2019; DOI 10.1145/3359183"
+                }
+              ],
+              "transfer": "Explain consequences and avoid misleading convenience defaults.",
+              "context_mismatch_and_limits": "No kiosk or session privacy implementation evidence.",
+              "mapper_evidence": "card-only; original source not opened",
+              "curator_reported_evidence": {
+                "mode": [
+                  "source-inspected",
+                  "empirical"
+                ],
+                "inspected_at": "2026-11-07",
+                "freshness": "historical",
+                "scope": "Original taxonomy/method/limitations refreshed; historical text-oriented crawl and expert classification, not a new product audit or modern prevalence estimate."
+              },
+              "further_inspection": "Inspect cited primary portion before attributing current source behavior; actual image view required for first-person visual claims."
+            }
+          ],
+          "gap": "Shared-screen PII clearing/receipt-only states supplied by current room policy; no exact catalog flow.",
+          "alternatives_policy": "Set is non-exhaustive. Accept additional defensible role-specific transfers after blind symmetric adjudication; no favorite brand required."
+        },
+        {
+          "role_id": "bidi",
+          "description": "Arabic/English language coverage and mixed-direction layout",
+          "coverage_status": "applicable",
+          "admissible_candidates": [
+            {
+              "card_id": "principle-multilingual-layout",
+              "card_path": "library/entries/principle-multilingual-layout.md",
+              "useful_card_sections": [
+                "What to inspect",
+                "What to borrow and adapt",
+                "Mismatches and limits"
+              ],
+              "source_portions": [
+                {
+                  "url": "https://www.w3.org/International/questions/qa-html-dir",
+                  "title": "Structural markup and right-to-left text in HTML",
+                  "locator": "Quick answer; base direction; forms; tables",
+                  "revision": "Live W3C guidance accessed 2026-11-07"
+                },
+                {
+                  "url": "https://www.w3.org/TR/2026/DNOTE-klreq-20260321/",
+                  "title": "Requirements for Hangul Text Layout and Typography",
+                  "locator": "Status; section 4.1 fonts; section 7.1 line breaking and restrictions",
+                  "revision": "W3C Group Note Draft, 21 March 2026"
+                }
+              ],
+              "transfer": "Semantic base direction, inline mixed identifiers, logical positioning; avoid blanket mirror.",
+              "context_mismatch_and_limits": "Hangul draft not Arabic proof; native-reader and hardware checks still needed.",
+              "mapper_evidence": "card-only; original source not opened",
+              "curator_reported_evidence": {
+                "mode": [
+                  "source-inspected"
+                ],
+                "inspected_at": "2026-11-07",
+                "freshness": "versioned",
+                "scope": "Official explanatory RTL guidance and versioned Hangul draft inspected. Draft status and unfinished sections preserved; no native-reader or browser conformance test."
+              },
+              "further_inspection": "Inspect cited primary portion before attributing current source behavior; actual image view required for first-person visual claims."
+            },
+            {
+              "card_id": "pattern-uswds-language",
+              "card_path": "library/entries/pattern-uswds-language.md",
+              "useful_card_sections": [
+                "What to inspect",
+                "What to borrow and adapt",
+                "Mismatches and limits"
+              ],
+              "source_portions": [
+                {
+                  "url": "https://designsystem.digital.gov/patterns/select-a-language/",
+                  "title": "Select a language",
+                  "locator": "Two languages; three or more; selected content; preferred-language routes",
+                  "revision": "live documentation; not pinned to a source commit"
+                },
+                {
+                  "url": "https://designsystem.digital.gov/patterns/select-a-language/three-or-more-languages/",
+                  "title": "Three or more languages",
+                  "locator": "When to use; guidance; accessibility; latest updates",
+                  "revision": "Published 2022-11-14; preview-link update 2024-04-11; live page read"
+                },
+                {
+                  "url": "https://designsystem.digital.gov/patterns/select-a-language/selected-content/",
+                  "title": "Selected multilingual content",
+                  "locator": "When to use; coverage distinction; meaningful destination and menu guidance",
+                  "revision": "live documentation; not pinned to a source commit"
+                }
+              ],
+              "transfer": "Truthful equivalent-page language switch and coverage.",
+              "context_mismatch_and_limits": "Selection control does not establish complete translation or RTL rendering.",
+              "mapper_evidence": "card-only; original source not opened",
+              "curator_reported_evidence": {
+                "mode": [
+                  "source-inspected",
+                  "documented-flow"
+                ],
+                "inspected_at": "2026-11-07",
+                "freshness": "live-at-inspection",
+                "scope": "Source text inspected; no visual inspection or live component execution."
+              },
+              "further_inspection": "Inspect cited primary portion before attributing current source behavior; actual image view required for first-person visual claims."
+            },
+            {
+              "card_id": "visual-toss-language-composition",
+              "card_path": "library/entries/visual-toss-language-composition.md",
+              "useful_card_sections": [
+                "What to inspect",
+                "What to borrow and adapt",
+                "Mismatches and limits"
+              ],
+              "source_portions": [
+                {
+                  "url": "https://toss.im/",
+                  "title": "Toss primary public page",
+                  "locator": "Public desktop hero in English and Korean; visible ENG/KOR language navigation",
+                  "revision": "not-versioned; live page inspected 2026-11-07"
+                },
+                {
+                  "url": "https://toss.im/en-us",
+                  "title": "Toss English public website",
+                  "locator": "English hero and ENG language menu",
+                  "revision": "not-versioned; live page inspected 2026-11-07"
+                }
+              ],
+              "transfer": "Show why one identity needs script-specific wrapping.",
+              "context_mismatch_and_limits": "English/Korean not RTL; no Arabic validation.",
+              "mapper_evidence": "card-only; original source not opened",
+              "curator_reported_evidence": {
+                "mode": [
+                  "visual-inspected",
+                  "source-inspected",
+                  "interaction-tested"
+                ],
+                "inspected_at": "2026-11-07",
+                "freshness": "live-at-inspection",
+                "scope": "English and Korean public hero screenshots viewed. Visible ENG menu opened and KOR selected; title and URL changed to Korean. No financial feature, download, account or transaction was used."
+              },
+              "further_inspection": "Inspect cited primary portion before attributing current source behavior; actual image view required for first-person visual claims."
+            }
+          ],
+          "gap": null,
+          "alternatives_policy": "Set is non-exhaustive. Accept additional defensible role-specific transfers after blind symmetric adjudication; no favorite brand required."
+        },
+        {
+          "role_id": "timeout",
+          "description": "Explicit idle warning/continue/clear without completing transaction",
+          "coverage_status": "applicable",
+          "admissible_candidates": [
+            {
+              "card_id": "pattern-fluent-dialog",
+              "card_path": "library/entries/pattern-fluent-dialog.md",
+              "useful_card_sections": [
+                "What to inspect",
+                "What to borrow and adapt",
+                "Mismatches and limits"
+              ],
+              "source_portions": [
+                {
+                  "url": "https://fluent2.microsoft.design/components/web/react/core/dialog/usage",
+                  "title": "Dialog usage",
+                  "locator": "Types; behavior; dismissal; accessibility; form and scrolling guidance",
+                  "revision": "Web React core dialog; preview status at inspection"
+                }
+              ],
+              "transfer": "Warning interruption contract and focus/dismissal decisions.",
+              "context_mismatch_and_limits": "Does not establish timer, kiosk reset or transaction rollback.",
+              "mapper_evidence": "card-only; original source not opened",
+              "curator_reported_evidence": {
+                "mode": [
+                  "source-inspected",
+                  "documented-flow"
+                ],
+                "inspected_at": "2026-11-07",
+                "freshness": "live-at-inspection",
+                "scope": "Source text inspected; no visual inspection or live component execution."
+              },
+              "further_inspection": "Inspect cited primary portion before attributing current source behavior; actual image view required for first-person visual claims."
+            },
+            {
+              "card_id": "standard-wcag-conformance",
+              "card_path": "library/entries/standard-wcag-conformance.md",
+              "useful_card_sections": [
+                "What to inspect",
+                "What to borrow and adapt",
+                "Mismatches and limits"
+              ],
+              "source_portions": [
+                {
+                  "url": "https://www.w3.org/TR/2024/REC-WCAG22-20241212/",
+                  "title": "Web Content Accessibility Guidelines 2.2",
+                  "locator": "Introduction; Conformance Requirements 5.2.1–5.2.5; full-pages responsive-variation Note 3; Conformance Claims",
+                  "revision": "W3C Recommendation, 12 December 2024"
+                }
+              ],
+              "transfer": "Route to applicable normative timing criteria for further inspection.",
+              "context_mismatch_and_limits": "Broad standard card only; no exact timeout implementation or compliance claim.",
+              "mapper_evidence": "card-only; original source not opened",
+              "curator_reported_evidence": {
+                "mode": [
+                  "source-inspected"
+                ],
+                "inspected_at": "2026-11-07",
+                "freshness": "versioned",
+                "scope": "Versioned normative standard and conformance sections inspected. No application audit or assistive-technology testing performed."
+              },
+              "further_inspection": "Inspect cited primary portion before attributing current source behavior; actual image view required for first-person visual claims."
+            }
+          ],
+          "gap": "45/60-second timings and non-completion are supplied policy; no complete timed session source.",
+          "alternatives_policy": "Set is non-exhaustive. Accept additional defensible role-specific transfers after blind symmetric adjudication; no favorite brand required."
+        },
+        {
+          "role_id": "transaction",
+          "description": "Checkout/return success, nonpersonal receipt, unknown or incomplete state",
+          "coverage_status": "applicable",
+          "admissible_candidates": [
+            {
+              "card_id": "flow-mediawiki-review-publish",
+              "card_path": "library/entries/flow-mediawiki-review-publish.md",
+              "useful_card_sections": [
+                "What to inspect",
+                "What to borrow and adapt",
+                "Mismatches and limits"
+              ],
+              "source_portions": [
+                {
+                  "url": "https://www.mediawiki.org/wiki/Help:VisualEditor/User_guide/en",
+                  "title": "MediaWiki Help: VisualEditor User guide",
+                  "locator": "Publishing changes; Resume editing; switching editor; local-wiki differences",
+                  "revision": "not-versioned; documentation inspected 2026-11-07"
+                }
+              ],
+              "transfer": "Keep draft/review distinct from committed result.",
+              "context_mismatch_and_limits": "Publication analogy not loan ledger or timeout.",
+              "mapper_evidence": "card-only; original source not opened",
+              "curator_reported_evidence": {
+                "mode": [
+                  "source-inspected",
+                  "documented-flow"
+                ],
+                "inspected_at": "2026-11-07",
+                "freshness": "live-at-inspection",
+                "scope": "Relevant first-party documented sequence/state account inspected; no authenticated live product workflow exercised."
+              },
+              "further_inspection": "Inspect cited primary portion before attributing current source behavior; actual image view required for first-person visual claims."
+            },
+            {
+              "card_id": "pattern-govuk-check-answers",
+              "card_path": "library/entries/pattern-govuk-check-answers.md",
+              "useful_card_sections": [
+                "What to inspect",
+                "What to borrow and adapt",
+                "Mismatches and limits"
+              ],
+              "source_portions": [
+                {
+                  "url": "https://design-system.service.gov.uk/patterns/check-answers/",
+                  "title": "Check answers",
+                  "locator": "When to use; How it works; Let users go back and change their answers; HTML summary-list example",
+                  "revision": "live documentation inspected 2026-11-07"
+                }
+              ],
+              "transfer": "Review/correct before deliberate transaction action.",
+              "context_mismatch_and_limits": "Not checkout/return result evidence.",
+              "mapper_evidence": "card-only; original source not opened",
+              "curator_reported_evidence": {
+                "mode": [
+                  "source-inspected",
+                  "documented-flow",
+                  "visual-inspected"
+                ],
+                "inspected_at": "2026-11-07",
+                "freshness": "live-at-inspection",
+                "scope": "Pattern explanation and HTML example inspected as text; embedded review screen visually inspected in native Chrome. Correction sequence documented, not executed."
+              },
+              "further_inspection": "Inspect cited primary portion before attributing current source behavior; actual image view required for first-person visual claims."
+            },
+            {
+              "card_id": "flow-etsy-custom-request",
+              "card_path": "library/entries/flow-etsy-custom-request.md",
+              "useful_card_sections": [
+                "What to inspect",
+                "What to borrow and adapt",
+                "Mismatches and limits"
+              ],
+              "source_portions": [
+                {
+                  "url": "https://help.etsy.com/hc/en-us/articles/115015440167-How-to-Request-a-Personalized-or-Custom-Item",
+                  "title": "Etsy Help: Request a Personalized or Custom Item",
+                  "locator": "Personalize an item; Request custom item; After you send a request",
+                  "revision": "not-versioned; documentation inspected 2026-11-07"
+                }
+              ],
+              "transfer": "Distinguish request from finalized commitment.",
+              "context_mismatch_and_limits": "Not loan record or return state.",
+              "mapper_evidence": "card-only; original source not opened",
+              "curator_reported_evidence": {
+                "mode": [
+                  "source-inspected",
+                  "documented-flow"
+                ],
+                "inspected_at": "2026-11-07",
+                "freshness": "live-at-inspection",
+                "scope": "Relevant first-party documented sequence/state account inspected; no authenticated live product workflow exercised."
+              },
+              "further_inspection": "Inspect cited primary portion before attributing current source behavior; actual image view required for first-person visual claims."
+            }
+          ],
+          "gap": null,
+          "alternatives_policy": "Set is non-exhaustive. Accept additional defensible role-specific transfers after blind symmetric adjudication; no favorite brand required."
+        }
+      ],
+      "wrong_context_or_overclaim_traps": [
+        "Counterpoint Kiosk 2027 is unverified fictional lead; never fabricate URL or prove global absence from failed lookup",
+        "Older unavailable handout is unverified and superseded by supplied current policy",
+        "English screenshot or Korean language switch does not establish RTL"
+      ],
+      "application_checks": [
+        "warn 45s, continue, clear 60s idle/end",
+        "timeout never auto-completes loan/return",
+        "instrument ID + nonpersonal receipt only at success; clear PII",
+        "separate authenticated staff console",
+        "RTL validation still unresolved"
+      ]
+    },
+    {
+      "case_id": "06",
+      "complete_match_availability": "External retrieval unnecessary; complete semantic repair possible from facts.",
+      "roles": [
+        {
+          "role_id": "submission",
+          "description": "Truthful submission/status and duplicate-safe recovery",
+          "coverage_status": "N/A for retrieval breadth; application mandatory",
+          "admissible_candidates": [
+            {
+              "card_id": "flow-etsy-custom-request",
+              "card_path": "library/entries/flow-etsy-custom-request.md",
+              "useful_card_sections": [
+                "What to inspect",
+                "What to borrow and adapt",
+                "Mismatches and limits"
+              ],
+              "source_portions": [
+                {
+                  "url": "https://help.etsy.com/hc/en-us/articles/115015440167-How-to-Request-a-Personalized-or-Custom-Item",
+                  "title": "Etsy Help: Request a Personalized or Custom Item",
+                  "locator": "Personalize an item; Request custom item; After you send a request",
+                  "revision": "not-versioned; documentation inspected 2026-11-07"
+                }
+              ],
+              "transfer": "Submission initiates later review rather than payment.",
+              "context_mismatch_and_limits": "Optional narrow analogy only; no catalog tour needed.",
+              "mapper_evidence": "card-only; original source not opened",
+              "curator_reported_evidence": {
+                "mode": [
+                  "source-inspected",
+                  "documented-flow"
+                ],
+                "inspected_at": "2026-11-07",
+                "freshness": "live-at-inspection",
+                "scope": "Relevant first-party documented sequence/state account inspected; no authenticated live product workflow exercised."
+              },
+              "further_inspection": "Inspect cited primary portion before attributing current source behavior; actual image view required for first-person visual claims."
+            },
+            {
+              "card_id": "pattern-govuk-error-summary",
+              "card_path": "library/entries/pattern-govuk-error-summary.md",
+              "useful_card_sections": [
+                "What to inspect",
+                "What to borrow and adapt",
+                "Mismatches and limits"
+              ],
+              "source_portions": [
+                {
+                  "url": "https://design-system.service.gov.uk/components/error-summary/",
+                  "title": "Error summary",
+                  "locator": "When to use; How it works; accessibility and focus guidance",
+                  "revision": "live documentation; not pinned to a source commit"
+                }
+              ],
+              "transfer": "Retain valid answers and present actionable correction for validation failures.",
+              "context_mismatch_and_limits": "Do not treat network/unknown state as invalid input; does not prove idempotency.",
+              "mapper_evidence": "card-only; original source not opened",
+              "curator_reported_evidence": {
+                "mode": [
+                  "source-inspected",
+                  "documented-flow"
+                ],
+                "inspected_at": "2026-11-07",
+                "freshness": "live-at-inspection",
+                "scope": "Source text inspected; no visual inspection or live component execution."
+              },
+              "further_inspection": "Inspect cited primary portion before attributing current source behavior; actual image view required for first-person visual claims."
+            },
+            {
+              "card_id": "flow-linear-triage-decisions",
+              "card_path": "library/entries/flow-linear-triage-decisions.md",
+              "useful_card_sections": [
+                "What to inspect",
+                "What to borrow and adapt",
+                "Mismatches and limits"
+              ],
+              "source_portions": [
+                {
+                  "url": "https://linear.app/docs/triage",
+                  "title": "Linear Docs: Triage",
+                  "locator": "Basics → Create issues / Take actions; Configure",
+                  "revision": "not-versioned; live documentation inspected 2026-11-07"
+                }
+              ],
+              "transfer": "Canonical item and explicit unresolved disposition.",
+              "context_mismatch_and_limits": "No duplicate-safe retry implementation; product facts determine semantics.",
+              "mapper_evidence": "card-only; original source not opened",
+              "curator_reported_evidence": {
+                "mode": [
+                  "source-inspected",
+                  "documented-flow"
+                ],
+                "inspected_at": "2026-11-07",
+                "freshness": "live-at-inspection",
+                "scope": "Relevant first-party text and described transitions inspected; no authenticated product interaction or visual inspection."
+              },
+              "further_inspection": "Inspect cited primary portion before attributing current source behavior; actual image view required for first-person visual claims."
+            }
+          ],
+          "gap": "No external resource required; duplicate-safe checking/unknown state comes from facts.",
+          "alternatives_policy": "Set is non-exhaustive. Accept additional defensible role-specific transfers after blind symmetric adjudication; no favorite brand required."
+        }
+      ],
+      "wrong_context_or_overclaim_traps": [
+        "Paid or payment-completed promise",
+        "new navigation/layout or broad reference showcase",
+        "retry while checking or success inferred from unknown status"
+      ],
+      "application_checks": [
+        "Send → Submit request or equivalent",
+        "success submitted for finance review with R-1842 and usually 3 working days",
+        "failure retains amount and attachment",
+        "retry checks existing request, checking disables additional send, unknown offers Check status"
+      ]
+    },
+    {
+      "case_id": "07",
+      "complete_match_availability": "Editorial and reading alternatives available; no complete field-journal audio/uncertainty flow.",
+      "roles": [
+        {
+          "role_id": "archive",
+          "description": "Photo-led editorial entry/archive direction",
+          "coverage_status": "applicable",
+          "admissible_candidates": [
+            {
+              "card_id": "visual-pudding-story-index",
+              "card_path": "library/entries/visual-pudding-story-index.md",
+              "useful_card_sections": [
+                "What to inspect",
+                "What to borrow and adapt",
+                "Mismatches and limits"
+              ],
+              "source_portions": [
+                {
+                  "url": "https://pudding.cool/",
+                  "title": "The Pudding primary public page",
+                  "locator": "Desktop publication index, search/category row and first story rows",
+                  "revision": "not-versioned; live page inspected 2026-11-07"
+                }
+              ],
+              "transfer": "Subject-specific specimens plus consistent metadata/archive navigation.",
+              "context_mismatch_and_limits": "Only index inspected by curator; no essay/audio/search interaction proof.",
+              "mapper_evidence": "card-only; original source not opened",
+              "curator_reported_evidence": {
+                "mode": [
+                  "visual-inspected",
+                  "source-inspected"
+                ],
+                "inspected_at": "2026-11-07",
+                "freshness": "live-at-inspection",
+                "scope": "Own native Chrome public HTTPS tab; desktop screenshot viewed directly. Public composition only; no account/product workflow or efficacy tested."
+              },
+              "further_inspection": "Inspect cited primary portion before attributing current source behavior; actual image view required for first-person visual claims."
+            },
+            {
+              "card_id": "visual-stripe-press-book-detail",
+              "card_path": "library/entries/visual-stripe-press-book-detail.md",
+              "useful_card_sections": [
+                "What to inspect",
+                "What to borrow and adapt",
+                "Mismatches and limits"
+              ],
+              "source_portions": [
+                {
+                  "url": "https://press.stripe.com/nomad-letters",
+                  "title": "Stripe Press primary public page",
+                  "locator": "Nomad Letters desktop detail page after content settled",
+                  "revision": "not-versioned; live page inspected 2026-11-07"
+                }
+              ],
+              "transfer": "Meaningful specimen with substantial explanatory text.",
+              "context_mismatch_and_limits": "Commerce CTA must become observation context, not purchase.",
+              "mapper_evidence": "card-only; original source not opened",
+              "curator_reported_evidence": {
+                "mode": [
+                  "visual-inspected",
+                  "source-inspected"
+                ],
+                "inspected_at": "2026-11-07",
+                "freshness": "live-at-inspection",
+                "scope": "Own native Chrome public HTTPS tab; desktop screenshot viewed directly. Public composition only; no account/product workflow or efficacy tested."
+              },
+              "further_inspection": "Inspect cited primary portion before attributing current source behavior; actual image view required for first-person visual claims."
+            },
+            {
+              "card_id": "visual-teenage-engineering-object",
+              "card_path": "library/entries/visual-teenage-engineering-object.md",
+              "useful_card_sections": [
+                "What to inspect",
+                "What to borrow and adapt",
+                "Mismatches and limits"
+              ],
+              "source_portions": [
+                {
+                  "url": "https://teenage.engineering/",
+                  "title": "teenage engineering primary public page",
+                  "locator": "Loaded desktop homepage navigation and large device photograph",
+                  "revision": "not-versioned; live page inspected 2026-11-07"
+                }
+              ],
+              "transfer": "Actual object image carries identity.",
+              "context_mismatch_and_limits": "Technical tiny labels not suitable automatically for outdoor phone reading.",
+              "mapper_evidence": "card-only; original source not opened",
+              "curator_reported_evidence": {
+                "mode": [
+                  "visual-inspected",
+                  "source-inspected"
+                ],
+                "inspected_at": "2026-11-07",
+                "freshness": "live-at-inspection",
+                "scope": "Own native Chrome public HTTPS tab; desktop screenshot viewed directly. Public composition only; no account/product workflow or efficacy tested."
+              },
+              "further_inspection": "Inspect cited primary portion before attributing current source behavior; actual image view required for first-person visual claims."
+            }
+          ],
+          "gap": null,
+          "alternatives_policy": "Set is non-exhaustive. Accept additional defensible role-specific transfers after blind symmetric adjudication; no favorite brand required."
+        },
+        {
+          "role_id": "reading",
+          "description": "Meaningfully reading-led alternative retained with photo-led",
+          "coverage_status": "applicable",
+          "admissible_candidates": [
+            {
+              "card_id": "visual-arena-text-led-community",
+              "card_path": "library/entries/visual-arena-text-led-community.md",
+              "useful_card_sections": [
+                "What to inspect",
+                "What to borrow and adapt",
+                "Mismatches and limits"
+              ],
+              "source_portions": [
+                {
+                  "url": "https://www.are.na/",
+                  "title": "Are.na primary public page",
+                  "locator": "Desktop introduction and beginning of How it works",
+                  "revision": "not-versioned; live page inspected 2026-11-07"
+                }
+              ],
+              "transfer": "Definitions, textual explanation and material give content-led identity.",
+              "context_mismatch_and_limits": "Community intro not journal article or archive proof.",
+              "mapper_evidence": "card-only; original source not opened",
+              "curator_reported_evidence": {
+                "mode": [
+                  "visual-inspected",
+                  "source-inspected"
+                ],
+                "inspected_at": "2026-11-07",
+                "freshness": "live-at-inspection",
+                "scope": "Own native Chrome public HTTPS tab; desktop screenshot viewed directly. Public composition only; no account/product workflow or efficacy tested."
+              },
+              "further_inspection": "Inspect cited primary portion before attributing current source behavior; actual image view required for first-person visual claims."
+            },
+            {
+              "card_id": "principle-reading-typography",
+              "card_path": "library/entries/principle-reading-typography.md",
+              "useful_card_sections": [
+                "What to inspect",
+                "What to borrow and adapt",
+                "Mismatches and limits"
+              ],
+              "source_portions": [
+                {
+                  "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC3428264/",
+                  "title": "Does Print Size Matter for Reading?",
+                  "locator": "Print-size metrics; x-height; fluent range; low-vision discussion",
+                  "revision": "Legge and Bigelow, 2011"
+                },
+                {
+                  "url": "https://jeffhuang.com/papers/Readability_TOCHI22.pdf",
+                  "title": "Towards Individuated Reading Experiences",
+                  "locator": "Sections 5.1.2, 6.1–6.2 and 7.3",
+                  "revision": "Wallace et al., TOCHI 2022; DOI 10.1145/3502222"
+                }
+              ],
+              "transfer": "Evaluate real passages in outdoor/device/task context.",
+              "context_mismatch_and_limits": "No universal best font or default setting; reading performance unmeasured.",
+              "mapper_evidence": "card-only; original source not opened",
+              "curator_reported_evidence": {
+                "mode": [
+                  "source-inspected",
+                  "empirical"
+                ],
+                "inspected_at": "2026-11-07",
+                "freshness": "historical",
+                "scope": "Earlier same-day original full-method reading and independent review are the retained evidence seed, not a new full-text inspection. Current PMC access returned a browser challenge and both font-paper endpoints timed out; exact results require reopening the originals."
+              },
+              "further_inspection": "Inspect cited primary portion before attributing current source behavior; actual image view required for first-person visual claims."
+            },
+            {
+              "card_id": "standard-text-adaptation",
+              "card_path": "library/entries/standard-text-adaptation.md",
+              "useful_card_sections": [
+                "What to inspect",
+                "What to borrow and adapt",
+                "Mismatches and limits"
+              ],
+              "source_portions": [
+                {
+                  "url": "https://www.w3.org/TR/2024/REC-WCAG22-20241212/",
+                  "title": "WCAG 2.2",
+                  "locator": "SC 1.4.3, 1.4.10, 1.4.11 and 1.4.12",
+                  "revision": "Recommendation 12 December 2024"
+                },
+                {
+                  "url": "https://www.w3.org/WAI/WCAG22/Understanding/text-spacing.html",
+                  "title": "Understanding Text Spacing",
+                  "locator": "SC; notes; Author Responsibility",
+                  "revision": "Informative explanation accessed 2026-11-07"
+                },
+                {
+                  "url": "https://www.w3.org/WAI/WCAG22/Understanding/reflow.html",
+                  "title": "Understanding Reflow",
+                  "locator": "SC; two-dimensional exceptions; reflowing applications",
+                  "revision": "Informative explanation accessed 2026-11-07"
+                },
+                {
+                  "url": "https://www.w3.org/WAI/WCAG22/Understanding/contrast-minimum.html",
+                  "title": "Understanding Contrast Minimum",
+                  "locator": "Thresholds; large text; incidental and logo exceptions; rendering notes",
+                  "revision": "Informative explanation accessed 2026-11-07"
+                }
+              ],
+              "transfer": "Allow reader overrides and content wrapping.",
+              "context_mismatch_and_limits": "No rendered reading/accessibility acceptance.",
+              "mapper_evidence": "card-only; original source not opened",
+              "curator_reported_evidence": {
+                "mode": [
+                  "source-inspected"
+                ],
+                "inspected_at": "2026-11-07",
+                "freshness": "versioned",
+                "scope": "Versioned normative criteria and live explanatory text inspected. No contrast measurements or rendered adaptation tests of a product."
+              },
+              "further_inspection": "Inspect cited primary portion before attributing current source behavior; actual image view required for first-person visual claims."
+            }
+          ],
+          "gap": null,
+          "alternatives_policy": "Set is non-exhaustive. Accept additional defensible role-specific transfers after blind symmetric adjudication; no favorite brand required."
+        },
+        {
+          "role_id": "uncertainty",
+          "description": "Observation provenance and tentative species attribution",
+          "coverage_status": "applicable",
+          "admissible_candidates": [
+            {
+              "card_id": "flow-zotero-linked-annotations",
+              "card_path": "library/entries/flow-zotero-linked-annotations.md",
+              "useful_card_sections": [
+                "What to inspect",
+                "What to borrow and adapt",
+                "Mismatches and limits"
+              ],
+              "source_portions": [
+                {
+                  "url": "https://www.zotero.org/support/pdf_reader",
+                  "title": "Zotero Documentation: PDF Reader and Note Editor",
+                  "locator": "Creating annotations; Adding annotations to notes; Viewing an Annotation in Context",
+                  "revision": "not-versioned; documentation inspected 2026-11-07"
+                }
+              ],
+              "transfer": "Keep observed material, interpretation and exact source context distinct.",
+              "context_mismatch_and_limits": "Research desktop notes not species-verification authority.",
+              "mapper_evidence": "card-only; original source not opened",
+              "curator_reported_evidence": {
+                "mode": [
+                  "source-inspected",
+                  "documented-flow"
+                ],
+                "inspected_at": "2026-11-07",
+                "freshness": "live-at-inspection",
+                "scope": "Relevant first-party documented sequence/state account inspected; no authenticated live product workflow exercised."
+              },
+              "further_inspection": "Inspect cited primary portion before attributing current source behavior; actual image view required for first-person visual claims."
+            },
+            {
+              "card_id": "principle-human-ai-control",
+              "card_path": "library/entries/principle-human-ai-control.md",
+              "useful_card_sections": [
+                "What to inspect",
+                "What to borrow and adapt",
+                "Mismatches and limits"
+              ],
+              "source_portions": [
+                {
+                  "url": "https://www.microsoft.com/en-us/research/wp-content/uploads/2019/01/Guidelines-for-Human-AI-Interaction-camera-ready.pdf",
+                  "title": "Guidelines for Human-AI Interaction",
+                  "locator": "Table 1; development/validation sections; Discussion and Future Work",
+                  "revision": "Amershi et al., CHI 2019; DOI 10.1145/3290605.3300233"
+                }
+              ],
+              "transfer": "Make uncertain suggestions correctable/dismissible if AI identification used.",
+              "context_mismatch_and_limits": "AI need not be invented; not biological accuracy evidence.",
+              "mapper_evidence": "card-only; original source not opened",
+              "curator_reported_evidence": {
+                "mode": [
+                  "source-inspected",
+                  "conceptual"
+                ],
+                "inspected_at": "2026-11-07",
+                "freshness": "historical",
+                "scope": "Original guideline synthesis and practitioner-evaluation paper refreshed. Relevance/clarity evaluation is not causal proof of end-user improvement or generative-agent coverage."
+              },
+              "further_inspection": "Inspect cited primary portion before attributing current source behavior; actual image view required for first-person visual claims."
+            }
+          ],
+          "gap": null,
+          "alternatives_policy": "Set is non-exhaustive. Accept additional defensible role-specific transfers after blind symmetric adjudication; no favorite brand required."
+        },
+        {
+          "role_id": "audio",
+          "description": "User-started optional sound with text alternative",
+          "coverage_status": "applicable",
+          "admissible_candidates": [
+            {
+              "card_id": "visual-poolsuite-retro-player",
+              "card_path": "library/entries/visual-poolsuite-retro-player.md",
+              "useful_card_sections": [
+                "What to inspect",
+                "What to borrow and adapt",
+                "Mismatches and limits"
+              ],
+              "source_portions": [
+                {
+                  "url": "https://poolsuite.net/",
+                  "title": "Poolsuite primary public page",
+                  "locator": "Loaded public player desktop, stopped playback state",
+                  "revision": "not-versioned; live page inspected 2026-11-07"
+                }
+              ],
+              "transfer": "Stopped player may inspire visible intentional transport controls.",
+              "context_mismatch_and_limits": "Curator viewed stopped composition, never played audio; retro desktop controls need phone adaptation.",
+              "mapper_evidence": "card-only; original source not opened",
+              "curator_reported_evidence": {
+                "mode": [
+                  "visual-inspected",
+                  "source-inspected"
+                ],
+                "inspected_at": "2026-11-07",
+                "freshness": "live-at-inspection",
+                "scope": "Own native Chrome public HTTPS tab; desktop screenshot viewed directly. Public composition only; no account/product workflow or efficacy tested."
+              },
+              "further_inspection": "Inspect cited primary portion before attributing current source behavior; actual image view required for first-person visual claims."
+            },
+            {
+              "card_id": "standard-focus-motion",
+              "card_path": "library/entries/standard-focus-motion.md",
+              "useful_card_sections": [
+                "What to inspect",
+                "What to borrow and adapt",
+                "Mismatches and limits"
+              ],
+              "source_portions": [
+                {
+                  "url": "https://www.w3.org/TR/2024/REC-WCAG22-20241212/",
+                  "title": "WCAG 2.2",
+                  "locator": "SC 2.4.7, 2.4.13, 2.2.2 and 2.3.3",
+                  "revision": "Recommendation 12 December 2024"
+                },
+                {
+                  "url": "https://www.w3.org/WAI/WCAG22/Understanding/focus-visible.html",
+                  "title": "Understanding Focus Visible",
+                  "locator": "SC and mode-of-operation explanation",
+                  "revision": "Level AA; accessed 2026-11-07"
+                },
+                {
+                  "url": "https://www.w3.org/WAI/WCAG22/Understanding/focus-appearance.html",
+                  "title": "Understanding Focus Appearance",
+                  "locator": "SC; minimum area; contrast; exceptions",
+                  "revision": "Level AAA; accessed 2026-11-07"
+                },
+                {
+                  "url": "https://www.w3.org/WAI/WCAG22/Understanding/animation-from-interactions.html",
+                  "title": "Understanding Animation from Interactions",
+                  "locator": "SC; essential exception; relation to automatic movement",
+                  "revision": "Level AAA; accessed 2026-11-07"
+                }
+              ],
+              "transfer": "Keep control/state meaningful without decorative motion.",
+              "context_mismatch_and_limits": "Not a transcript, audio-consent or player-flow source.",
+              "mapper_evidence": "card-only; original source not opened",
+              "curator_reported_evidence": {
+                "mode": [
+                  "source-inspected"
+                ],
+                "inspected_at": "2026-11-07",
+                "freshness": "versioned",
+                "scope": "Normative and informative clauses inspected. No keyboard, vestibular-accessibility or browser compatibility test performed."
+              },
+              "further_inspection": "Inspect cited primary portion before attributing current source behavior; actual image view required for first-person visual claims."
+            }
+          ],
+          "gap": "No inspected catalog sound/transcript journal flow. Brief supplies user-started audio/text requirement.",
+          "alternatives_policy": "Set is non-exhaustive. Accept additional defensible role-specific transfers after blind symmetric adjudication; no favorite brand required."
+        }
+      ],
+      "wrong_context_or_overclaim_traps": [
+        "Autoplay; image gallery without notes; pest-control/commerce tone",
+        "Final winner contrary to exploration scope",
+        "Moodboard images never actually viewed by runner"
+      ],
+      "application_checks": [
+        "multiple meaningful retained directions",
+        "photo-led retained and reading-led added after trigger",
+        "each direction includes entry/archive, note/image/audio and tentative identification",
+        "no final winner; textual references honestly labeled if no visual view"
+      ]
+    },
+    {
+      "case_id": "08",
+      "complete_match_availability": "No credible complete glove/dim-light/offline specialist match; complete-match recall N/A.",
+      "roles": [
+        {
+          "role_id": "offline",
+          "description": "Local provisional capture versus later sync",
+          "coverage_status": "applicable",
+          "admissible_candidates": [
+            {
+              "card_id": "flow-google-maps-offline",
+              "card_path": "library/entries/flow-google-maps-offline.md",
+              "useful_card_sections": [
+                "What to inspect",
+                "What to borrow and adapt",
+                "Mismatches and limits"
+              ],
+              "source_portions": [
+                {
+                  "url": "https://support.google.com/maps/answer/6291838?hl=en",
+                  "title": "Google Maps Help: Download areas and navigate offline",
+                  "locator": "Select your own map; Use offline maps; Manage/update offline maps",
+                  "revision": "not-versioned; documentation inspected 2026-11-07"
+                }
+              ],
+              "transfer": "Explicit locally available subset, freshness, missing capabilities and later refresh.",
+              "context_mismatch_and_limits": "Android map consumption not offline editable-record capture or sync implementation.",
+              "mapper_evidence": "card-only; original source not opened",
+              "curator_reported_evidence": {
+                "mode": [
+                  "source-inspected",
+                  "documented-flow"
+                ],
+                "inspected_at": "2026-11-07",
+                "freshness": "live-at-inspection",
+                "scope": "Relevant first-party documented sequence/state account inspected; no authenticated live product workflow exercised."
+              },
+              "further_inspection": "Inspect cited primary portion before attributing current source behavior; actual image view required for first-person visual claims."
+            },
+            {
+              "card_id": "flow-github-issue-forms",
+              "card_path": "library/entries/flow-github-issue-forms.md",
+              "useful_card_sections": [
+                "What to inspect",
+                "What to borrow and adapt",
+                "Mismatches and limits"
+              ],
+              "source_portions": [
+                {
+                  "url": "https://docs.github.com/en/communities/using-templates-to-encourage-useful-issues-and-pull-requests/configuring-issue-templates-for-your-repository",
+                  "title": "GitHub Docs: Configuring issue templates",
+                  "locator": "Creating templates; Creating issue forms; Configuring template chooser",
+                  "revision": "not-versioned; documentation inspected 2026-11-07"
+                }
+              ],
+              "transfer": "Collect object ID, observation, tentative material and optional photo purposefully.",
+              "context_mismatch_and_limits": "Maintainer form setup not field capture interaction; no offline behavior.",
+              "mapper_evidence": "card-only; original source not opened",
+              "curator_reported_evidence": {
+                "mode": [
+                  "source-inspected",
+                  "documented-flow"
+                ],
+                "inspected_at": "2026-11-07",
+                "freshness": "live-at-inspection",
+                "scope": "Relevant first-party documented sequence/state account inspected; no authenticated live product workflow exercised."
+              },
+              "further_inspection": "Inspect cited primary portion before attributing current source behavior; actual image view required for first-person visual claims."
+            }
+          ],
+          "gap": "No complete offline editable capture/sync evidence; do not claim Maps supplies it.",
+          "alternatives_policy": "Set is non-exhaustive. Accept additional defensible role-specific transfers after blind symmetric adjudication; no favorite brand required."
+        },
+        {
+          "role_id": "review",
+          "description": "Provisional finding separate from senior acceptance",
+          "coverage_status": "applicable",
+          "admissible_candidates": [
+            {
+              "card_id": "flow-google-docs-suggestions",
+              "card_path": "library/entries/flow-google-docs-suggestions.md",
+              "useful_card_sections": [
+                "What to inspect",
+                "What to borrow and adapt",
+                "Mismatches and limits"
+              ],
+              "source_portions": [
+                {
+                  "url": "https://support.google.com/docs/answer/6033474",
+                  "title": "Google Docs Help: Suggest edits",
+                  "locator": "Suggest changes; Accept/reject one; Review suggested edits; permissions",
+                  "revision": "not-versioned; documentation inspected 2026-11-07"
+                }
+              ],
+              "transfer": "Proposal is not authoritative result; reviewer can accept/reject while retaining original.",
+              "context_mismatch_and_limits": "Desktop writing not conservation review or field validation.",
+              "mapper_evidence": "card-only; original source not opened",
+              "curator_reported_evidence": {
+                "mode": [
+                  "source-inspected",
+                  "documented-flow"
+                ],
+                "inspected_at": "2026-11-07",
+                "freshness": "live-at-inspection",
+                "scope": "Relevant first-party documented sequence/state account inspected; no authenticated live product workflow exercised."
+              },
+              "further_inspection": "Inspect cited primary portion before attributing current source behavior; actual image view required for first-person visual claims."
+            },
+            {
+              "card_id": "flow-steam-family-roles",
+              "card_path": "library/entries/flow-steam-family-roles.md",
+              "useful_card_sections": [
+                "What to inspect",
+                "What to borrow and adapt",
+                "Mismatches and limits"
+              ],
+              "source_portions": [
+                {
+                  "url": "https://help.steampowered.com/en/faqs/view/054C-3167-DD7F-49D4?l=english",
+                  "title": "Steam Support: Steam Families User Guide and FAQ",
+                  "locator": "Feature overview; setup; adult/child roles; purchase requests; sharing limitations",
+                  "revision": "not-versioned; documentation inspected 2026-11-07"
+                }
+              ],
+              "transfer": "Requester versus authorizer, separate stages.",
+              "context_mismatch_and_limits": "Gaming household permissions not conservation authority.",
+              "mapper_evidence": "card-only; original source not opened",
+              "curator_reported_evidence": {
+                "mode": [
+                  "source-inspected",
+                  "documented-flow",
+                  "visual-inspected"
+                ],
+                "inspected_at": "2026-11-07",
+                "freshness": "live-at-inspection",
+                "scope": "Relevant first-party documented sequence/state account inspected; no authenticated live product workflow exercised."
+              },
+              "further_inspection": "Inspect cited primary portion before attributing current source behavior; actual image view required for first-person visual claims."
+            },
+            {
+              "card_id": "flow-etsy-custom-request",
+              "card_path": "library/entries/flow-etsy-custom-request.md",
+              "useful_card_sections": [
+                "What to inspect",
+                "What to borrow and adapt",
+                "Mismatches and limits"
+              ],
+              "source_portions": [
+                {
+                  "url": "https://help.etsy.com/hc/en-us/articles/115015440167-How-to-Request-a-Personalized-or-Custom-Item",
+                  "title": "Etsy Help: Request a Personalized or Custom Item",
+                  "locator": "Personalize an item; Request custom item; After you send a request",
+                  "revision": "not-versioned; documentation inspected 2026-11-07"
+                }
+              ],
+              "transfer": "Request does not imply accepted commitment.",
+              "context_mismatch_and_limits": "Commerce analogy only.",
+              "mapper_evidence": "card-only; original source not opened",
+              "curator_reported_evidence": {
+                "mode": [
+                  "source-inspected",
+                  "documented-flow"
+                ],
+                "inspected_at": "2026-11-07",
+                "freshness": "live-at-inspection",
+                "scope": "Relevant first-party documented sequence/state account inspected; no authenticated live product workflow exercised."
+              },
+              "further_inspection": "Inspect cited primary portion before attributing current source behavior; actual image view required for first-person visual claims."
+            }
+          ],
+          "gap": null,
+          "alternatives_policy": "Set is non-exhaustive. Accept additional defensible role-specific transfers after blind symmetric adjudication; no favorite brand required."
+        },
+        {
+          "role_id": "conflict",
+          "description": "Preserve competing versions and provenance for senior decision",
+          "coverage_status": "applicable",
+          "admissible_candidates": [
+            {
+              "card_id": "flow-google-docs-suggestions",
+              "card_path": "library/entries/flow-google-docs-suggestions.md",
+              "useful_card_sections": [
+                "What to inspect",
+                "What to borrow and adapt",
+                "Mismatches and limits"
+              ],
+              "source_portions": [
+                {
+                  "url": "https://support.google.com/docs/answer/6033474",
+                  "title": "Google Docs Help: Suggest edits",
+                  "locator": "Suggest changes; Accept/reject one; Review suggested edits; permissions",
+                  "revision": "not-versioned; documentation inspected 2026-11-07"
+                }
+              ],
+              "transfer": "Visible proposed changes versus original as a bounded comparison analogy.",
+              "context_mismatch_and_limits": "Not actual offline merge/conflict algorithm; cannot justify auto overwrite.",
+              "mapper_evidence": "card-only; original source not opened",
+              "curator_reported_evidence": {
+                "mode": [
+                  "source-inspected",
+                  "documented-flow"
+                ],
+                "inspected_at": "2026-11-07",
+                "freshness": "live-at-inspection",
+                "scope": "Relevant first-party documented sequence/state account inspected; no authenticated live product workflow exercised."
+              },
+              "further_inspection": "Inspect cited primary portion before attributing current source behavior; actual image view required for first-person visual claims."
+            },
+            {
+              "card_id": "flow-zotero-linked-annotations",
+              "card_path": "library/entries/flow-zotero-linked-annotations.md",
+              "useful_card_sections": [
+                "What to inspect",
+                "What to borrow and adapt",
+                "Mismatches and limits"
+              ],
+              "source_portions": [
+                {
+                  "url": "https://www.zotero.org/support/pdf_reader",
+                  "title": "Zotero Documentation: PDF Reader and Note Editor",
+                  "locator": "Creating annotations; Adding annotations to notes; Viewing an Annotation in Context",
+                  "revision": "not-versioned; documentation inspected 2026-11-07"
+                }
+              ],
+              "transfer": "Keep interpretation tied to originating material and location.",
+              "context_mismatch_and_limits": "No sync behavior exercised or documented by this card.",
+              "mapper_evidence": "card-only; original source not opened",
+              "curator_reported_evidence": {
+                "mode": [
+                  "source-inspected",
+                  "documented-flow"
+                ],
+                "inspected_at": "2026-11-07",
+                "freshness": "live-at-inspection",
+                "scope": "Relevant first-party documented sequence/state account inspected; no authenticated live product workflow exercised."
+              },
+              "further_inspection": "Inspect cited primary portion before attributing current source behavior; actual image view required for first-person visual claims."
+            },
+            {
+              "card_id": "flow-notion-view-sharing",
+              "card_path": "library/entries/flow-notion-view-sharing.md",
+              "useful_card_sections": [
+                "What to inspect",
+                "What to borrow and adapt",
+                "Mismatches and limits"
+              ],
+              "source_portions": [
+                {
+                  "url": "https://www.notion.com/help/views-filters-and-sorts",
+                  "title": "Notion Help: Views, filters, sorts and groups",
+                  "locator": "View settings; Open pages in; Filters; Sorts",
+                  "revision": "not-versioned; documentation inspected 2026-11-07"
+                }
+              ],
+              "transfer": "Distinguish shared records from personal view state.",
+              "context_mismatch_and_limits": "Views are not versions; weak supporting transfer only.",
+              "mapper_evidence": "card-only; original source not opened",
+              "curator_reported_evidence": {
+                "mode": [
+                  "source-inspected",
+                  "documented-flow"
+                ],
+                "inspected_at": "2026-11-07",
+                "freshness": "live-at-inspection",
+                "scope": "Relevant first-party documented sequence/state account inspected; no authenticated live product workflow exercised."
+              },
+              "further_inspection": "Inspect cited primary portion before attributing current source behavior; actual image view required for first-person visual claims."
+            }
+          ],
+          "gap": "No complete non-destructive offline sync-conflict source. Case policy supplies both versions and senior-only resolution.",
+          "alternatives_policy": "Set is non-exhaustive. Accept additional defensible role-specific transfers after blind symmetric adjudication; no favorite brand required."
+        },
+        {
+          "role_id": "physical",
+          "description": "Glove/dim-light input and hardware usability",
+          "coverage_status": "unmatched; field validation required",
+          "admissible_candidates": [],
+          "gap": "Catalog lacks credible direct field evidence; neither touch nor voice assumed usable. Full credit possible for honest gap and specific field checks.",
+          "alternatives_policy": "Set is non-exhaustive. Accept additional defensible role-specific transfers after blind symmetric adjudication; no favorite brand required."
+        }
+      ],
+      "wrong_context_or_overclaim_traps": [
+        "Desktop image as proof of gloved target sizes or dim-light legibility",
+        "Choosing hardware without evidence",
+        "save = sync = approved",
+        "automatic merge/overwrite"
+      ],
+      "application_checks": [
+        "object ID/note/tentative material/optional photo",
+        "local save, pending sync, synced awaiting senior review and approved distinct",
+        "both conflict versions + provenance retained; senior resolves",
+        "specific glove/input/light/connectivity checks proposed but not claimed performed"
+      ]
+    }
+  ],
+  "adjudication_policy": "Blind reviewers may admit defensible new alternatives symmetrically. Record addition rationale before condition unblinding; do not punish absence from this non-exhaustive mapping."
+}

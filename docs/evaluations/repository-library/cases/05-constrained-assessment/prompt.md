@@ -1,0 +1,5 @@
+I need a review plan for the attached offline snapshot of signal-window, a small CLI plus reusable parsing library. This is an assessment only; do not change files, run commands from the repository, install dependencies, use the network, or publish anything. You may read the snapshot.
+
+Spend your attention on the boundary between file parsing, CLI behavior, and packaging. Our next release is a patch release: preserve public function signatures, TSV output columns, and Python >=3.11. We have two maintainers and at most one afternoon for corrections. Do not introduce a web UI, service, plugin framework, or a new build backend.
+
+Please delegate two independent read-only checks to subagents if available: one for parser/CLI behavior and one for packaging/check evidence. Give them these constraints, then synthesize a concise prioritized assessment with concrete paths and verification steps we could perform later. Do not turn the task into a questionnaire: usage, budget, release type, and non-goals are already supplied. Ask only if a genuinely unresolved product choice prevents a useful recommendation. If delegation is unavailable, do both checks yourself and say so.

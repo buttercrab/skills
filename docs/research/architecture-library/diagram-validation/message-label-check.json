@@ -1,0 +1,27 @@
+{
+  "parser": "Mermaid12.3.0",
+  "mode": "syntax-only regression examples; no rendering or system check",
+  "results": [
+    {
+      "name": "unescaped message delimiter",
+      "source": "sequenceDiagram\n A->>B: Accepted; not complete",
+      "syntax_valid": false,
+      "expected": false,
+      "check_passed": true
+    },
+    {
+      "name": "documented escaped semicolon",
+      "source": "sequenceDiagram\n A->>B: Accepted#59; not complete",
+      "syntax_valid": true,
+      "expected": true,
+      "check_passed": true
+    },
+    {
+      "name": "rephrased message",
+      "source": "sequenceDiagram\n A->>B: Accepted but not complete",
+      "syntax_valid": true,
+      "expected": true,
+      "check_passed": true
+    }
+  ]
+}

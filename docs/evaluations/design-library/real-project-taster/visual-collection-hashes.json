@@ -1,0 +1,10 @@
+{
+  "web/app/components/gallery.tsx": {
+    "before": "b561ddb324ed1c061198a1e97cd63a3d79110dabd780ff9193887f6b7106459e",
+    "after": "9e659d802f141c4084695fbc4e3de802eb4e40bbaec8ccdc5f258e19dd41fac9"
+  },
+  "web/app/components/gallery.css": {
+    "before": "d15386fa7fd7a145a7db97b843115706b1da2b52f9311d147893cbe002f40b7a",
+    "after": "f0826412e477ebd6b7b73ce92e1ee804f6fc1d1cffd057ed01a508520e740541"
+  }
+}

@@ -1,0 +1,121 @@
+{
+  "inspected_at": "2026-11-07",
+  "receipts": [
+    {
+      "id": "pattern-govuk-check-answers",
+      "url": "https://design-system.service.gov.uk/patterns/check-answers/",
+      "locator": "Let users go back and change their answers; summary-list source; final-action guidance",
+      "inspection_method": "Full catalog card; live primary HTML text and targeted section",
+      "fit": "Review and correction before committing a loan",
+      "mismatch": "Government application, not an instrument kiosk; no end-session privacy contract",
+      "selected_use": "selected",
+      "resulting_outline_decision": "Checkout review preserves values and returns directly after targeted edit",
+      "access_outcome": "public HTTPS text opened; no visual or interaction inspection",
+      "language_limit": "English source text inspected; no Arabic or RTL flow demonstrated."
+    },
+    {
+      "id": "principle-multilingual-layout",
+      "url": "https://www.w3.org/International/questions/qa-html-dir",
+      "locator": "Quick answer; base direction; document setup; forms",
+      "inspection_method": "Full catalog card; live W3C text",
+      "fit": "Structural direction and logical layout",
+      "mismatch": "HTML guidance, not verified kiosk rendering; Hangul draft branch not used",
+      "selected_use": "selected",
+      "resulting_outline_decision": "Set document language and direction independently; use start/end positioning",
+      "access_outcome": "public HTTPS text opened; no visual or interaction inspection",
+      "language_limit": "Explicit RTL guidance inspected as text; actual Arabic kiosk rendering and native-reader comprehension untested."
+    },
+    {
+      "id": "external-w3c-inline-bidi",
+      "url": "https://www.w3.org/International/articles/inline-bidi-markup/",
+      "locator": "Quick answer; unknown runtime direction; bdi section",
+      "inspection_method": "Live W3C text and targeted find",
+      "fit": "Mixed instrument IDs, names and punctuation",
+      "mismatch": "No native-reader test or visual inspection",
+      "selected_use": "selected",
+      "resulting_outline_decision": "Isolate unknown-direction text; preserve ID character order",
+      "access_outcome": "public HTTPS text opened; no visual or interaction inspection",
+      "language_limit": "Explicit RTL guidance inspected as text; actual Arabic kiosk rendering and native-reader comprehension untested."
+    },
+    {
+      "id": "pattern-uswds-language",
+      "url": "https://designsystem.digital.gov/patterns/select-a-language/",
+      "locator": "Language selection branches: two, three or more, selected content",
+      "inspection_method": "Full catalog card; live primary overview text",
+      "fit": "Truthful language coverage",
+      "mismatch": "No selector execution; no proof complete translation exists",
+      "selected_use": "selected with limited scope",
+      "resulting_outline_decision": "Language control must cover checkout, return, errors and timeout, or disclose missing coverage",
+      "access_outcome": "public HTTPS text opened; no visual or interaction inspection"
+    },
+    {
+      "id": "external-hmrc-timeout",
+      "url": "https://design.tax.service.gov.uk/hmrc-design-patterns/service-timeout/",
+      "locator": "When to use; How it works; signed-in warning; answers-deleted end page; technical details",
+      "inspection_method": "Live primary documentation text and targeted find",
+      "fit": "Warn, extend, explicitly end, explain expiry",
+      "mismatch": "Tax-service 15/13 minute timing does not set kiosk policy; package setup instructions not activated",
+      "selected_use": "selected mechanism only",
+      "resulting_outline_decision": "Warning has Continue session and End session; expiry clears public session and states effect",
+      "access_outcome": "public HTTPS text opened; no visual or interaction inspection",
+      "language_limit": "English/Welsh documentation; no Arabic kiosk behavior demonstrated."
+    },
+    {
+      "id": "external-w3c-timing",
+      "url": "https://www.w3.org/WAI/WCAG22/Understanding/timing-adjustable.html",
+      "locator": "SC 2.2.1 Level A; Extend; kiosk discussion",
+      "inspection_method": "Live W3C explanatory text",
+      "fit": "Time to respond and repeat extensions",
+      "mismatch": "Informative Understanding document; no legal or conformance determination",
+      "selected_use": "selected constraint",
+      "resulting_outline_decision": "Propose at least 20 seconds warning and at least ten extensions; no unsupported security exception",
+      "access_outcome": "public HTTPS text opened; no visual or interaction inspection"
+    },
+    {
+      "id": "standard-wcag-conformance",
+      "url": "https://www.w3.org/TR/2024/REC-WCAG22-20241212/",
+      "locator": "Card conformance scope and complete-process guidance",
+      "inspection_method": "Full catalog card only; normative upstream not opened",
+      "fit": "Bounds final accessibility claim",
+      "mismatch": "Card read is not complete standard inspection",
+      "selected_use": "scope boundary only",
+      "resulting_outline_decision": "Describe future checks, do not claim conformance",
+      "access_outcome": "catalog card only; upstream not inspected"
+    },
+    {
+      "id": "external-bethel-selfcheck",
+      "url": "https://www.bethelparklibrary.org/selfcheck.htm",
+      "locator": "HOW TO USE steps 1\u20135; return FAQ",
+      "inspection_method": "Live library-authored public instructions text",
+      "fit": "Card \u2192 item scan \u2192 Done \u2192 receipt sequence",
+      "mismatch": "Explicitly says kiosk cannot accept returns; no RTL, timeout or instrument proof",
+      "selected_use": "partial checkout analogue; return rejected",
+      "resulting_outline_decision": "Separate checkout completion from receipt; do not transfer its unsupported return path",
+      "access_outcome": "public HTTPS text opened; no visual or interaction inspection",
+      "language_limit": "English source text inspected; no Arabic or RTL flow demonstrated."
+    },
+    {
+      "id": "external-bibliotheca-smartshelf",
+      "url": "https://www.bibliotheca.com/press-release-bibliotheca-launches-smartshelf-borrow-to-global-library-market/",
+      "locator": "2023-06-21 announcement paragraph describing shelf return/account removal",
+      "inspection_method": "Live vendor press release text; search result also exposed same paragraph",
+      "fit": "Physical return and account update are distinct from mere item identification",
+      "mismatch": "Vendor announcement, specialized RFID shelf; no executed flow, inspection/condition model or compatibility proof",
+      "selected_use": "partial conceptual analogue",
+      "resulting_outline_decision": "Do not equate scan, handover, and successful record update; do not immediately recirculate uninspected instruments",
+      "access_outcome": "public HTTPS text opened; no visual or interaction inspection",
+      "freshness_limit": "Dated 2023-06-21; room policy date unspecified; cannot establish post-policy applicability."
+    },
+    {
+      "id": "unverified-counterpoint",
+      "url": "",
+      "locator": "Supplied name: Counterpoint Kiosk 2027",
+      "inspection_method": "Catalog exact term search plus bounded public web searches",
+      "fit": "User-provided possible lead",
+      "mismatch": "No source found establishing this identity or return flow",
+      "selected_use": "not recommended",
+      "resulting_outline_decision": "No invented screens, product URL or claimed perfect return flow",
+      "access_outcome": "unverified named lead"
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "artifact": "piece.md",
+  "status": "complete",
+  "genre": "first-person community workshop newsletter article",
+  "title": "A place for the clamps",
+  "word_count": {"method": "wc -w", "including_markdown_title": 605, "body_only": 599, "required_min": 550, "required_max": 750},
+  "author_question": "What mattered to you about the two mornings labeling shelves, and what particular moment from them supports that—was it making returns easier, enjoying the sorting, a concern about trust, or something else?",
+  "author_answer_received": true,
+  "author_answer_source": "root message containing scripted author answer",
+  "author_answer_substance": "Mira could find the right clamp without asking after labeling; author liked being less necessary; useful routines can make a shared place welcoming; no argument that everyone should be tidy; missing blue clamp proved nothing about trust.",
+  "factual_sources": ["author-notes.md", "scripted author answer supplied by root"],
+  "instructions_read": ["COMMON.md", "prompt.md", "FILES.txt", "../guide/SKILL.md", "/Users/jaeyong/.codex/skills/i-have-adhd/SKILL.md"],
+  "guide_references_read": ["references/author-and-reader.md", "references/structure-and-revision.md", "references/evidence-and-voice.md"],
+  "library_material_read": ["library/index.md", "library/entries/craft-jack-hart-theme.md", "library/entries/example-serviceberry-situated-concept.md", "library/entries/example-crane-wife-braided-inquiry.md"],
+  "source_access_limit": "Complete local cards read; their upstream source bodies were not inspected. Card craft annotations were considered with that limit, not treated as fresh primary evidence.",
+  "checks_completed": ["complete-artifact reread", "claim comparison with notebook and author answer", "paragraph-function reverse outline", "word count"],
+  "remaining_author_input_slots": 0,
+  "material_gaps": [],
+  "external_research": false,
+  "detector_or_reader_testing": false,
+  "publication_or_contact": false
+}

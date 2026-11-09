@@ -1,0 +1,45 @@
+{
+  "artifact": "source-only repository assessment",
+  "case_directory": "/private/tmp/repository-quality-assessment-20261107/01-tiny-script",
+  "fixture_root": "/private/tmp/repository-quality-assessment-20261107/01-tiny-script/repository",
+  "intent": {
+    "audience": "personal offline tool, used twice a year",
+    "requested": "proportional assessment and smallest useful maintenance plan",
+    "not_authorized": ["fixture modification", "script execution", "installation", "network", "upstream execution"],
+    "human_questions": []
+  },
+  "fixture_evidence": [
+    {"path": "/private/tmp/repository-quality-assessment-20261107/01-tiny-script/repository/README.md", "lines": "1-5", "observed": "Direct invocation, input format, offline/no-install claim, decimal example; no package promise", "limit": "Documented command and historical claims were not executed or independently verified"},
+    {"path": "/private/tmp/repository-quality-assessment-20261107/01-tiny-script/repository/total.py", "lines": "1-13", "observed": "Standard-library imports; UTF-8 open; DictReader named amount lookup; Decimal summation; unchecked sys.argv[1]", "limit": "Source read only; no runtime result"},
+    {"path": "/private/tmp/repository-quality-assessment-20261107/01-tiny-script/repository/notes.md", "lines": "1", "observed": "Reported KeyError with claimed BOM before date, speculative reordered-column cause, and missing-argument traceback", "limit": "No failing receipt file; note is a report, not a reproduced cause"},
+    {"path": "/private/tmp/repository-quality-assessment-20261107/01-tiny-script/repository/examples/receipts.csv", "lines": "1-3", "observed": "date,amount header and 0.10/0.20 benign sample", "limit": "Expected 0.30 inferred, not observed"}
+  ],
+  "guide_use": [
+    "/private/tmp/repository-quality-assessment-20261107/01-tiny-script/COMMON.md",
+    "/private/tmp/repository-quality-assessment-20261107/guide/SKILL.md",
+    "/private/tmp/repository-quality-assessment-20261107/guide/references/questions-and-assessment.md",
+    "/private/tmp/repository-quality-assessment-20261107/guide/references/structure-and-documentation.md",
+    "/private/tmp/repository-quality-assessment-20261107/guide/references/verification-and-distribution.md",
+    "/private/tmp/repository-quality-assessment-20261107/guide/library/index.md",
+    "/Users/jaeyong/.codex/skills/i-have-adhd/SKILL.md"
+  ],
+  "references": [
+    {"card_id": "quality-python-import-layout", "path": "/private/tmp/repository-quality-assessment-20261107/guide/library/entries/quality-python-import-layout.md", "portions": ["When to use", "What to borrow and adapt", "Mismatches and limits"], "fit": "Explicit one-file internal tool contrast and import-boundary reasoning", "mismatch": "Package installation/artifact concerns absent here", "decision": "Keep flat layout and no packaging", "primary_locator": "PyPA src-layout-vs-flat-layout: installation/current-directory import behavior; pytest Good Integration Practices: choosing a test layout", "primary_freshly_inspected": false},
+    {"card_id": "repo-small-p-limit", "path": "/private/tmp/repository-quality-assessment-20261107/guide/library/entries/repo-small-p-limit.md", "portions": ["What to borrow and adapt", "Mismatches and limits", "Change path"], "fit": "Small flat repository with visible behavior and regression scenarios", "mismatch": "Published JavaScript library with declarations and export/package boundaries", "decision": "Borrow small discoverable surface only; omit declaration tests, Node matrix and packaging", "primary_locator": "p-limit a8a6fbec4e0e866d6d779b10889bb4f5567e70eb package.json/test.js/readme.md", "primary_freshly_inspected": false},
+    {"card_id": "docs-diataxis-reader-needs", "path": "/private/tmp/repository-quality-assessment-20261107/guide/library/entries/docs-diataxis-reader-needs.md", "portions": ["What to borrow and adapt", "Mismatches and limits"], "fit": "One real reader occasion: next successful invocation", "mismatch": "Conceptual framework does not prove runtime correctness or require four documentation sections", "decision": "Improve existing README command/example only", "primary_locator": "Diataxis as a guide to work: Work one step at a time / Don't worry about structure", "primary_freshly_inspected": false},
+    {"card_id": "docs-google-change-review", "path": "/private/tmp/repository-quality-assessment-20261107/guide/library/entries/docs-google-change-review.md", "portions": ["What to borrow and adapt", "Mismatches and limits"], "fit": "Concrete consequences, useful regression checks, optional polish", "mismatch": "Team review organization is unnecessary for sole-maintainer script", "decision": "Prioritize reported CLI annoyance and clarify unproven parser cause; no style overhaul", "primary_locator": "What to look for in a code review: Complexity, Tests, Documentation; standard of code review", "primary_freshly_inspected": false}
+  ],
+  "decisions": [
+    {"decision": "Recommend small argv guard", "evidence": ["total.py:13", "notes.md:1"], "status": "proposed only"},
+    {"decision": "Use checked-in sample as README example", "evidence": ["README.md:2-5", "examples/receipts.csv:1-3"], "status": "proposed only"},
+    {"decision": "Keep reported BOM cause unresolved", "evidence": ["notes.md:1", "total.py:8-9"], "reason": "BOM before date and reordered fields do not directly explain a missing named amount key", "status": "source inference, not reproduction"},
+    {"decision": "Treat utf-8-sig as optional BOM support, not proven fix", "evidence": ["notes.md:1", "total.py:8"], "status": "proposed conditional option"},
+    {"decision": "Retain layout and dependency-free direct invocation", "evidence": ["prompt.md", "README.md:2-4", "total.py:2-4"], "status": "recommended no-change option"}
+  ],
+  "checks": {
+    "performed": ["Read supplied brief and COMMON constraints", "Enumerated all fixture files including hidden-file search", "Read all four fixture files with line numbers", "Read guide and selected cards", "Read back authored artifacts for consistency"],
+    "not_performed": ["script/test execution", "interpreter probe", "upstream primary-source lookup", "catalog execution", "installation", "network", "git commands", "build/package/release"],
+    "passing_runtime_checks": [],
+    "remaining_unknowns": ["Actual failing header and root cause of KeyError", "Observed sample output", "Supported Python versions", "Malformed-input runtime behavior", "Historical unchanged-since-2022 claim"]
+  }
+}

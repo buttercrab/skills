@@ -1,0 +1,1 @@
+Fix one bug in the supplied Dispatch queue: clicking Dispatch says it worked but the parcel stays Ready and the filters don't reflect the change. Update the actual state, verify the transition in All, Ready and Dispatched views, and preserve the empty-state recovery. Keep the existing design, wording and scope. No redesign, installs, publishing or external messages.

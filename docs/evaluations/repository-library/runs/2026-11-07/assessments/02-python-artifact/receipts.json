@@ -1,0 +1,28 @@
+{
+  "artifact": "assessment and prioritized plan only",
+  "snapshot_root": "/private/tmp/repository-quality-assessment-20261107/02-python-artifact/repository",
+  "fixture_reads": [
+    {"path": "README.md", "lines": "1-5", "evidence": "pip consumer promise, Python floor, direct-source test command, manual release route"},
+    {"path": "pyproject.toml", "lines": "1-15", "evidence": "setuptools backend, version 1.4.0, Python >=3.10, src discovery, include-package-data=false; no explicit resource inclusion rule"},
+    {"path": "src/riverfmt/__init__.py", "lines": "1-2", "evidence": "public normalize export"},
+    {"path": "src/riverfmt/labels.py", "lines": "1-7", "evidence": "unconditional JSON resource read before normalization"},
+    {"path": "src/riverfmt/defaults.json", "lines": "1", "evidence": "authoritative aliases QTY and Unit Price"},
+    {"path": "tests/test_labels.py", "lines": "1-5", "evidence": "single QTY public behavior assertion, no artifact harness"},
+    {"path": ".github/workflows/check.yml", "lines": "1-12", "evidence": "configured Python 3.12 source tests with PYTHONPATH=src; no build/install artifact check"},
+    {"path": "release-record.txt", "lines": "1-5", "evidence": "copied tag/page/filenames; explicitly no artifact contents, hashes, logs or consumer results"}
+  ],
+  "guide_root": "/private/tmp/repository-quality-assessment-20261107/guide",
+  "guides_read": ["SKILL.md", "references/questions-and-assessment.md", "references/verification-and-distribution.md", "references/structure-and-documentation.md", "references/library-usage.md", "library/index.md"],
+  "additional_host_guides": ["/Users/jaeyong/.codex/skills/i-have-adhd/SKILL.md (output shaping only)"],
+  "cards": [
+    {"id": "quality-python-distribution-checks", "portions": ["What to inspect", "What to borrow and adapt", "Mismatches and limits"], "fit": "published Python library reads packaged resource", "decision": "propose isolated wheel and sdist-route consumer tests", "mismatch": "editable behavior is not regular-wheel evidence", "primary_freshly_inspected": false},
+    {"id": "quality-python-import-layout", "portions": ["What to inspect", "What to borrow and adapt", "Mismatches and limits"], "fit": "test invocation explicitly imports src", "decision": "retain layout; fix consumer boundary", "mismatch": "no layout migration needed", "primary_freshly_inspected": false},
+    {"id": "quality-python-build-metadata", "portions": ["What to inspect", "What to borrow and adapt", "Mismatches and limits"], "fit": "pyproject backend and resource configuration", "decision": "preserve setuptools; propose explicit resource declaration", "mismatch": "card does not settle exact backend package-data semantics", "primary_freshly_inspected": false},
+    {"id": "repo-small-flask", "portions": ["What to inspect", "What to borrow and adapt", "Mismatches and limits"], "fit": "Python published-library neighbor with source/tests/packaging separation", "decision": "choose support-specific validation", "mismatch": "different backend, framework scale and matrix", "primary_freshly_inspected": false},
+    {"id": "repo-small-p-limit", "portions": ["What to borrow and adapt", "Mismatches and limits"], "fit": "small public library can keep compact layout", "decision": "reject cosmetic restructuring", "mismatch": "Node/npm mechanics not transferable", "primary_freshly_inspected": false}
+  ],
+  "decisions": ["No consequential human intent missing for this bounded request", "No repository edits", "Explicit JSON inclusion plus consumer checks precede layout changes", "Release transcription does not verify shipped defaults", "Python 3.10 support is unverified rather than disproven"],
+  "actual_checks": ["Enumerated supplied fixture files including hidden CI file", "Read all eight fixture files with line numbers", "Statically traced public import to JSON authority, test import path, packaging config and manual release evidence", "Read relevant bundled guide references and five local cards"],
+  "not_run": ["tests", "fixture scripts", "builds", "installs", "git", "network", "registry queries", "catalog helper"],
+  "evidence_limits": ["No wheel or sdist available", "Expected resource omission inferred from visible configuration, not observed archive contents", "No freshly read setuptools primary semantics", "No CI results or downstream execution", "No external release or registry observation", "Card historical source inspection is not this assessment's primary inspection"]
+}

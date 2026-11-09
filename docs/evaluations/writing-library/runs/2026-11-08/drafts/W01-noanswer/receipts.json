@@ -1,0 +1,14 @@
+{
+  "artifact": "piece.md",
+  "status": "complete_provisional_article_with_author_input_slots",
+  "word_counts": {"method": "shell wc -w", "complete_file": 685, "prose_excluding_title_and_author_input_instructions": 556, "requested_min": 550, "requested_max": 750},
+  "author_input": {"question_sent": "What, if anything, did labeling the shelves mean to you—making tools easier to find, enjoying the sorting itself, a form of trust/care, or something else—and what true detail from those two mornings supports that meaning?", "reply": "Please continue with the information available.", "substantive_answer_received": false, "slots": 3, "pending": ["personal meaning", "true supporting detail", "present position and endorsement of proposed interpretation"]},
+  "factual_source": "author-notes.md",
+  "read_inputs": ["COMMON.md", "prompt.md", "FILES.txt", "author-notes.md"],
+  "read_guide_paths": ["/private/tmp/writing-intent-assessment-20261108/guide/SKILL.md", "/private/tmp/writing-intent-assessment-20261108/guide/references/author-and-reader.md", "/private/tmp/writing-intent-assessment-20261108/guide/references/structure-and-revision.md", "/private/tmp/writing-intent-assessment-20261108/guide/references/evidence-and-voice.md", "/private/tmp/writing-intent-assessment-20261108/guide/library/index.md", "/private/tmp/writing-intent-assessment-20261108/guide/library/entries/craft-jack-hart-theme.md", "/private/tmp/writing-intent-assessment-20261108/guide/library/entries/example-serviceberry-situated-concept.md"],
+  "mandatory_host_guides_read": ["/Users/jaeyong/.codex/skills/i-have-adhd/SKILL.md"],
+  "craft_access": "Local index and complete selected cards only; linked primary sources not inspected in this run.",
+  "checks_performed": ["source-boundary review against every notebook bullet", "manual paragraph-function review", "manual review for invented first-person memories, feelings, convictions, and quotations", "shell word counts including and excluding input instructions"],
+  "not_performed": ["network or service access", "primary-source research", "reader testing", "detectors", "publication", "fixture or upstream program execution"],
+  "owned_outputs": ["piece.md", "editorial-notes.md", "receipts.json", "work-log.md"]
+}

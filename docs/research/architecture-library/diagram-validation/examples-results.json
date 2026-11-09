@@ -1,0 +1,49 @@
+{
+  "mermaid_version": "12.3.0",
+  "dom_version": "31.0.0",
+  "mode": "parse-only with DOM sanitization support; no rendering or architectural validation",
+  "results": [
+    {
+      "file": "references/diagram-contract.md",
+      "example": 1,
+      "result": "syntax-valid",
+      "diagramType": "flowchart-v2"
+    },
+    {
+      "file": "references/diagram-contract.md",
+      "example": 2,
+      "result": "syntax-valid",
+      "diagramType": "sequence"
+    },
+    {
+      "file": "references/diagram-contract.md",
+      "example": 3,
+      "result": "syntax-valid",
+      "diagramType": "stateDiagram"
+    },
+    {
+      "file": "references/diagram-contract.md",
+      "example": 4,
+      "result": "syntax-valid",
+      "diagramType": "flowchart-v2"
+    },
+    {
+      "file": "library/entries/diagram-mermaid-flow-boundaries.md",
+      "example": 1,
+      "result": "syntax-valid",
+      "diagramType": "flowchart-v2"
+    },
+    {
+      "file": "library/entries/diagram-mermaid-sequence-outcomes.md",
+      "example": 1,
+      "result": "syntax-valid",
+      "diagramType": "sequence"
+    },
+    {
+      "file": "library/entries/diagram-mermaid-state-ownership.md",
+      "example": 1,
+      "result": "syntax-valid",
+      "diagramType": "stateDiagram"
+    }
+  ]
+}

@@ -1,0 +1,122 @@
+{
+  "inspected_at": "2026-11-07",
+  "scope": "Local reference and proposed outline only",
+  "sources": [
+    {
+      "id": "pattern-carbon-data-table",
+      "url": "https://www.carbondesignsystem.com/building-blocks/core/components/data-table/guidelines#sizing",
+      "locator": "Sizing; Placement; Sorting; Inline actions; Batch actions",
+      "inspection_method": "Full local card; current primary web text; native Chrome CUA screenshots of sizing table and xs/sm/md diagrams",
+      "access_outcome": "Public text and static visuals available; no table workflow executed",
+      "fit": "Dense comparison and distinct action targets",
+      "mismatch": "No flood semantics or eight-hour usability proof; system-specific pixel values",
+      "selected_use": "Selected structural and limited visual reference",
+      "outline_decisions": "Full-width table, 32px starting row, persistent columns, no bulk dispatch"
+    },
+    {
+      "id": "flow-figma-ui3-state-visibility",
+      "url": "https://www.figma.com/blog/our-approach-to-designing-ui3/",
+      "locator": "Docked panels; Blend modes; clip content",
+      "inspection_method": "Full local card and primary article text",
+      "access_outcome": "Historical article available; source images not inspected in this task",
+      "fit": "Repeated inspection cost from hidden values",
+      "mismatch": "Drawing tool; no emergency operations evidence",
+      "selected_use": "Selected mechanism",
+      "outline_decisions": "Visible crew, status and stale values; details may disclose progressively"
+    },
+    {
+      "id": "flow-linear-triage-decisions",
+      "url": "https://linear.app/docs/triage#take-actions",
+      "locator": "Basics / Take actions; snooze consequences",
+      "inspection_method": "Full local card and current primary documentation text",
+      "access_outcome": "Text available; no authenticated or visual inspection",
+      "fit": "Distinct dispositions with explicit destinations",
+      "mismatch": "Default statuses and hidden snoozed work conflict with brief",
+      "selected_use": "Adapt selected mechanism, reject labels and snooze",
+      "outline_decisions": "Separate four supplied states; no silent acceptance or disappearance"
+    },
+    {
+      "id": "flow-slack-catch-up",
+      "url": "https://slack.com/help/articles/226410907-View-all-your-unread-messages",
+      "locator": "Mark as read; undo; refresh new messages",
+      "inspection_method": "Full local card and primary help text redirected to Japanese",
+      "access_outcome": "Text available; no product interaction or visual inspection",
+      "fit": "Acknowledgement recovery and explicit new-message loading",
+      "mismatch": "Read marker undo cannot reverse physical dispatch",
+      "selected_use": "Adapt attention and recovery mechanisms",
+      "outline_decisions": "Separate acknowledgement from dispatch; persistent changes and recovery access"
+    },
+    {
+      "id": "pattern-fluent-dialog",
+      "url": "https://fluent2.microsoft.design/components/web/react/core/dialog/usage",
+      "locator": "Types; Dismissal; Dialog focus; Content",
+      "inspection_method": "Full local card and primary text",
+      "access_outcome": "Text available; React dialog page marked Preview; no visual or execution test",
+      "fit": "Focused consequence review and focus restoration",
+      "mismatch": "Generic component docs; interruptions have repeated-use cost",
+      "selected_use": "Selected dispatch-review contract",
+      "outline_decisions": "One specific crew/request review; Cancel; no implicit Enter dispatch; restored focus"
+    },
+    {
+      "id": "standard-text-adaptation",
+      "url": "https://www.w3.org/TR/2024/REC-WCAG22-20241212/",
+      "locator": "SC 1.4.1, 2.5.8, 4.1.3; local card SC 1.4.3/10/11/12 annotations",
+      "inspection_method": "Full local card and selected normative primary sections",
+      "access_outcome": "Public text available; no rendered conformance measurements",
+      "fit": "Non-color signals and accessible status mechanisms",
+      "mismatch": "Normative requirements do not prove actual task usability",
+      "selected_use": "Selected bounded criteria",
+      "outline_decisions": "Shape plus severity text; programmatic result messages; keyboard controls; planned zoom/contrast checks"
+    },
+    {
+      "id": "external-pagerduty-incidents",
+      "url": "https://docs.pagerduty.com/incident-management/incidents/overview#incident-statuses",
+      "locator": "Incident Statuses; Assignment; Incident Timeline",
+      "inspection_method": "Targeted web search followed by primary overview read",
+      "access_outcome": "Public text available; no live workflow or visuals",
+      "fit": "Timestamped incident event trail",
+      "mismatch": "Acknowledgement claims ownership and suppresses escalation; mismatches separate flood dispatch",
+      "selected_use": "Timeline mechanism only; reject state coupling",
+      "outline_decisions": "Audit assignment/reversal events; acknowledgement has no dispatch or implicit escalation side effect"
+    },
+    {
+      "id": "principle-appeal-task-distinction",
+      "url": "https://www.eecs.harvard.edu/~kgajos/papers/2014/reinecke14visual.pdf",
+      "locator": "Local card methods/limits annotation only",
+      "inspection_method": "Full local card read; upstream paper not opened",
+      "access_outcome": "Card only; no independent empirical or visual verification",
+      "fit": "Separates screenshot appeal from operational task evidence",
+      "mismatch": "No primary study inspection in this task",
+      "selected_use": "Evaluation caution only, no empirical finding asserted",
+      "outline_decisions": "Future task verification rather than usability claim from attractive layout"
+    },
+    {
+      "id": "user-sparse-portfolio-direction",
+      "url": null,
+      "locator": "request.md: unnamed sparse portfolio dashboards",
+      "inspection_method": "Supplied brief only",
+      "access_outcome": "No URL or named sample; no actual screen inspected",
+      "fit": "Desired visual polish",
+      "mismatch": "Sparse spacing conflicts with 30-record comparison; source unspecified",
+      "selected_use": "Keep finish, reject sparse structure",
+      "outline_decisions": "Alignment, restrained surfaces, consistent type, no oversized cards"
+    }
+  ],
+  "direction_updates": [
+    {
+      "source": "Coordinator-relayed user feedback",
+      "feedback": "The sparse option looks the most polished. Could we make every request a huge card like that?",
+      "inspection_method": "Relayed text only; no additional visual sample supplied",
+      "decision_affected": "Default request density and comparison structure",
+      "proposed_alternatives": [
+        "Compact comparison queue plus a large selected-request detail card",
+        "Large card per request with fewer requests visible together"
+      ],
+      "checks": "Illustrative 30 × 180px = 5400px, excluding gaps and controls; no rendered or usability test",
+      "followup_reply": "That is not settled; make and label a reasonable assumption if it doesn't block the outline.",
+      "working_assumption": "Default compact full-width comparison queue plus one large selected-request detail card; density preference explicitly remains unsettled.",
+      "outline_decisions": "Request ID opens full-width detail region below queue; strong location heading, complete facts, separate acknowledgement and assignment actions, restored focus and preserved queue context.",
+      "authorization_scope": "Proceed with a labeled assumption for the outline; no implementation or settled density preference inferred."
+    }
+  ]
+}

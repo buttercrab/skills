@@ -1,0 +1,79 @@
+{
+  "parser": "Mermaid 12.3.0",
+  "dom": "JSDOM31.0.0",
+  "mode": "Syntax parsing only of supplied artifacts; no rendering, semantic or operational acceptance",
+  "results": [
+    {
+      "case": "01-desk-ledger",
+      "diagram": 1,
+      "result": "syntax-valid",
+      "diagramType": "flowchart-v2"
+    },
+    {
+      "case": "01-desk-ledger",
+      "diagram": 2,
+      "result": "syntax-valid",
+      "diagramType": "sequence"
+    },
+    {
+      "case": "01-desk-ledger",
+      "diagram": 3,
+      "result": "syntax-valid",
+      "diagramType": "sequence"
+    },
+    {
+      "case": "02-refund-queue",
+      "diagram": 1,
+      "result": "syntax-valid",
+      "diagramType": "sequence"
+    },
+    {
+      "case": "02-refund-queue",
+      "diagram": 2,
+      "result": "syntax-valid",
+      "diagramType": "stateDiagram"
+    },
+    {
+      "case": "03-map-the-running-system",
+      "diagram": 1,
+      "result": "syntax-valid",
+      "diagramType": "sequence"
+    },
+    {
+      "case": "03-map-the-running-system",
+      "diagram": 2,
+      "result": "syntax-valid",
+      "diagramType": "flowchart-v2"
+    },
+    {
+      "case": "04-compatible-rollout",
+      "diagram": 1,
+      "result": "syntax-valid",
+      "diagramType": "sequence"
+    },
+    {
+      "case": "04-compatible-rollout",
+      "diagram": 2,
+      "result": "syntax-valid",
+      "diagramType": "stateDiagram"
+    },
+    {
+      "case": "05-one-way-archive",
+      "diagram": 1,
+      "result": "syntax-valid",
+      "diagramType": "sequence"
+    },
+    {
+      "case": "05-one-way-archive",
+      "diagram": 2,
+      "result": "syntax-valid",
+      "diagramType": "stateDiagram"
+    },
+    {
+      "case": "05-one-way-archive",
+      "diagram": 3,
+      "result": "syntax-valid",
+      "diagramType": "stateDiagram"
+    }
+  ]
+}

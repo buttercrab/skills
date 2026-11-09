@@ -1,0 +1,6 @@
+# Fixed security and resource envelope
+Source domain S contains exportable research records. Archive domain A receives approved records only. There is no network path from A to S and no capability to open one. The security board prohibits additional return channels and shared writable storage. A human custodian may carry a printed acknowledgment from A to S once each workday. The paper may contain transfer IDs, content digests, and counts; it must contain no record content. This process is approved, not pending policy clarification.
+
+S must retain the original data and transfer manifest for 45 days after explicit archive acknowledgment, never merely after sending. An acknowledgment can be entered twice or mistyped. Operators are authenticated locally. Exported records are immutable; corrections create new record versions. Maximum export: 12 GB/day, individual object <= 250 MB. Two engineers maintain both domain applications. Existing local durable stores on each side can hold 90 days of exports.
+
+Completion SLO: 95% of approved exports archived within two working days; no real-time acknowledgment requirement. An archive export may be retransmitted after human review. Never use a transport receipt alone as proof that data is durably archived and verified.

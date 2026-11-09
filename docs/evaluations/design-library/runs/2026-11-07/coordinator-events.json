@@ -1,0 +1,216 @@
+{
+  "recorded_utc": "2026-11-07T09:29:12.924359+00:00",
+  "scope": "Exact normalized relayed user text; assistant question/completion turns summarized. Not a full native tool trace.",
+  "events": [
+    {
+      "trial": "01-birch",
+      "role": "assistant",
+      "stage": "initial-question-and-options",
+      "text": "Asked about first visitor purpose/attendance and contextual directions before settling the outline; preliminary reference options were provided.",
+      "record_type": "coordinator-summary"
+    },
+    {
+      "trial": "01-birch",
+      "role": "user",
+      "stage": "context-and-initial-option-feedback",
+      "text": "Mostly adults who don't know anyone in the group. They arrive from a printed QR code on their phone. Let them see what happens at a table and find the next meeting before asking them to join. Coming once without teaching anything is welcome. We are informal and warm, but I don't want it to feel like a club you have to qualify for.\n\nNext meeting is Saturday 21 November, 14:00–16:00, at Alder Library. Free. Step-free entrance. People can arrive alone; no account is needed to see details. RSVP is optional and just reserves a chair.\n\nOn the initial options: Keep the option that best explains what actually happens at a table. Drop the direction that feels most like recruiting members. Borrow the clearest next-meeting treatment from a different option. If none explains arriving alone, find something that does. I'd rather see ordinary people and specific activities than a polished club identity. None needs to be recruiting; keep that true as you combine them.",
+      "record_type": "exact-relay"
+    },
+    {
+      "trial": "01-elm",
+      "role": "assistant",
+      "stage": "initial-question-and-options",
+      "text": "Asked about first visitor purpose/attendance and contextual directions before settling the outline; preliminary reference options were provided.",
+      "record_type": "coordinator-summary"
+    },
+    {
+      "trial": "01-elm",
+      "role": "user",
+      "stage": "context-and-initial-option-feedback",
+      "text": "Mostly adults who don't know anyone in the group. They arrive from a printed QR code on their phone. Let them see what happens at a table and find the next meeting before asking them to join. Coming once without teaching anything is welcome. We are informal and warm, but I don't want it to feel like a club you have to qualify for.\n\nNext meeting is Saturday 21 November, 14:00–16:00, at Alder Library. Free. Step-free entrance. People can arrive alone; no account is needed to see details. RSVP is optional and just reserves a chair.\n\nOn the initial options: Keep the option that best explains what actually happens at a table. Drop the direction that feels most like recruiting members. Borrow the clearest next-meeting treatment from a different option. If none explains arriving alone, find something that does. I'd rather see ordinary people and specific activities than a polished club identity. None needs to be recruiting; keep that true as you combine them.",
+      "record_type": "exact-relay"
+    },
+    {
+      "trial": "02-elm",
+      "role": "assistant",
+      "stage": "policy-question",
+      "text": "Asked whether undo can retract dispatch or only operate before crew acceptance, and how later correction should work.",
+      "record_type": "coordinator-summary"
+    },
+    {
+      "trial": "02-elm",
+      "role": "user",
+      "stage": "assignment-policy",
+      "text": "Requests can be reassigned. Undo is allowed for 30 seconds unless the crew has accepted; then the dispatcher must request reassignment and the pending state must be visible. Crew acceptance arrives asynchronously. Keep all 30 requests reachable without switching to a separate page.",
+      "record_type": "exact-relay"
+    },
+    {
+      "trial": "02-birch",
+      "role": "user",
+      "stage": "after-initial-packet",
+      "text": "The sparse option looks the most polished. Could we make every request a huge card like that?",
+      "record_type": "exact-relay"
+    },
+    {
+      "trial": "02-birch",
+      "role": "assistant",
+      "stage": "density-question",
+      "text": "Asked whether to preserve rapid comparison with one spacious selected-request card or shift priority to large cards for all; explained scrolling/comparison tradeoff.",
+      "record_type": "coordinator-summary"
+    },
+    {
+      "trial": "02-birch",
+      "role": "user",
+      "stage": "density-not-settled",
+      "text": "That is not settled; make and label a reasonable assumption if it doesn't block the outline.",
+      "record_type": "exact-relay"
+    },
+    {
+      "trial": "02-elm",
+      "role": "user",
+      "stage": "after-initial-packet",
+      "text": "The sparse option looks the most polished. Could we make every request a huge card like that?",
+      "record_type": "exact-relay"
+    },
+    {
+      "trial": "02-elm",
+      "role": "assistant",
+      "stage": "density-question",
+      "text": "Asked whether to preserve rapid comparison with one spacious selected-request card or shift priority to large cards for all; explained scrolling/comparison tradeoff.",
+      "record_type": "coordinator-summary"
+    },
+    {
+      "trial": "02-elm",
+      "role": "user",
+      "stage": "density-not-settled",
+      "text": "That is not settled; make and label a reasonable assumption if it doesn't block the outline.",
+      "record_type": "exact-relay"
+    },
+    {
+      "trial": "03-birch",
+      "role": "user",
+      "stage": "chosen-direction-feedback",
+      "text": "I like an expressive partner. Please don't make a missed day disappoint the creature, and don't turn corrections into a red failure screen.",
+      "record_type": "exact-relay"
+    },
+    {
+      "trial": "03-elm",
+      "role": "user",
+      "stage": "chosen-direction-feedback",
+      "text": "I like an expressive partner. Please don't make a missed day disappoint the creature, and don't turn corrections into a red failure screen.",
+      "record_type": "exact-relay"
+    },
+    {
+      "trial": "04-birch",
+      "role": "user",
+      "stage": "after-shortlist",
+      "text": "I'd rather keep the noticeboard character even if the most useful recovery reference is visually loud.",
+      "record_type": "exact-relay"
+    },
+    {
+      "trial": "04-elm",
+      "role": "user",
+      "stage": "after-shortlist",
+      "text": "I'd rather keep the noticeboard character even if the most useful recovery reference is visually loud.",
+      "record_type": "exact-relay"
+    },
+    {
+      "trial": "05-birch",
+      "role": "assistant",
+      "stage": "policy-and-context-question",
+      "text": "Asked consequential language, authoritative shared-screen/return/identity or timing facts before finalizing; initial scoped source matches were proposed.",
+      "record_type": "coordinator-summary"
+    },
+    {
+      "trial": "05-birch",
+      "role": "user",
+      "stage": "policy-and-context",
+      "text": "Current room policy: show only instrument ID and a non-personal receipt code after checkout/return. Clear name and contact details at completion and after 60 seconds idle; warn at 45 seconds and let the person continue. No staff photograph of borrower details. Timeout does not automatically complete a loan or return. Staff can help from a separate authenticated console. Arabic and English are required.\n\nTouch kiosk; no keyboard assumed. You may flag hardware-specific unknowns.\n\nFor remaining unspecified details: That is not settled; make and label a reasonable assumption if it doesn't block the outline.",
+      "record_type": "exact-relay"
+    },
+    {
+      "trial": "05-birch",
+      "role": "user",
+      "stage": "source-limits-feedback",
+      "text": "If this source predates the policy or only demonstrates English, please keep its useful bits but make the unresolved parts explicit.",
+      "record_type": "exact-relay"
+    },
+    {
+      "trial": "05-elm",
+      "role": "assistant",
+      "stage": "policy-and-context-question",
+      "text": "Asked consequential language, authoritative shared-screen/return/identity or timing facts before finalizing; initial scoped source matches were proposed.",
+      "record_type": "coordinator-summary"
+    },
+    {
+      "trial": "05-elm",
+      "role": "user",
+      "stage": "policy-and-context",
+      "text": "Current room policy: show only instrument ID and a non-personal receipt code after checkout/return. Clear name and contact details at completion and after 60 seconds idle; warn at 45 seconds and let the person continue. No staff photograph of borrower details. Timeout does not automatically complete a loan or return. Staff can help from a separate authenticated console. Arabic and English are required.\n\nTouch kiosk; no keyboard assumed. You may flag hardware-specific unknowns.\n\nFor remaining unspecified details: That is not settled; make and label a reasonable assumption if it doesn't block the outline.",
+      "record_type": "exact-relay"
+    },
+    {
+      "trial": "05-elm",
+      "role": "user",
+      "stage": "source-limits-feedback",
+      "text": "If this source predates the policy or only demonstrates English, please keep its useful bits but make the unresolved parts explicit.",
+      "record_type": "exact-relay"
+    },
+    {
+      "trial": "06-birch",
+      "role": "assistant",
+      "stage": "completion",
+      "text": "No clarifying question; delivered the requested narrow wording/state repair.",
+      "record_type": "coordinator-summary"
+    },
+    {
+      "trial": "06-elm",
+      "role": "assistant",
+      "stage": "completion",
+      "text": "No clarifying question; delivered the requested narrow wording/state repair.",
+      "record_type": "coordinator-summary"
+    },
+    {
+      "trial": "07-birch",
+      "role": "user",
+      "stage": "after-packet",
+      "text": "Can one direction be less image-led, for people who are here to read? Keep the photo-led option too.",
+      "record_type": "exact-relay"
+    },
+    {
+      "trial": "07-elm",
+      "role": "user",
+      "stage": "after-packet",
+      "text": "Can one direction be less image-led, for people who are here to read? Keep the photo-led option too.",
+      "record_type": "exact-relay"
+    },
+    {
+      "trial": "08-birch",
+      "role": "assistant",
+      "stage": "senior-review-and-conflict-question",
+      "text": "Asked whether senior approval may retain uncertainty and who may resolve conflicting edits; reported adjacent rather than complete glove/dim-light/offline matches.",
+      "record_type": "coordinator-summary"
+    },
+    {
+      "trial": "08-birch",
+      "role": "user",
+      "stage": "data-policy-and-candidate-feedback",
+      "text": "Capture object ID, observation note, tentative material and optional photo. A provisional record is not an approved finding. Keep both versions of a sync conflict available; only the senior reviewer can resolve it. No automatic overwriting.\n\nFor remaining unspecified approval details: That is not settled; make and label a reasonable assumption if it doesn't block the outline.\n\nFeedback on the candidate packet: The references seem adjacent. Please don't imply their usability carries over to gloved work.",
+      "record_type": "exact-relay"
+    },
+    {
+      "trial": "08-elm",
+      "role": "assistant",
+      "stage": "senior-review-and-conflict-question",
+      "text": "Asked whether senior approval may retain uncertainty and who may resolve conflicting edits; reported adjacent rather than complete glove/dim-light/offline matches.",
+      "record_type": "coordinator-summary"
+    },
+    {
+      "trial": "08-elm",
+      "role": "user",
+      "stage": "data-policy-and-candidate-feedback",
+      "text": "Capture object ID, observation note, tentative material and optional photo. A provisional record is not an approved finding. Keep both versions of a sync conflict available; only the senior reviewer can resolve it. No automatic overwriting.\n\nFor remaining unspecified approval details: That is not settled; make and label a reasonable assumption if it doesn't block the outline.\n\nFeedback on the candidate packet: The references seem adjacent. Please don't imply their usability carries over to gloved work.",
+      "record_type": "exact-relay"
+    }
+  ]
+}

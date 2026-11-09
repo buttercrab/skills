@@ -1,0 +1,3 @@
+# Request
+
+I'm preparing a discussion with conservators about a handheld workflow for documenting fragile objects in a dim archive while wearing gloves. We have not chosen hardware. An observation can be saved provisionally with uncertain material identification; a senior conservator later reviews it. Records must remain usable offline and make later sync conflicts understandable. Please find references and apply only what is justified to a provisional capture/review/conflict outline. If the library doesn't have a credible glove/dim-light/offline match, say so. Do not recommend a device or invent a claim that a control is usable with gloves.

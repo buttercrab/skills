@@ -1,0 +1,201 @@
+--- a/web/app/components/gallery.tsx
++++ b/web/app/components/gallery.tsx
+@@ -11,8 +11,8 @@
+ const previewSrc = (id: string, theme: string) => `/previews/${id.replace('/', '-')}.${theme}.jpg`;
+ const STAGE_WIDTH = 720;
+ 
+-function GalleryCard({ card, live, look }: { card: Card; live: boolean; look: Look }) {
+-  const { picks, togglePick } = useStudio();
++function GalleryCard({ card, live, look, onTogglePick }: { card: Card; live: boolean; look: Look; onTogglePick: (id: string) => void }) {
++  const { picks } = useStudio();
+   const box = useRef<HTMLSpanElement>(null);
+   const [inView, setInView] = useState(false);
+   const [hover, setHover] = useState(false);
+@@ -55,7 +55,7 @@
+           <h3><Link href={`/components/${card.group}/${card.slug}`}>{card.name}</Link></h3>
+           <p className="card-kind">{card.categoryName}</p>
+         </div>
+-        <button type="button" className="pick" aria-pressed={picked} disabled={full} onClick={() => togglePick(card.id)} aria-label={`${card.name} ${picked ? '빼기' : '담기'}`}>
++        <button type="button" className="pick" aria-pressed={picked} disabled={full} onClick={() => onTogglePick(card.id)} aria-label={`${card.name} ${picked ? '빼기' : '담기'}`}>
+           {picked ? '담음' : '담기'}
+         </button>
+       </div>
+@@ -64,19 +64,45 @@
+ }
+ 
+ export function Gallery({ cards, families, surfaces }: { cards: Card[]; families: Facet[]; surfaces: Facet[] }) {
+-  const { look, brand, picks, clearPicks, ready } = useStudio();
++  const { look, brand, picks, togglePick, clearPicks, ready } = useStudio();
+   const [query, setQuery] = useState('');
+   const [family, setFamily] = useState('all');
+   const [surface, setSurface] = useState('all');
+   const [allLive, setAllLive] = useState(false);
++  const [showPicked, setShowPicked] = useState(false);
++  const collectionButton = useRef<HTMLButtonElement>(null);
++  const traySummary = useRef<HTMLElement>(null);
++  const returnFocus = useRef<'collection' | 'tray' | null>(null);
++  const pickedCards = useMemo(() => picks.flatMap((id) => {
++    const card = cards.find((candidate) => candidate.id === id);
++    return card ? [card] : [];
++  }), [cards, picks]);
++
++  useEffect(() => {
++    if (!returnFocus.current) return;
++    const target = returnFocus.current === 'tray' && pickedCards.length ? traySummary.current : collectionButton.current;
++    returnFocus.current = null;
++    target?.focus();
++  }, [picks, pickedCards.length]);
++
++  function handleTogglePick(id: string, focusAfterRemoval: 'collection' | 'tray' | null = null) {
++    if (picks.includes(id)) returnFocus.current = focusAfterRemoval;
++    togglePick(id);
++  }
++
++  function clearCollection() {
++    returnFocus.current = 'collection';
++    clearPicks();
++  }
+ 
+   const shown = useMemo(() => {
++    if (showPicked) return pickedCards;
+     const words = query.trim().toLowerCase().split(/\s+/).filter(Boolean);
+     return cards.filter((c) => (family === 'all' || c.family === family) && (surface === 'all' || c.surfaces.includes(surface)) && words.every((w) => c.search.includes(w)));
+-  }, [cards, query, family, surface]);
++  }, [cards, query, family, surface, showPicked, pickedCards]);
+ 
+   const live = allLive || !!brand || Object.keys(look.tokens).length > 0;
+-  const boardHref = `/board?ids=${picks.join(',')}${brand ? `&brand=${brand.slice(1)}` : ''}&theme=${look.theme}`;
++  const boardHref = `/board?ids=${pickedCards.map((card) => card.id).join(',')}${brand ? `&brand=${brand.slice(1)}` : ''}&theme=${look.theme}`;
+ 
+   return (
+     <>
+@@ -84,50 +110,78 @@
+         <h1>부품 갤러리</h1>
+         <p>AI 티 없이 쓸 수 있는 부품 {cards.length}개. 내 브랜드를 입혀 보고, 마음에 드는 것을 담아 나란히 비교하세요.</p>
+       </header>
+-      <LookBar />
+-      <div className="filters">
+-        <label className="search-field">
+-          <span className="visually-hidden">부품 찾기</span>
+-          <input type="search" placeholder="찾기: hero, 표, button" value={query} onChange={(e) => setQuery(e.target.value)} />
+-        </label>
+-        <label className="select-field">
+-          <span>화면</span>
+-          <select value={surface} onChange={(e) => setSurface(e.target.value)}>
++      <details className="gallery-look">
++        <summary>내 브랜드로 보기{brand ? ' · 적용 중' : ''}</summary>
++        <LookBar />
++      </details>
++      <div className="collection-views" role="group" aria-label="보는 부품">
++        <button type="button" className="chip" aria-pressed={!showPicked} onClick={() => setShowPicked(false)}>둘러보기</button>
++        <button ref={collectionButton} type="button" className="chip" aria-pressed={showPicked} onClick={() => setShowPicked(true)}>담은 부품 {pickedCards.length}개</button>
++      </div>
++      <div hidden={showPicked}>
++        <div className="filters">
++          <label className="search-field">
++            <span className="visually-hidden">부품 찾기</span>
++            <input type="search" placeholder="찾기: hero, 표, button" value={query} onChange={(e) => setQuery(e.target.value)} />
++          </label>
++          <label className="select-field">
++            <span>화면</span>
++            <select value={surface} onChange={(e) => setSurface(e.target.value)}>
++              <option value="all">전체</option>
++              {surfaces.map((s) => <option key={s.id} value={s.id}>{s.name}</option>)}
++            </select>
++          </label>
++          <label className="check-field">
++            <input type="checkbox" checked={live} disabled={!!brand} onChange={(e) => setAllLive(e.target.checked)} />
++            <span>전부 움직이게</span>
++          </label>
++        </div>
++        <label className="select-field family-select">
++          <span>종류</span>
++          <select value={family} onChange={(e) => setFamily(e.target.value)}>
+             <option value="all">전체</option>
+-            {surfaces.map((s) => <option key={s.id} value={s.id}>{s.name}</option>)}
++            {families.map((f) => <option key={f.id} value={f.id}>{f.name}</option>)}
+           </select>
+         </label>
+-        <label className="check-field">
+-          <input type="checkbox" checked={live} disabled={!!brand} onChange={(e) => setAllLive(e.target.checked)} />
+-          <span>전부 움직이게</span>
+-        </label>
++        <div className="chips" role="group" aria-label="종류">
++          <button type="button" className="chip" aria-pressed={family === 'all'} onClick={() => setFamily('all')}>전체</button>
++          {families.map((f) => (
++            <button key={f.id} type="button" className="chip" aria-pressed={family === f.id} onClick={() => setFamily(f.id)}>{f.name}</button>
++          ))}
++        </div>
+       </div>
+-      <label className="select-field family-select">
+-        <span>종류</span>
+-        <select value={family} onChange={(e) => setFamily(e.target.value)}>
+-          <option value="all">전체</option>
+-          {families.map((f) => <option key={f.id} value={f.id}>{f.name}</option>)}
+-        </select>
+-      </label>
+-      <div className="chips" role="group" aria-label="종류">
+-        <button type="button" className="chip" aria-pressed={family === 'all'} onClick={() => setFamily('all')}>전체</button>
+-        {families.map((f) => (
+-          <button key={f.id} type="button" className="chip" aria-pressed={family === f.id} onClick={() => setFamily(f.id)}>{f.name}</button>
+-        ))}
+-      </div>
+-      <p className="result-count" role="status">{shown.length}개</p>
++      <p className="result-count" role="status">{showPicked ? '담은 부품 ' : ''}{shown.length}개</p>
+       {shown.length ? (
+         <div className="grid">
+-          {shown.map((card) => <GalleryCard key={card.id} card={card} live={live && ready} look={look} />)}
++          {shown.map((card) => <GalleryCard key={card.id} card={card} live={live && ready} look={look} onTogglePick={(id) => handleTogglePick(id, showPicked ? 'collection' : null)} />)}
+         </div>
+       ) : (
+-        <p className="empty">찾는 부품이 없습니다. 다른 말로 찾아 보세요.</p>
++        showPicked ? (
++          <div className="empty">
++            <p>아직 담은 부품이 없습니다.</p>
++            <button type="button" className="text-button" onClick={() => setShowPicked(false)}>둘러보기로 돌아가기</button>
++          </div>
++        ) : <p className="empty">찾는 부품이 없습니다. 다른 말로 찾아 보세요.</p>
+       )}
+-      {picks.length > 0 && (
++      {pickedCards.length > 0 && (
+         <aside className="tray" aria-label="담은 부품">
+-          <p>{picks.length}개 담음{picks.length >= MAX_PICKS ? ' (최대)' : ''}</p>
+-          <button type="button" className="text-button" onClick={clearPicks}>비우기</button>
++          <p>{pickedCards.length}개 담음{picks.length >= MAX_PICKS ? ' (최대)' : ''}</p>
++          <button type="button" className="text-button" onClick={clearCollection}>비우기</button>
+           <Link className="button" href={boardHref}>나란히 비교</Link>
++          <details className="tray-picks">
++            <summary ref={traySummary}>담은 부품 확인하고 빼기</summary>
++            <ul>
++              {pickedCards.map((card) => (
++                <li key={card.id}>
++                  <button type="button" className="picked-item" onClick={() => handleTogglePick(card.id, 'tray')} aria-label={`${card.name} 담은 부품에서 빼기`}>
++                    {/* eslint-disable-next-line @next/next/no-img-element */}
++                    <img src={previewSrc(card.id, look.theme)} alt="" width={64} height={40} />
++                    <span>{card.name} · 빼기</span>
++                  </button>
++                </li>
++              ))}
++            </ul>
++          </details>
+         </aside>
+       )}
+     </>
+--- a/web/app/components/gallery.css
++++ b/web/app/components/gallery.css
+@@ -127,3 +127,15 @@
+ .absorb summary::before { content: '+'; width: 1.25em; }
+ .absorb[open] summary::before { content: '\2212'; }
+ .absorb .lookbar-row { margin-top: var(--sp-1); }
++
++/* Visual browsing leads; brand controls and collection management open on demand. */
++.gallery-look { margin-bottom: var(--sp-4); }
++.gallery-look > summary, .tray-picks > summary { min-height: 44px; padding: var(--sp-2) 0; cursor: pointer; color: var(--text-muted); }
++.gallery-look[open] > summary { margin-bottom: var(--sp-2); }
++.collection-views { display: flex; flex-wrap: wrap; gap: var(--sp-2); margin-top: var(--sp-4); }
++.tray-picks { flex-basis: 100%; min-width: 0; }
++.tray-picks ul { display: flex; flex-wrap: wrap; gap: var(--sp-2); list-style: none; margin: var(--sp-2) 0 0; padding: 0; }
++.tray-picks li { min-width: 0; max-width: 100%; }
++.picked-item { display: flex; align-items: center; gap: var(--sp-2); max-width: 100%; min-height: 44px; padding: var(--sp-1) var(--sp-2); border: 1px solid var(--border); border-radius: var(--r-md); background: var(--bg); color: var(--text); font: inherit; cursor: pointer; text-align: left; }
++.picked-item img { flex: none; width: 64px; height: 40px; object-fit: cover; border-radius: var(--r-sm); }
++.picked-item span { min-width: 0; overflow-wrap: anywhere; }

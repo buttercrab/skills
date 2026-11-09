@@ -1,0 +1,207 @@
+{
+  "scope": "Reference research and unbuilt applied outlines; no final selection",
+  "inspected_at": "2026-11-07",
+  "sources": [
+    {
+      "id": "visual-stripe-press-book-detail",
+      "card": "guide/library/entries/visual-stripe-press-book-detail.md",
+      "url": "https://press.stripe.com/nomad-letters",
+      "locator": "Desktop opening: book rendering, title, author and introductory prose",
+      "inspection_method": [
+        "Full local card read",
+        "Primary web text",
+        "Native Chrome screenshot directly viewed, approximately 1552x1036"
+      ],
+      "access": "success",
+      "fit": "Meaningful subject given generous space alongside prose",
+      "mismatch": "Book commerce and promotional description",
+      "selected_use": "Retained comparison; large-object composition superseded for A after user requested reading first",
+      "outline_decisions": [
+        "Substantial prose remains useful; dominant specimen image no longer governs A"
+      ],
+      "limits": "No purchase, responsive, reading efficacy or accessibility testing"
+    },
+    {
+      "id": "visual-pudding-story-index",
+      "card": "guide/library/entries/visual-pudding-story-index.md",
+      "url": "https://pudding.cool/",
+      "locator": "Index search/category row and first story rows",
+      "inspection_method": [
+        "Full local card read",
+        "Primary web text",
+        "Native Chrome screenshot directly viewed, approximately 1552x1036"
+      ],
+      "access": "success",
+      "fit": "Different story specimens within consistent dates and item identity",
+      "mismatch": "Broad publication scope and emphatic display treatment",
+      "selected_use": "B archive composition",
+      "outline_decisions": [
+        "Meaningful observation imagery with consistent labels",
+        "Use habitat/behavior instead of publication media categories"
+      ],
+      "limits": "No category/search interaction or essay flow tested"
+    },
+    {
+      "id": "flow-zotero-linked-annotations",
+      "card": "guide/library/entries/flow-zotero-linked-annotations.md",
+      "url": "https://www.zotero.org/support/pdf_reader",
+      "locator": "Adding Annotations to Notes; Viewing an Annotation in Context; last updated 2026-05-05",
+      "inspection_method": [
+        "Full local card read",
+        "First-party documentation text read"
+      ],
+      "access": "success",
+      "fit": "Notes remain connected to originating evidence",
+      "mismatch": "Desktop research authoring workflow",
+      "selected_use": "B evidence relationship",
+      "outline_decisions": [
+        "Details link back to full scene",
+        "Sound references retain clip/time context"
+      ],
+      "limits": "Documented behavior only; no Zotero interaction or visual inspection"
+    },
+    {
+      "id": "visual-poolsuite-retro-player",
+      "card": "guide/library/entries/visual-poolsuite-retro-player.md",
+      "url": "https://poolsuite.net/",
+      "locator": "Public player after boot, visible Stopped state, selection and transport area",
+      "inspection_method": [
+        "Full local card read",
+        "Web open returned JavaScript fallback",
+        "Native Chrome screenshot directly viewed, approximately 1552x1036"
+      ],
+      "access": "visual success; text fallback partial",
+      "fit": "Visible selection and playback-state relationship",
+      "mismatch": "Dense retro windows and leisure branding distract from field observations",
+      "selected_use": "C qualified visual counterpoint",
+      "outline_decisions": [
+        "Name clip and show playback state",
+        "Replace desktop metaphor with inline player and text description"
+      ],
+      "limits": "No playback or responsive behavior tested"
+    },
+    {
+      "id": "external-radio-aporee",
+      "url": "https://aporee.org/mobile/",
+      "locator": "radio aporee maps; 24h Internet radio; about radio aporee",
+      "inspection_method": [
+        "Primary public page text read"
+      ],
+      "access": "success",
+      "fit": "Places connect environmental recordings",
+      "mismatch": "Global contributor soundmap and continuous stream",
+      "selected_use": "C place-based organizing mechanism",
+      "outline_decisions": [
+        "Broad-place archive groups",
+        "Ordered observation stops, recordings optional",
+        "No compulsory map or continuous playback"
+      ],
+      "limits": "No map visualization, controls or audio inspected"
+    },
+    {
+      "id": "visual-teenage-engineering-object",
+      "card": "guide/library/entries/visual-teenage-engineering-object.md",
+      "url": "https://teenage.engineering/",
+      "locator": "Local card When to use, What to borrow and adapt, Mismatches and limits",
+      "inspection_method": [
+        "Full local card read only"
+      ],
+      "access": "card success; upstream not attempted",
+      "fit": "Subject-led imagery is a neighboring approach",
+      "mismatch": "Industrial product commerce less useful for personal field notes",
+      "selected_use": "Not advanced",
+      "outline_decisions": [
+        "Prefer editorial sources rather than technical product presentation"
+      ],
+      "limits": "No independent upstream visual/source claims"
+    },
+    {
+      "id": "standard-text-adaptation",
+      "card": "guide/library/entries/standard-text-adaptation.md",
+      "url": "https://www.w3.org/WAI/WCAG22/Understanding/reflow.html",
+      "locator": "Success Criterion, Intent, single-column adaptation",
+      "inspection_method": [
+        "Full local card read",
+        "Primary W3C explanatory text read"
+      ],
+      "access": "success",
+      "fit": "Reading order and wrapping across proposed layouts",
+      "mismatch": "Guidance does not supply a visual identity",
+      "selected_use": "Shared proposal constraints",
+      "outline_decisions": [
+        "Stack multi-column content in reading order",
+        "Keep captions and labels available"
+      ],
+      "limits": "No rendered reflow, contrast or conformance test"
+    },
+    {
+      "id": "external-w3c-audio-only",
+      "url": "https://www.w3.org/WAI/WCAG22/Understanding/audio-only-and-video-only-prerecorded.html",
+      "locator": "SC 1.2.1, Intent, Examples",
+      "inspection_method": [
+        "Primary W3C explanatory text read"
+      ],
+      "access": "success",
+      "fit": "Equivalent information for prerecorded sound",
+      "mismatch": "Requires actual media before adequacy can be assessed",
+      "selected_use": "All three audio outlines",
+      "outline_decisions": [
+        "Adjacent meaningful sequenced sound description",
+        "Article remains useful without playback"
+      ],
+      "limits": "No actual recording or alternative evaluated"
+    },
+    {
+      "id": "external-nhm-insect-sounds",
+      "url": "https://www.nhm.ac.uk/discover/insect-sounds.html",
+      "locator": "Search result titled The insect orchestra: From meadow melodies to riverside rhapsodies",
+      "inspection_method": [
+        "Search result snippet",
+        "Direct primary open attempted"
+      ],
+      "access": "Direct fetch TimeoutError; stopped, no alternate route",
+      "fit": "Potential subject-specific sound/editorial reference",
+      "mismatch": "Underlying page unavailable in this pass",
+      "selected_use": "Excluded from verified matches",
+      "outline_decisions": [],
+      "limits": "No page visual or full source inspection; no biology claim used"
+    },
+    {
+      "id": "visual-arena-text-led-community",
+      "card": "guide/library/entries/visual-arena-text-led-community.md",
+      "url": "https://www.are.na/",
+      "locator": "Public introduction: lettered definitions, explanatory paragraph and transition to How it works",
+      "inspection_method": [
+        "Full local card read",
+        "Primary web text",
+        "Native Chrome screenshot directly viewed, approximately 1552x1036"
+      ],
+      "access": "success",
+      "fit": "Language and whitespace establish identity before imagery",
+      "mismatch": "Software/community onboarding rather than a journal article",
+      "selected_use": "A reading-first revision after user feedback",
+      "outline_decisions": [
+        "Title and opening prose occupy first screen",
+        "Supporting image follows relevant passage",
+        "Archive uses title/date/excerpt rows without thumbnails"
+      ],
+      "limits": "No account, article-reading, accessibility or responsive behavior tested"
+    }
+  ],
+  "checks": {
+    "required_deliverables": [
+      "result.md",
+      "work-log.md",
+      "receipts.json"
+    ],
+    "no_app_build": true,
+    "no_assets_generated_or_copied": true,
+    "no_final_direction_selected": true,
+    "guide_read_only": true,
+    "scaffold_fictional": true
+  },
+  "feedback": {
+    "user": "Can one direction be less image-led, for people who are here to read? Keep the photo-led option too.",
+    "applied": "A revised to reading-first article and text archive; B retained photo-led observation plate and specimen archive; C preserved; no final selection."
+  }
+}

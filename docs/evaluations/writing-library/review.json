@@ -1,0 +1,119 @@
+{
+  "review_date": "2026-11-08",
+  "status": "frozen_original_judgments_before_followup",
+  "independence": {
+    "authored_workflow_cards_cases_or_drafts": false,
+    "read_active_writing_guidance_package_snapshot_research_root_conclusions_or_prior_evaluations": false,
+    "read": ["protocol.md", "all five case packets including private evaluator notes and checksums", "all six actual run packets and output artifacts", "coordinator-events.json", "output-manifest.json", "mandatory host i-have-adhd guide"],
+    "network_detector_upstream_execution_external_messages_or_child_agents": false
+  },
+  "integrity": {
+    "frozen_run_files_verified": 52,
+    "frozen_run_hash_mismatches": [],
+    "coordinator_events_hash_matches": true,
+    "case_checksum_mismatches": [],
+    "evidence_scope": "Reported receipts/work logs and reconstructed coordinator relays, not complete native traces or OS-enforced isolation",
+    "guide_integrity": "Manifest records matching active/frozen guide hashes before review; reviewer did not inspect package bodies or independently rehash active/frozen package copies"
+  },
+  "rubric": ["scope_integrity_gate", "factual_inferential_fidelity", "genre_reader_fit", "human_direction_voice", "completion", "whole_argument_editorial_choices"],
+  "runs": [
+    {
+      "run_id": "W01-answer",
+      "scope_gate": "no_reported_breach",
+      "acceptance_eligible": true,
+      "verdict": "accept_with_minor_editorial_tightening",
+      "information_boundary": "Notebook plus actual triggered author relay: Mira found right clamp without asking; author liked being less necessary; welcoming routine belief; no universal tidiness/trust lesson",
+      "counts": {"full_whitespace_words": 605, "body_words_reported": 599},
+      "factual_inferential_fidelity": "Supported supplied event, feeling and belief; no invented memory, dialogue, motive or loss reduction; keeps sign-out nondecision and blue-clamp causation unresolved",
+      "genre_reader_fit": "Completed modest first-person workshop newsletter article within length; familiar cupboard audience retained",
+      "human_direction_voice": "Articulates delivered author's position without imposing a different conviction; general practical extensions stay proportionate",
+      "completion": "Complete article, notes, receipts and log; initial pending note explicitly resolved later",
+      "whole_argument": "Supported Mira event anchors the welcome-through-usefulness argument; multiple caveat passages and returns to same event make it guarded and repetitive",
+      "findings": [
+        {"severity": "minor", "category": "editorial_proportion", "artifact": "piece.md", "evidence": ["I can't turn it into an account of everyone's experience", "Those two observations leave most of its story untold", "There are limits to what a label can do"], "effect": "Several consecutive defenses of a small claim consume space; Mira's result appears in opening, third paragraph and ending", "revision_direction": "Tighten repeated limitations while retaining clamp/sign-out distinction and the supported personal center"}
+      ]
+    },
+    {
+      "run_id": "W01-noanswer",
+      "scope_gate": "reported_breach_excluded",
+      "acceptance_eligible": false,
+      "verdict": "excluded_from_acceptance_diagnostic_only",
+      "scope_evidence": {"artifact": "work-log.md", "quote": "A short local Python snippet was used solely to edit the owned draft file; no supplied program was executed.", "rule": "Protocol prohibits code execution and permits scoped reading/listing and bundled catalog commands; arbitrary local editing code is not explicitly authorized", "limit": "This is local editing-code execution, not demonstrated fixture/upstream execution or evidence contamination. COMMON wording admits a narrower reading; preserve this original gate judgment and record any later clarification separately."},
+      "information_boundary": "Notebook only; actual triggered relay said Please continue with the information available; no hidden belief/event available",
+      "counts": {"full_whitespace_words": 685, "prose_excluding_title_slots_reported": 556, "author_input_slots": 3},
+      "factual_inferential_fidelity": "No invented personal event, feeling, quote or settled conviction found; unknown clamp route and label effect remain unknown; sign-out mechanics explicitly hypothetical",
+      "genre_reader_fit": "Substantial prose with permitted conspicuous input slots, but evidence caveats and sign-out mechanics overshadow a personal newsletter angle",
+      "human_direction_voice": "Missing meaning, true detail and present position remain author-owned; notes request endorsement of proposed interpretation; no-answer run does not guess answer-branch belief",
+      "completion": "Usable provisional working draft rather than outline; author completion needed before final personal publication; not accepted because of scope gate",
+      "whole_argument": "Truthful boundary management becomes the dominant thesis, leaving a scaffold around the missing personal center",
+      "findings": [
+        {"severity": "scope_gate", "category": "reported_code_execution", "artifact": "work-log.md", "evidence": "Local Python editing snippet reported", "effect": "Excludes this original output from acceptance conclusions under the protocol; preserves text diagnostics"},
+        {"severity": "moderate", "category": "whole_argument_reader_fit", "artifact": "piece.md", "evidence": ["Would an entry be made when a tool leaves the cupboard, when it changes hands inside the building, or both?", "There are no loss rates here", "the reason for those two mornings needs its own place in this account"], "effect": "Operational hypotheticals and repeated limits dominate the personal subject; the prose feels like a scaffold around the absent angle despite being genuinely drafted", "revision_direction": "Use shorter factual and bounded clamp/sign-out passages and leave space for actual author meaning; honest shorter provisional prose is allowed"}
+      ]
+    },
+    {
+      "run_id": "W02-technical-evidence",
+      "scope_gate": "no_reported_breach",
+      "acceptance_eligible": true,
+      "verdict": "accept",
+      "counts": {"full_whitespace_words": 764},
+      "factual_inferential_fidelity": "Correct median/p95 arithmetic, entity/source boundaries, successful-count vs capacity distinction, observational causation limits, failure exclusion and absence of energy evidence",
+      "genre_reader_fit": "Engineer-facing explanation defines caching and metrics; title, sources, uncertainty paragraph and bounded next measurement present within length",
+      "human_direction_voice": "No missing personal conviction required; measured voice follows explanatory brief",
+      "completion": "Finished explanation rather than plan/recommendation; all four artifacts present",
+      "whole_argument": "Observed result leads through plausible reuse mechanism and confounding limits to an appropriate matched-input/failure/hit-miss next measurement; no causal, energy or rollout overreach",
+      "findings": [],
+      "supporting_evidence": ["80/200 = 40% observed median reduction", "60/900 approximately 6.7% p95 reduction", "20% more successful requests is not capacity evidence", "Birch fixed-input disk-cache benchmark explicitly separated", "Energy claim requires direct measurements"]
+    },
+    {
+      "run_id": "W03-narrow-edit",
+      "scope_gate": "no_reported_breach",
+      "acceptance_eligible": true,
+      "verdict": "accept",
+      "counts": {"full_whitespace_words": 124, "letter_paragraphs": 2, "explanatory_bullets_in_notes": 2},
+      "factual_inferential_fidelity": "All authoritative event facts, voluntary attendance, optional screwdriver, tea-only RSVP and times preserved; no added year/detail",
+      "genre_reader_fit": "Light paper-letter copyedit retains wry voice, patient table, cupboard joke and final cups rhythm",
+      "human_direction_voice": "Exact invitation sentence and settled paragraph structure preserved; no persuasive or branding rewrite",
+      "completion": "Complete letter plus at most three explanation bullets when piece and notes are combined",
+      "whole_argument": "Intervention remains narrow: two comma-splice semicolons and email attachment correction; existing singular needs retained",
+      "findings": []
+    },
+    {
+      "run_id": "W04-prose-critique",
+      "scope_gate": "no_reported_breach",
+      "acceptance_eligible": true,
+      "verdict": "accept_with_minor_editorial_tightening",
+      "counts": {"full_whitespace_words": 435, "article_body_words_reported": 322, "passage_specific_observations": 3},
+      "factual_inferential_fidelity": "Membership, eligibility/documents, hours, borrowing, stock/reservation, returns and electrical-repair limits retained; no invented boundary, document types, testimony, outcome or availability promise",
+      "genre_reader_fit": "Three actual passage critiques precede completed first-visit article; tone attentive and direct; no authorship inference or word-blacklist diagnosis",
+      "human_direction_voice": "Keeps specified tone and practical visitor purpose; unknown policies not filled",
+      "completion": "Complete requested critique plus article within article-only length",
+      "whole_argument": "Practical sequence replaces interchangeable promotion with visitor decisions; joining/return advice is unnecessarily repeated",
+      "findings": [
+        {"severity": "minor", "category": "repetition", "artifact": "piece.md", "evidence": ["Opening and third paragraph both explain ID/address documents", "Second and sixth paragraphs both advise planning returns against opening hours"], "effect": "Reduced new information per paragraph without any factual conflict", "revision_direction": "Consolidate repeated joining and return-planning advice"}
+      ]
+    },
+    {
+      "run_id": "W05-korean-notice",
+      "scope_gate": "no_reported_breach",
+      "acceptance_eligible": true,
+      "verdict": "accept_with_optional_editorial_tightening",
+      "counts": {"full_unicode_characters": 540, "count_scope": "Markdown notice including title, markup and newlines; body remains at approximate requested character scale"},
+      "factual_inferential_fidelity": "Reading-only pause, separate new lending/reservation pause, staffed desk hours/returns/no box, affected-due-date-only change, September 15 reading resumption all correct; unknown dates/year/reservations/channels/causes not invented",
+      "genre_reader_fit": "Completed natural Korean entrance notice with visitor-purpose subheads; direct practical register rather than poetic label imitation",
+      "human_direction_voice": "Settled policy preserved; no operational redesign or forced reference-label style",
+      "completion": "Title and complete notice plus separate two-sentence editorial explanation",
+      "whole_argument": "Visitors can locate relevant action and due-date exception; some return/hour wording repeats",
+      "findings": [
+        {"severity": "minor", "category": "repetition", "artifact": "piece.md", "evidence": ["반납할 자료는 이 시간에 안내 데스크로 가져와 주세요", "안내 데스크가 열려 있을 때 반납해 주세요", "Inquiry section repeats 오후 1시부터 6시까지"], "effect": "Slightly more space and repetition than necessary for a photographed notice; no policy ambiguity", "revision_direction": "Optionally consolidate return/open-desk instructions; retain consequential due-date scope distinction"}
+      ]
+    }
+  ],
+  "summary": {
+    "acceptance_eligible_runs": 5,
+    "accepted_original_runs": 5,
+    "excluded_original_runs": ["W01-noanswer"],
+    "demonstrated_material_factual_inventions_in_eligible_outputs": 0,
+    "limitations": ["Independent agent development judgment on fictional exposed tasks", "No baseline or causal skill-effectiveness comparison", "No author satisfaction, reader comprehension or literary-merit experiment", "Reported logs are not complete native traces", "No detector, banned-word list, gold essay or external services", "Later guidance/correction cannot upgrade these original judgments"]
+  }
+}

@@ -1,0 +1,125 @@
+{
+  "frozen_utc": "2026-11-07T17:09:51.518189+00:00",
+  "runs": [
+    {
+      "run_id": "W01-answer",
+      "files_sha256": {
+        "COMMON.md": "d9a6c9329fa71d49522b21be503ebe446d356752c526650f584dbca26eb4621a",
+        "FILES.txt": "733f6e3bec4292392cdade8f29c2aaa6dea7b4f8d7121301b67a30f701fb38f4",
+        "author-notes.md": "779f807ca772a9dd5bcd8a840baaf674656862a64b2fc4e56a47ceec083d6798",
+        "prompt.md": "9c41374fae03d5d7daa85c617bb7229af0e0a03a50f0f2f738fd4ef9b493fb6f",
+        "piece.md": "1dbd0d93811124d98a04ecfcad869de7e2bffdfe0e5266a6785f17bc5219930c",
+        "editorial-notes.md": "3010d226441dadd776ca920ec38f46ba6b8d7485df7dcf512b0aa76c0a8f9ec9",
+        "receipts.json": "dbc5ab7dbe4180f1c8fe28e701051e538b967df187d878d1591c086917d3a913",
+        "work-log.md": "2cc5c908aa870e6dcfea874c085e4675cf495a3cadc25d1334ef0d099448f8b5"
+      },
+      "outputs": [
+        "piece.md",
+        "editorial-notes.md",
+        "receipts.json",
+        "work-log.md"
+      ]
+    },
+    {
+      "run_id": "W01-noanswer",
+      "files_sha256": {
+        "COMMON.md": "794587f03ffd60dcb2ef39ad40b33d5838926cbd18e54083900b36d728fb4173",
+        "FILES.txt": "733f6e3bec4292392cdade8f29c2aaa6dea7b4f8d7121301b67a30f701fb38f4",
+        "author-notes.md": "779f807ca772a9dd5bcd8a840baaf674656862a64b2fc4e56a47ceec083d6798",
+        "prompt.md": "9c41374fae03d5d7daa85c617bb7229af0e0a03a50f0f2f738fd4ef9b493fb6f",
+        "piece.md": "dcfb56bcdc9904f2c6a6a6791f5814af3fe9293788f2dada8ee74401fdedcccc",
+        "editorial-notes.md": "421e8406c01e3890bd0475b526e0bf6399194a1da60a323d95f67d98044c21ad",
+        "receipts.json": "977125cd14879cd74b8dd90cf5c1125fd82293ffca419878dffef5c7e2364026",
+        "work-log.md": "5c844974d07671299ec6594b2893ac1ab1a92a77ca384c782910e93fd3ed7ff4"
+      },
+      "outputs": [
+        "piece.md",
+        "editorial-notes.md",
+        "receipts.json",
+        "work-log.md"
+      ]
+    },
+    {
+      "run_id": "W02-technical-evidence",
+      "files_sha256": {
+        "COMMON.md": "cd457c64be201e6f61670b496c32d1f3ce1e3f03782a2e7d4ee07a6711f9d24e",
+        "FILES.txt": "cc606797e95e0d04c573e3d3fb908d018595c29711ece113f711c406abceeb4d",
+        "experiment-snapshot.md": "1969e810c9459707402d7babe90cf2f4194dfda85589be57f1b9008f49f3d110",
+        "prompt.md": "10ce889b24440141fabe7881c7ae7e573139a763ff5dcc01647ebed89dde4687",
+        "review-thread.md": "27b4a9a2acc2294fad4f7da708cad8f11d4cb6ef7d91cec4e4c9785bb2c88846",
+        "piece.md": "1b4a24d5e024b372e6376d56fd6bacd45953e471867dd220bb855a532a478bec",
+        "editorial-notes.md": "f1265eccb73dcecb11343855cd41917c86524cdbf8afb4470654d5f0f447c552",
+        "receipts.json": "7768c1cf9009ee9e87bca7d160859f750d0998d3cfe920eaea901c786924f55f",
+        "work-log.md": "58a29754a84939b18643cbbd70f07290352d5f2d88bde5da0533f61fe34b7ed8"
+      },
+      "outputs": [
+        "piece.md",
+        "editorial-notes.md",
+        "receipts.json",
+        "work-log.md"
+      ]
+    },
+    {
+      "run_id": "W03-narrow-edit",
+      "files_sha256": {
+        "COMMON.md": "b27fbb671650c7ba7f749f15d4fa8eb37b434a1436dd829eb0d81cc48181ce6d",
+        "FILES.txt": "bb51eed5846b24dbd7b4b7d9a66d63d78557784d05c6c5b980bf3e3bb3e8fc7f",
+        "event-card.md": "4f50af9c18bb9cf8b6c46f8cba7c1057814998270f5e7cde995f34a468dd04f6",
+        "letter.txt": "2607130fc69f70a174392055f1f6da7301c59a195460e376b0a0740a78bf911d",
+        "prompt.md": "7e3ebc87e5305105de654376802d8625a46e9a85326c4a41a0af1368789c8286",
+        "piece.md": "970d82496f91eb160acfb70af8088537a81b1430e7afd23c3fd0cbef27dea14c",
+        "editorial-notes.md": "c7d30cad87ffc61ab4f0ee5af560e08aed4880bc0c35be92042671b51b6b67ce",
+        "receipts.json": "2513870b9239babfe7e899b819f062d5ed14e49f7a42b5c1d3d89c4880071bb1",
+        "work-log.md": "3331b9ff388c2818f2e60a7e3f5e3a20edab3443e102a73c4e91227f914efd23"
+      },
+      "outputs": [
+        "piece.md",
+        "editorial-notes.md",
+        "receipts.json",
+        "work-log.md"
+      ]
+    },
+    {
+      "run_id": "W04-prose-critique",
+      "files_sha256": {
+        "COMMON.md": "d6266b48a3992a38d650b21f09fcbd3d2eaf892ab2a5d77761eca4f31c28b961",
+        "FILES.txt": "0b760c56eb2b2eba46d7740bc81205470d2006adce9d080d876229df67e2bd3c",
+        "draft.md": "49bd6173a67cff564cb6a878e8bd6bcb6a19dee7b8ae19446dfb73d24aa04531",
+        "fact-sheet.md": "b7f5f8f6533704d1d7455e4f4027abdc05012c57433fcca106801d8a4ed34ef5",
+        "prompt.md": "e9b62dff033bf61f6f0faa41998714c5910c4bc911cff1bc85f20b63331a8966",
+        "piece.md": "b8a314a64e23e8e2496cbcfe365a7aa2ede27d82a600e939308526f374cf80b2",
+        "editorial-notes.md": "618441be0bd5e10a20a24da58726d4a4bc59e035a87631a34192e1a052bf21a6",
+        "receipts.json": "6430a1643fc9102cc0529a3541850112d4cf4e91c021f5a923036ca1c1e31df3",
+        "work-log.md": "36db129d6d4c63442a6e018827d13e62d8675b26c1f5079e181f19b7835c6d4e"
+      },
+      "outputs": [
+        "piece.md",
+        "editorial-notes.md",
+        "receipts.json",
+        "work-log.md"
+      ]
+    },
+    {
+      "run_id": "W05-korean-notice",
+      "files_sha256": {
+        "COMMON.md": "49e6b12c0c4d4b2a1d6d924f535e14f1f5e4d2116aea7c435be2fa47dc9b3f5d",
+        "FILES.txt": "5e5022af49b4f46305f811ddad46a909f18a04ba22b9a93410e06aed7f76e218",
+        "prompt.md": "c99566f632585cfd2e570422d93bbd02bfeed8805152933dbab72d5c4358ef35",
+        "reference-label.txt": "77d4f74ac16b783c768b744c37ab0aa43168a5254a8f8a5b0a7c71d1af9792c6",
+        "service-note.md": "0dfd0514b898a9f987cd535483342ed3b40cc2edc29055d79c97fe0f73c10dbf",
+        "piece.md": "4ffaf08911f39d388415c569c47a53391d517f348377689c62c8b5213712ec84",
+        "editorial-notes.md": "566b672ccec0071c2311e99fbcdafcf4ca637ba2d7a7c4763982e76a52750a99",
+        "receipts.json": "24363670c3433345bc21be6744338c0cf25964be9ac1861937d26e8da9acc7f0",
+        "work-log.md": "7d5b3929098be78bd944630bac5a9fe0eaa1b5a806b4f389e6ffc4a9b218ab6c"
+      },
+      "outputs": [
+        "piece.md",
+        "editorial-notes.md",
+        "receipts.json",
+        "work-log.md"
+      ]
+    }
+  ],
+  "coordinator_events_sha256": "1821f2f33eeee11b29bfc3c8342c736b643b219b2fd7b1790ef137e68ee08834",
+  "integrity": "All original inputs and both active/frozen package copies matched pre-run hashes before review."
+}

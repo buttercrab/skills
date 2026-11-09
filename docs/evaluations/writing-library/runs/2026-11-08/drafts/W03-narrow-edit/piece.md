@@ -1,0 +1,3 @@
+We have six wobbly stools, one patient table and, apparently, a cupboard that has decided it is a drawer. The repair session is on Saturday 18 July, from 10 to 12 at the Old Ferry Room. Neither the hinges nor the latch needs replacing; they just need adjusting. Bring a screwdriver if you have one. If you can spare an hour, we'd be glad of it.
+
+Tea is at 12:30, after the repair session, with the biscuits we forgot last time. You are welcome to come only for tea; nobody is keeping score. Please tell Neri by email by Wednesday 15 July if you are coming for tea so we can put out enough cups. We can't promise matching cups. We can promise cups.

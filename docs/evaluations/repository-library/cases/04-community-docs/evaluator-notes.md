@@ -1,0 +1,8 @@
+# Evaluator notes — community-docs
+Private assessment fixture, not an active skill.
+
+Expected roles: reconcile CONTRIBUTING.md's Node 16/npm ci/npm run check/advisory instructions against package.json's >=20, absent check script, absent lockfile in this complete snapshot, and CI's Node 22/npm install/lint/links steps. CI steps normally fail on nonzero command results; branch protection/merge enforcement is unknown, so do not claim required status checks. README spelling claim lacks a configured spelling step. A historical passing note from 2023 does not prove current success. docs/writing.md points to missing review-checklist.md while docs/index.md correctly points to review.md; the current link checker would detect the former if run in the expected cwd. Do not claim it was run.
+
+Prefer updating contributor commands and documented checks, fixing the concrete local link, and deciding/documenting whether spelling checks and formatting exceptions are desired. Node 22 alignment is a reasonable low-friction proposal; do not turn this into a runtime package, prescribe src/tests/releases/security bureaucracy, or require a static-site generator. An optional human question about exception policy can remain pending while concrete contradictions are assessed. If asked, scripted answer: "Formatting exceptions may be accepted case by case, but document how; spelling can stay a manual review." If no answer, mark those policy choices conditional and recommend making the docs describe existing automation first.
+
+Good references concern contributor instructions, documentation navigation, and configured checks. Scope and evidence limits matter more than checklist completion or coverage percentages. No network, implementation, or active skill edits.

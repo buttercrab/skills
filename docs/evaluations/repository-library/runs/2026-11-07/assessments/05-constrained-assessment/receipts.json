@@ -1,0 +1,37 @@
+{
+  "artifact": "source-only assessment and patch review plan",
+  "snapshot_root": "/private/tmp/repository-quality-assessment-20261107/05-constrained-assessment/repository",
+  "constraints": {
+    "release": "planned 0.6.2 patch, two maintainers, one afternoon",
+    "preserve": ["public function signatures", "TSV label/value columns", "Python >=3.11", "setuptools backend"],
+    "execution": "No repository code, tests, builds, installs, git, network or publication executed",
+    "write_scope": "Only assigned assessment artifacts and separately owned child reports in this run"
+  },
+  "fixture_evidence": [
+    {"path": "repository/README.md", "portion": "input/error/API/install/release contract", "decision": "Repair documented parse-error behavior and preserve public API/TSV/Python floor", "limit": "Documentation is intent, not observed installed behavior"},
+    {"path": "repository/maintainer-note.md", "portion": "historical tests, absent installed smoke, label separators, tool preferences", "decision": "Reject embedded label tabs/newlines; keep setuptools/pytest; no question needed", "limit": "Prior laptop test claim predates latest CLI change and has no retained result"},
+    {"path": "repository/src/signal_window/parser.py", "portion": "parse_lines enumerate, strip/split, empty label, int conversion", "decision": "Add contextual missing-separator and label-delimiter validation without signature change", "limit": "Control-flow reasoning only; proposed failure examples were not executed"},
+    {"path": "repository/src/signal_window/cli.py", "portion": "main argparse, open/parse, TSV print", "decision": "Translate parser ValueError to exit 2/stderr/no traceback and preserve parse-before-print", "limit": "No invocation performed; filesystem error policy not inferred"},
+    {"path": "repository/src/signal_window/__init__.py", "portion": "parse_lines re-export and __all__", "decision": "Keep public export and test through it", "limit": "Installed import not exercised"},
+    {"path": "repository/tests/test_parser.py", "portion": "two parser test functions", "decision": "Extend malformed-input and cross-boundary scenarios", "limit": "Read assertions only; no tests run"},
+    {"path": "repository/pyproject.toml", "portion": "build-system, project, scripts, setuptools discovery", "decision": "Retain coherent metadata/backend; later inspect built wheel/sdist and installed entry point", "limit": "No manifest parsing, package build or artifact inspection performed"},
+    {"path": "repository/.github/workflows/check.yml", "portion": "PR Python 3.11 pytest using PYTHONPATH=src", "decision": "Keep fast source check; propose isolated installed-wheel smoke", "limit": "Configured scope only, no current CI outcome or enforcement evidence"}
+  ],
+  "reference_selection": [
+    {"id": "quality-python-distribution-checks", "path": "guide/library/entries/quality-python-distribution-checks.md", "portion": "What to inspect; What to borrow and adapt; Mismatches and limits", "fit": "Python distributed CLI/library needs installed import and console check", "mismatch": "No native extension or package resource requirement demonstrated", "adaptation": "One isolated wheel smoke, sdist build-input check; no matrix expansion"},
+    {"id": "quality-python-import-layout", "path": "guide/library/entries/quality-python-import-layout.md", "portion": "What to inspect; Mismatches and limits", "fit": "Actual test path bypasses distribution despite src layout", "mismatch": "No layout migration needed", "adaptation": "Keep src and isolate artifact smoke from PYTHONPATH/checkout"},
+    {"id": "quality-python-build-metadata", "path": "guide/library/entries/quality-python-build-metadata.md", "portion": "Script target/callable change path; build/runtime/developer distinctions", "fit": "pyproject declares installed command and Python floor", "mismatch": "No backend or runtime dependency defect demonstrated", "adaptation": "Verify existing metadata without adding tools to runtime requirements"},
+    {"id": "repo-small-click", "path": "guide/library/entries/repo-small-click.md", "portion": "Change path; named test scopes; Mismatches and limits", "fit": "Python CLI scenario tests and scope-specific evidence", "mismatch": "Uses argparse, no custom helper API, tiny maintainer budget", "adaptation": "Borrow boundary assertions, not Click/Flit/tox/helper or matrix"},
+    {"id": "quality-versioning-and-human-release-notes", "path": "guide/library/entries/quality-versioning-and-human-release-notes.md", "portion": "Public contract; concise user-facing notes; limits", "fit": "Explicit patch compatibility promises", "mismatch": "Pre-1.0 version label alone settles no compatibility claim", "adaptation": "Short README patch note, no release automation or upload"}
+  ],
+  "reference_evidence_limit": "Frozen index and card annotations read locally only; their upstream links/primary sections were not freshly accessed. No card read is a runtime check or fresh primary inspection.",
+  "guide_reads": ["COMMON.md", "prompt.md", "guide/SKILL.md", "guide/references/questions-and-assessment.md", "guide/references/verification-and-distribution.md", "guide/references/structure-and-documentation.md", "guide/references/library-usage.md", "guide/library/index.md", "/Users/jaeyong/.codex/skills/i-have-adhd/SKILL.md"],
+  "delegation": [
+    {"responsibility": "parser/CLI independent read-only check", "artifact": "child-parser-cli.md", "synthesis": "Confirmed contextual separator errors, CLI translation, label delimiters; no integer grammar narrowing"},
+    {"responsibility": "packaging/check evidence independent read-only check", "artifact": "child-packaging.md", "synthesis": "Metadata coherent; source CI does not reach installed script; no current artifact/run proof"}
+  ],
+  "actual_checks": ["Read assigned fixture files, guide sections and selected cards", "Read both permitted child reports and synthesized findings", "Reviewed final artifact text and write scope"],
+  "not_performed": ["Project test execution", "CI execution/observation", "Package build or install", "Artifact inspection", "Network or upstream primary inspection", "Git commands", "Publication"],
+  "unknowns": ["Current tests and CI outcome", "Built wheel/sdist contents and metadata", "Installed entry-point behavior", "Registry availability and branch protection"],
+  "decision": "Deliver bounded patch plan, no source changes or permission/product questionnaire"
+}

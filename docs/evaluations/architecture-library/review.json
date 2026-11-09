@@ -1,0 +1,410 @@
+{
+  "review_date": "2026-11-07",
+  "judgment_status": "frozen_original_judgments",
+  "reviewer_independence": "Did not author workflow, cards, fixtures or runner outputs.",
+  "scope": "Five frozen source-only deliveries; no causal baseline or aggregate efficacy/reliability estimate.",
+  "reported_action_evidence_limit": "Runner logs/receipts and coordinator relays, not complete native traces.",
+  "input_integrity_check": "Recomputed every case SHA256SUMS entry and compared all case prompts/snapshots to archived runner inputs; all matched.",
+  "syntax_evidence": {
+    "source": "runs/2026-11-07/diagram-syntax-original.json",
+    "parser": "Mermaid 12.3.0",
+    "dom": "JSDOM 31.0.0",
+    "reviewer_repeated_parser": false,
+    "limits": [
+      "Syntax only",
+      "Not rendering",
+      "Not semantic acceptance",
+      "Not runtime acceptance"
+    ]
+  },
+  "reference_fit": {
+    "status": "Claimed conceptual transfers consistent with inspected frozen card portions.",
+    "checked_entries": [
+      "system-sqlite-commit-boundaries",
+      "pattern-coarse-boundaries-before-distribution",
+      "pattern-cqrs-model-separation",
+      "diagram-mermaid-sequence-outcomes",
+      "pattern-transactional-outbox",
+      "pattern-retry-budget-and-breaker",
+      "system-temporal-replay-activities",
+      "foundation-end-to-end-guarantees",
+      "pattern-strangler-transitional-architecture",
+      "pattern-cache-aside-authority",
+      "foundation-slo-measurement",
+      "pattern-request-reply-versus-messaging"
+    ],
+    "underlying_primary_card_claims_verified": false,
+    "active_skill_or_reference_guides_read": false
+  },
+  "corrections_used_for_original_judgments": false,
+  "post_freeze_correction_review": "Not inspected; cannot upgrade original judgments.",
+  "cases": [
+    {
+      "source_facts": [
+        "Single nonconcurrent desktop, offline use, simple queries, maintenance and recovery constraints support a local topology.",
+        "Validation/approval source is partial; transaction-shaped code does not demonstrate crash durability.",
+        "Backup policy and one dated drill do not prove current recovery coverage."
+      ],
+      "ownership_invariants_failure_recovery": [
+        "SQLite active authority; previews and backups have distinct roles.",
+        "Proposed approval binds exact validated rows; import identity resolves committed-but-unseen results.",
+        "Crash rollback is separated from hardware-loss restore; backup offline does not disable inventory use."
+      ],
+      "contextual_alternatives": "Distribution deferred against actual operational costs; local query/measurement improvements and explicit reopening triggers are proportionate.",
+      "human_policy": "Core policy already supplied; no question required.",
+      "diagram_semantics": "Context and runtime meanings agree with prose; validation, lost display, offline backup and storage-loss branches supplied.",
+      "minor_limits": [
+        "Decision brief is longer than the requested short proposal."
+      ],
+      "unknowns": [
+        "Full validation/UI/schema",
+        "SQLite configuration and storage durability",
+        "Measured ceiling workload",
+        "Current backup freshness and repeatable restoration"
+      ],
+      "evidence": [
+        "cases/01-desk-ledger/snapshot/requirements.md:2-11",
+        "cases/01-desk-ledger/snapshot/operations.toml:1-15",
+        "cases/01-desk-ledger/snapshot/ledger.py:5-19"
+      ],
+      "case": "01-desk-ledger",
+      "scope_gate": {
+        "status": "eligible_on_reported_evidence",
+        "reported_breach": false,
+        "independently_proven_action_compliance": false,
+        "case_checksums_match": true,
+        "archived_prompt_snapshot_equal_case": true
+      },
+      "original_judgment": "substantive_proposal_supported_diagram_delivery_incomplete",
+      "complete_original_delivery_accepted": false,
+      "claim_labeling": "Current/documented, proposed, inferred and unknown claims distinguished without material overclaim found.",
+      "syntax_results": [
+        {
+          "case": "01-desk-ledger",
+          "diagram": 1,
+          "result": "syntax-valid",
+          "diagramType": "flowchart-v2"
+        },
+        {
+          "case": "01-desk-ledger",
+          "diagram": 2,
+          "result": "parse-failed",
+          "message": "Parse error on line 9:\n...Errors; not accepted        Note over A\n-----------------------^\nExpecting '()', 'SOLID_OPEN_ARROW', 'DOTTED_OPEN_ARROW', 'SOLID_ARROW', 'SOLID_ARROW_TOP', 'SOLID_ARROW_BOTTOM', 'STICK_ARROW_TOP', 'STICK_ARROW_BOTTOM', 'SOLID_ARROW_TOP_DOTTED', 'SOLID_ARROW_BOTTOM_DOTTED', 'STICK_ARROW_TOP_DOTTED', 'STICK_ARROW_BOTTOM_DOTTED', 'SOLID_ARROW_TOP_REVERSE', 'SOLID_ARROW_BOTTOM_REVERSE', 'STICK_ARROW_TOP_REVERSE', 'STICK_ARROW_BOTTOM_REVERSE', 'SOLID_ARROW_TOP_REVERSE_DOTTED', 'SOLID_ARROW_BOTTOM_REVERSE_DOTTED', 'STICK_ARROW_TOP_REVERSE_DOTTED', 'STICK_ARROW_BOTTOM_REVERSE_DOTTED', 'BIDIRECTIONAL_SOLID_ARROW', 'DOTTED_ARROW', 'BIDIRECTIONAL_DOTTED_ARROW', 'SOLID_CROSS', 'DOTTED_CROSS', 'SOLID_POINT', 'DOTTED_POINT', got 'NEWLINE'"
+        },
+        {
+          "case": "01-desk-ledger",
+          "diagram": 3,
+          "result": "parse-failed",
+          "message": "Parse error on line 10:\n...; reopen and inspect        A-->>O: Sho\n-----------------------^\nExpecting '()', 'SOLID_OPEN_ARROW', 'DOTTED_OPEN_ARROW', 'SOLID_ARROW', 'SOLID_ARROW_TOP', 'SOLID_ARROW_BOTTOM', 'STICK_ARROW_TOP', 'STICK_ARROW_BOTTOM', 'SOLID_ARROW_TOP_DOTTED', 'SOLID_ARROW_BOTTOM_DOTTED', 'STICK_ARROW_TOP_DOTTED', 'STICK_ARROW_BOTTOM_DOTTED', 'SOLID_ARROW_TOP_REVERSE', 'SOLID_ARROW_BOTTOM_REVERSE', 'STICK_ARROW_TOP_REVERSE', 'STICK_ARROW_BOTTOM_REVERSE', 'SOLID_ARROW_TOP_REVERSE_DOTTED', 'SOLID_ARROW_BOTTOM_REVERSE_DOTTED', 'STICK_ARROW_TOP_REVERSE_DOTTED', 'STICK_ARROW_BOTTOM_REVERSE_DOTTED', 'BIDIRECTIONAL_SOLID_ARROW', 'DOTTED_ARROW', 'BIDIRECTIONAL_DOTTED_ARROW', 'SOLID_CROSS', 'DOTTED_CROSS', 'SOLID_POINT', 'DOTTED_POINT', got 'NEWLINE'"
+        }
+      ],
+      "material_misses": [
+        {
+          "type": "invalid_original_mermaid",
+          "diagrams": [
+            2,
+            3
+          ],
+          "consequence": "Incomplete original diagram delivery; valid views and sound prose do not repair broken original source."
+        }
+      ],
+      "original_output_sha256": {
+        "assessment.md": "ec2985f356024d94d27b2c7e1fc39da4dadfd4230b6b06abbb658acd30caac23",
+        "diagrams.md": "18963dc35501c55d235624d38a2d0e07284265d1c8a3845472f7f8af584b0fe2",
+        "receipts.json": "b4423aca69339788f7ce97934462288f66e153d006c8e8a9907b83b0999b694b",
+        "work-log.md": "c4bc13aa44179b02cd5d4414a85bc8c04caffa7e72f8810068101674782c6d65"
+      }
+    },
+    {
+      "source_facts": [
+        "Finds acceptance/publish, provider/local-write, concurrent delivery and duplicate creation gaps.",
+        "Applies seven-day retention, 90-second lookup visibility and ten-day delay rather than assuming indefinite reconciliation."
+      ],
+      "ownership_invariants_failure_recovery": [
+        "Database owns intent/attempt/recovery; provider owns external effect; queue carries wakeups.",
+        "Stable key and immutable payload with durable claims do not promise global exactly-once.",
+        "Ack requires terminal evidence or durable recoverable handoff; failed commit does not ack.",
+        "Cutover classifies uncertain unkeyed legacy work; rollback cannot reinstate unsafe workers."
+      ],
+      "contextual_alternatives": "Existing DB/queue outbox selected; DB-only polling is viable; workflow platform compared without requiring adoption.",
+      "human_policy": "Consequential expiry question and safe hold fallback; coordinator finance relay accurately applied.",
+      "diagram_semantics": "State/sequence share lifecycle and identity; valid state view is useful but delivered acceptance/dispatch/ack sequence is broken.",
+      "minor_limits": [],
+      "unknowns": [
+        "Provider concurrent-key and expiry semantics",
+        "Definitive rejection evidence",
+        "Queue durable publish confirmation",
+        "Actual transaction/claim enforcement and capacity"
+      ],
+      "evidence": [
+        "cases/02-refund-queue/snapshot/worker.py:3-16",
+        "cases/02-refund-queue/snapshot/contracts.md:2-6",
+        "cases/02-refund-queue/snapshot/policy.md:2-8",
+        "runs/2026-11-07/coordinator-events.json"
+      ],
+      "case": "02-refund-queue",
+      "scope_gate": {
+        "status": "eligible_on_reported_evidence",
+        "reported_breach": false,
+        "independently_proven_action_compliance": false,
+        "case_checksums_match": true,
+        "archived_prompt_snapshot_equal_case": true
+      },
+      "original_judgment": "substantive_proposal_supported_diagram_delivery_incomplete",
+      "complete_original_delivery_accepted": false,
+      "claim_labeling": "Current/documented, proposed, inferred and unknown claims distinguished without material overclaim found.",
+      "syntax_results": [
+        {
+          "case": "02-refund-queue",
+          "diagram": 1,
+          "result": "parse-failed",
+          "message": "Parse error on line 12:\n...ed; stable refund ID    A-->>C: Accepte\n-----------------------^\nExpecting '()', 'SOLID_OPEN_ARROW', 'DOTTED_OPEN_ARROW', 'SOLID_ARROW', 'SOLID_ARROW_TOP', 'SOLID_ARROW_BOTTOM', 'STICK_ARROW_TOP', 'STICK_ARROW_BOTTOM', 'SOLID_ARROW_TOP_DOTTED', 'SOLID_ARROW_BOTTOM_DOTTED', 'STICK_ARROW_TOP_DOTTED', 'STICK_ARROW_BOTTOM_DOTTED', 'SOLID_ARROW_TOP_REVERSE', 'SOLID_ARROW_BOTTOM_REVERSE', 'STICK_ARROW_TOP_REVERSE', 'STICK_ARROW_BOTTOM_REVERSE', 'SOLID_ARROW_TOP_REVERSE_DOTTED', 'SOLID_ARROW_BOTTOM_REVERSE_DOTTED', 'STICK_ARROW_TOP_REVERSE_DOTTED', 'STICK_ARROW_BOTTOM_REVERSE_DOTTED', 'BIDIRECTIONAL_SOLID_ARROW', 'DOTTED_ARROW', 'BIDIRECTIONAL_DOTTED_ARROW', 'SOLID_CROSS', 'DOTTED_CROSS', 'SOLID_POINT', 'DOTTED_POINT', got 'NEWLINE'"
+        },
+        {
+          "case": "02-refund-queue",
+          "diagram": 2,
+          "result": "syntax-valid",
+          "diagramType": "stateDiagram"
+        }
+      ],
+      "material_misses": [
+        {
+          "type": "invalid_original_mermaid",
+          "diagrams": [
+            1
+          ],
+          "consequence": "Incomplete original diagram delivery; valid views and sound prose do not repair broken original source."
+        }
+      ],
+      "original_output_sha256": {
+        "assessment.md": "fa54b1c57e346b71eca72bc608498b016b9a1e0584c6435b958a1136eb7dc59d",
+        "diagrams.md": "c914b6e991b8adabe7e9926778d817660d9ac38585f714976ecf22c11b4b89b9",
+        "receipts.json": "d95370e8df8563b3f6b86f3b6a39954d110eff58cee178f223ce771aa731eaad",
+        "work-log.md": "2709de08899afe87abae41cacfc62d37dfc941b1faebf960d85b8bf20d305918"
+      }
+    },
+    {
+      "source_facts": [
+        "Object bytes versus DB metadata/text, task queue, captured Region A workloads and polling replace contradicted README claims.",
+        "Captured inventory and rollout narrative establish scoped historical placement, not live/global absence."
+      ],
+      "ownership_invariants_failure_recovery": [
+        "Shared release with distinct worker entrypoint/scaling is not proof of independent service ownership.",
+        "Sequential upload writes can leave partial state; errors retry then dead-letter without demonstrated failed-status update.",
+        "Queue failure and database status remain distinct, including ready-before-uncertain-ack."
+      ],
+      "contextual_alternatives": "Documentation-only task correctly receives reconciliation rather than invented redesign.",
+      "human_policy": "No missing human policy needed.",
+      "diagram_semantics": "Captured deployment agrees with evidence. Poll overlap and broad exception scope are explicitly qualified in annotations; future visual revision should expose them directly.",
+      "minor_limits": [
+        "Polling shown after processing and errors drawn after parse need the supplied annotations to avoid overly literal ordering.",
+        "Unknown parser placement is explicitly explained despite node outside regional grouping."
+      ],
+      "unknowns": [
+        "Live and cross-account topology",
+        "Parser dependency placement",
+        "Routing/authentication and DR",
+        "Durability and idempotency"
+      ],
+      "evidence": [
+        "cases/03-map-the-running-system/snapshot/intake.ts:2-15",
+        "cases/03-map-the-running-system/snapshot/deployment.yaml:1-22",
+        "cases/03-map-the-running-system/snapshot/client-and-operations.md:2-6",
+        "cases/03-map-the-running-system/snapshot/README.md:2-4"
+      ],
+      "case": "03-map-the-running-system",
+      "scope_gate": {
+        "status": "eligible_on_reported_evidence",
+        "reported_breach": false,
+        "independently_proven_action_compliance": false,
+        "case_checksums_match": true,
+        "archived_prompt_snapshot_equal_case": true
+      },
+      "original_judgment": "substantive_proposal_supported_diagram_delivery_incomplete",
+      "complete_original_delivery_accepted": false,
+      "claim_labeling": "Current/documented, proposed, inferred and unknown claims distinguished without material overclaim found.",
+      "syntax_results": [
+        {
+          "case": "03-map-the-running-system",
+          "diagram": 1,
+          "result": "parse-failed",
+          "message": "Parse error on line 18:\n...; parsing incomplete    Note over I,Q: \n-----------------------^\nExpecting '()', 'SOLID_OPEN_ARROW', 'DOTTED_OPEN_ARROW', 'SOLID_ARROW', 'SOLID_ARROW_TOP', 'SOLID_ARROW_BOTTOM', 'STICK_ARROW_TOP', 'STICK_ARROW_BOTTOM', 'SOLID_ARROW_TOP_DOTTED', 'SOLID_ARROW_BOTTOM_DOTTED', 'STICK_ARROW_TOP_DOTTED', 'STICK_ARROW_BOTTOM_DOTTED', 'SOLID_ARROW_TOP_REVERSE', 'SOLID_ARROW_BOTTOM_REVERSE', 'STICK_ARROW_TOP_REVERSE', 'STICK_ARROW_BOTTOM_REVERSE', 'SOLID_ARROW_TOP_REVERSE_DOTTED', 'SOLID_ARROW_BOTTOM_REVERSE_DOTTED', 'STICK_ARROW_TOP_REVERSE_DOTTED', 'STICK_ARROW_BOTTOM_REVERSE_DOTTED', 'BIDIRECTIONAL_SOLID_ARROW', 'DOTTED_ARROW', 'BIDIRECTIONAL_DOTTED_ARROW', 'SOLID_CROSS', 'DOTTED_CROSS', 'SOLID_POINT', 'DOTTED_POINT', got 'NEWLINE'"
+        },
+        {
+          "case": "03-map-the-running-system",
+          "diagram": 2,
+          "result": "syntax-valid",
+          "diagramType": "flowchart-v2"
+        }
+      ],
+      "material_misses": [
+        {
+          "type": "invalid_original_mermaid",
+          "diagrams": [
+            1
+          ],
+          "consequence": "Incomplete original diagram delivery; valid views and sound prose do not repair broken original source."
+        }
+      ],
+      "original_output_sha256": {
+        "assessment.md": "813e44fe37bd1804fd7febfbb927b332db03f19750ba51cfd96751769c97e3d9",
+        "diagrams.md": "d54d2055e56de73f862963dae5bde7926488e5a5105df5ab05b87dc5d63e349c",
+        "receipts.json": "2862c23f394ba7e1b41dffbd59336aa01174ccbcbafd7e8b3300ddd8486cc8eb",
+        "work-log.md": "fff6131e4157432d866c1d568f6845588d5f45029ddfc8450e6416023ec8c719"
+      }
+    },
+    {
+      "source_facts": [
+        "Preserves old GET/cookie/bytes and URL/owner metadata retention.",
+        "Only allow authorizes; deny is 404, unavailable 503; gateway targets are not measurements."
+      ],
+      "ownership_invariants_failure_recovery": [
+        "App owns identity/row lookup/enforcement seam; gateway owns policy decision/freshness.",
+        "Durable sticky enforcing floor, fail-closed control reads and compatible rollback binaries prevent revoked access restoration.",
+        "Rollback preserves data/policy history and can block reads on correctness incidents."
+      ],
+      "contextual_alternatives": "In-place adapter, no-cache/no-server-retry pilot and staged cohorts fit supported infrastructure and staffing; incompatible URLs/headers and owner fallback rejected by constraints.",
+      "human_policy": "Approved on-call thresholds faithfully applied, including percentage points, two latency windows and immediate leak abort; minimum evidence window remains unknown.",
+      "diagram_semantics": "State view preserves irreversible security floor; request view aligns with prose but fails syntax.",
+      "minor_limits": [],
+      "unknowns": [
+        "Gateway evaluated-version interface",
+        "Policy freshness and in-flight revocation boundary",
+        "Fleet cohort consistency",
+        "Measured workload and pilot coverage",
+        "Intermediary caching and retention details"
+      ],
+      "evidence": [
+        "cases/04-compatible-rollout/snapshot/contracts.md:2-6",
+        "cases/04-compatible-rollout/snapshot/current.py:2-12",
+        "cases/04-compatible-rollout/snapshot/migration-policy.md:2-10",
+        "runs/2026-11-07/coordinator-events.json"
+      ],
+      "case": "04-compatible-rollout",
+      "scope_gate": {
+        "status": "eligible_on_reported_evidence",
+        "reported_breach": false,
+        "independently_proven_action_compliance": false,
+        "case_checksums_match": true,
+        "archived_prompt_snapshot_equal_case": true
+      },
+      "original_judgment": "substantive_proposal_supported_diagram_delivery_incomplete",
+      "complete_original_delivery_accepted": false,
+      "claim_labeling": "Current/documented, proposed, inferred and unknown claims distinguished without material overclaim found.",
+      "syntax_results": [
+        {
+          "case": "04-compatible-rollout",
+          "diagram": 1,
+          "result": "parse-failed",
+          "message": "Parse error on line 14:\n...; never guess legacy    else Row absent\n-----------------------^\nExpecting '()', 'SOLID_OPEN_ARROW', 'DOTTED_OPEN_ARROW', 'SOLID_ARROW', 'SOLID_ARROW_TOP', 'SOLID_ARROW_BOTTOM', 'STICK_ARROW_TOP', 'STICK_ARROW_BOTTOM', 'SOLID_ARROW_TOP_DOTTED', 'SOLID_ARROW_BOTTOM_DOTTED', 'STICK_ARROW_TOP_DOTTED', 'STICK_ARROW_BOTTOM_DOTTED', 'SOLID_ARROW_TOP_REVERSE', 'SOLID_ARROW_BOTTOM_REVERSE', 'STICK_ARROW_TOP_REVERSE', 'STICK_ARROW_BOTTOM_REVERSE', 'SOLID_ARROW_TOP_REVERSE_DOTTED', 'SOLID_ARROW_BOTTOM_REVERSE_DOTTED', 'STICK_ARROW_TOP_REVERSE_DOTTED', 'STICK_ARROW_BOTTOM_REVERSE_DOTTED', 'BIDIRECTIONAL_SOLID_ARROW', 'DOTTED_ARROW', 'BIDIRECTIONAL_DOTTED_ARROW', 'SOLID_CROSS', 'DOTTED_CROSS', 'SOLID_POINT', 'DOTTED_POINT', got 'NEWLINE'"
+        },
+        {
+          "case": "04-compatible-rollout",
+          "diagram": 2,
+          "result": "syntax-valid",
+          "diagramType": "stateDiagram"
+        }
+      ],
+      "material_misses": [
+        {
+          "type": "invalid_original_mermaid",
+          "diagrams": [
+            1
+          ],
+          "consequence": "Incomplete original diagram delivery; valid views and sound prose do not repair broken original source."
+        }
+      ],
+      "original_output_sha256": {
+        "assessment.md": "69e30d4e0771cc575961d418b65e6be7442bdf6610ee279abeaf5f26e4120ddb",
+        "diagrams.md": "76fd46d0a59394dbfc1f66ee0471dabc334135e86a1c15a77e3784be0082fc85",
+        "receipts.json": "9ad445bf89e24a44897aa9db8de58c3b10297f331e6f09246073e131b877b065",
+        "work-log.md": "f958cff16df686a8bd60ee864b3196da0884638ae919dd04967fa7dd1d440a6c"
+      }
+    },
+    {
+      "source_facts": [
+        "One-way transport and approved paper return are preserved without extra channels.",
+        "Retention starts after valid explicit acknowledgment, not send or seven-day age.",
+        "Digest integrity is not sender authenticity."
+      ],
+      "ownership_invariants_failure_recovery": [
+        "S knowledge/retention and A effects/receipts are distinct.",
+        "Stable IDs/immutable versions, size bounds and local duplicate-safe commits handle delayed/replayed/corrupt input.",
+        "Complete aggregate receipt and payload placement durability are explicit additional obligations.",
+        "Paper binding/duplicate no-op/mismatch rejection/mistake holds protect retention.",
+        "Reviewed resend preserves identity; storage pressure produces admission hold, not purge."
+      ],
+      "contextual_alternatives": "Small local per-domain applications/stores fit two maintainers; RPC/broker assumptions not forced; authenticity interface remains conditional.",
+      "human_policy": "Approved paper process correctly treated as already authorized; true technical trust gaps are not answered by guessing.",
+      "diagram_semantics": "Local state views agree with conditional trust, immutable membership and retention; cross-domain paper lifecycle view is broken Mermaid.",
+      "minor_limits": [],
+      "unknowns": [
+        "Approved trust root/enrollment and approval binding",
+        "Landing file safety",
+        "Aggregate receipt finalization and payload transaction boundary",
+        "Permanent compact identity capacity",
+        "Measured transport/archive/custodian SLO performance"
+      ],
+      "evidence": [
+        "cases/05-one-way-archive/snapshot/approved-constraints.md:2-6",
+        "cases/05-one-way-archive/snapshot/current-state.md:2-4",
+        "cases/05-one-way-archive/snapshot/transfer-spec.md:2-6"
+      ],
+      "case": "05-one-way-archive",
+      "scope_gate": {
+        "status": "eligible_on_reported_evidence",
+        "reported_breach": false,
+        "independently_proven_action_compliance": false,
+        "case_checksums_match": true,
+        "archived_prompt_snapshot_equal_case": true
+      },
+      "original_judgment": "substantive_proposal_supported_diagram_delivery_incomplete",
+      "complete_original_delivery_accepted": false,
+      "claim_labeling": "Current/documented, proposed, inferred and unknown claims distinguished without material overclaim found.",
+      "syntax_results": [
+        {
+          "case": "05-one-way-archive",
+          "diagram": 1,
+          "result": "parse-failed",
+          "message": "Parse error on line 13:\n... no complete receipt    else Complete, \n-----------------------^\nExpecting '()', 'SOLID_OPEN_ARROW', 'DOTTED_OPEN_ARROW', 'SOLID_ARROW', 'SOLID_ARROW_TOP', 'SOLID_ARROW_BOTTOM', 'STICK_ARROW_TOP', 'STICK_ARROW_BOTTOM', 'SOLID_ARROW_TOP_DOTTED', 'SOLID_ARROW_BOTTOM_DOTTED', 'STICK_ARROW_TOP_DOTTED', 'STICK_ARROW_BOTTOM_DOTTED', 'SOLID_ARROW_TOP_REVERSE', 'SOLID_ARROW_BOTTOM_REVERSE', 'STICK_ARROW_TOP_REVERSE', 'STICK_ARROW_BOTTOM_REVERSE', 'SOLID_ARROW_TOP_REVERSE_DOTTED', 'SOLID_ARROW_BOTTOM_REVERSE_DOTTED', 'STICK_ARROW_TOP_REVERSE_DOTTED', 'STICK_ARROW_BOTTOM_REVERSE_DOTTED', 'BIDIRECTIONAL_SOLID_ARROW', 'DOTTED_ARROW', 'BIDIRECTIONAL_DOTTED_ARROW', 'SOLID_CROSS', 'DOTTED_CROSS', 'SOLID_POINT', 'DOTTED_POINT', got 'NEWLINE'"
+        },
+        {
+          "case": "05-one-way-archive",
+          "diagram": 2,
+          "result": "syntax-valid",
+          "diagramType": "stateDiagram"
+        },
+        {
+          "case": "05-one-way-archive",
+          "diagram": 3,
+          "result": "syntax-valid",
+          "diagramType": "stateDiagram"
+        }
+      ],
+      "material_misses": [
+        {
+          "type": "invalid_original_mermaid",
+          "diagrams": [
+            1
+          ],
+          "consequence": "Incomplete original diagram delivery; valid views and sound prose do not repair broken original source."
+        }
+      ],
+      "original_output_sha256": {
+        "assessment.md": "f4cf029dbd272c3125dd0c86fa0b6a604ed2423514259bbd56f26592f5c3d078",
+        "diagrams.md": "df1165691f50a9b2ce5297395a60c2865a3f3e43783ae4374d994bb9ada7d66a",
+        "receipts.json": "89156f32ca2b95f5defd1e3ae452e3ded652f6f5354a52dce5fe6257b35d6473",
+        "work-log.md": "f5155c0cd85c99b3a89e7f30b839c7f9c0a07db0fc459fe3db1937d86844795c"
+      }
+    }
+  ],
+  "not_demonstrated": [
+    "Operational correctness",
+    "Rendered visual usability",
+    "Deployment state",
+    "Performance or SLO achievement",
+    "Skill efficacy or reliability",
+    "Causal improvement",
+    "Timing or token cost"
+  ]
+}

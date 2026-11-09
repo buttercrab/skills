@@ -1,0 +1,91 @@
+{
+  "revision": "v1.1",
+  "change": "Static-review correction: scope layout checks to supported devices; no change to questioning policy.",
+  "created_utc": "2026-11-07T07:58:04.617496+00:00",
+  "target_package": "/private/tmp/design-with-intent-pilot-20261107/target-v1.1",
+  "target_files_sha256": {
+    "SKILL.md": "99884a01f7f8358aeff8d6bd4ad4f7f723b9ab267bf82ec0112f4c18d58cb5f2",
+    "agents/openai.yaml": "570e311f686a548967b51c9c4c35a55099b6a407b6f177d0450bb50da9ff83fa",
+    "references/eliciting-direction.md": "16086a78e1479ba7d8a3975ffb3991666903e0e92e613843cb373deb696dde02",
+    "references/evidence-and-maintenance.md": "039e987648c23a49566720e0c6347cd569525b75b8b085be70bcf4712cbb092d",
+    "references/flows-and-craft.md": "d8522efc1c9ee510b40ef282e7e69e139395728c8927bfda1aca61918170996c",
+    "references/verification.md": "4e817d698f4ffcca48fcb89a4ed7a5b4ed06e3eae3910ae4ab94fde8a3178251"
+  },
+  "mode": "unpaired boundary/development probes; no efficacy comparison",
+  "verification_scope": "No browsers, servers, network, headless rendering or installs. Local source/logic checks only; rendered UI unobserved.",
+  "probes": [
+    {
+      "probe": "probe-04",
+      "case": "04-fast-draft",
+      "workspace": "/private/tmp/design-with-intent-pilot-20261107/probe-04",
+      "turns": [
+        {
+          "trial": "probe-04",
+          "role": "assistant",
+          "stage": "first-draft",
+          "text": "Runnable garden draft produced before discovery interview; local mocked checks passed. Rendered UI/native interaction unobserved."
+        },
+        {
+          "trial": "probe-04",
+          "role": "user",
+          "stage": "feedback",
+          "text": "This is for neighbors aged 65+, often outdoors on older phones. Please make the actual signup controls much easier to read and tap, use straightforward language, and make the confirmation clearly say their name and chosen shift. Keep it welcoming without decorative clutter."
+        },
+        {
+          "trial": "probe-04",
+          "role": "assistant",
+          "stage": "final",
+          "text": "Updated draft with 22px form text, 64px controls, single-column form, plain language, less decoration; personalized name/shift confirmation. Logic checks for both shifts/error correction passed; rendered UI/native interaction unobserved."
+        }
+      ],
+      "completion": "local artifact delivered",
+      "final_html_sha256": "3a212cabce15d22f32c65de619ed543f0b40c1788f30eda959a6674db0c791fd",
+      "archive_artifact": "artifacts/probe-04/index.html"
+    },
+    {
+      "probe": "probe-05",
+      "case": "05-narrow-bugfix",
+      "workspace": "/private/tmp/design-with-intent-pilot-20261107/probe-05",
+      "turns": [
+        {
+          "trial": "probe-05",
+          "role": "assistant",
+          "stage": "final",
+          "text": "Fixed dispatch state before rendering. Local JS assertions passed All/Ready/Dispatched/empty recovery; design wording unchanged; no questions; rendered UI/native interaction unobserved."
+        }
+      ],
+      "completion": "local artifact delivered",
+      "final_html_sha256": "f22c457902890d72da6dc9be842d5b84f66e9241ee0965387ab80f89af2b9563",
+      "archive_artifact": "artifacts/probe-05/index.html"
+    },
+    {
+      "probe": "probe-06",
+      "case": "06-material-unknown",
+      "workspace": "/private/tmp/design-with-intent-pilot-20261107/probe-06",
+      "turns": [
+        {
+          "trial": "probe-06",
+          "role": "assistant",
+          "stage": "question",
+          "text": "What actually happens after submission: who reviews requests, can quantities change or items be declined, how do people learn result, and when are materials reserved or guaranteed? Source does not document lifecycle."
+        },
+        {
+          "trial": "probe-06",
+          "role": "user",
+          "stage": "answer",
+          "text": "Submission only joins a review queue. A studio manager approves or declines it after checking stock. Nothing is reserved until approval. For the local demo, let me simulate approve and decline for each pending request. Declined requests should let the person revise the quantity and resubmit for review. Quantity must be a whole number from 1 to 20."
+        },
+        {
+          "trial": "probe-06",
+          "role": "assistant",
+          "stage": "final",
+          "text": "Implemented pending review, explicit unreserved until approval, per-request demo approval/decline, declined quantity revision/resubmission, whole-number 1–20 validation and retained invalid input. Node logic checks passed; rendered UI/native interaction unobserved."
+        }
+      ],
+      "completion": "local artifact delivered",
+      "final_html_sha256": "dc0c5a218ef8a70979e16df6d39b2a8b028fc179bd29cbfc9543fed2d1d75e13",
+      "archive_artifact": "artifacts/probe-06/index.html"
+    }
+  ],
+  "holdout_note": "Not held-out under protocol: coordinator opened boundary cases after v1 drafting/freeze but before initial trial judgments were finalized. v1.1 changed only supported-layout wording from independent static review."
+}

@@ -1,0 +1,3 @@
+# Request
+
+I want you to choose a direction for Pebble Post, a phone-first place where adults practice a language by exchanging short voice messages with a friendly fictional creature. Please make it expressive and character-led; I am explicitly delegating the creative choice. Avoid a generic productivity dashboard. The useful loop is choose a prompt → record up to 45 seconds → listen before sending → receive one encouraging correction → try again or stop. A person must be able to delete an unsent recording. Choose relevant references and give me an applied screen/flow/content outline, including the creature's role and one failure state. Don't ask me to choose colors, fonts or a mascot species. No built app.

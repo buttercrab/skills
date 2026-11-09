@@ -1,0 +1,32 @@
+{
+  "01-desk-ledger": {
+    "original_sha256": "18963dc35501c55d235624d38a2d0e07284265d1c8a3845472f7f8af584b0fe2",
+    "corrected_sha256": "b542cd6c32d1e2e4ba0b9261a708ae44b1230412973e3025ecf757e5e1ba1407",
+    "sequence_semicolons_rephrased": 13,
+    "change": "Only punctuation in sequence source plus explicit post-freeze provenance header."
+  },
+  "02-refund-queue": {
+    "original_sha256": "c914b6e991b8adabe7e9926778d817660d9ac38585f714976ecf22c11b4b89b9",
+    "corrected_sha256": "e4f99fe6f882b4f0df6a240f2747e9a72cdd923e0d2fc35e4b9b5604965ed860",
+    "sequence_semicolons_rephrased": 11,
+    "change": "Only punctuation in sequence source plus explicit post-freeze provenance header."
+  },
+  "03-map-the-running-system": {
+    "original_sha256": "d54d2055e56de73f862963dae5bde7926488e5a5105df5ab05b87dc5d63e349c",
+    "corrected_sha256": "0afc372398dd34bd084ecccde136fdac8b3f19be352bc5ae92ffb10569b0a799",
+    "sequence_semicolons_rephrased": 8,
+    "change": "Only punctuation in sequence source plus explicit post-freeze provenance header."
+  },
+  "04-compatible-rollout": {
+    "original_sha256": "76fd46d0a59394dbfc1f66ee0471dabc334135e86a1c15a77e3784be0082fc85",
+    "corrected_sha256": "3daf3387ba9b938f4b1f98dc01166ba503b9244c2995641df1f83a9c8f744f6f",
+    "sequence_semicolons_rephrased": 5,
+    "change": "Only punctuation in sequence source plus explicit post-freeze provenance header."
+  },
+  "05-one-way-archive": {
+    "original_sha256": "df1165691f50a9b2ce5297395a60c2865a3f3e43783ae4374d994bb9ada7d66a",
+    "corrected_sha256": "da92b98c25c1a84b533d79562e3637d3f5137f293516f4c8b50dda9b45fc9378",
+    "sequence_semicolons_rephrased": 6,
+    "change": "Only punctuation in sequence source plus explicit post-freeze provenance header."
+  }
+}

@@ -1,0 +1,2574 @@
+{
+  "schema_version": 1,
+  "generated_from": "library/entries/*.md",
+  "record_count": 44,
+  "status_counts": {
+    "candidate": 1,
+    "curated": 43
+  },
+  "resources": [
+    {
+      "id": "diagram-arc42-consistent-views",
+      "kind": "notation",
+      "title": "arc42 views: connect context, structure, runtime and deployment",
+      "summary": "Select mutually consistent views for a concrete architecture question, with traceable building blocks and explicit quality scenarios.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "diagram",
+          "document",
+          "trace"
+        ],
+        "contexts": [
+          "multiview-documentation",
+          "quality-scenarios"
+        ],
+        "qualities": [
+          "understandability",
+          "evolvability",
+          "operability"
+        ],
+        "scale": [
+          "cross-scale"
+        ]
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected"
+        ],
+        "inspected_at": "2026-11-07",
+        "freshness": "live-at-inspection",
+        "scope": "Fresh official documentation text and selected source examples inspected. No source diagram image was visually viewed, and no parser, renderer, installed tool, generated output or system interaction was executed in this curation."
+      },
+      "related": [
+        "foundation-quality-scenarios",
+        "diagram-c4-runtime-scenario"
+      ],
+      "path": "library/entries/diagram-arc42-consistent-views.md",
+      "card_sha256": "65b398a6b59fe08264fe7b29aa3c1ceed06bd6395a6f56e0bf4cc8ecdf0c28e3",
+      "sources": [
+        {
+          "url": "https://docs.arc42.org/section-3/",
+          "title": "arc42 Context and scope",
+          "locator": "Business versus technical context, interfaces and tabular alternatives",
+          "revision": "Mutable official documentation inspected 2026-11-07"
+        },
+        {
+          "url": "https://docs.arc42.org/section-5/",
+          "title": "arc42 Building block view",
+          "locator": "Whitebox/blackbox responsibility, interfaces and code columns",
+          "revision": "Mutable official documentation inspected 2026-11-07"
+        },
+        {
+          "url": "https://docs.arc42.org/section-6/",
+          "title": "arc42 Runtime view",
+          "locator": "Representative behavior and exception scenarios",
+          "revision": "Mutable official documentation inspected 2026-11-07"
+        },
+        {
+          "url": "https://docs.arc42.org/section-7/",
+          "title": "arc42 Deployment view",
+          "locator": "Infrastructure and software mapping",
+          "revision": "Mutable official documentation inspected 2026-11-07"
+        },
+        {
+          "url": "https://docs.arc42.org/section-10/",
+          "title": "arc42 Quality requirements",
+          "locator": "Specific usage/change scenarios and response measures",
+          "revision": "Mutable official documentation inspected 2026-11-07"
+        }
+      ]
+    },
+    {
+      "id": "diagram-c4-context-container",
+      "kind": "notation",
+      "title": "C4: separate system context from container responsibility",
+      "summary": "Use distinct zoom levels for people/external systems and internal applications/data stores without confusing C4 containers with runtime infrastructure.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "diagram",
+          "decompose",
+          "document"
+        ],
+        "contexts": [
+          "system-context",
+          "logical-structure"
+        ],
+        "qualities": [
+          "understandability",
+          "evolvability"
+        ],
+        "scale": [
+          "cross-scale"
+        ]
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected"
+        ],
+        "inspected_at": "2026-11-07",
+        "freshness": "live-at-inspection",
+        "scope": "Fresh official documentation text and selected source examples inspected. No source diagram image was visually viewed, and no parser, renderer, installed tool, generated output or system interaction was executed in this curation."
+      },
+      "related": [
+        "foundation-information-hiding",
+        "system-postgresql-process-isolation"
+      ],
+      "path": "library/entries/diagram-c4-context-container.md",
+      "card_sha256": "9ddda5aa395e7917eeaf0d023f4d2d9ff1b9c3457b2153b5cdb1f741bba88aa4",
+      "sources": [
+        {
+          "url": "https://c4model.com/diagrams/system-context",
+          "title": "C4 System context diagram",
+          "locator": "Scope, primary/supporting elements and intended audience",
+          "revision": "Mutable official documentation inspected 2026-11-07"
+        },
+        {
+          "url": "https://c4model.com/diagrams/container",
+          "title": "C4 Container diagram",
+          "locator": "Container definition, scope and deployment limitation",
+          "revision": "Mutable official documentation inspected 2026-11-07"
+        },
+        {
+          "url": "https://c4model.com/diagrams/notation",
+          "title": "C4 Notation",
+          "locator": "Diagrams, elements and relationships",
+          "revision": "Mutable official documentation inspected 2026-11-07"
+        },
+        {
+          "url": "https://c4model.com/diagrams/checklist",
+          "title": "C4 Review checklist",
+          "locator": "Scope/type and relationship meaning",
+          "revision": "Mutable official documentation inspected 2026-11-07"
+        }
+      ]
+    },
+    {
+      "id": "diagram-c4-deployment-mapping",
+      "kind": "notation",
+      "title": "C4 deployment: map instances to an explicit environment",
+      "summary": "Separate logical application/store roles from their runtime instances, infrastructure nodes and environment-specific placement.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "diagram",
+          "trace",
+          "document"
+        ],
+        "contexts": [
+          "deployment-topology",
+          "environment-boundaries"
+        ],
+        "qualities": [
+          "availability",
+          "operability"
+        ],
+        "scale": [
+          "cross-scale"
+        ]
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected"
+        ],
+        "inspected_at": "2026-11-07",
+        "freshness": "live-at-inspection",
+        "scope": "Fresh official documentation text and selected source examples inspected. No source diagram image was visually viewed, and no parser, renderer, installed tool, generated output or system interaction was executed in this curation."
+      },
+      "related": [
+        "system-raft-host-integration",
+        "diagram-c4-context-container"
+      ],
+      "path": "library/entries/diagram-c4-deployment-mapping.md",
+      "card_sha256": "a9aa91a90b929b33e79a7cada3dccfabd1744452a7e5fecd09c70ae4f09b764f",
+      "sources": [
+        {
+          "url": "https://c4model.com/diagrams/deployment",
+          "title": "C4 Deployment diagram",
+          "locator": "Environment scope, deployment nodes, instances and infrastructure",
+          "revision": "Mutable official documentation inspected 2026-11-07"
+        },
+        {
+          "url": "https://docs.arc42.org/section-7/",
+          "title": "arc42 Deployment view",
+          "locator": "Infrastructure mapping, relevant environments, motivation and mapping table",
+          "revision": "Mutable official documentation inspected 2026-11-07"
+        }
+      ]
+    },
+    {
+      "id": "diagram-c4-runtime-scenario",
+      "kind": "notation",
+      "title": "C4 dynamic views: order one consequential scenario",
+      "summary": "Explain how known elements collaborate for a particular feature while keeping structural relationships distinct from timed runtime events.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "diagram",
+          "trace",
+          "model-failure"
+        ],
+        "contexts": [
+          "runtime-scenarios",
+          "interaction-order"
+        ],
+        "qualities": [
+          "reliability",
+          "understandability"
+        ],
+        "scale": [
+          "cross-scale"
+        ]
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected"
+        ],
+        "inspected_at": "2026-11-07",
+        "freshness": "live-at-inspection",
+        "scope": "Fresh official documentation text and selected source examples inspected. No source diagram image was visually viewed, and no parser, renderer, installed tool, generated output or system interaction was executed in this curation."
+      },
+      "related": [
+        "diagram-mermaid-sequence-outcomes",
+        "pattern-transactional-outbox"
+      ],
+      "path": "library/entries/diagram-c4-runtime-scenario.md",
+      "card_sha256": "31e54a760c4bc4096b5b435e6c777a376ea8309503b86e5a03a98bf2fbee5327",
+      "sources": [
+        {
+          "url": "https://c4model.com/diagrams/dynamic",
+          "title": "C4 Dynamic diagram",
+          "locator": "Scope, numbered ordering, recommendations and collaboration/sequence styles",
+          "revision": "Mutable official documentation inspected 2026-11-07"
+        },
+        {
+          "url": "https://docs.arc42.org/section-6/",
+          "title": "arc42 Runtime view",
+          "locator": "Representative use, external-interface, operations and error scenarios",
+          "revision": "Mutable official documentation inspected 2026-11-07"
+        }
+      ]
+    },
+    {
+      "id": "diagram-mermaid-flow-boundaries",
+      "kind": "notation",
+      "title": "Mermaid flowcharts: explicit boundary and relationship semantics",
+      "summary": "Use lightweight source-controlled nodes, labeled edges and subgraphs for a focused structural or flow sketch without inferring architecture from layout.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "diagram",
+          "document",
+          "trace"
+        ],
+        "contexts": [
+          "source-controlled-diagrams",
+          "structural-view"
+        ],
+        "qualities": [
+          "understandability",
+          "evolvability"
+        ],
+        "scale": [
+          "cross-scale"
+        ]
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected"
+        ],
+        "inspected_at": "2026-11-07",
+        "freshness": "live-at-inspection",
+        "scope": "Fresh official documentation text and selected source examples inspected. No source diagram image was visually viewed, and no parser, renderer, installed tool, generated output or system interaction was executed in this curation. The coordinator later syntax-checked this card’s original sketch with Mermaid 12.3.0 and DOM support; no rendering, source-image viewing or system validation was performed."
+      },
+      "related": [
+        "diagram-c4-context-container",
+        "diagram-mermaid-parse-boundary"
+      ],
+      "path": "library/entries/diagram-mermaid-flow-boundaries.md",
+      "card_sha256": "37d7626129b11ba055dbdef3865458a54b915c0bdacadb1c2c4331df8309e4ab",
+      "sources": [
+        {
+          "url": "https://mermaid.js.org/syntax/flowchart.html",
+          "title": "Mermaid Flowchart syntax",
+          "locator": "Nodes/edge labels; subgraphs; direction limitation; escaping warnings",
+          "revision": "Official docs display Mermaid 12.3.0; mutable page inspected 2026-11-07, not an installed-version observation"
+        },
+        {
+          "url": "https://c4model.com/diagrams/notation",
+          "title": "C4 Notation",
+          "locator": "Relationship labels, element type and diagram key",
+          "revision": "Mutable official documentation inspected 2026-11-07"
+        }
+      ]
+    },
+    {
+      "id": "diagram-mermaid-parse-boundary",
+      "kind": "tool",
+      "title": "Mermaid parse API: syntax checks are not rendered or architectural checks",
+      "summary": "Validate graph definitions through the documented parser interface while reporting version, parse failure and the separate untested semantic/rendering promises.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "diagram",
+          "verify"
+        ],
+        "contexts": [
+          "diagram-validation",
+          "source-controlled-diagrams"
+        ],
+        "qualities": [
+          "maintainability",
+          "understandability"
+        ],
+        "scale": [
+          "cross-scale"
+        ]
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected"
+        ],
+        "inspected_at": "2026-11-07",
+        "freshness": "live-at-inspection",
+        "scope": "Fresh official documentation text and selected source examples inspected. No source diagram image was visually viewed, and no parser, renderer, installed tool, generated output or system interaction was executed in this curation."
+      },
+      "related": [
+        "diagram-mermaid-sequence-outcomes",
+        "diagram-mermaid-state-ownership"
+      ],
+      "path": "library/entries/diagram-mermaid-parse-boundary.md",
+      "card_sha256": "88fcca70473c0ec991ba0254771a59a69b032694cb83bf169abc00461e6d684e",
+      "sources": [
+        {
+          "url": "https://mermaid.js.org/config/usage.html",
+          "title": "Mermaid Usage",
+          "locator": "Advanced usage: Syntax validation without rendering; initialize configuration",
+          "revision": "Official docs display Mermaid 12.3.0; mutable page inspected 2026-11-07, not an installed-version observation"
+        },
+        {
+          "url": "https://mermaid.js.org/syntax/flowchart.html",
+          "title": "Mermaid Flowchart syntax",
+          "locator": "Escaping warnings and subgraph-direction limitation",
+          "revision": "Official docs display Mermaid 12.3.0; mutable page inspected 2026-11-07, not an installed-version observation"
+        }
+      ]
+    },
+    {
+      "id": "diagram-mermaid-sequence-outcomes",
+      "kind": "notation",
+      "title": "Mermaid sequence diagrams: separate order, branches and observations",
+      "summary": "Expose a consequential interaction order and uncertain outcome using explicit participants, message labels and alternate paths.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "diagram",
+          "trace",
+          "model-failure"
+        ],
+        "contexts": [
+          "source-controlled-diagrams",
+          "runtime-scenarios"
+        ],
+        "qualities": [
+          "reliability",
+          "consistency"
+        ],
+        "scale": [
+          "cross-scale"
+        ]
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected"
+        ],
+        "inspected_at": "2026-11-07",
+        "freshness": "live-at-inspection",
+        "scope": "Fresh official documentation text and selected source examples inspected. No source diagram image was visually viewed, and no parser, renderer, installed tool, generated output or system interaction was executed in this curation. The coordinator later syntax-checked this card’s original sketch with Mermaid 12.3.0 and DOM support; no rendering, source-image viewing or system validation was performed. The coordinator also read the official entity-code rule after development outputs exposed unescaped message semicolons."
+      },
+      "related": [
+        "foundation-end-to-end-guarantees",
+        "system-nats-delivery-effects"
+      ],
+      "path": "library/entries/diagram-mermaid-sequence-outcomes.md",
+      "card_sha256": "ce555cdfcaa4a52fdeebbbb1d12c12693b16209d3f57c5ebd722f5f1beb681d6",
+      "sources": [
+        {
+          "url": "https://mermaid.js.org/syntax/sequenceDiagram.html",
+          "title": "Mermaid Sequence diagrams",
+          "locator": "Participants, supported message arrows, alt/opt/loop/par sections; Entity codes to escape characters (semicolon message text)",
+          "revision": "Official docs display Mermaid 12.3.0; mutable page inspected 2026-11-07, not an installed-version observation"
+        },
+        {
+          "url": "https://c4model.com/diagrams/dynamic",
+          "title": "C4 Dynamic diagram",
+          "locator": "Feature-scoped ordered interactions, selective use",
+          "revision": "Mutable official documentation inspected 2026-11-07"
+        }
+      ]
+    },
+    {
+      "id": "diagram-mermaid-state-ownership",
+      "kind": "notation",
+      "title": "Mermaid state diagrams: model one owned lifecycle",
+      "summary": "Use explicit transitions and composite/concurrent structure when the key question is legal state change, while separating client observations from authoritative state.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "diagram",
+          "model-failure",
+          "document"
+        ],
+        "contexts": [
+          "state-machines",
+          "source-controlled-diagrams"
+        ],
+        "qualities": [
+          "consistency",
+          "reliability"
+        ],
+        "scale": [
+          "cross-scale"
+        ]
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected"
+        ],
+        "inspected_at": "2026-11-07",
+        "freshness": "live-at-inspection",
+        "scope": "Fresh official documentation text and selected source examples inspected. No source diagram image was visually viewed, and no parser, renderer, installed tool, generated output or system interaction was executed in this curation. The coordinator later syntax-checked this card’s original sketch with Mermaid 12.3.0 and DOM support; no rendering, source-image viewing or system validation was performed."
+      },
+      "related": [
+        "foundation-transaction-isolation",
+        "system-sqlite-commit-boundaries"
+      ],
+      "path": "library/entries/diagram-mermaid-state-ownership.md",
+      "card_sha256": "4b85d5d5df9286ff1b6372a0d9beb77e6dd9d7764f17c1b0d76f99bda8467fd3",
+      "sources": [
+        {
+          "url": "https://mermaid.js.org/syntax/stateDiagram.html",
+          "title": "Mermaid State diagrams",
+          "locator": "States/transitions, start/end, composite states, choice, fork/join and concurrency",
+          "revision": "Official docs display Mermaid 12.3.0; mutable page inspected 2026-11-07, not an installed-version observation"
+        },
+        {
+          "url": "https://docs.arc42.org/section-6/",
+          "title": "arc42 Runtime view",
+          "locator": "Runtime scenario purpose and state-machine option",
+          "revision": "Mutable official documentation inspected 2026-11-07"
+        }
+      ]
+    },
+    {
+      "id": "diagram-plantuml-explicit-view-types",
+      "kind": "tool",
+      "title": "PlantUML: choose structural, deployment or sequence meaning",
+      "summary": "Use source-controlled component/interface, infrastructure and interaction notation as distinct views rather than treating every box/arrow as interchangeable.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "diagram",
+          "document",
+          "compare"
+        ],
+        "contexts": [
+          "source-controlled-diagrams",
+          "uml-style-views"
+        ],
+        "qualities": [
+          "understandability",
+          "evolvability"
+        ],
+        "scale": [
+          "cross-scale"
+        ]
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected"
+        ],
+        "inspected_at": "2026-11-07",
+        "freshness": "live-at-inspection",
+        "scope": "Fresh official documentation text and selected source examples inspected. No source diagram image was visually viewed, and no parser, renderer, installed tool, generated output or system interaction was executed in this curation."
+      },
+      "related": [
+        "diagram-c4-deployment-mapping",
+        "diagram-structurizr-model-views"
+      ],
+      "path": "library/entries/diagram-plantuml-explicit-view-types.md",
+      "card_sha256": "7a70f3c30cee4a85f25a011227ed615a06880d0e7b3fe3256c83e427d9ac19bf",
+      "sources": [
+        {
+          "url": "https://plantuml.com/component-diagram",
+          "title": "PlantUML Component diagrams",
+          "locator": "Components, aliases, interfaces and basic relationships",
+          "revision": "Mutable official documentation inspected 2026-11-07"
+        },
+        {
+          "url": "https://plantuml.com/deployment-diagram",
+          "title": "PlantUML Deployment diagrams",
+          "locator": "Element kinds, nesting and aliases",
+          "revision": "Mutable official documentation inspected 2026-11-07"
+        },
+        {
+          "url": "https://plantuml.com/sequence-diagram",
+          "title": "PlantUML Sequence diagrams",
+          "locator": "Participants/messages, grouping and sequence-specific arrow behavior",
+          "revision": "Mutable official documentation inspected 2026-11-07"
+        }
+      ]
+    },
+    {
+      "id": "diagram-structurizr-model-views",
+      "kind": "tool",
+      "title": "Structurizr DSL: share a model across selected views",
+      "summary": "Reuse named elements and relationships across static, dynamic and deployment views while checking parser context, implied relationships and export limits.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "diagram",
+          "document",
+          "verify"
+        ],
+        "contexts": [
+          "model-based-diagrams",
+          "multiview-documentation"
+        ],
+        "qualities": [
+          "evolvability",
+          "understandability"
+        ],
+        "scale": [
+          "cross-scale"
+        ]
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected"
+        ],
+        "inspected_at": "2026-11-07",
+        "freshness": "live-at-inspection",
+        "scope": "Fresh official documentation text and selected source examples inspected. No source diagram image was visually viewed, and no parser, renderer, installed tool, generated output or system interaction was executed in this curation."
+      },
+      "related": [
+        "diagram-c4-runtime-scenario",
+        "diagram-arc42-consistent-views"
+      ],
+      "path": "library/entries/diagram-structurizr-model-views.md",
+      "card_sha256": "13680485eb5dd62c387d1723b36caf365a4b80d5376a3e174fe3435da62733ca",
+      "sources": [
+        {
+          "url": "https://docs.structurizr.com/dsl/language",
+          "title": "Structurizr DSL language reference",
+          "locator": "model/views; dynamic/deployment scope; stable view keys; export style notes",
+          "revision": "Mutable official documentation inspected 2026-11-07"
+        },
+        {
+          "url": "https://docs.structurizr.com/dsl/identifiers",
+          "title": "Structurizr Identifiers",
+          "locator": "Element/relationship references and flat versus hierarchical scope",
+          "revision": "Mutable official documentation inspected 2026-11-07"
+        },
+        {
+          "url": "https://docs.structurizr.com/dsl/implied-relationships",
+          "title": "Structurizr Implied relationships",
+          "locator": "Default creation and configurable strategies",
+          "revision": "Mutable official documentation inspected 2026-11-07"
+        },
+        {
+          "url": "https://docs.structurizr.com/dsl/cookbook/dynamic-view/",
+          "title": "Structurizr Dynamic view cookbook",
+          "locator": "Two feature views over one static relationship",
+          "revision": "Mutable official documentation inspected 2026-11-07"
+        },
+        {
+          "url": "https://docs.structurizr.com/dsl/cookbook/deployment-view/",
+          "title": "Structurizr Deployment view cookbook",
+          "locator": "Environment and instance mapping",
+          "revision": "Mutable official documentation inspected 2026-11-07"
+        },
+        {
+          "url": "https://docs.structurizr.com/dsl/parser",
+          "title": "Structurizr DSL parser",
+          "locator": "Local/export versus browser feature support",
+          "revision": "Mutable official documentation inspected 2026-11-07"
+        }
+      ]
+    },
+    {
+      "id": "foundation-cap-model",
+      "kind": "foundation",
+      "title": "CAP: preserve the formal model behind a partition tradeoff",
+      "summary": "Use the original operation and failure definitions instead of choosing two architecture buzzwords.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "compare",
+          "model-failure",
+          "verify"
+        ],
+        "contexts": [
+          "partitions",
+          "replicated-state"
+        ],
+        "qualities": [
+          "consistency",
+          "availability"
+        ],
+        "scale": [
+          "distributed"
+        ]
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected",
+          "conceptual"
+        ],
+        "inspected_at": "2026-11-07",
+        "freshness": "historical",
+        "scope": "Fresh original model, theorem construction and partial-synchrony sections read. Formal result retained under stated assumptions; no implementation or failure injection."
+      },
+      "related": [
+        "foundation-linearizability-histories",
+        "foundation-flp-model-lead"
+      ],
+      "path": "library/entries/foundation-cap-model.md",
+      "card_sha256": "1562b074a4eec2fea0e439079975e8409c6fd1b8f17cd60ab4ef6feca8178171",
+      "sources": [
+        {
+          "url": "https://sites.cs.ucsb.edu/~rich/class/cs293b-cloud/papers/cap-proof.pdf",
+          "title": "Gilbert and Lynch: Brewer’s Conjecture and the Feasibility of Consistent, Available, Partition-Tolerant Web Services",
+          "locator": "§2 formal model; §3.1 theorem and partitioned read/write construction; §4.2–4.3",
+          "revision": "SIGACT News 33(2), 2002; original paper in university copy"
+        }
+      ]
+    },
+    {
+      "id": "foundation-causal-order",
+      "kind": "foundation",
+      "title": "Logical clocks: distinguish causality from timestamp order",
+      "summary": "Use message and process relationships without inferring causality from a smaller timestamp alone.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "trace",
+          "diagram",
+          "verify"
+        ],
+        "contexts": [
+          "distributed-events",
+          "logical-clocks"
+        ],
+        "qualities": [
+          "correctness",
+          "observability"
+        ],
+        "scale": [
+          "distributed"
+        ]
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected",
+          "conceptual"
+        ],
+        "inspected_at": "2026-11-07",
+        "freshness": "historical",
+        "scope": "Fresh original partial-order, event-granularity and Clock Condition sections read as text. Figures not viewed; no tracing/clock implementation or measurements verified."
+      },
+      "related": [
+        "foundation-linearizability-histories",
+        "pattern-request-reply-versus-messaging"
+      ],
+      "path": "library/entries/foundation-causal-order.md",
+      "card_sha256": "541ab012c62f1f1beec3f34d270ecdd6237cf46e3ef9ad2ea4d661e6ecf347bd",
+      "sources": [
+        {
+          "url": "https://www.microsoft.com/en-us/research/wp-content/uploads/2016/12/Time-Clocks-and-the-Ordering-of-Events-in-a-Distributed-System.pdf",
+          "title": "Lamport: Time, Clocks, and the Ordering of Events in a Distributed System",
+          "locator": "pp.558–560: partial ordering, event granularity, Clock Condition and its non-converse",
+          "revision": "CACM 21(7), 1978; original author-publication PDF"
+        }
+      ]
+    },
+    {
+      "id": "foundation-conway-coordination",
+      "kind": "foundation",
+      "title": "Conway: include communication constraints in boundary choices",
+      "summary": "Treat team coordination as architectural context without making organization charts a deterministic quality rule.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "decompose",
+          "compare",
+          "migrate"
+        ],
+        "contexts": [
+          "team-boundaries",
+          "coordination"
+        ],
+        "qualities": [
+          "evolvability",
+          "operability"
+        ],
+        "scale": [
+          "cross-scale"
+        ]
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected",
+          "conceptual"
+        ],
+        "inspected_at": "2026-11-07",
+        "freshness": "historical",
+        "scope": "Fresh original author-hosted PDF argument/examples/conclusion read. Initial HTML depth requests timed out; no empirical organizational intervention or source figure viewing."
+      },
+      "related": [
+        "pattern-bounded-context-and-state-ownership",
+        "pattern-coarse-boundaries-before-distribution"
+      ],
+      "path": "library/entries/foundation-conway-coordination.md",
+      "card_sha256": "3900b9a2234bf6771667e989719a6ca59710d94c575b60db7080d9a8ff1eb7eb",
+      "sources": [
+        {
+          "url": "https://www.melconway.com/Home/pdf/committees.pdf",
+          "title": "Conway: How Do Committees Invent?",
+          "locator": "pp.28–31: delegation, system/design graphs, systems image their design groups, conclusion",
+          "revision": "Datamation, April1968; original author-hosted PDF"
+        }
+      ]
+    },
+    {
+      "id": "foundation-decision-records",
+      "kind": "foundation",
+      "title": "Decision records: retain forces, consequences and supersession",
+      "summary": "Record a significant decision and the conditions that could make it worth revisiting.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "document",
+          "compare",
+          "migrate"
+        ],
+        "contexts": [
+          "decision-history",
+          "tradeoffs"
+        ],
+        "qualities": [
+          "evolvability",
+          "understandability"
+        ],
+        "scale": [
+          "cross-scale"
+        ]
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected",
+          "conceptual"
+        ],
+        "inspected_at": "2026-11-07",
+        "freshness": "historical",
+        "scope": "Fresh original practice proposal, record fields and short experience report read. No adoption intervention, project history or outcome study verified."
+      },
+      "related": [
+        "foundation-quality-scenarios",
+        "pattern-strangler-transitional-architecture"
+      ],
+      "path": "library/entries/foundation-decision-records.md",
+      "card_sha256": "b8bbf40162b3b771750f1c972c42a074e0e5614c97d0ff32396423aa3cfcc5f3",
+      "sources": [
+        {
+          "url": "https://cognitect.com/blog/2011/11/15/documenting-architecture-decisions",
+          "title": "Michael Nygard: Documenting Architecture Decisions",
+          "locator": "Context; Decision; Status; Consequences; Experience Report",
+          "revision": "Original practice proposal, 2011-11-15"
+        }
+      ]
+    },
+    {
+      "id": "foundation-end-to-end-guarantees",
+      "kind": "foundation",
+      "title": "End-to-end arguments: locate the knowledge needed for correctness",
+      "summary": "Separate transport assistance from the application knowledge needed to fulfill an end-to-end promise.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "decompose",
+          "trace",
+          "model-failure"
+        ],
+        "contexts": [
+          "function-placement",
+          "remote-effects"
+        ],
+        "qualities": [
+          "correctness",
+          "reliability"
+        ],
+        "scale": [
+          "distributed",
+          "cross-scale"
+        ]
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected",
+          "conceptual"
+        ],
+        "inspected_at": "2026-11-07",
+        "freshness": "historical",
+        "scope": "Fresh original-paper argument, duplicate suppression and sequencing sections read. No current infrastructure, code path or runtime experiment inspected."
+      },
+      "related": [
+        "pattern-transactional-outbox",
+        "system-nats-delivery-effects"
+      ],
+      "path": "library/entries/foundation-end-to-end-guarantees.md",
+      "card_sha256": "cc9c9f8c72751293386badf4fbc0fd7d4a1f263cc2d8d1fe04d2a6a044b9dfbb",
+      "sources": [
+        {
+          "url": "https://web.mit.edu/saltzer/www/publications/endtoend/endtoend.pdf",
+          "title": "Saltzer, Reed and Clark: End-to-End Arguments in System Design",
+          "locator": "PDF pp.2–7: careful file transfer, performance tradeoffs, duplicate suppression and sequencing",
+          "revision": "TOCS 2(4), 1984 revised paper"
+        }
+      ]
+    },
+    {
+      "id": "foundation-flp-model-lead",
+      "kind": "foundation",
+      "title": "FLP original proof: model inspection remains a prerequisite",
+      "summary": "An original consensus impossibility lead whose deeper model/proof could not be freshly inspected.",
+      "status": "candidate",
+      "availability": "partial",
+      "facets": {
+        "tasks": [
+          "compare",
+          "model-failure"
+        ],
+        "contexts": [
+          "consensus",
+          "asynchrony"
+        ],
+        "qualities": [
+          "availability",
+          "correctness"
+        ],
+        "scale": [
+          "distributed"
+        ]
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected",
+          "partial"
+        ],
+        "inspected_at": "2026-11-07",
+        "freshness": "historical",
+        "scope": "Fresh opening/abstract only; original model/proof requests and technical-report follow-up repeatedly timed out. Candidate lead, not full-paper inspection."
+      },
+      "related": [
+        "foundation-cap-model",
+        "system-raft-host-integration"
+      ],
+      "path": "library/entries/foundation-flp-model-lead.md",
+      "card_sha256": "260356ede58c770dc3d4b596e584b2b03571ff2082f6f92a9996f65d41ae71cf",
+      "sources": [
+        {
+          "url": "https://groups.csail.mit.edu/tds/papers/Lynch/jacm85.pdf",
+          "title": "Fischer, Lynch and Paterson: Impossibility of Distributed Consensus with One Faulty Process",
+          "locator": "First page/abstract freshly retrieved; detailed model/proof follow-ups unavailable",
+          "revision": "JACM32(2), 1985; original author/institution PDF"
+        }
+      ]
+    },
+    {
+      "id": "foundation-information-hiding",
+      "kind": "foundation",
+      "title": "Information hiding: own a changeable decision",
+      "summary": "Choose module boundaries around protected decisions rather than processing stages or directory names.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "decompose",
+          "compare"
+        ],
+        "contexts": [
+          "module-boundaries",
+          "change-scenarios"
+        ],
+        "qualities": [
+          "evolvability",
+          "understandability"
+        ],
+        "scale": [
+          "cross-scale"
+        ]
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected",
+          "conceptual"
+        ],
+        "inspected_at": "2026-11-07",
+        "freshness": "historical",
+        "scope": "Fresh selected original-paper model, alternatives and overhead sections read as text. No implementation, experiment or visual figure inspection."
+      },
+      "related": [
+        "pattern-ports-and-adapters",
+        "system-rust-analyzer-derived-state"
+      ],
+      "path": "library/entries/foundation-information-hiding.md",
+      "card_sha256": "780d11514d033556a73b69af082dc19428a5dc6a7c4beab92b2aa390d6d9d5e7",
+      "sources": [
+        {
+          "url": "https://john.cs.olemiss.edu/~hcc/csci555/notes/localcopy/Parnas_Criteria_Decomposing.pdf",
+          "title": "Parnas: On the Criteria To Be Used in Decomposing Systems into Modules",
+          "locator": "pp.1054–1057: responsibility assignment, KWIC alternatives, The Criteria, Efficiency and Implementation",
+          "revision": "CACM 15(12), 1972"
+        }
+      ]
+    },
+    {
+      "id": "foundation-linearizability-histories",
+      "kind": "foundation",
+      "title": "Linearizability: reason about operation histories",
+      "summary": "Check legal object behavior and real-time precedence without confusing logical effect with response time.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "verify",
+          "model-failure",
+          "diagram"
+        ],
+        "contexts": [
+          "concurrent-objects",
+          "operation-histories"
+        ],
+        "qualities": [
+          "correctness",
+          "consistency"
+        ],
+        "scale": [
+          "single-process",
+          "distributed"
+        ]
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected",
+          "conceptual"
+        ],
+        "inspected_at": "2026-11-07",
+        "freshness": "historical",
+        "scope": "Fresh coauthor-hosted original histories, definition and locality statement read. CMU follow-up failed; Brown copy supplied substantive sections. No proof mechanization or runtime test."
+      },
+      "related": [
+        "foundation-cap-model",
+        "foundation-transaction-isolation"
+      ],
+      "path": "library/entries/foundation-linearizability-histories.md",
+      "card_sha256": "f75fc2ab9108a4c0a0aac7f89ef2c5f27fccadb8f02e49ad50a109712b297242",
+      "sources": [
+        {
+          "url": "https://cs.brown.edu/~mph/HerlihyW90/p463-herlihy.pdf",
+          "title": "Herlihy and Wing: Linearizability: A Correctness Condition for Concurrent Objects",
+          "locator": "§1.2 FIFO histories; §2.1–2.3 histories, pending operations and definition; §3.1 locality",
+          "revision": "TOPLAS 12(3), 1990; coauthor-hosted original PDF"
+        }
+      ]
+    },
+    {
+      "id": "foundation-overload-capacity",
+      "kind": "foundation",
+      "title": "Capacity and queues: model resources and feedback",
+      "summary": "Treat capacity as workload-sensitive resource consumption and bound waiting rather than assume more buffering creates throughput.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "model-failure",
+          "compare",
+          "verify"
+        ],
+        "contexts": [
+          "overload",
+          "queues",
+          "resource-limits"
+        ],
+        "qualities": [
+          "latency",
+          "availability",
+          "operability"
+        ],
+        "scale": [
+          "single-process",
+          "distributed",
+          "cross-scale"
+        ]
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected",
+          "conceptual"
+        ],
+        "inspected_at": "2026-11-07",
+        "freshness": "live-at-inspection",
+        "scope": "Fresh first-party capacity, resource-exhaustion, queue-management and degradation sections read. No load tests, simulations or current Google topology verified."
+      },
+      "related": [
+        "pattern-backpressure-and-bounded-work",
+        "pattern-retry-budget-and-breaker"
+      ],
+      "path": "library/entries/foundation-overload-capacity.md",
+      "card_sha256": "7e00217cc4970565740f017ef904810501a70e37f8e14f76018a604dbd7c1ef8",
+      "sources": [
+        {
+          "url": "https://sre.google/sre-book/handling-overload/",
+          "title": "Google SRE: Handling Overload",
+          "locator": "The Pitfalls of Queries per Second; resource-cost model and per-customer limits",
+          "revision": "SRE book chapter21, online text inspected 2026-11-07"
+        },
+        {
+          "url": "https://sre.google/sre-book/addressing-cascading-failures/",
+          "title": "Google SRE: Addressing Cascading Failures",
+          "locator": "Resource Exhaustion; Queue Management; Load Shedding and Graceful Degradation",
+          "revision": "SRE book chapter22, online text inspected 2026-11-07"
+        }
+      ]
+    },
+    {
+      "id": "foundation-quality-scenarios",
+      "kind": "foundation",
+      "title": "Quality scenarios: make architectural priorities assessable",
+      "summary": "Replace broad quality adjectives with concrete runtime or change scenarios and meaningful response measures.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "compare",
+          "document",
+          "verify"
+        ],
+        "contexts": [
+          "quality-attributes",
+          "stakeholder-priorities"
+        ],
+        "qualities": [
+          "evolvability",
+          "reliability",
+          "operability"
+        ],
+        "scale": [
+          "cross-scale"
+        ]
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected",
+          "conceptual"
+        ],
+        "inspected_at": "2026-11-07",
+        "freshness": "live-at-inspection",
+        "scope": "Fresh method-author overview and scenario forms read. No project scenario validation, empirical comparison or ISO standard text inspected."
+      },
+      "related": [
+        "foundation-slo-measurement",
+        "diagram-arc42-consistent-views"
+      ],
+      "path": "library/entries/foundation-quality-scenarios.md",
+      "card_sha256": "c323728a70119b9156686b431909b2a9157264067c8eb9357d72bb45933dc0a0",
+      "sources": [
+        {
+          "url": "https://docs.arc42.org/section-10/",
+          "title": "arc42: Quality Requirements",
+          "locator": "§10.1 overview; §10.2 usage/change scenarios and short/long forms",
+          "revision": "Unversioned method documentation inspected 2026-11-07"
+        }
+      ]
+    },
+    {
+      "id": "foundation-slo-measurement",
+      "kind": "foundation",
+      "title": "SLOs: connect architectural effort to observable user outcomes",
+      "summary": "Separate the desired service outcome, its measurement implementation and the decision policy around it.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "compare",
+          "verify",
+          "document"
+        ],
+        "contexts": [
+          "service-objectives",
+          "measurement-boundaries"
+        ],
+        "qualities": [
+          "reliability",
+          "latency",
+          "observability"
+        ],
+        "scale": [
+          "cross-scale"
+        ]
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected",
+          "conceptual"
+        ],
+        "inspected_at": "2026-11-07",
+        "freshness": "live-at-inspection",
+        "scope": "Fresh first-party stakeholder, ratio, measurement-implementation and coverage/cost sections read. No SLO adopted, telemetry inspected or reliability outcome measured."
+      },
+      "related": [
+        "foundation-overload-capacity",
+        "system-valkey-persistence-policy"
+      ],
+      "path": "library/entries/foundation-slo-measurement.md",
+      "card_sha256": "a3fa1d49ba6ee11d92c48ea6062efba6f6547de6fb7965519f947616bf115913",
+      "sources": [
+        {
+          "url": "https://sre.google/workbook/implementing-slos/",
+          "title": "Google SRE Workbook: Implementing SLOs",
+          "locator": "Getting Started; Reliability Targets and Error Budgets; What to Measure; SLI specification versus implementation",
+          "revision": "SRE Workbook chapter2, online text inspected 2026-11-07"
+        }
+      ]
+    },
+    {
+      "id": "foundation-transaction-isolation",
+      "kind": "foundation",
+      "title": "Transaction isolation: define the actual database contract",
+      "summary": "Distinguish snapshots, serializable execution and application retry responsibilities at a versioned database boundary.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "compare",
+          "trace",
+          "model-failure"
+        ],
+        "contexts": [
+          "transactions",
+          "database-boundaries"
+        ],
+        "qualities": [
+          "consistency",
+          "correctness"
+        ],
+        "scale": [
+          "single-deployment",
+          "distributed"
+        ]
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected",
+          "conceptual"
+        ],
+        "inspected_at": "2026-11-07",
+        "freshness": "versioned",
+        "scope": "Fresh version18 official isolation table, level definitions, anomaly example and retry sections read. No server, transaction or external effect tested."
+      },
+      "related": [
+        "pattern-saga-compensation",
+        "system-sqlite-commit-boundaries"
+      ],
+      "path": "library/entries/foundation-transaction-isolation.md",
+      "card_sha256": "f9798b940fbba38bbab95e5fa5dcaa53ade5a1b232ab491e142ee62f5d6c410e",
+      "sources": [
+        {
+          "url": "https://www.postgresql.org/docs/18/transaction-iso.html",
+          "title": "PostgreSQL 18: Transaction Isolation",
+          "locator": "Table13.1; §§13.2.1–13.2.3; complete-transaction retry and concurrent sum/insertion example",
+          "revision": "PostgreSQL 18 documentation; inspected 2026-11-07"
+        }
+      ]
+    },
+    {
+      "id": "pattern-backpressure-and-bounded-work",
+      "kind": "pattern",
+      "title": "Backpressure and bounded work: include demand and overflow semantics",
+      "summary": "Distinguish asynchronous execution from actual admission control, bounded buffering and slow-consumer behavior.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "model-failure",
+          "trace",
+          "diagram",
+          "compare"
+        ],
+        "contexts": [
+          "stream-processing",
+          "queues",
+          "overload",
+          "admission-control"
+        ],
+        "qualities": [
+          "availability",
+          "latency",
+          "resource-bounds"
+        ],
+        "scale": [
+          "single-process",
+          "distributed"
+        ]
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected",
+          "conceptual"
+        ],
+        "inspected_at": "2026-11-07",
+        "freshness": "live-at-inspection",
+        "scope": "Fresh primary sections read as architectural guidance. No upstream implementation, diagram rendering/viewing, test, benchmark, failure injection or deployed service was exercised."
+      },
+      "related": [
+        "foundation-overload-capacity",
+        "system-duckdb-pipeline-dependencies"
+      ],
+      "path": "library/entries/pattern-backpressure-and-bounded-work.md",
+      "card_sha256": "2fa06fdd37b0aee2b13300a44b812f91e4462b41131f13e6f150dab1c1a46248",
+      "sources": [
+        {
+          "url": "https://github.com/reactive-streams/reactive-streams-jvm/blob/a625d3aba756e9842ad1291a5b73f5db280b6168/README.md",
+          "title": "Reactive Streams JVM specification",
+          "locator": "Goals/Scope; API protocol; Publisher 1.1 and Subscriber 2.8",
+          "revision": "a625d3aba756e9842ad1291a5b73f5db280b6168; inspected 2026-11-07"
+        },
+        {
+          "url": "https://doc.akka.io/libraries/akka-core/current/stream/stream-flows-and-basics.html",
+          "title": "Akka Streams: basics",
+          "locator": "Core concepts; Back-pressure explained; materialization",
+          "revision": "page labels 2.10.24; current URL inspected 2026-11-07"
+        },
+        {
+          "url": "https://doc.akka.io/libraries/akka-core/current/stream/stream-rate.html",
+          "title": "Akka Streams: buffers and rate",
+          "locator": "internal buffers; explicit overflow strategies; uncontrollable producers",
+          "revision": "page labels 2.10.24; current URL inspected 2026-11-07"
+        }
+      ]
+    },
+    {
+      "id": "pattern-bounded-context-and-state-ownership",
+      "kind": "pattern",
+      "title": "Model context, data ownership and deployment are separate boundaries",
+      "summary": "Use vocabulary and state ownership to find boundaries without equating a bounded context with a process or a physical database.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "decompose",
+          "trace",
+          "diagram"
+        ],
+        "contexts": [
+          "domain-models",
+          "state-ownership",
+          "cross-service-invariants"
+        ],
+        "qualities": [
+          "evolvability",
+          "consistency",
+          "delivery-independence"
+        ],
+        "scale": [
+          "single-process",
+          "single-deployment",
+          "multi-deployment"
+        ]
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected",
+          "conceptual"
+        ],
+        "inspected_at": "2026-11-07",
+        "freshness": "live-at-inspection",
+        "scope": "Fresh primary sections read as architectural guidance. No upstream implementation, diagram rendering/viewing, test, benchmark, failure injection or deployed service was exercised."
+      },
+      "related": [
+        "foundation-conway-coordination",
+        "pattern-coarse-boundaries-before-distribution"
+      ],
+      "path": "library/entries/pattern-bounded-context-and-state-ownership.md",
+      "card_sha256": "356158155756077aa2101481d2ede5f72099071dbf8520db129c579508546efe",
+      "sources": [
+        {
+          "url": "https://martinfowler.com/bliki/BoundedContext.html",
+          "title": "Fowler: Bounded Context",
+          "locator": "polysemes, context relationships and context maps",
+          "revision": "2014-01-15 interpretation; inspected 2026-11-07"
+        },
+        {
+          "url": "https://microservices.io/patterns/data/database-per-service.html",
+          "title": "Richardson: Database per service",
+          "locator": "private tables/schema/server variants; cross-service transactions and queries",
+          "revision": "mutable original-author catalog; inspected 2026-11-07"
+        }
+      ]
+    },
+    {
+      "id": "pattern-cache-aside-authority",
+      "kind": "pattern",
+      "title": "Cache-aside: keep freshness and authority visible",
+      "summary": "Use a cache as a conditional read optimization while preserving source authority, staleness and fallback load limits.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "trace",
+          "model-failure",
+          "compare",
+          "diagram"
+        ],
+        "contexts": [
+          "caching",
+          "state-ownership",
+          "read-heavy"
+        ],
+        "qualities": [
+          "latency",
+          "consistency",
+          "availability"
+        ],
+        "scale": [
+          "single-process",
+          "multi-deployment",
+          "distributed"
+        ]
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected",
+          "conceptual"
+        ],
+        "inspected_at": "2026-11-07",
+        "freshness": "live-at-inspection",
+        "scope": "Fresh primary sections read as architectural guidance. No upstream implementation, diagram rendering/viewing, test, benchmark, failure injection or deployed service was exercised."
+      },
+      "related": [
+        "system-rust-analyzer-derived-state",
+        "pattern-cqrs-model-separation"
+      ],
+      "path": "library/entries/pattern-cache-aside-authority.md",
+      "card_sha256": "9084bdfaaca434c8d11dae7a901cf2ce0c67d4c309effc4ce9fc28b385def1c0",
+      "sources": [
+        {
+          "url": "https://learn.microsoft.com/en-us/azure/architecture/patterns/cache-aside",
+          "title": "Microsoft: Cache-Aside pattern",
+          "locator": "read miss and update/invalidate sequence; consistency and applicability",
+          "revision": "mutable first-party guidance; inspected 2026-11-07"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/azure/architecture/best-practices/caching",
+          "title": "Microsoft: Caching guidance",
+          "locator": "private/shared cache; source authority; fallback load; eventual-consistency population",
+          "revision": "mutable first-party guidance; inspected 2026-11-07"
+        }
+      ]
+    },
+    {
+      "id": "pattern-coarse-boundaries-before-distribution",
+      "kind": "pattern",
+      "title": "Coarse boundaries versus independent delivery: preserve the disputed premise",
+      "summary": "Compare early distribution against evolving boundaries and operational cost without treating either practitioner position as a universal rule.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "compare",
+          "decompose",
+          "migrate"
+        ],
+        "contexts": [
+          "greenfield",
+          "independent-delivery",
+          "domain-uncertainty"
+        ],
+        "qualities": [
+          "evolvability",
+          "operability",
+          "delivery-independence"
+        ],
+        "scale": [
+          "single-deployment",
+          "multi-deployment"
+        ]
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected",
+          "conceptual"
+        ],
+        "inspected_at": "2026-11-07",
+        "freshness": "historical",
+        "scope": "Fresh primary sections read as architectural guidance. No upstream implementation, diagram rendering/viewing, test, benchmark, failure injection or deployed service was exercised."
+      },
+      "related": [
+        "foundation-information-hiding",
+        "pattern-bounded-context-and-state-ownership"
+      ],
+      "path": "library/entries/pattern-coarse-boundaries-before-distribution.md",
+      "card_sha256": "b2b6b667603f477ca0e057f091ace324fe43f7433e0fe05e4d0a481a2948eede",
+      "sources": [
+        {
+          "url": "https://martinfowler.com/bliki/MonolithFirst.html",
+          "title": "Fowler: Monolith First",
+          "locator": "boundary uncertainty, alternatives and tentative-evidence caveat",
+          "revision": "2015-06-03 article; inspected 2026-11-07"
+        },
+        {
+          "url": "https://martinfowler.com/articles/dont-start-monolith.html",
+          "title": "Tilkov: Don’t start with a monolith",
+          "locator": "independent delivery, known domains, small-team exception and boundary-refactoring cost",
+          "revision": "2015-06-09 article; inspected 2026-11-07"
+        }
+      ]
+    },
+    {
+      "id": "pattern-cqrs-model-separation",
+      "kind": "pattern",
+      "title": "CQRS: separate models only where their differences justify the cost",
+      "summary": "Compare one shared model with distinct command/read models while preserving consistency and recovery implications.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "compare",
+          "decompose",
+          "trace",
+          "diagram"
+        ],
+        "contexts": [
+          "read-write-asymmetry",
+          "domain-models",
+          "projections"
+        ],
+        "qualities": [
+          "evolvability",
+          "latency",
+          "consistency"
+        ],
+        "scale": [
+          "single-process",
+          "single-deployment",
+          "distributed"
+        ]
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected",
+          "conceptual"
+        ],
+        "inspected_at": "2026-11-07",
+        "freshness": "live-at-inspection",
+        "scope": "Fresh primary sections read as architectural guidance. No upstream implementation, diagram rendering/viewing, test, benchmark, failure injection or deployed service was exercised."
+      },
+      "related": [
+        "pattern-event-sourcing-replay",
+        "foundation-transaction-isolation"
+      ],
+      "path": "library/entries/pattern-cqrs-model-separation.md",
+      "card_sha256": "cfa81e6d2af6fd8448ee4b27a9dad217460bdea527b63dd77c7aa566527366a7",
+      "sources": [
+        {
+          "url": "https://martinfowler.com/bliki/CQRS.html",
+          "title": "Fowler: CQRS",
+          "locator": "model separation; variations; When to use it",
+          "revision": "2011-07-14 practitioner account; inspected 2026-11-07"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/azure/architecture/patterns/cqrs",
+          "title": "Microsoft: CQRS pattern",
+          "locator": "single versus separate data stores; problems; applicability",
+          "revision": "mutable first-party guidance; inspected 2026-11-07"
+        }
+      ]
+    },
+    {
+      "id": "pattern-event-sourcing-replay",
+      "kind": "pattern",
+      "title": "Event sourcing: make replay, concurrency and external effects explicit",
+      "summary": "Use an event history as authority only when reconstruction and audit needs justify event evolution and replay responsibilities.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "compare",
+          "trace",
+          "model-failure",
+          "diagram"
+        ],
+        "contexts": [
+          "event-history",
+          "replay",
+          "projections",
+          "external-effects"
+        ],
+        "qualities": [
+          "auditability",
+          "consistency",
+          "evolvability"
+        ],
+        "scale": [
+          "single-process",
+          "single-deployment",
+          "distributed"
+        ]
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected",
+          "conceptual"
+        ],
+        "inspected_at": "2026-11-07",
+        "freshness": "live-at-inspection",
+        "scope": "Fresh primary sections read as architectural guidance. No upstream implementation, diagram rendering/viewing, test, benchmark, failure injection or deployed service was exercised."
+      },
+      "related": [
+        "system-temporal-replay-activities",
+        "pattern-cqrs-model-separation"
+      ],
+      "path": "library/entries/pattern-event-sourcing-replay.md",
+      "card_sha256": "d9ac2f77b0bf3ffa2b1281ffce97bcbbe2f4d0f525d708e456b99807331e2d27",
+      "sources": [
+        {
+          "url": "https://martinfowler.com/eaaDev/EventSourcing.html",
+          "title": "Fowler: Event Sourcing",
+          "locator": "How it Works; External Updates/Queries; Code Changes; applicability",
+          "revision": "2005-12-12 draft explicitly not actively maintained; inspected 2026-11-07"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/azure/architecture/patterns/event-sourcing",
+          "title": "Microsoft: Event Sourcing pattern",
+          "locator": "system of record; concurrency; versioning; complex-pattern warning",
+          "revision": "mutable first-party guidance; inspected 2026-11-07"
+        }
+      ]
+    },
+    {
+      "id": "pattern-ports-and-adapters",
+      "kind": "pattern",
+      "title": "Ports and adapters: protect a purposeful application boundary",
+      "summary": "Separate application policy from external interaction where alternate drivers or tests justify it; the hexagon does not mandate six ports.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "decompose",
+          "verify",
+          "diagram"
+        ],
+        "contexts": [
+          "application-boundary",
+          "external-dependencies",
+          "test-isolation"
+        ],
+        "qualities": [
+          "testability",
+          "evolvability"
+        ],
+        "scale": [
+          "single-process",
+          "single-deployment",
+          "cross-scale"
+        ]
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected",
+          "conceptual"
+        ],
+        "inspected_at": "2026-11-07",
+        "freshness": "historical",
+        "scope": "Fresh primary sections read as architectural guidance. No upstream implementation, diagram rendering/viewing, test, benchmark, failure injection or deployed service was exercised."
+      },
+      "related": [
+        "foundation-information-hiding",
+        "pattern-strangler-transitional-architecture"
+      ],
+      "path": "library/entries/pattern-ports-and-adapters.md",
+      "card_sha256": "79ce91c3ff85531713c3603f6b1b316fd4cbff39b039987cebf50f754bd52297",
+      "sources": [
+        {
+          "url": "https://alistair.cockburn.us/hexagonal-architecture",
+          "title": "Cockburn: original Hexagonal Architecture article",
+          "locator": "Intent; Nature of the Solution; Structure; application notes",
+          "revision": "HaT Technical Report 2005.02, v0.9; inspected 2026-11-07"
+        }
+      ]
+    },
+    {
+      "id": "pattern-request-reply-versus-messaging",
+      "kind": "pattern",
+      "title": "Request/reply versus messaging: decide temporal coupling and outcome semantics",
+      "summary": "Compare synchronous collaboration and queued work using actual completion, latency, failure and operating requirements.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "compare",
+          "trace",
+          "model-failure",
+          "diagram"
+        ],
+        "contexts": [
+          "service-collaboration",
+          "messaging",
+          "request-reply"
+        ],
+        "qualities": [
+          "availability",
+          "latency",
+          "operability"
+        ],
+        "scale": [
+          "multi-deployment",
+          "distributed"
+        ]
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected",
+          "conceptual"
+        ],
+        "inspected_at": "2026-11-07",
+        "freshness": "live-at-inspection",
+        "scope": "Fresh primary sections read as architectural guidance. No upstream implementation, diagram rendering/viewing, test, benchmark, failure injection or deployed service was exercised."
+      },
+      "related": [
+        "pattern-transactional-outbox",
+        "diagram-mermaid-sequence-outcomes"
+      ],
+      "path": "library/entries/pattern-request-reply-versus-messaging.md",
+      "card_sha256": "e612854617274d8a8e81ceb638168ccde8af180bfbe883708ec8b17e63061349",
+      "sources": [
+        {
+          "url": "https://microservices.io/patterns/communication-style/rpi.html",
+          "title": "Richardson: Remote Procedure Invocation",
+          "locator": "Solution; resulting-context benefits/drawbacks; discovery",
+          "revision": "mutable original-author catalog; inspected 2026-11-07"
+        },
+        {
+          "url": "https://microservices.io/patterns/communication-style/messaging.html",
+          "title": "Richardson: Messaging",
+          "locator": "interaction styles; runtime decoupling; broker/request-reply costs",
+          "revision": "mutable original-author catalog; inspected 2026-11-07"
+        },
+        {
+          "url": "https://www.enterpriseintegrationpatterns.com/patterns/messaging/Messaging.html",
+          "title": "Enterprise Integration Patterns: Messaging",
+          "locator": "public pattern excerpt on asynchronous integration",
+          "revision": "public excerpt, not full book chapter; inspected 2026-11-07"
+        }
+      ]
+    },
+    {
+      "id": "pattern-retry-budget-and-breaker",
+      "kind": "pattern",
+      "title": "Retry budgets and circuit breakers: reason about amplification and unknown results",
+      "summary": "Choose retry ownership, timeout scope and failure response before adding resilience mechanisms or copying thresholds.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "model-failure",
+          "compare",
+          "trace",
+          "diagram"
+        ],
+        "contexts": [
+          "remote-calls",
+          "overload",
+          "retries",
+          "idempotency"
+        ],
+        "qualities": [
+          "availability",
+          "latency",
+          "operability",
+          "consistency"
+        ],
+        "scale": [
+          "multi-deployment",
+          "distributed"
+        ]
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected",
+          "conceptual"
+        ],
+        "inspected_at": "2026-11-07",
+        "freshness": "historical",
+        "scope": "Fresh primary sections read as architectural guidance. No upstream implementation, diagram rendering/viewing, test, benchmark, failure injection or deployed service was exercised."
+      },
+      "related": [
+        "foundation-overload-capacity",
+        "foundation-end-to-end-guarantees"
+      ],
+      "path": "library/entries/pattern-retry-budget-and-breaker.md",
+      "card_sha256": "88f7262f1f995f4cbb98709eb94cc80dc6e5d801ffbe95adbabbe2cd98ff27ed",
+      "sources": [
+        {
+          "url": "https://d1.awsstatic.com/builderslibrary/pdfs/timeouts-retries-and-backoff-with-jitter.pdf",
+          "title": "Brooker: Timeouts, retries, and backoff with jitter",
+          "locator": "PDF pp.2–5: timeout scope, layered retries, token buckets, jitter",
+          "revision": "2019 original PDF; inspected 2026-11-07"
+        },
+        {
+          "url": "https://d1.awsstatic.com/builderslibrary/pdfs/making-retries-safe-with-idempotent-apis-malcolm-featonby.pdf",
+          "title": "Featonby: Making retries safe with idempotent APIs",
+          "locator": "PDF pp.2–4, 6–8: caller intent, atomic token/effect, late arrivals and mismatches",
+          "revision": "2020 original PDF; inspected 2026-11-07"
+        },
+        {
+          "url": "https://martinfowler.com/bliki/CircuitBreaker.html",
+          "title": "Fowler: Circuit Breaker",
+          "locator": "closed/open/half-open example; error scope and client fallback",
+          "revision": "2014-03-06 practitioner article; inspected 2026-11-07"
+        }
+      ]
+    },
+    {
+      "id": "pattern-saga-compensation",
+      "kind": "pattern",
+      "title": "Sagas: coordinate local commits without pretending they are global rollback",
+      "summary": "Model compensation, concurrency and terminal outcomes for work that genuinely spans independent owners.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "trace",
+          "model-failure",
+          "compare",
+          "diagram"
+        ],
+        "contexts": [
+          "cross-service-transactions",
+          "compensation",
+          "workflow-coordination"
+        ],
+        "qualities": [
+          "consistency",
+          "operability",
+          "availability"
+        ],
+        "scale": [
+          "multi-deployment",
+          "distributed"
+        ]
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected",
+          "conceptual"
+        ],
+        "inspected_at": "2026-11-07",
+        "freshness": "live-at-inspection",
+        "scope": "Fresh primary sections read as architectural guidance. No upstream implementation, diagram rendering/viewing, test, benchmark, failure injection or deployed service was exercised."
+      },
+      "related": [
+        "pattern-transactional-outbox",
+        "foundation-transaction-isolation"
+      ],
+      "path": "library/entries/pattern-saga-compensation.md",
+      "card_sha256": "8eeb4c19b70de26d344d05f9f519c78a53da6b1cff38d99924cecff61ea2c253",
+      "sources": [
+        {
+          "url": "https://microservices.io/patterns/data/saga.html",
+          "title": "Richardson: Saga",
+          "locator": "choreography/orchestration; explicit compensation; lack of isolation; client outcome",
+          "revision": "mutable original-author catalog; inspected 2026-11-07"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/azure/architecture/patterns/saga",
+          "title": "Microsoft: Saga distributed transactions",
+          "locator": "local commits, pivot concepts, compensation failures and data anomalies",
+          "revision": "mutable first-party guidance; inspected 2026-11-07"
+        }
+      ]
+    },
+    {
+      "id": "pattern-strangler-transitional-architecture",
+      "kind": "pattern",
+      "title": "Strangler migration: design coexistence and removal, not just the target",
+      "summary": "Use seams and observable stages to compare incremental replacement with a justified simpler cutover.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "migrate",
+          "compare",
+          "trace",
+          "diagram"
+        ],
+        "contexts": [
+          "legacy-modernization",
+          "transitional-architecture",
+          "routing-seams"
+        ],
+        "qualities": [
+          "evolvability",
+          "availability",
+          "operability"
+        ],
+        "scale": [
+          "single-deployment",
+          "multi-deployment",
+          "cross-scale"
+        ]
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected",
+          "conceptual"
+        ],
+        "inspected_at": "2026-11-07",
+        "freshness": "live-at-inspection",
+        "scope": "Fresh primary sections read as architectural guidance. No upstream implementation, diagram rendering/viewing, test, benchmark, failure injection or deployed service was exercised."
+      },
+      "related": [
+        "foundation-decision-records",
+        "pattern-ports-and-adapters"
+      ],
+      "path": "library/entries/pattern-strangler-transitional-architecture.md",
+      "card_sha256": "1b7a872ca6529875800e09347fcec5114f434bc2e18dcb4595093f0763c87abf",
+      "sources": [
+        {
+          "url": "https://martinfowler.com/bliki/StranglerFigApplication.html",
+          "title": "Fowler: Strangler Fig",
+          "locator": "outcomes, seams, transitional architecture and incremental learning",
+          "revision": "revised 2024-08-22 article; inspected 2026-11-07"
+        },
+        {
+          "url": "https://martinfowler.com/articles/patterns-legacy-displacement/",
+          "title": "Cartwright, Horn and Lewis: Patterns of Legacy Displacement",
+          "locator": "four activities; middleware-removal seam, routing and contract account",
+          "revision": "2024-03-05 practitioner account; inspected 2026-11-07"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/azure/architecture/patterns/strangler-fig",
+          "title": "Microsoft: Strangler Fig pattern",
+          "locator": "façade routing; coexistence dependencies; decommissioning and suitability",
+          "revision": "mutable first-party guidance; inspected 2026-11-07"
+        }
+      ]
+    },
+    {
+      "id": "pattern-transactional-outbox",
+      "kind": "pattern",
+      "title": "Transactional outbox: join the local commit and message intent",
+      "summary": "Close the database-to-message intent gap while retaining relay duplication, ordering and consumer-effect limits.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "trace",
+          "model-failure",
+          "diagram",
+          "verify"
+        ],
+        "contexts": [
+          "transactional-messaging",
+          "dual-write",
+          "message-relay"
+        ],
+        "qualities": [
+          "consistency",
+          "durability",
+          "operability"
+        ],
+        "scale": [
+          "single-deployment",
+          "distributed"
+        ]
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected",
+          "conceptual"
+        ],
+        "inspected_at": "2026-11-07",
+        "freshness": "live-at-inspection",
+        "scope": "Fresh primary sections read as architectural guidance. No upstream implementation, diagram rendering/viewing, test, benchmark, failure injection or deployed service was exercised."
+      },
+      "related": [
+        "system-nats-delivery-effects",
+        "pattern-saga-compensation"
+      ],
+      "path": "library/entries/pattern-transactional-outbox.md",
+      "card_sha256": "77e3d7c3742ec8f59972f84c62961fa9d4a060a4e54221c4f6911502003080fc",
+      "sources": [
+        {
+          "url": "https://microservices.io/patterns/data/transactional-outbox.html",
+          "title": "Richardson: Transactional outbox",
+          "locator": "forces; sender/database/outbox/relay; duplicate relay publication",
+          "revision": "mutable original-author catalog; inspected 2026-11-07"
+        },
+        {
+          "url": "https://microservices.io/patterns/communication-style/idempotent-consumer.html",
+          "title": "Richardson: Idempotent Consumer",
+          "locator": "processed-message identity and transactional duplicate detection",
+          "revision": "mutable original-author catalog; inspected 2026-11-07"
+        }
+      ]
+    },
+    {
+      "id": "system-bazel-dependency-evaluation",
+      "kind": "system",
+      "title": "Bazel Skyframe: declared dependencies and restartable evaluation",
+      "summary": "Incremental recomputation relies on dependency-aware evaluation, not merely storing outputs in a cache.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "decompose",
+          "trace",
+          "diagram",
+          "verify"
+        ],
+        "contexts": [
+          "incremental-builds",
+          "dependency-tracking",
+          "derived-state"
+        ],
+        "qualities": [
+          "correctness",
+          "evolvability",
+          "incrementality"
+        ],
+        "scale": [
+          "single-process",
+          "cross-scale"
+        ]
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected"
+        ],
+        "inspected_at": "2026-11-07",
+        "freshness": "versioned",
+        "scope": "Fresh pinned core interfaces and live first-party evaluation/model documentation inspected. No build or cache/invalidation experiment, generated graph or visual rendering."
+      },
+      "related": [
+        "system-rust-analyzer-derived-state",
+        "foundation-information-hiding"
+      ],
+      "path": "library/entries/system-bazel-dependency-evaluation.md",
+      "card_sha256": "8f2ec343f2f5a3aa3bd6c24bb71f709800494cf26ce7ef06e86b8c21eda1a037",
+      "sources": [
+        {
+          "url": "https://bazel.build/reference/skyframe",
+          "title": "Bazel Skyframe documentation",
+          "locator": "Data model, evaluation, requested dependencies, invalidation/hermeticity",
+          "revision": "Live documentation read 2026-11-07; not a frozen release"
+        },
+        {
+          "url": "https://github.com/bazelbuild/bazel/blob/a765dc177f48efb4c9e1b980609b838c9ba27f42/src/main/java/com/google/devtools/build/skyframe/SkyFunction.java",
+          "title": "bazelbuild/bazel: src/main/java/com/google/devtools/build/skyframe/SkyFunction.java",
+          "locator": "Interface contract: direct dependency access, missing values/restarts, exception enrichment and compute",
+          "revision": "a765dc177f48efb4c9e1b980609b838c9ba27f42"
+        },
+        {
+          "url": "https://github.com/bazelbuild/bazel/blob/a765dc177f48efb4c9e1b980609b838c9ba27f42/src/main/java/com/google/devtools/build/skyframe/SkyValue.java",
+          "title": "bazelbuild/bazel: src/main/java/com/google/devtools/build/skyframe/SkyValue.java",
+          "locator": "Return-value interface and debug/lifecycle methods",
+          "revision": "a765dc177f48efb4c9e1b980609b838c9ba27f42"
+        }
+      ]
+    },
+    {
+      "id": "system-duckdb-pipeline-dependencies",
+      "kind": "system",
+      "title": "DuckDB: query stages and execution dependency graphs",
+      "summary": "Separate syntax/semantic planning from pipeline state and dependency scheduling; a logical query tree is not the runtime task graph.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "decompose",
+          "trace",
+          "diagram"
+        ],
+        "contexts": [
+          "query-processing",
+          "pipeline-execution",
+          "dependency-graphs"
+        ],
+        "qualities": [
+          "correctness",
+          "parallelism",
+          "evolvability"
+        ],
+        "scale": [
+          "single-process"
+        ]
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected"
+        ],
+        "inspected_at": "2026-11-07",
+        "freshness": "versioned",
+        "scope": "Fresh version-2.0 primary overview and selected pinned executor/pipeline implementation inspected. No query execution, benchmark, pipeline graph capture or rendered diagram."
+      },
+      "related": [
+        "pattern-backpressure-and-bounded-work",
+        "diagram-c4-runtime-scenario"
+      ],
+      "path": "library/entries/system-duckdb-pipeline-dependencies.md",
+      "card_sha256": "c0384c5c559e3d7235b01a9fa75b7ddcb5d8200f5690f947d141a2508cf10d77",
+      "sources": [
+        {
+          "url": "https://duckdb.org/docs/2.0/internals/overview",
+          "title": "DuckDB internals overview",
+          "locator": "Parser/binder/logical optimizer/physical-plan stages",
+          "revision": "Stable URL redirected to documentation 2.0 on 2026-11-07; distinct from pinned source HEAD"
+        },
+        {
+          "url": "https://github.com/duckdb/duckdb/blob/d4eea3f208d42ca4ee522aca23f5ea76f902b0ca/src/parallel/executor.cpp",
+          "title": "duckdb/duckdb: src/parallel/executor.cpp",
+          "locator": "ScheduleEventsInternal event construction, dependencies, cycle checks and initial scheduling, lines 52–155",
+          "revision": "d4eea3f208d42ca4ee522aca23f5ea76f902b0ca"
+        },
+        {
+          "url": "https://github.com/duckdb/duckdb/blob/d4eea3f208d42ca4ee522aca23f5ea76f902b0ca/src/parallel/pipeline_executor.cpp",
+          "title": "duckdb/duckdb: src/parallel/pipeline_executor.cpp",
+          "locator": "PipelineExecutor construction: local/global source/sink state, operators and DataChunk setup, lines 32–115",
+          "revision": "d4eea3f208d42ca4ee522aca23f5ea76f902b0ca"
+        }
+      ]
+    },
+    {
+      "id": "system-kubernetes-reconciliation",
+      "kind": "system",
+      "title": "Kubernetes: desired state, observed state and expiring expectations",
+      "summary": "A reconciliation loop needs explicit observation and retry semantics; issuing a create/delete request is not the same as observing the resulting state.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "trace",
+          "model-failure",
+          "diagram"
+        ],
+        "contexts": [
+          "control-loops",
+          "eventual-observation",
+          "resource-ownership"
+        ],
+        "qualities": [
+          "availability",
+          "convergence",
+          "operability"
+        ],
+        "scale": [
+          "distributed"
+        ]
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected"
+        ],
+        "inspected_at": "2026-11-07",
+        "freshness": "versioned",
+        "scope": "Fresh selected pinned ReplicaSet/expectation implementation and live controller documentation inspected. No controller/test execution, convergence proof or deployed cluster observation."
+      },
+      "related": [
+        "foundation-end-to-end-guarantees",
+        "diagram-mermaid-state-ownership"
+      ],
+      "path": "library/entries/system-kubernetes-reconciliation.md",
+      "card_sha256": "ae745430bf01928c2bec4b352f3c7780d16b4aa142b56dc020699e5476ce65a5",
+      "sources": [
+        {
+          "url": "https://kubernetes.io/docs/concepts/architecture/controller/",
+          "title": "Kubernetes controllers",
+          "locator": "Controller pattern; API-server and direct-control paths; desired/current state; ownership",
+          "revision": "Live documentation read 2026-11-07; not a frozen release"
+        },
+        {
+          "url": "https://github.com/kubernetes/kubernetes/blob/ac8d3ed1cdf6c8bb11e9d3eda8acf2a9f03915b8/pkg/controller/replicaset/replica_set.go",
+          "title": "kubernetes/kubernetes: pkg/controller/replicaset/replica_set.go",
+          "locator": "manageReplicas creation/deletion, expectations and skipped-operation accounting; selected lines 650–770",
+          "revision": "ac8d3ed1cdf6c8bb11e9d3eda8acf2a9f03915b8"
+        },
+        {
+          "url": "https://github.com/kubernetes/kubernetes/blob/ac8d3ed1cdf6c8bb11e9d3eda8acf2a9f03915b8/pkg/controller/controller_utils.go",
+          "title": "kubernetes/kubernetes: pkg/controller/controller_utils.go",
+          "locator": "ControllerExpectations interface; SatisfiedExpectations expiration/error behavior and SetExpectations",
+          "revision": "ac8d3ed1cdf6c8bb11e9d3eda8acf2a9f03915b8"
+        }
+      ]
+    },
+    {
+      "id": "system-nats-delivery-effects",
+      "kind": "system",
+      "title": "NATS JetStream: delivery acknowledgments are not business-effect completion",
+      "summary": "Keep durable stream state, consumer pending/redelivery state and a handler’s external effects separate when reasoning about retries.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "trace",
+          "model-failure",
+          "diagram"
+        ],
+        "contexts": [
+          "message-processing",
+          "redelivery",
+          "worker-pools"
+        ],
+        "qualities": [
+          "reliability",
+          "backpressure",
+          "consistency"
+        ],
+        "scale": [
+          "single-deployment",
+          "distributed"
+        ]
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected"
+        ],
+        "inspected_at": "2026-11-07",
+        "freshness": "versioned",
+        "scope": "Fresh first-party delivery/ack text and selected pinned consumer source inspected. Old route redirect recorded. No broker, external side effect, upstream program or rendered diagram executed."
+      },
+      "related": [
+        "pattern-transactional-outbox",
+        "foundation-end-to-end-guarantees"
+      ],
+      "path": "library/entries/system-nats-delivery-effects.md",
+      "card_sha256": "02f5b1e3d70a6c59847d81eaa9886eba987737f89277033e6beedd22824d20d0",
+      "sources": [
+        {
+          "url": "https://docs.nats.io/learn/jetstream/delivery-and-acknowledgment",
+          "title": "NATS delivery and acknowledgment",
+          "locator": "Consumer ack/redelivery loop and source of at-least-once delivery",
+          "revision": "Live documentation read 2026-11-07; not a frozen release"
+        },
+        {
+          "url": "https://docs.nats.io/learn/jetstream/acknowledgment",
+          "title": "NATS ack responses and redelivery",
+          "locator": "AckWait, ack/nak/term/in-progress, consumer policy, MaxDeliver and advisory limits",
+          "revision": "Live documentation read 2026-11-07; not a frozen release"
+        },
+        {
+          "url": "https://github.com/nats-io/nats-server/blob/59bf235aea63881477dd485af3579be2ffc32b0c/server/consumer.go",
+          "title": "nats-io/nats-server: server/consumer.go",
+          "locator": "ConsumerConfig fields; AckPolicy constants around 353; processNak; checkPending around 6268",
+          "revision": "59bf235aea63881477dd485af3579be2ffc32b0c"
+        }
+      ]
+    },
+    {
+      "id": "system-postgresql-process-isolation",
+      "kind": "system",
+      "title": "PostgreSQL: supervisor reliability and per-connection backend boundaries",
+      "summary": "A supervising process can stay outside ordinary request/locking work while backend processes own client sessions and share database infrastructure.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "decompose",
+          "trace",
+          "model-failure",
+          "diagram"
+        ],
+        "contexts": [
+          "client-server",
+          "process-isolation",
+          "native-runtime"
+        ],
+        "qualities": [
+          "availability",
+          "fault-isolation",
+          "operability"
+        ],
+        "scale": [
+          "single-deployment"
+        ]
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected"
+        ],
+        "inspected_at": "2026-11-07",
+        "freshness": "versioned",
+        "scope": "Fresh pinned supervisor/startup source and first-party version-18 tutorial text inspected. No operating-system process or deployed server observed; no rendered upstream diagram."
+      },
+      "related": [
+        "diagram-c4-context-container",
+        "diagram-c4-deployment-mapping"
+      ],
+      "path": "library/entries/system-postgresql-process-isolation.md",
+      "card_sha256": "352eb4236b2f485054c6ced07524c4dbb021ad1378c55644e29dfb846a409882",
+      "sources": [
+        {
+          "url": "https://www.postgresql.org/docs/current/tutorial-arch.html",
+          "title": "PostgreSQL Architectural Fundamentals",
+          "locator": "Client/server placement and per-connection process explanation",
+          "revision": "Page resolved to PostgreSQL 18 documentation on 2026-11-07; distinct from source HEAD"
+        },
+        {
+          "url": "https://github.com/postgres/postgres/blob/0607aa61090ac1b574f8bafe854c684195b31e16/src/backend/postmaster/postmaster.c",
+          "title": "postgres/postgres: src/backend/postmaster/postmaster.c",
+          "locator": "Opening architectural rationale, initialization/synchronization/recovery notes, lines 1–65",
+          "revision": "0607aa61090ac1b574f8bafe854c684195b31e16"
+        },
+        {
+          "url": "https://github.com/postgres/postgres/blob/0607aa61090ac1b574f8bafe854c684195b31e16/src/backend/tcop/backend_startup.c",
+          "title": "postgres/postgres: src/backend/tcop/backend_startup.c",
+          "locator": "BackendMain/BackendInitialize; startup packet, shared-memory process registration and PostgresMain handoff",
+          "revision": "0607aa61090ac1b574f8bafe854c684195b31e16"
+        }
+      ]
+    },
+    {
+      "id": "system-raft-host-integration",
+      "kind": "system",
+      "title": "etcd Raft: consensus core versus host persistence and transport",
+      "summary": "A deterministic consensus library delegates critical storage, transport and application ordering obligations to its embedding host.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "decompose",
+          "trace",
+          "model-failure",
+          "diagram"
+        ],
+        "contexts": [
+          "replicated-state-machine",
+          "host-integration",
+          "consensus"
+        ],
+        "qualities": [
+          "consistency",
+          "durability",
+          "availability"
+        ],
+        "scale": [
+          "distributed"
+        ]
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected"
+        ],
+        "inspected_at": "2026-11-07",
+        "freshness": "versioned",
+        "scope": "Fresh pinned README, Ready and Storage contracts inspected. No algorithm execution, formal proof reproduction, transport/storage integration or runtime fault testing."
+      },
+      "related": [
+        "foundation-linearizability-histories",
+        "diagram-c4-deployment-mapping"
+      ],
+      "path": "library/entries/system-raft-host-integration.md",
+      "card_sha256": "2207c5acb7e0518a72f5e870a6fc12a260a31376b3cd7084ca7589c2fea4a5fc",
+      "sources": [
+        {
+          "url": "https://github.com/etcd-io/raft/blob/c51f010c851edd0dada5af41bafbf68e54617767/README.md",
+          "title": "etcd-io/raft: README.md",
+          "locator": "Minimal core philosophy; Node.Ready host responsibilities, persistence/message/apply/Advance ordering; clock-dependent lease-read caveat",
+          "revision": "c51f010c851edd0dada5af41bafbf68e54617767"
+        },
+        {
+          "url": "https://github.com/etcd-io/raft/blob/c51f010c851edd0dada5af41bafbf68e54617767/node.go",
+          "title": "etcd-io/raft: node.go",
+          "locator": "Ready fields, Messages/CommittedEntries/MustSync and AsyncStorageWrites exceptions, around lines 52–122",
+          "revision": "c51f010c851edd0dada5af41bafbf68e54617767"
+        },
+        {
+          "url": "https://github.com/etcd-io/raft/blob/c51f010c851edd0dada5af41bafbf68e54617767/storage.go",
+          "title": "etcd-io/raft: storage.go",
+          "locator": "Storage interface error/recovery and ownership contracts, selected lines 38–100",
+          "revision": "c51f010c851edd0dada5af41bafbf68e54617767"
+        }
+      ]
+    },
+    {
+      "id": "system-rust-analyzer-derived-state",
+      "kind": "system",
+      "title": "rust-analyzer: input facts, derived models and cancellable snapshots",
+      "summary": "Protect syntax and semantic API boundaries while separating changing input state from lazily derived analysis and editor-facing results.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "decompose",
+          "trace",
+          "diagram",
+          "verify"
+        ],
+        "contexts": [
+          "incremental-analysis",
+          "developer-tools",
+          "api-boundaries"
+        ],
+        "qualities": [
+          "evolvability",
+          "responsiveness",
+          "testability"
+        ],
+        "scale": [
+          "single-process",
+          "cross-scale"
+        ]
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected"
+        ],
+        "inspected_at": "2026-11-07",
+        "freshness": "versioned",
+        "scope": "Fresh pinned architecture prose and selected syntax/IDE implementation contracts inspected. Referenced image not viewed; no runtime, query-performance or diagram-rendering observation."
+      },
+      "related": [
+        "foundation-information-hiding",
+        "pattern-cache-aside-authority"
+      ],
+      "path": "library/entries/system-rust-analyzer-derived-state.md",
+      "card_sha256": "2db13de7b80ab8cf13aadec45c4137e6320b115653ec9d5fff86af1f27447110",
+      "sources": [
+        {
+          "url": "https://github.com/rust-lang/rust-analyzer/blob/55effabb762bbd0a21c5af530ea447bd6772881d/docs/book/src/contributing/architecture.md",
+          "title": "rust-lang/rust-analyzer: docs/book/src/contributing/architecture.md",
+          "locator": "Bird’s Eye View; parser/syntax/base-db/hir/ide invariants and API boundaries, selected first 220 lines",
+          "revision": "55effabb762bbd0a21c5af530ea447bd6772881d"
+        },
+        {
+          "url": "https://github.com/rust-lang/rust-analyzer/blob/55effabb762bbd0a21c5af530ea447bd6772881d/crates/syntax/src/lib.rs",
+          "title": "rust-lang/rust-analyzer: crates/syntax/src/lib.rs",
+          "locator": "Module contract and Parse tree-plus-errors representation, lines 1–140",
+          "revision": "55effabb762bbd0a21c5af530ea447bd6772881d"
+        },
+        {
+          "url": "https://github.com/rust-lang/rust-analyzer/blob/55effabb762bbd0a21c5af530ea447bd6772881d/crates/ide/src/lib.rs",
+          "title": "rust-lang/rust-analyzer: crates/ide/src/lib.rs",
+          "locator": "IDE-centric API contract; AnalysisHost::analysis/apply_change and snapshot cancellation",
+          "revision": "55effabb762bbd0a21c5af530ea447bd6772881d"
+        }
+      ]
+    },
+    {
+      "id": "system-sqlite-commit-boundaries",
+      "kind": "system",
+      "title": "SQLite: rollback commit, WAL commit and checkpoint are different boundaries",
+      "summary": "Separate logical completion, durable ordering and recovery state instead of drawing one generic write-to-database arrow.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "trace",
+          "model-failure",
+          "diagram"
+        ],
+        "contexts": [
+          "embedded-storage",
+          "transaction-boundaries",
+          "recovery"
+        ],
+        "qualities": [
+          "atomicity",
+          "durability",
+          "consistency"
+        ],
+        "scale": [
+          "single-process",
+          "single-deployment"
+        ]
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected"
+        ],
+        "inspected_at": "2026-11-07",
+        "freshness": "versioned",
+        "scope": "Fresh selected pinned pager/WAL comments and live first-party rollback documentation inspected. Source-contract interpretation only; no code, crash test, storage experiment or diagram rendering."
+      },
+      "related": [
+        "foundation-transaction-isolation",
+        "diagram-mermaid-state-ownership"
+      ],
+      "path": "library/entries/system-sqlite-commit-boundaries.md",
+      "card_sha256": "ae93b2bb5e26dce7914638f298d156533adde6721b044369dcd399eee14be3ba",
+      "sources": [
+        {
+          "url": "https://sqlite.org/atomiccommit.html",
+          "title": "Atomic Commit in SQLite",
+          "locator": "Introduction and hardware assumptions; single-file commit 3.7–3.11; rollback; persistent journals",
+          "revision": "Live documentation read 2026-11-07; not a frozen release"
+        },
+        {
+          "url": "https://github.com/sqlite/sqlite/blob/425bfb8aa82e2fd7829d055335f164eaf617eae0/src/pager.c",
+          "title": "sqlite/sqlite: src/pager.c",
+          "locator": "Pager state comments around WRITER_FINISHED/ERROR and UNKNOWN_LOCK, selected lines 260–410",
+          "revision": "425bfb8aa82e2fd7829d055335f164eaf617eae0"
+        },
+        {
+          "url": "https://github.com/sqlite/sqlite/blob/425bfb8aa82e2fd7829d055335f164eaf617eae0/src/wal.c",
+          "title": "sqlite/sqlite: src/wal.c",
+          "locator": "File-format/commit-marker, checkpoint barrier and reader algorithm comments, lines 13–150",
+          "revision": "425bfb8aa82e2fd7829d055335f164eaf617eae0"
+        }
+      ]
+    },
+    {
+      "id": "system-temporal-replay-activities",
+      "kind": "system",
+      "title": "Temporal Go SDK: replayable coordination versus external activities",
+      "summary": "Separate durable workflow decisions from effects, retries and cancellation observations; procedural syntax does not remove distributed execution boundaries.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "decompose",
+          "trace",
+          "model-failure",
+          "diagram"
+        ],
+        "contexts": [
+          "durable-workflows",
+          "replay",
+          "external-effects"
+        ],
+        "qualities": [
+          "reliability",
+          "recoverability",
+          "evolvability"
+        ],
+        "scale": [
+          "distributed"
+        ]
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected"
+        ],
+        "inspected_at": "2026-11-07",
+        "freshness": "versioned",
+        "scope": "Fresh selected pinned workflow/activity documentation and ExecuteActivity wrapper contracts inspected. No SDK execution, replay, server, workflow history or external-effect testing."
+      },
+      "related": [
+        "pattern-event-sourcing-replay",
+        "pattern-retry-budget-and-breaker"
+      ],
+      "path": "library/entries/system-temporal-replay-activities.md",
+      "card_sha256": "41c787e6a5e3c02cc65a383880e48a9fc263d6ca7a53df03db5542f7e0101cda",
+      "sources": [
+        {
+          "url": "https://github.com/temporalio/sdk-go/blob/72dabe87bba70ab346a4688c13b974dc181aa892/workflow/doc.go",
+          "title": "temporalio/sdk-go: workflow/doc.go",
+          "locator": "Overview, deterministic implementation restrictions and SDK time/concurrency alternatives, selected lines 1–210",
+          "revision": "72dabe87bba70ab346a4688c13b974dc181aa892"
+        },
+        {
+          "url": "https://github.com/temporalio/sdk-go/blob/72dabe87bba70ab346a4688c13b974dc181aa892/activity/doc.go",
+          "title": "temporalio/sdk-go: activity/doc.go",
+          "locator": "Activity implementation, cancellation/heartbeat, errors and timeout contracts, selected lines 1–150",
+          "revision": "72dabe87bba70ab346a4688c13b974dc181aa892"
+        },
+        {
+          "url": "https://github.com/temporalio/sdk-go/blob/72dabe87bba70ab346a4688c13b974dc181aa892/workflow/workflow.go",
+          "title": "temporalio/sdk-go: workflow/workflow.go",
+          "locator": "ExecuteActivity Future/error/cancellation contract and local-activity differences around lines 289 onward",
+          "revision": "72dabe87bba70ab346a4688c13b974dc181aa892"
+        }
+      ]
+    },
+    {
+      "id": "system-valkey-persistence-policy",
+      "kind": "system",
+      "title": "Valkey: persistence policy, rewrite state and acknowledged-data risk",
+      "summary": "Model snapshots, append-only increments, manifest replacement and synchronization policy as distinct durability decisions.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "trace",
+          "compare",
+          "model-failure",
+          "diagram"
+        ],
+        "contexts": [
+          "in-memory-state",
+          "persistence",
+          "recovery"
+        ],
+        "qualities": [
+          "durability",
+          "latency",
+          "operability"
+        ],
+        "scale": [
+          "single-deployment"
+        ]
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected"
+        ],
+        "inspected_at": "2026-11-07",
+        "freshness": "versioned",
+        "scope": "Fresh selected pinned AOF/configuration sections and live first-party persistence text inspected. Intended mechanisms only; no deployment, disk experiment or upstream execution."
+      },
+      "related": [
+        "foundation-slo-measurement",
+        "foundation-transaction-isolation"
+      ],
+      "path": "library/entries/system-valkey-persistence-policy.md",
+      "card_sha256": "3f77bb4c7a929f3ae08fac44c11aa8ef1623d044868dbb002d75f7bdcd1fc079",
+      "sources": [
+        {
+          "url": "https://valkey.io/topics/persistence/",
+          "title": "Valkey persistence documentation",
+          "locator": "RDB/AOF/no-persistence choices; multi-part AOF rewrite; fsync policy and truncation behavior",
+          "revision": "Live documentation read 2026-11-07; not a frozen release"
+        },
+        {
+          "url": "https://github.com/valkey-io/valkey/blob/aa7545348b688b469d073a01ce4836ed637577f9/src/aof.c",
+          "title": "valkey-io/valkey: src/aof.c",
+          "locator": "Opening AOF manifest implementation: BASE/INCR/HISTORY ownership and rewrite lifecycle, lines 65–170",
+          "revision": "aa7545348b688b469d073a01ce4836ed637577f9"
+        },
+        {
+          "url": "https://github.com/valkey-io/valkey/blob/aa7545348b688b469d073a01ce4836ed637577f9/valkey.conf",
+          "title": "valkey-io/valkey: valkey.conf",
+          "locator": "appendfsync everysec and no-appendfsync-on-rewrite policy commentary/settings, around lines 1723–1790",
+          "revision": "aa7545348b688b469d073a01ce4836ed637577f9"
+        }
+      ]
+    }
+  ]
+}

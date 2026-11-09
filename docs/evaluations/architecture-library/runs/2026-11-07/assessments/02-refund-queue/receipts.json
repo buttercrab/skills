@@ -1,0 +1,40 @@
+{
+  "task": "02-refund-queue",
+  "deliverable": "source-only assessment and proposed processing architecture with editable Mermaid source",
+  "status": "final",
+  "snapshot_root": "/private/tmp/system-architecture-assessment-20261107/02-refund-queue/snapshot",
+  "actual_source_inspection": [
+    {"path": "snapshot/worker.py", "lines": "1-16", "supports": "illustrative current worker and API behavior; no runtime claim"},
+    {"path": "snapshot/contracts.md", "lines": "2-6", "supports": "queue, payment and local database contracts"},
+    {"path": "snapshot/policy.md", "lines": "2-8", "supports": "business invariants, audit, SLO, delay, team and unresolved finance policy"}
+  ],
+  "guide_root": "/private/tmp/system-architecture-assessment-20261107/guide",
+  "guides_read": ["SKILL.md", "references/context-and-tradeoffs.md", "references/boundaries-and-failure.md", "references/library-usage.md", "references/diagram-contract.md", "references/verification-and-evolution.md", "library/index.md"],
+  "additional_host_guides": ["/Users/jaeyong/.codex/skills/i-have-adhd/SKILL.md"],
+  "local_card_annotations_read_in_full": [
+    "library/entries/pattern-transactional-outbox.md",
+    "library/entries/pattern-retry-budget-and-breaker.md",
+    "library/entries/system-temporal-replay-activities.md",
+    "library/entries/foundation-end-to-end-guarantees.md",
+    "library/entries/diagram-mermaid-sequence-outcomes.md"
+  ],
+  "fresh_primary_external_inspection": [],
+  "fresh_visual_inspection": [],
+  "card_evidence_limit": "Local annotations and primary-source pointers only; curator source, syntax and visual inspection claims not repeated.",
+  "human_policy": {
+    "question": "After unresolved outcome exceeds seven-day lookup/idempotency retention, may any reissue occur or must it stay held pending evidence?",
+    "source": "root agent message supplying scripted human answer",
+    "answer": "Finance requires holding the refund as unresolved and escalating for evidence-based manual reconciliation. No automatic new-key refund is permitted without a recorded finance decision.",
+    "safe_no_answer_fallback": "Durable unresolved hold; no automatic POST with new key; retain audit and alert finance.",
+    "applied_to": ["assessment.md expiry policy", "diagrams.md Held state and escalation"]
+  },
+  "classification": {
+    "current": "Snapshot code and contracts only, not deployed behavior.",
+    "inferred": "Acceptance/publication gap, duplicate creation, overlapping unkeyed calls, success-before-local-commit duplicate risk.",
+    "proposed": "Atomic deduplicated acceptance/outbox, attempt ledger, stable key, claims, sweeper, durable recovery handoff before ack, held state, audit and migration gates.",
+    "unknown": "Provider concurrent-key and expiry/time semantics, in-flight duration, definitive rejection semantics, queue durable confirmation, DB isolation/durability, caller identity scope, workload/capacity and production state."
+  },
+  "actual_checks": ["Scoped source read with line numbers", "Manual failure-window trace", "Manual prose/diagram state, identity and acknowledgment consistency review", "Final readback of four owned artifacts"],
+  "not_performed": ["Fixture execution", "Tests", "Build", "Install", "Mermaid parse", "Diagram render", "Network or primary URL fetch", "Provider requests", "Production inspection", "Infrastructure provisioning", "Real system edits"],
+  "outputs": ["assessment.md", "diagrams.md", "receipts.json", "work-log.md"]
+}

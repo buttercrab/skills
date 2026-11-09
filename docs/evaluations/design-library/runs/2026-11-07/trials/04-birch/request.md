@@ -1,0 +1,3 @@
+# Request
+
+Our museum volunteer rota looks like a quiet paper noticeboard. Keep that general character. Volunteers choose one two-hour shift, check their selection, then submit it for coordinator approval; submission does not reserve the shift. If another request takes the last place, they need to pick a different shift without re-entering their contact details. I only have a screenshot of a colorful travel-booking calendar in mind—it's attractive, but I care about getting the confirmation and recovery right. Find references for the structure, even from a different-looking domain, and apply them to a three-screen/flow outline with pending, approved and unavailable states. No code.

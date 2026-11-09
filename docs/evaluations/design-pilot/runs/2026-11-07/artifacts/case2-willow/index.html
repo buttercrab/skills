@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
+<title>Loom · Book a pottery workshop</title>
+<style>
+:root{--paper:#f8f4ed;--surface:#fffcf7;--ink:#382736;--muted:#715f69;--line:#d9cdc9;--clay:#95563f;--wash:#eee4dc;--error:#9a302e}*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font:17px/1.55 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}header,main,footer{width:min(100% - 48px,1000px);margin-inline:auto}header{padding:24px 0 22px;border-bottom:1px solid var(--line);display:flex;align-items:baseline;justify-content:space-between;gap:16px}.brand{font:600 32px/1 Georgia,serif;letter-spacing:-1.5px}header span{color:var(--muted);font-size:14px}main{padding:52px 0 36px}h1,h2,p{margin-top:0}h1{font:400 clamp(38px,6vw,58px)/1.1 Georgia,serif;letter-spacing:-1.5px;margin-bottom:16px}.intro{max-width:520px;color:var(--muted);margin-bottom:40px}.layout{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:40px;align-items:start}fieldset{margin:0;padding:0;border:0;min-width:0}legend,h2{font-size:19px;font-weight:650;margin-bottom:20px;line-height:1.4}.step{display:inline-grid;place-items:center;width:28px;height:28px;border:1px solid var(--line);border-radius:50%;font-size:13px;font-weight:500;margin-right:9px;color:var(--clay);vertical-align:1px}.workshop{display:grid;grid-template-columns:22px minmax(0,1fr);gap:14px;position:relative;cursor:pointer;background:var(--surface);border:1px solid var(--line);border-radius:7px;padding:24px;margin-bottom:16px}.workshop:has(input:checked){border:2px solid var(--ink);padding:23px;background:#f0e7e1}.workshop:has(input:focus-visible){outline:3px solid var(--clay);outline-offset:4px}input[type=radio]{width:20px;height:20px;margin:5px 0 0;accent-color:var(--ink)}.option-top{display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap}.name{font:400 26px/1.25 Georgia,serif}.selected{font-size:12px;letter-spacing:.04em;text-transform:uppercase;font-weight:700;visibility:hidden}.workshop:has(input:checked) .selected{visibility:visible}.schedule{display:block;margin-top:13px;font-size:16px}.price{display:block;color:var(--muted);font-size:15px;margin-top:4px}.description{font-size:15px;color:var(--muted);margin:16px 0 0}.note{font-size:14px;color:var(--muted);margin:22px 0 0}.booking{background:var(--wash);border-radius:7px;padding:26px}.selection{font-family:Georgia,serif;font-size:24px;line-height:1.25;margin-bottom:6px}.booking-meta{font-size:14px;color:var(--muted);min-height:22px;margin:0 0 24px}label[for=seats]{display:block;font-weight:600;font-size:15px;margin-bottom:8px}.seat-row{display:flex;align-items:center;gap:14px}input[type=number]{width:90px;min-height:48px;border:1px solid #a999a1;border-radius:4px;background:var(--surface);color:var(--ink);font:inherit;padding:9px 12px}input[aria-invalid=true]{border:2px solid var(--error)}.seat-hint{font-size:14px;color:var(--muted)}.error{font-size:14px;color:var(--error);margin:9px 0 0}.total-row{border-top:1px solid #cfc0bc;padding-top:20px;margin-top:26px;display:flex;align-items:baseline;justify-content:space-between;gap:12px}.total-row strong{font-size:30px;font-weight:500;letter-spacing:-1px}.total-hint{font-size:13px;color:var(--muted);margin:0 0 22px}button{width:100%;border:1px solid var(--ink);border-radius:4px;background:var(--ink);color:var(--surface);min-height:52px;padding:12px 16px;font:600 16px/1.4 system-ui;cursor:pointer}button:hover:enabled{background:#50394c}button:disabled{background:#d8cece;border-color:#d8cece;color:#73666d;cursor:not-allowed}:focus-visible{outline:3px solid var(--clay);outline-offset:4px}.confirm-hint{font-size:13px;color:var(--muted);margin:10px 0 0}.success{max-width:600px;background:var(--surface);border:1px solid var(--line);border-radius:7px;padding:36px}.success h1{font-size:40px}.success .check{width:42px;height:42px;border:1px solid var(--clay);border-radius:50%;display:grid;place-items:center;color:var(--clay);font-size:24px;margin-bottom:24px}.success dl{margin:28px 0}.success dl div{display:flex;justify-content:space-between;gap:20px;border-bottom:1px solid var(--line);padding:12px 0}.success dt{color:var(--muted)}.success dd{margin:0;text-align:right;font-weight:600}footer{padding:22px 0 28px;border-top:1px solid var(--line);font-size:13px;color:var(--muted)}[hidden]{display:none!important}@media(max-width:720px){main{padding-top:36px}.layout{grid-template-columns:1fr;gap:26px}.intro{margin-bottom:30px}.booking{padding:24px}.workshop{padding:22px}.workshop:has(input:checked){padding:21px}.success{padding:26px}}@media(max-width:380px){header,main,footer{width:calc(100% - 40px)}header span{font-size:12px}.name{font-size:24px}.workshop{padding:18px;gap:12px}.workshop:has(input:checked){padding:17px}.selected{font-size:11px}.booking{padding:22px}}
+</style>
+</head>
+<body>
+<header><div class="brand">Loom</div><span>Pottery workshops</span></header>
+<main id="main">
+<div id="booking-view">
+<h1>A little time with clay.</h1>
+<p class="intro">Book your first pottery workshop. Choose a class, bring a friend, and make something this weekend.</p>
+<form id="booking-form" novalidate>
+<div class="layout">
+<fieldset><legend><span class="step" aria-hidden="true">1</span>Choose your workshop</legend>
+<label class="workshop"><input type="radio" name="workshop" value="handbuilding"><span><span class="option-top"><span class="name">Handbuilding</span><span class="selected" aria-hidden="true">Selected</span></span><span class="schedule">Saturday · 10:00</span><span class="price">$45 per person</span><span class="description" style="display:block">Find your shape, one piece at a time.</span></span></label>
+<label class="workshop"><input type="radio" name="workshop" value="glazing"><span><span class="option-top"><span class="name">Glazing</span><span class="selected" aria-hidden="true">Selected</span></span><span class="schedule">Sunday · 14:00</span><span class="price">$35 per person</span><span class="description" style="display:block">Explore colour and give clay a finish.</span></span></label>
+<p class="note">Pick the workshop that catches your eye.</p>
+</fieldset>
+<section class="booking" aria-labelledby="booking-heading"><h2 id="booking-heading"><span class="step" aria-hidden="true">2</span>Your booking</h2>
+<div aria-live="polite" aria-atomic="true"><p class="selection" id="selection">Choose a workshop</p><p id="booking-meta" class="booking-meta">Your class details will appear here.</p></div>
+<label for="seats">Number of seats</label><div class="seat-row"><input id="seats" name="seats" type="number" min="1" max="4" step="1" value="1" required aria-describedby="seat-hint seat-error"><span class="seat-hint" id="seat-hint">1–4 people</span></div>
+<p class="error" id="seat-error" aria-live="polite" hidden>Enter a whole number from 1 to 4.</p>
+<div class="total-row"><span>Total</span><strong id="total" aria-live="polite">$0</strong></div><p class="total-hint" id="total-hint">Select a workshop to see your total.</p>
+<button type="submit" id="book" disabled>Confirm booking</button><p class="confirm-hint">Local demo only. No payment or sign-in.</p>
+</section></div></form></div>
+<section id="success-view" class="success" hidden aria-labelledby="success-heading"><div class="check" aria-hidden="true">✓</div><h1 id="success-heading" tabindex="-1">Your booking is confirmed.</h1><p>This is a local demo confirmation. No real reservation or payment has been made.</p><dl><div><dt>Workshop</dt><dd id="confirmed-workshop"></dd></div><div><dt>When</dt><dd id="confirmed-time"></dd></div><div><dt>Seats</dt><dd id="confirmed-seats"></dd></div><div><dt>Total</dt><dd id="confirmed-total"></dd></div></dl><button type="button" id="restart">Start another booking</button></section>
+</main>
+<footer>Local demo · No data leaves this page.</footer>
+<script>
+'use strict';
+const workshops={handbuilding:{name:'Handbuilding',schedule:'Saturday · 10:00',price:45},glazing:{name:'Glazing',schedule:'Sunday · 14:00',price:35}};
+const form=document.getElementById('booking-form');
+const seats=document.getElementById('seats');
+const book=document.getElementById('book');
+const selection=document.getElementById('selection');
+const meta=document.getElementById('booking-meta');
+const total=document.getElementById('total');
+const totalHint=document.getElementById('total-hint');
+const error=document.getElementById('seat-error');
+let chosen=null;
+function validSeats(){return seats.value.trim()!=='' && seats.validity.valid && Number.isInteger(seats.valueAsNumber) && seats.valueAsNumber>=1 && seats.valueAsNumber<=4;}
+function update(){
+ const valid=validSeats();
+ seats.setAttribute('aria-invalid',String(!valid));error.hidden=valid;
+ selection.textContent=chosen?chosen.name:'Choose a workshop';
+ meta.textContent=chosen?chosen.schedule+' · $'+chosen.price+' per person':'Your class details will appear here.';
+ total.textContent=chosen?(valid?'$'+chosen.price*seats.valueAsNumber:'—'):'$0';
+ totalHint.textContent=!chosen?'Select a workshop to see your total.':!valid?'Enter valid seats to see your total.':seats.valueAsNumber+' '+(seats.valueAsNumber===1?'seat':'seats')+' × $'+chosen.price;
+ book.disabled=!chosen||!valid;
+}
+form.addEventListener('change',event=>{if(event.target.name==='workshop'){chosen=workshops[event.target.value];update();}});
+seats.addEventListener('input',update);
+form.addEventListener('submit',event=>{
+ event.preventDefault();update();if(!chosen||!validSeats())return;
+ document.getElementById('confirmed-workshop').textContent=chosen.name;
+ document.getElementById('confirmed-time').textContent=chosen.schedule;
+ document.getElementById('confirmed-seats').textContent=String(seats.valueAsNumber);
+ document.getElementById('confirmed-total').textContent='$'+chosen.price*seats.valueAsNumber;
+ document.getElementById('booking-view').hidden=true;
+ document.getElementById('success-view').hidden=false;
+ document.getElementById('success-heading').focus();
+});
+document.getElementById('restart').addEventListener('click',()=>{
+ form.reset();chosen=null;update();
+ document.getElementById('success-view').hidden=true;
+ document.getElementById('booking-view').hidden=false;
+ form.querySelector('input[type=radio]').focus();
+});
+update();
+</script>
+</body>
+</html>

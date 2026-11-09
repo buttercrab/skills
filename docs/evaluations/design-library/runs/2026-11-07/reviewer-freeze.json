@@ -1,0 +1,9 @@
+{
+  "status": "Both reviewers froze judgments before condition labels; coordinator unblinded afterward. Original reviews remain unchanged.",
+  "files_sha256": {
+    "review-a.md": "9552d882481214996780bd654bc5e79555cab309e531c9afa81a16de7c6c5a2b",
+    "review-a.json": "ac37ca1965f6fde3b0bc0edcb12dcb90cfac508bd45d134e6e0dd2cdbfc6ea03",
+    "review-b.md": "5ad15248205d69ba1ece75d98dead3f10f029d9d65dc4970a67a49b81ca5ef6a",
+    "review-b.json": "7fd4da6241f8126ac280c8798fdb5ec1051095e433bfdf136c44a2080311d33e"
+  }
+}

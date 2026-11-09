@@ -1,0 +1,2227 @@
+{
+  "schema_version": 1,
+  "generated_from": "library/entries/*.md",
+  "record_count": 43,
+  "status_counts": {
+    "curated": 43
+  },
+  "resources": [
+    {
+      "id": "craft-diataxis-reader-purpose",
+      "kind": "guide",
+      "title": "Diataxis: distinguish practical and conceptual reader needs",
+      "summary": "Use the compass to separate learning, doing, understanding and lookup needs in documentation.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "frame",
+          "structure",
+          "explain"
+        ],
+        "genres": [
+          "tutorial",
+          "explanation",
+          "article"
+        ],
+        "languages": [
+          "english"
+        ],
+        "contexts": [
+          "technical-documentation",
+          "reader-purpose"
+        ]
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected",
+          "conceptual"
+        ],
+        "inspected_at": "2026-11-08",
+        "freshness": "live-at-inspection",
+        "scope": "Relevant primary text sections identified in source locators inspected; craft guidance and original transfer analysis, not empirical reader testing."
+      },
+      "related": [
+        "craft-google-audience",
+        "example-word-frequencies-revision-consistency"
+      ],
+      "path": "library/entries/craft-diataxis-reader-purpose.md",
+      "card_sha256": "dbd5ce5fb06ad293efe320d810f25e9b3fb9d301c49d4edc5c3eda7861aa14ea",
+      "sources": [
+        {
+          "url": "https://diataxis.fr/compass/",
+          "title": "Diataxis: The compass",
+          "locator": "Action/cognition and acquisition/application dimensions; compass questions; naming and using the compass",
+          "revision": "Undated living framework page; inspected 2026-11-08"
+        }
+      ]
+    },
+    {
+      "id": "craft-google-audience",
+      "kind": "guide",
+      "title": "Google: audience knowledge and document scope",
+      "summary": "Define prerequisite knowledge and the change in understanding before organizing a technical document.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "frame",
+          "structure",
+          "explain"
+        ],
+        "genres": [
+          "article",
+          "explanation",
+          "tutorial"
+        ],
+        "languages": [
+          "english"
+        ],
+        "contexts": [
+          "technical-readers",
+          "prerequisite-knowledge"
+        ]
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected",
+          "conceptual"
+        ],
+        "inspected_at": "2026-11-08",
+        "freshness": "live-at-inspection",
+        "scope": "Relevant primary text sections identified in source locators inspected; craft guidance and original transfer analysis, not empirical reader testing."
+      },
+      "related": [
+        "craft-julia-evans-explanation-gaps",
+        "example-inside-git-inspectable-objects"
+      ],
+      "path": "library/entries/craft-google-audience.md",
+      "card_sha256": "9453cbda284d9d0a5c393bfc75fa3ef6dfba0aedac1d9a16586397d9a8cd7943",
+      "sources": [
+        {
+          "url": "https://developers.google.com/tech-writing/one/audience",
+          "title": "Google Technical Writing One: Audience",
+          "locator": "Define your audience; Determine what your audience needs to learn; Match your vocabulary to your audience",
+          "revision": "Living course; inspected 2026-11-08"
+        },
+        {
+          "url": "https://developers.google.com/tech-writing/one/documents",
+          "title": "Google Technical Writing One: Documents",
+          "locator": "State your document's scope; State your audience; Summarize key points at the start; Compare and contrast; Write for your audience",
+          "revision": "Page last updated 2025-07-07; inspected 2026-11-08"
+        }
+      ]
+    },
+    {
+      "id": "craft-google-passive-exceptions",
+      "kind": "guide",
+      "title": "Google: actor clarity with purposeful passive voice",
+      "summary": "Decide grammatical voice from responsibility, emphasis and continuity rather than an automatic ban.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "revise",
+          "explain",
+          "preserve-voice"
+        ],
+        "genres": [
+          "explanation",
+          "article",
+          "research-summary"
+        ],
+        "languages": [
+          "english"
+        ],
+        "contexts": [
+          "technical-prose",
+          "agency-and-emphasis"
+        ]
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected",
+          "conceptual"
+        ],
+        "inspected_at": "2026-11-08",
+        "freshness": "live-at-inspection",
+        "scope": "Relevant primary text sections identified in source locators inspected; craft guidance and original transfer analysis, not empirical reader testing."
+      },
+      "related": [
+        "craft-gopen-swan-information-order",
+        "craft-mailchimp-voice-tone"
+      ],
+      "path": "library/entries/craft-google-passive-exceptions.md",
+      "card_sha256": "463406e1aa116592d1293520a580b694e823551bfd4a6647870e01f0c05d4c50",
+      "sources": [
+        {
+          "url": "https://developers.google.com/style/voice",
+          "title": "Google developer documentation style guide: Active voice",
+          "locator": "Main guidance and Exceptions",
+          "revision": "Page last updated 2024-10-15; inspected 2026-11-08"
+        }
+      ]
+    },
+    {
+      "id": "craft-gopen-swan-information-order",
+      "kind": "foundation",
+      "title": "Gopen and Swan: information order exposes missing connections",
+      "summary": "Use topic, emphasis and action placement to diagnose reader effort and conceptual gaps.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "structure",
+          "explain",
+          "revise"
+        ],
+        "genres": [
+          "explanation",
+          "research-summary",
+          "argument"
+        ],
+        "languages": [
+          "english"
+        ],
+        "contexts": [
+          "scientific-prose",
+          "information-order"
+        ]
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected",
+          "conceptual"
+        ],
+        "inspected_at": "2026-11-08",
+        "freshness": "historical",
+        "scope": "Relevant primary text sections identified in source locators inspected; craft guidance and original transfer analysis, not empirical reader testing."
+      },
+      "related": [
+        "craft-unc-paragraph-development",
+        "example-momentum-revision-reader-questions"
+      ],
+      "path": "library/entries/craft-gopen-swan-information-order.md",
+      "card_sha256": "53ea0934db5cd280711f06aee6b122fa2b3be779cbe194128000e78a13f567d7",
+      "sources": [
+        {
+          "url": "https://www.cs.tufts.edu/comp/105-2015s/readings/sci.html",
+          "title": "George D. Gopen and Judith A. Swan: The Science of Scientific Writing",
+          "locator": "The Topic Position; Perceiving Logical Gaps; Locating the Action; Writing and the Scientific Process; length discussion preceding The Topic Position",
+          "revision": "1990 American Scientist article, university-hosted text copy; inspected 2026-11-08"
+        }
+      ]
+    },
+    {
+      "id": "craft-jack-hart-theme",
+      "kind": "guide",
+      "title": "Jack Hart: a revisable theme behind the story",
+      "summary": "Use a private focus statement to guide selection without requiring a published thesis or fixed opening.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "frame",
+          "structure",
+          "revise"
+        ],
+        "genres": [
+          "article",
+          "reported-feature",
+          "essay"
+        ],
+        "languages": [
+          "english"
+        ],
+        "contexts": [
+          "narrative-focus",
+          "editor-writer-conversation"
+        ]
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected",
+          "conceptual"
+        ],
+        "inspected_at": "2026-11-08",
+        "freshness": "live-at-inspection",
+        "scope": "Relevant primary text sections identified in source locators inspected; craft guidance and original transfer analysis, not empirical reader testing."
+      },
+      "related": [
+        "craft-wisconsin-reverse-outline",
+        "example-hyperbolic-surfaces-reported-explanation"
+      ],
+      "path": "library/entries/craft-jack-hart-theme.md",
+      "card_sha256": "e49bb649d340f7e67ccea4402496d1a4a50852a1fd08c2e7f9120dfdce69431b",
+      "sources": [
+        {
+          "url": "https://niemanstoryboard.org/2021/10/19/nut-grafs-getting-to-the-heart-of-the-story/",
+          "title": "Jack Hart: Nut grafs: Getting to the heart of the story",
+          "locator": "The central story question: What does it mean?; Story theme in three words; Putting the theme statement to work",
+          "revision": "Signed craft essay published 2021-10-19; inspected 2026-11-08"
+        }
+      ]
+    },
+    {
+      "id": "craft-julia-evans-explanation-gaps",
+      "kind": "guide",
+      "title": "Julia Evans: diagnose confusing explanations",
+      "summary": "Test background assumptions, concrete examples and missing causal bridges against a particular learner.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "frame",
+          "explain",
+          "revise"
+        ],
+        "genres": [
+          "explanation",
+          "tutorial",
+          "article"
+        ],
+        "languages": [
+          "english"
+        ],
+        "contexts": [
+          "technical-learning",
+          "knowledge-gaps"
+        ]
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected",
+          "conceptual"
+        ],
+        "inspected_at": "2026-11-08",
+        "freshness": "live-at-inspection",
+        "scope": "Relevant primary text sections identified in source locators inspected; craft guidance and original transfer analysis, not empirical reader testing."
+      },
+      "related": [
+        "example-inside-git-inspectable-objects",
+        "craft-google-audience"
+      ],
+      "path": "library/entries/craft-julia-evans-explanation-gaps.md",
+      "card_sha256": "8b65c722b7a5baa8578341a824fcdd53c1ea1044487df86bf7b46f4b849a5343",
+      "sources": [
+        {
+          "url": "https://jvns.ca/blog/confusing-explanations/",
+          "title": "Julia Evans: Patterns in confusing explanations",
+          "locator": "All 13 patterns, especially audience assumptions, strained analogies, realistic examples, missing information, unsupported statements and what without why",
+          "revision": "Author post dated 2021-08-19; inspected 2026-11-08"
+        }
+      ]
+    },
+    {
+      "id": "craft-mailchimp-voice-tone",
+      "kind": "guide",
+      "title": "Mailchimp: stable voice and situational tone",
+      "summary": "Choose tone around the reader's situation without borrowing an entire brand personality.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "frame",
+          "revise",
+          "preserve-voice"
+        ],
+        "genres": [
+          "article",
+          "explanation",
+          "essay"
+        ],
+        "languages": [
+          "english"
+        ],
+        "contexts": [
+          "editorial-voice",
+          "reader-emotion"
+        ]
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected",
+          "conceptual"
+        ],
+        "inspected_at": "2026-11-08",
+        "freshness": "live-at-inspection",
+        "scope": "Relevant primary text sections identified in source locators inspected; craft guidance and original transfer analysis, not empirical reader testing."
+      },
+      "related": [
+        "practice-toss-bilingual-technical-story",
+        "example-crane-wife-braided-inquiry"
+      ],
+      "path": "library/entries/craft-mailchimp-voice-tone.md",
+      "card_sha256": "07c694d54c67b46c6bb5ac9b5e425767e0fba64ca90e769dc066d04102be973c",
+      "sources": [
+        {
+          "url": "https://styleguide.mailchimp.com/voice-and-tone/",
+          "title": "Mailchimp Content Style Guide: Voice and Tone",
+          "locator": "What's the difference between voice and tone?; Voice; Tone; Style tips",
+          "revision": "Undated living brand style guide; inspected 2026-11-08"
+        }
+      ]
+    },
+    {
+      "id": "craft-orwell-language-agency",
+      "kind": "foundation",
+      "title": "Orwell: concrete meaning before prefabricated language",
+      "summary": "Interrogate evasive abstraction, stale imagery and missing agency while preserving exceptions and literary freedom.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "argue",
+          "revise",
+          "preserve-voice"
+        ],
+        "genres": [
+          "argument",
+          "essay",
+          "article"
+        ],
+        "languages": [
+          "english"
+        ],
+        "contexts": [
+          "political-language",
+          "rhetorical-precision"
+        ]
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected",
+          "conceptual"
+        ],
+        "inspected_at": "2026-11-08",
+        "freshness": "historical",
+        "scope": "Relevant primary text sections identified in source locators inspected; craft guidance and original transfer analysis, not empirical reader testing."
+      },
+      "related": [
+        "example-elephant-compromised-narrator",
+        "craft-google-passive-exceptions"
+      ],
+      "path": "library/entries/craft-orwell-language-agency.md",
+      "card_sha256": "f1b2daf7bbef20bb45ee04bafb67d5bf5f7bccf795663e3bb2b5b859ead54077",
+      "sources": [
+        {
+          "url": "https://www.orwellfoundation.com/the-orwell-foundation/orwell/essays-and-other-works/politics-and-the-english-language/",
+          "title": "George Orwell: Politics and the English Language",
+          "locator": "Catalogue following the five specimens; political euphemism discussion; closing meaning-and-rules discussion; explicit literary-use qualification",
+          "revision": "Horizon, April 1946; authorized Orwell Foundation reproduction inspected 2026-11-08"
+        }
+      ]
+    },
+    {
+      "id": "craft-unc-argument",
+      "kind": "guide",
+      "title": "UNC: claims, relevant evidence and serious objections",
+      "summary": "Check whether evidence supports the actual claim and whether a fair objection changes it.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "frame",
+          "argue",
+          "revise"
+        ],
+        "genres": [
+          "argument",
+          "essay",
+          "research-summary"
+        ],
+        "languages": [
+          "english"
+        ],
+        "contexts": [
+          "academic-writing",
+          "claim-support"
+        ]
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected",
+          "conceptual"
+        ],
+        "inspected_at": "2026-11-08",
+        "freshness": "live-at-inspection",
+        "scope": "Relevant primary text sections identified in source locators inspected; craft guidance and original transfer analysis, not empirical reader testing."
+      },
+      "related": [
+        "example-serviceberry-situated-concept",
+        "evidence-capability-boundary"
+      ],
+      "path": "library/entries/craft-unc-argument.md",
+      "card_sha256": "b84c1b8e49ebb28ce79fef6d28d2f22613b404f8c991661c4bbc3cca651806fb",
+      "sources": [
+        {
+          "url": "https://writingcenter.unc.edu/tips-and-tools/argument/",
+          "title": "UNC Writing Center: Argument",
+          "locator": "Making a claim; Evidence; Counterargument; Audience",
+          "revision": "Undated living institutional handout; inspected 2026-11-08"
+        }
+      ]
+    },
+    {
+      "id": "craft-unc-paragraph-development",
+      "kind": "guide",
+      "title": "UNC: paragraph unity, coherence and interpretation",
+      "summary": "Develop the connection between evidence and a controlling idea without imposing a sentence-count template.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "structure",
+          "explain",
+          "argue",
+          "revise"
+        ],
+        "genres": [
+          "essay",
+          "argument",
+          "explanation"
+        ],
+        "languages": [
+          "english"
+        ],
+        "contexts": [
+          "paragraph-development",
+          "evidence-interpretation"
+        ]
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected",
+          "conceptual"
+        ],
+        "inspected_at": "2026-11-08",
+        "freshness": "live-at-inspection",
+        "scope": "Relevant primary text sections identified in source locators inspected; craft guidance and original transfer analysis, not empirical reader testing."
+      },
+      "related": [
+        "craft-wisconsin-reverse-outline",
+        "evidence-entity-coherence"
+      ],
+      "path": "library/entries/craft-unc-paragraph-development.md",
+      "card_sha256": "68911d7847d38160900e60aec7fe54a1256a7bd1671f5b2eab0dcd5128f9f457",
+      "sources": [
+        {
+          "url": "https://writingcenter.unc.edu/tips-and-tools/paragraphs/",
+          "title": "UNC Writing Center: Paragraphs",
+          "locator": "What is a paragraph?; How do I decide what to put in a paragraph?; How do I organize a paragraph?; A paragraph development example; Troubleshooting paragraphs",
+          "revision": "Undated living institutional handout; inspected 2026-11-08"
+        }
+      ]
+    },
+    {
+      "id": "craft-wisconsin-reverse-outline",
+      "kind": "guide",
+      "title": "UW–Madison: reverse-outline the draft that exists",
+      "summary": "Expose repetition, missing bridges and changes of purpose by mapping paragraph subjects and functions.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "structure",
+          "revise"
+        ],
+        "genres": [
+          "article",
+          "essay",
+          "argument",
+          "explanation"
+        ],
+        "languages": [
+          "english"
+        ],
+        "contexts": [
+          "draft-revision",
+          "paragraph-function"
+        ]
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected",
+          "conceptual"
+        ],
+        "inspected_at": "2026-11-08",
+        "freshness": "live-at-inspection",
+        "scope": "Relevant primary text sections identified in source locators inspected; craft guidance and original transfer analysis, not empirical reader testing."
+      },
+      "related": [
+        "craft-jack-hart-theme",
+        "example-momentum-revision-reader-questions"
+      ],
+      "path": "library/entries/craft-wisconsin-reverse-outline.md",
+      "card_sha256": "80e83a4f020a121d7d6437f128920284c0c44cd81769f9d41963db8c3011ecab",
+      "sources": [
+        {
+          "url": "https://writing.wisc.edu/handbook/processandstructure/reverseoutlines/",
+          "title": "UW–Madison Writing Center: Creating a Reverse Outline",
+          "locator": "How to Create a Reverse Outline; Use Your Reverse Outline to Answer Questions; An Example of a Reverse Outline",
+          "revision": "Undated living institutional handout; inspected 2026-11-08"
+        }
+      ]
+    },
+    {
+      "id": "evidence-bounded-productivity",
+      "kind": "study",
+      "title": "Use bounded writing gains without promising universal improvement",
+      "summary": "A randomized professional-writing experiment supports speed and rating benefits within its task boundaries.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "frame",
+          "evaluate",
+          "revise"
+        ],
+        "genres": [
+          "article",
+          "explanation",
+          "argument"
+        ],
+        "languages": [
+          "english"
+        ],
+        "contexts": [
+          "professional-writing",
+          "short-task",
+          "productivity"
+        ]
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected",
+          "empirical"
+        ],
+        "inspected_at": "2026-11-08",
+        "freshness": "versioned",
+        "scope": "Fresh reading of 453-participant method, grader design, task results, attrition discussion and limitations; other manuscript versions were not merged into this evidence. The author-hosted URL is mutable; manuscript identity is bounded by its sample/model/content, not an archived byte hash."
+      },
+      "related": [
+        "evidence-capability-boundary",
+        "evidence-critical-thinking-self-report"
+      ],
+      "path": "library/entries/evidence-bounded-productivity.md",
+      "card_sha256": "0ec06e14e4aa439198e43b1dc64480c5e7a5560966e68ee65e8cdb2ba580b374",
+      "sources": [
+        {
+          "url": "https://shakkednoy.com/Noy%20Zhang%20NBER%20SI.pdf",
+          "title": "Experimental Evidence on the Productivity Effects of Generative Artificial Intelligence — Noy and Zhang",
+          "locator": "Method, Results, Fig. 1 and Limitations (section names; author-hosted 453-participant manuscript)",
+          "revision": "Author-hosted NBER SI manuscript inspected 2026-11-08; 453-participant version, GPT-3.5, data collected January–February 2023"
+        }
+      ]
+    },
+    {
+      "id": "evidence-capability-boundary",
+      "kind": "study",
+      "title": "Evaluate recommendation correctness separately from its presentation",
+      "summary": "A consultant experiment shows that higher recommendation ratings can coexist with more incorrect answers.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "argue",
+          "verify",
+          "evaluate"
+        ],
+        "genres": [
+          "argument",
+          "research-summary",
+          "explanation"
+        ],
+        "languages": [
+          "english"
+        ],
+        "contexts": [
+          "professional-writing",
+          "decision-support",
+          "capability-boundary"
+        ]
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected",
+          "empirical"
+        ],
+        "inspected_at": "2026-11-08",
+        "freshness": "versioned",
+        "scope": "Fresh reading of overall experimental assignment, task-specific outcomes, outside-frontier correctness and recommendation-rating definitions; no independent scoring."
+      },
+      "related": [
+        "evidence-claim-verification",
+        "practice-reuters-sourcing"
+      ],
+      "path": "library/entries/evidence-capability-boundary.md",
+      "card_sha256": "547e635ed5bde1a155712e487e2226c40e1e38623b9fe52a7412481e93193c5c",
+      "sources": [
+        {
+          "url": "https://mitsloan.mit.edu/sites/default/files/2023-10/SSRN-id4573321.pdf",
+          "title": "Navigating the Jagged Technological Frontier — Dell’Acqua and colleagues",
+          "locator": "§3.1 inside-frontier experiment; §3.2 outside-frontier correctness and Recommendation Quality; Tables 4 and 6; discussion",
+          "revision": "Harvard Business School Working Paper 24-013, 22 September 2023, MIT-hosted PDF"
+        }
+      ]
+    },
+    {
+      "id": "evidence-claim-verification",
+      "kind": "study",
+      "title": "Verify claims against evidence while preserving their context",
+      "summary": "FActScore and VeriScore clarify claim-level support without making a metric into an editor.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "verify",
+          "report",
+          "evaluate"
+        ],
+        "genres": [
+          "research-summary",
+          "article",
+          "explanation"
+        ],
+        "languages": [
+          "english"
+        ],
+        "contexts": [
+          "factual-verification",
+          "source-coverage",
+          "metric-limitations"
+        ]
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected",
+          "empirical"
+        ],
+        "inspected_at": "2026-11-08",
+        "freshness": "versioned",
+        "scope": "Fresh reading of FActScore definition, biography/Wikipedia scope and result/limit sections; VeriScore extraction comparison, human-verification setup and limitations. No metric was executed."
+      },
+      "related": [
+        "evidence-entity-coherence",
+        "practice-ori-attribution"
+      ],
+      "path": "library/entries/evidence-claim-verification.md",
+      "card_sha256": "edac9d467fed09b271dcdb698b8526ef8aa8fac12550201ba7586def37d11035",
+      "sources": [
+        {
+          "url": "https://aclanthology.org/2023.emnlp-main.741.pdf",
+          "title": "FActScore: Fine-grained Atomic Evaluation of Factual Precision in Long Form Text Generation — Min and colleagues",
+          "locator": "§§3.1–3.4; §4.3.2; Limitations",
+          "revision": "EMNLP 2023 proceedings, pp. 12076–12100"
+        },
+        {
+          "url": "https://arxiv.org/html/2406.19276v1",
+          "title": "VeriScore: Evaluating the factuality of verifiable claims in long-form text generation — Song and colleagues",
+          "locator": "§§2.1–2.4, 3.1–3.3; Limitations",
+          "revision": "arXiv:2406.19276v1, 2024; claim-extraction evaluation April 2024"
+        }
+      ]
+    },
+    {
+      "id": "evidence-collaboration-and-agency",
+      "kind": "study",
+      "title": "Inspect the collaboration process instead of counting final words alone",
+      "summary": "CoAuthor provides interaction traces for asking who steers a writing session.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "frame",
+          "revise",
+          "preserve-voice",
+          "evaluate"
+        ],
+        "genres": [
+          "essay",
+          "argument",
+          "article"
+        ],
+        "languages": [
+          "english"
+        ],
+        "contexts": [
+          "human-agency",
+          "collaborative-writing",
+          "interaction-traces"
+        ]
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected",
+          "empirical"
+        ],
+        "inspected_at": "2026-11-08",
+        "freshness": "versioned",
+        "scope": "Fresh reading of task/interface design, curation, collaboration measures, ownership correlations and authors' causal limits; no dataset download or replay claim."
+      },
+      "related": [
+        "evidence-creativity-and-diversity",
+        "evidence-cultural-context"
+      ],
+      "path": "library/entries/evidence-collaboration-and-agency.md",
+      "card_sha256": "f38ee096fcfe5b9050d578ce207c44522db582d285ec5bc9fde911939cbdbb51",
+      "sources": [
+        {
+          "url": "https://cs.stanford.edu/~minalee/pdf/chi2022-coauthor.pdf",
+          "title": "CoAuthor: Designing a Human-AI Collaborative Writing Dataset for Exploring Language Model Capabilities — Lee, Liang and Yang",
+          "locator": "§§4.2–4.3; §§5.1.3–5.2; §§6.1–6.2",
+          "revision": "CHI 2022 author-hosted paper, doi:10.1145/3491102.3502030"
+        }
+      ]
+    },
+    {
+      "id": "evidence-creativity-and-diversity",
+      "kind": "study",
+      "title": "Separate an individual creativity gain from collective similarity",
+      "summary": "A GPT-4 idea experiment improves some story ratings while increasing similarity across stories.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "frame",
+          "evaluate",
+          "preserve-voice"
+        ],
+        "genres": [
+          "essay",
+          "article"
+        ],
+        "languages": [
+          "english"
+        ],
+        "contexts": [
+          "creative-writing",
+          "short-task",
+          "collective-diversity"
+        ]
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected",
+          "empirical"
+        ],
+        "inspected_at": "2026-11-08",
+        "freshness": "versioned",
+        "scope": "Fresh reading of experiment design, participant exclusions, creativity results, embedding similarity definitions and discussion; no replication or professional-writer evaluation."
+      },
+      "related": [
+        "evidence-cultural-context",
+        "evidence-collaboration-and-agency"
+      ],
+      "path": "library/entries/evidence-creativity-and-diversity.md",
+      "card_sha256": "0eac88b9aa8f30bc7dd1edce1d277d814811d9a6dad978c145426b1abfdc0cf8",
+      "sources": [
+        {
+          "url": "https://arxiv.org/pdf/2312.00506v3",
+          "title": "Generative AI enhances individual creativity but reduces the collective diversity of novel content — Doshi and Hauser",
+          "locator": "Results pp. 4–10; Discussion p. 11; Methods pp. 11–15 (PDF physical pages, one-based)",
+          "revision": "arXiv:2312.00506v3, 14 March 2024"
+        }
+      ]
+    },
+    {
+      "id": "evidence-critical-thinking-self-report",
+      "kind": "study",
+      "title": "Distinguish perceived effort from measured thinking ability",
+      "summary": "A knowledge-worker survey supports questions about review effort without proving cognitive decline.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "frame",
+          "verify",
+          "evaluate"
+        ],
+        "genres": [
+          "article",
+          "research-summary",
+          "argument"
+        ],
+        "languages": [
+          "english"
+        ],
+        "contexts": [
+          "self-report",
+          "human-review",
+          "knowledge-work"
+        ]
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected",
+          "empirical"
+        ],
+        "inspected_at": "2026-11-08",
+        "freshness": "versioned",
+        "scope": "Fresh reading of survey measures, retained-example counts, regression table, interpretation and limitations; no observed writing experiment or longitudinal assessment."
+      },
+      "related": [
+        "evidence-collaboration-and-agency",
+        "evidence-bounded-productivity"
+      ],
+      "path": "library/entries/evidence-critical-thinking-self-report.md",
+      "card_sha256": "8ead19b1c161c6352386ef1ff0923e225cc44315c9af96a6c473ec39bf51012d",
+      "sources": [
+        {
+          "url": "https://advait.org/files/lee_2025_ai_critical_thinking_survey.pdf",
+          "title": "The Impact of Generative AI on Critical Thinking: Self-Reported Reductions in Cognitive Effort and Confidence Effects From a Survey of Knowledge Workers — Lee and colleagues",
+          "locator": "§§3.1–3.3 survey and cleaning; Table 4; §§6.2–6.3 and conclusion",
+          "revision": "CHI 2025 author-hosted paper, doi:10.1145/3706598.3713778"
+        }
+      ]
+    },
+    {
+      "id": "evidence-cultural-context",
+      "kind": "study",
+      "title": "Check which cultural details an assistant replaces",
+      "summary": "A cross-cultural autocomplete experiment makes cultural context an explicit editing question.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "frame",
+          "revise",
+          "preserve-voice"
+        ],
+        "genres": [
+          "essay",
+          "article",
+          "personal-essay"
+        ],
+        "languages": [
+          "english"
+        ],
+        "contexts": [
+          "cross-cultural-writing",
+          "english-as-additional-language",
+          "autocomplete"
+        ]
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected",
+          "empirical"
+        ],
+        "inspected_at": "2026-11-08",
+        "freshness": "versioned",
+        "scope": "Fresh reading of assignment, nationality-based cohorts, embedding/classifier analyses, cultural examples, authors' suggested mitigation and limitations; no rerun."
+      },
+      "related": [
+        "practice-korean-public-language",
+        "evidence-creativity-and-diversity"
+      ],
+      "path": "library/entries/evidence-cultural-context.md",
+      "card_sha256": "64404fdd86cf973e2f6a9d0cbdf8db8b375dbb41b18d1074e5f4f879c58a458d",
+      "sources": [
+        {
+          "url": "https://arxiv.org/html/2409.11360v3",
+          "title": "AI Suggestions Homogenize Writing Toward Western Styles and Diminish Cultural Nuances — Agarwal, Naaman and Vashistha",
+          "locator": "§§3–3.5 design and measures; §§4.2–4.4 findings; §5.4 limitations",
+          "revision": "arXiv:2409.11360v3, 12 March 2025; CHI 2025"
+        }
+      ]
+    },
+    {
+      "id": "evidence-detector-bias",
+      "kind": "study",
+      "title": "Treat detector scores as uncertain signals, never authorship verdicts",
+      "summary": "Historical detector tests reveal population bias and sensitivity to surface language changes.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "evaluate",
+          "preserve-voice"
+        ],
+        "genres": [
+          "essay",
+          "article",
+          "research-summary"
+        ],
+        "languages": [
+          "english"
+        ],
+        "contexts": [
+          "authorship-claims",
+          "english-as-additional-language",
+          "evaluation-bias"
+        ]
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected",
+          "empirical"
+        ],
+        "inspected_at": "2026-11-08",
+        "freshness": "versioned",
+        "scope": "Fresh reading of sample provenance, seven-detector comparisons, rewriting sensitivity and stated limitations; no current detector evaluation or evasion experiment."
+      },
+      "related": [
+        "evidence-poetry-readers-and-labels",
+        "practice-ap-ai-source-accountability"
+      ],
+      "path": "library/entries/evidence-detector-bias.md",
+      "card_sha256": "7412532f646b4640a05cbde15de0d2be1f0b3a43f0c8a850624860443abd8d3c",
+      "sources": [
+        {
+          "url": "https://arxiv.org/html/2304.02819v3",
+          "title": "GPT detectors are biased against non-native English writers — Liang and colleagues",
+          "locator": "Results: TOEFL versus US essays and rewriting sensitivity; Discussion: limitations; Materials and Methods (historical access/model/corpus limits)",
+          "revision": "arXiv:2304.02819v3, July 2023"
+        }
+      ]
+    },
+    {
+      "id": "evidence-entity-coherence",
+      "kind": "study",
+      "title": "Check whether supported facts describe the same subject",
+      "summary": "D-FActScore exposes a paragraph-level error that isolated fact checks can miss.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "verify",
+          "revise",
+          "evaluate"
+        ],
+        "genres": [
+          "article",
+          "research-summary",
+          "explanation"
+        ],
+        "languages": [
+          "english"
+        ],
+        "contexts": [
+          "entity-ambiguity",
+          "factual-verification",
+          "paragraph-coherence"
+        ]
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected",
+          "empirical"
+        ],
+        "inspected_at": "2026-11-08",
+        "freshness": "versioned",
+        "scope": "Fresh reading of entity ambiguity examples, grouping definition, human annotation procedure, 300-paragraph results and scope limitations; no model rerun."
+      },
+      "related": [
+        "evidence-claim-verification",
+        "craft-unc-paragraph-development"
+      ],
+      "path": "library/entries/evidence-entity-coherence.md",
+      "card_sha256": "22853e1d7ee4d0a69de6b17cc317bba482f44160b116d968d29811b56af32845",
+      "sources": [
+        {
+          "url": "https://aclanthology.org/2024.findings-acl.160.pdf",
+          "title": "Merging Facts, Crafting Fallacies: Evaluating the Contradictory Nature of Aggregated Factual Claims in Long-Form Generations — Chiang and Lee",
+          "locator": "§§3–4.3, Table 3; Limitations",
+          "revision": "Findings of ACL 2024, pp. 2734–2751"
+        }
+      ]
+    },
+    {
+      "id": "evidence-poetry-readers-and-labels",
+      "kind": "study",
+      "title": "Separate reader preference, source framing and expert judgment",
+      "summary": "Poetry experiments show why perceived human authorship and reader enjoyment are different outcomes.",
+      "status": "curated",
+      "availability": "partial",
+      "facets": {
+        "tasks": [
+          "frame",
+          "evaluate"
+        ],
+        "genres": [
+          "essay",
+          "article"
+        ],
+        "languages": [
+          "english"
+        ],
+        "contexts": [
+          "reader-preference",
+          "source-framing",
+          "poetry-comparison"
+        ]
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected",
+          "empirical"
+        ],
+        "inspected_at": "2026-11-08",
+        "freshness": "versioned",
+        "scope": "Fresh accessible passages cover poem selection, both study designs, Study 1 discrimination results and reader experience. Later PMC requests hit recaptcha and Nature redirected to inaccessible identity service; detailed Study 2 estimates were not re-read."
+      },
+      "related": [
+        "evidence-detector-bias",
+        "evidence-cultural-context"
+      ],
+      "path": "library/entries/evidence-poetry-readers-and-labels.md",
+      "card_sha256": "c51b94e5b94ed6d799ca885e2a6c09b8cc408f743dee207a5bfeddd50d0889f8",
+      "sources": [
+        {
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11564748/",
+          "title": "AI-generated poetry is indistinguishable from human-written poetry and is rated more favorably — Porter and Machery",
+          "locator": "Study design before Results; Study 1 Results and reader-experience section; Study 2 framing design",
+          "revision": "Scientific Reports, 14 November 2024, doi:10.1038/s41598-024-76900-1"
+        }
+      ]
+    },
+    {
+      "id": "example-crane-wife-braided-inquiry",
+      "kind": "example",
+      "title": "The Crane Wife: two strands change each other’s meaning",
+      "summary": "Use a recurring question to make a braid necessary rather than decorative.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "structure",
+          "preserve-voice",
+          "revise"
+        ],
+        "genres": [
+          "personal-essay",
+          "essay"
+        ],
+        "languages": [
+          "english"
+        ],
+        "contexts": [
+          "braided-narrative",
+          "lived-experience"
+        ]
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected"
+        ],
+        "inspected_at": "2026-11-08",
+        "freshness": "live-at-inspection",
+        "scope": "Whole article body read; author’s private life and ecological facts not independently checked."
+      },
+      "related": [
+        "craft-jack-hart-theme",
+        "example-self-respect-definition-by-contrast"
+      ],
+      "path": "library/entries/example-crane-wife-braided-inquiry.md",
+      "card_sha256": "4f80408b65138ea945df02eb45bb76ae9e9f4f4733d13fbd64511dfde950e6bd",
+      "sources": [
+        {
+          "url": "https://www.theparisreview.org/blog/2019/07/16/the-crane-wife/",
+          "title": "CJ Hauser — The Crane Wife",
+          "locator": "Whole essay; opening trip/engagement contrast, resource-counting hinge, final boat scene",
+          "revision": "2019-07-16; inspected 2026-11-08"
+        }
+      ]
+    },
+    {
+      "id": "example-elephant-compromised-narrator",
+      "kind": "example",
+      "title": "Shooting an Elephant: make the narrator’s stake visible",
+      "summary": "Trace how a narrator’s compromised position changes the meaning of an event.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "structure",
+          "argue",
+          "preserve-voice"
+        ],
+        "genres": [
+          "essay",
+          "personal-essay"
+        ],
+        "languages": [
+          "english"
+        ],
+        "contexts": [
+          "historical-text",
+          "compromised-narrator"
+        ]
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected"
+        ],
+        "inspected_at": "2026-11-08",
+        "freshness": "live-at-inspection",
+        "scope": "Whole essay read, as retrospective testimony; historical events not independently verified."
+      },
+      "related": [
+        "craft-orwell-language-agency",
+        "practice-reuters-sourcing"
+      ],
+      "path": "library/entries/example-elephant-compromised-narrator.md",
+      "card_sha256": "0cddf1b8b2e35d475ead816fe5e6198911d0cca254a68abe983f4843364971c5",
+      "sources": [
+        {
+          "url": "https://www.orwellfoundation.com/the-orwell-foundation/orwell/essays-and-other-works/shooting-an-elephant/",
+          "title": "George Orwell — Shooting an Elephant",
+          "locator": "Whole essay; opening role conflict, crowd-pressure turn, extended consequence and final admission",
+          "revision": "New Writing 2, Autumn 1936; Foundation reproduction inspected 2026-11-08"
+        }
+      ]
+    },
+    {
+      "id": "example-hyperbolic-surfaces-reported-explanation",
+      "kind": "example",
+      "title": "Hyperbolic surfaces: braid research obstacles with human stakes",
+      "summary": "Explain a result through the successive obstacles that make it meaningful.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "report",
+          "explain",
+          "structure",
+          "verify"
+        ],
+        "genres": [
+          "reported-feature",
+          "explanation"
+        ],
+        "languages": [
+          "english"
+        ],
+        "contexts": [
+          "non-specialist-readers",
+          "mathematical-reporting"
+        ]
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected"
+        ],
+        "inspected_at": "2026-11-08",
+        "freshness": "live-at-inspection",
+        "scope": "Whole article body and correction notes read; linked proofs and illustrations not audited."
+      },
+      "related": [
+        "practice-reuters-sourcing",
+        "practice-ap-corrections"
+      ],
+      "path": "library/entries/example-hyperbolic-surfaces-reported-explanation.md",
+      "card_sha256": "e8e79a1d88e143fffac61aeb5941931152403a79ff4b0c980834a8b0e374eade",
+      "sources": [
+        {
+          "url": "https://www.quantamagazine.org/years-after-the-early-death-of-a-math-genius-her-ideas-gain-new-life-20250303/",
+          "title": "Joseph Howlett — Years After the Early Death of a Math Genius, Her Ideas Gain New Life",
+          "locator": "Whole story and correction notes; A Packed Thesis, Picking Up the Thread, Writing the Sequel, Revisiting the Tome, A Growing Legacy",
+          "revision": "2025-03-03; same-day clarification/correction notes present; inspected 2026-11-08"
+        }
+      ]
+    },
+    {
+      "id": "example-inside-git-inspectable-objects",
+      "kind": "example",
+      "title": "Inside .git: explain through inspectable objects",
+      "summary": "Use a bounded inventory to turn an opaque system into comparable parts.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "structure",
+          "explain",
+          "revise"
+        ],
+        "genres": [
+          "explanation",
+          "article"
+        ],
+        "languages": [
+          "english"
+        ],
+        "contexts": [
+          "beginner-readers",
+          "inspectable-systems"
+        ]
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected"
+        ],
+        "inspected_at": "2026-11-08",
+        "freshness": "live-at-inspection",
+        "scope": "Whole prose body read; comic, linked sources and commands not inspected or executed."
+      },
+      "related": [
+        "craft-julia-evans-explanation-gaps",
+        "example-word-frequencies-revision-consistency"
+      ],
+      "path": "library/entries/example-inside-git-inspectable-objects.md",
+      "card_sha256": "cbb40128dce9e5d0237de2bf4bcf85681f25edd40acf7c781deaa084a22c1072",
+      "sources": [
+        {
+          "url": "https://jvns.ca/blog/2024/01/26/inside-git/",
+          "title": "Julia Evans — Inside .git",
+          "locator": "Body, introductory reader request; HEAD/refs/objects sections; final scope caveat",
+          "revision": "2024-01-26; inspected 2026-11-08"
+        }
+      ]
+    },
+    {
+      "id": "example-life-expectancy-definition-before-causes",
+      "kind": "example",
+      "title": "Life expectancy: define the measure before explaining the difference",
+      "summary": "Prevent a familiar metric from carrying an unfamiliar meaning unnoticed.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "explain",
+          "structure",
+          "verify"
+        ],
+        "genres": [
+          "article",
+          "explanation",
+          "research-summary"
+        ],
+        "languages": [
+          "english"
+        ],
+        "contexts": [
+          "data-literacy",
+          "general-readers"
+        ]
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected"
+        ],
+        "inspected_at": "2026-11-08",
+        "freshness": "live-at-inspection",
+        "scope": "Whole substantive article body read; linked studies, interactive chart controls and full endnotes not audited."
+      },
+      "related": [
+        "evidence-claim-verification",
+        "craft-google-audience"
+      ],
+      "path": "library/entries/example-life-expectancy-definition-before-causes.md",
+      "card_sha256": "ad5c1c0b0b80b38fa461d0af42fb7d71937308a74405680758d62eaecd25acfd",
+      "sources": [
+        {
+          "url": "https://ourworldindata.org/why-do-women-live-longer-than-men",
+          "title": "Saloni Dattani and Lucas Rodés-Guirao — Why do women live longer than men?",
+          "locator": "Body through conclusion; period-life-expectancy definition and age-group decomposition",
+          "revision": "2023-11-27; inspected 2026-11-08"
+        }
+      ]
+    },
+    {
+      "id": "example-momentum-revision-reader-questions",
+      "kind": "example",
+      "title": "Momentum revision: expose the unanswered questions and model boundary",
+      "summary": "Use a real source diff to inspect structural revision beyond sentence polish.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "revise",
+          "explain",
+          "structure"
+        ],
+        "genres": [
+          "explanation",
+          "article"
+        ],
+        "languages": [
+          "english"
+        ],
+        "contexts": [
+          "mathematical-models",
+          "revision-artifacts"
+        ]
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected"
+        ],
+        "inspected_at": "2026-11-08",
+        "freshness": "versioned",
+        "scope": "Actual pinned before/after patch read; published opening inspected, not whole article or interactive behavior."
+      },
+      "related": [
+        "craft-gopen-swan-information-order",
+        "craft-wisconsin-reverse-outline"
+      ],
+      "path": "library/entries/example-momentum-revision-reader-questions.md",
+      "card_sha256": "965fd60fcda293ccb9e15fd38ff3603d7c3a226ba804f1c99b59fa2a6171dd9e",
+      "sources": [
+        {
+          "url": "https://github.com/distillpub/post--momentum/commit/c4077ce909583530b9066cd136ba70bad17592cf",
+          "title": "Distill — Why Momentum Really Works source revision",
+          "locator": "public/index.html hunks around 183–205 and 1692–1725; active prose distinguished from HTML comments",
+          "revision": "c4077ce909583530b9066cd136ba70bad17592cf versus parent 21f9e0b9d95ecdef2422003f1e5297af9f2fd2af; 2017-04-02"
+        },
+        {
+          "url": "https://distill.pub/2017/momentum/",
+          "title": "Gabriel Goh — Why Momentum Really Works",
+          "locator": "Published opening, through first model introduction",
+          "revision": "Published 2017-04-04; inspected 2026-11-08"
+        }
+      ]
+    },
+    {
+      "id": "example-self-respect-definition-by-contrast",
+      "kind": "example",
+      "title": "On Self-Respect: define a concept by excluding its substitutes",
+      "summary": "Use a personally implicated opening to motivate a conceptual distinction.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "frame",
+          "argue",
+          "preserve-voice"
+        ],
+        "genres": [
+          "essay",
+          "argument"
+        ],
+        "languages": [
+          "english"
+        ],
+        "contexts": [
+          "conceptual-distinction",
+          "historical-text"
+        ]
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected"
+        ],
+        "inspected_at": "2026-11-08",
+        "freshness": "live-at-inspection",
+        "scope": "Whole essay body read; publisher’s composition anecdote not independent draft evidence."
+      },
+      "related": [
+        "example-crane-wife-braided-inquiry",
+        "craft-unc-argument"
+      ],
+      "path": "library/entries/example-self-respect-definition-by-contrast.md",
+      "card_sha256": "7c58f10d6626462f5f8ac21067be989d2fb77501f295b2888734e9bc97c7f728",
+      "sources": [
+        {
+          "url": "https://www.vogue.com/article/joan-didion-self-respect-essay-1961",
+          "title": "Joan Didion — On Self-Respect",
+          "locator": "Whole essay body; academic disappointment opening, approval/reputation distinction and ending",
+          "revision": "1961 essay; Vogue republication 2021-12-23; inspected 2026-11-08"
+        }
+      ]
+    },
+    {
+      "id": "example-serviceberry-situated-concept",
+      "kind": "example",
+      "title": "The Serviceberry: build a concept from a situated encounter",
+      "summary": "Connect observation, vocabulary and an argument while retaining their different evidential roles.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "frame",
+          "argue",
+          "structure"
+        ],
+        "genres": [
+          "essay",
+          "argument"
+        ],
+        "languages": [
+          "english"
+        ],
+        "contexts": [
+          "situated-knowledge",
+          "ecological-analogy"
+        ]
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected"
+        ],
+        "inspected_at": "2026-11-08",
+        "freshness": "live-at-inspection",
+        "scope": "Whole essay body read; economics literature, biological mechanisms and attributed interviews not independently verified."
+      },
+      "related": [
+        "craft-unc-argument",
+        "evidence-cultural-context"
+      ],
+      "path": "library/entries/example-serviceberry-situated-concept.md",
+      "card_sha256": "3cb8f74bd929b84d1ffa46483781c40c7293be20437df30d4c49d5860a93b3c8",
+      "sources": [
+        {
+          "url": "https://emergencemagazine.org/essay/the-serviceberry/",
+          "title": "Robin Wall Kimmerer — The Serviceberry",
+          "locator": "Whole essay; harvest opening, economic-definition inquiry, farmer conversation and market-coexistence qualification",
+          "revision": "Site date 2022-10-26; inspected 2026-11-08"
+        }
+      ]
+    },
+    {
+      "id": "example-slow-ideas-opening-comparison",
+      "kind": "example",
+      "title": "Slow Ideas: opening comparison that tests rival explanations",
+      "summary": "Frame an explanatory puzzle before settling on a mechanism.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "frame",
+          "argue",
+          "explain"
+        ],
+        "genres": [
+          "reported-feature",
+          "explanation"
+        ],
+        "languages": [
+          "english"
+        ],
+        "contexts": [
+          "rival-explanations",
+          "general-readers"
+        ]
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected"
+        ],
+        "inspected_at": "2026-11-08",
+        "freshness": "live-at-inspection",
+        "scope": "Selected opening passage read; no whole-article structural claim, clinical recommendation or reporting-method audit."
+      },
+      "related": [
+        "craft-jack-hart-theme",
+        "practice-reuters-sourcing"
+      ],
+      "path": "library/entries/example-slow-ideas-opening-comparison.md",
+      "card_sha256": "975ea0562e5e9fe50e77e87f5ec06cf47f17ebbab823de7f5c3b022ccde76a65",
+      "sources": [
+        {
+          "url": "https://www.newyorker.com/magazine/2013/07/29/slow-ideas",
+          "title": "Atul Gawande — Slow Ideas",
+          "locator": "Opening only: initial anesthesia/antisepsis comparison through visible-problem/operator-burden distinction",
+          "revision": "Online 2013-07-22; print issue 2013-07-29; inspected 2026-11-08"
+        }
+      ]
+    },
+    {
+      "id": "example-ten-years-reframe-promise",
+      "kind": "example",
+      "title": "Ten Years: dissect an attractive promise before offering a replacement",
+      "summary": "Turn a vague disagreement into distinctions that change the reader’s expectations.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "argue",
+          "frame",
+          "structure"
+        ],
+        "genres": [
+          "argument",
+          "essay"
+        ],
+        "languages": [
+          "english"
+        ],
+        "contexts": [
+          "expectation-setting",
+          "beginner-readers"
+        ]
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected"
+        ],
+        "inspected_at": "2026-11-08",
+        "freshness": "live-at-inspection",
+        "scope": "Whole page substantive text read; cited expertise research and dated recommendations not independently evaluated."
+      },
+      "related": [
+        "example-words-reader-test",
+        "craft-mailchimp-voice-tone"
+      ],
+      "path": "library/entries/example-ten-years-reframe-promise.md",
+      "card_sha256": "594f08e251fb767669e6d70ccba8b8ecdddefaed8b45b49414b035e55583a0d1",
+      "sources": [
+        {
+          "url": "https://www.norvig.com/21-days.html",
+          "title": "Peter Norvig — Teach Yourself Programming in Ten Years",
+          "locator": "Whole main argument, references and appendices; title decomposition, timescale qualification, practical recipe",
+          "revision": "Mutable author page, copyright 2001–2014; inspected 2026-11-08"
+        }
+      ]
+    },
+    {
+      "id": "example-word-frequencies-revision-consistency",
+      "kind": "example",
+      "title": "Word-frequency tutorial revision: propagate a prerequisite correction",
+      "summary": "Treat runnable examples and their data assumptions as part of explanatory writing.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "revise",
+          "explain",
+          "verify"
+        ],
+        "genres": [
+          "tutorial",
+          "explanation"
+        ],
+        "languages": [
+          "english"
+        ],
+        "contexts": [
+          "revision-artifacts",
+          "code-examples"
+        ]
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected"
+        ],
+        "inspected_at": "2026-11-08",
+        "freshness": "versioned",
+        "scope": "Pinned patch and surrounding source passages read; complete lesson and runtime not tested."
+      },
+      "related": [
+        "craft-diataxis-reader-purpose",
+        "practice-ori-technical-paraphrase"
+      ],
+      "path": "library/entries/example-word-frequencies-revision-consistency.md",
+      "card_sha256": "90f5840a02212a4fa7ce27fbd069bd70c89a4aa8e7fda71ca7929fd309833b9b",
+      "sources": [
+        {
+          "url": "https://github.com/programminghistorian/jekyll/commit/3aef10a619b0a20f4b9ee5ab8110c371c710b8f2",
+          "title": "Programming Historian — Counting Word Frequencies with Python revision",
+          "locator": "en/lessons/counting-frequencies.md two diff hunks at old lines 254 and 376; surrounding integration instructions",
+          "revision": "3aef10a619b0a20f4b9ee5ab8110c371c710b8f2 versus parent 30ee8a59e8a66eca851ae5402d1b80e5f192058c; 2021-11-17"
+        },
+        {
+          "url": "https://github.com/programminghistorian/jekyll/blob/3aef10a619b0a20f4b9ee5ab8110c371c710b8f2/en/lessons/counting-frequencies.md",
+          "title": "Pinned revised lesson source",
+          "locator": "Lesson Goals; source lines 226–275 and 346–397 around the two integrated examples",
+          "revision": "3aef10a619b0a20f4b9ee5ab8110c371c710b8f2"
+        }
+      ]
+    },
+    {
+      "id": "example-words-reader-test",
+      "kind": "example",
+      "title": "Putting Ideas into Words: introduce a stranger-reader test",
+      "summary": "Use the demands of explanation to expose reasoning gaps.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "argue",
+          "revise",
+          "explain"
+        ],
+        "genres": [
+          "essay",
+          "argument"
+        ],
+        "languages": [
+          "english"
+        ],
+        "contexts": [
+          "reasoning-gaps",
+          "unfamiliar-readers"
+        ]
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected"
+        ],
+        "inspected_at": "2026-11-08",
+        "freshness": "live-at-inspection",
+        "scope": "Whole short essay read; external claims not empirically verified."
+      },
+      "related": [
+        "craft-google-audience",
+        "craft-wisconsin-reverse-outline"
+      ],
+      "path": "library/entries/example-words-reader-test.md",
+      "card_sha256": "a6866dceb431b54389a17b1dbd2b900bac00d58cd7195afe557566f991543005",
+      "sources": [
+        {
+          "url": "https://www.paulgraham.com/words.html",
+          "title": "Paul Graham — Putting Ideas into Words",
+          "locator": "Complete essay, especially unfamiliar-reader passage and final qualifications",
+          "revision": "February 2022; inspected 2026-11-08"
+        }
+      ]
+    },
+    {
+      "id": "practice-ap-ai-source-accountability",
+      "kind": "guide",
+      "title": "AP 2023: generated material needs an accountable source",
+      "summary": "Treat fluent generated material as unverified input and assign a human owner to every factual publication decision.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "verify",
+          "report",
+          "revise"
+        ],
+        "genres": [
+          "article",
+          "reported-feature",
+          "research-summary"
+        ],
+        "languages": [
+          "english"
+        ],
+        "contexts": [
+          "newsroom",
+          "generated-material",
+          "source-integrity"
+        ]
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected"
+        ],
+        "inspected_at": "2026-11-08",
+        "freshness": "historical",
+        "scope": "Read main guidance. Historical institutional policy; neither a current industry census nor empirical evidence about model performance."
+      },
+      "related": [
+        "evidence-detector-bias",
+        "practice-reuters-sourcing"
+      ],
+      "path": "library/entries/practice-ap-ai-source-accountability.md",
+      "card_sha256": "5dc5e4ee96a8c2f3d6c21088a661bd2cc652b2ff66646699de5d4531cb0f98ac",
+      "sources": [
+        {
+          "url": "https://www.ap.org/the-definitive-source/behind-the-news/standards-around-generative-ai/",
+          "title": "Standards around generative AI — Nicole Meir, AP",
+          "locator": "Main guidance and byline/date, lines 77–112",
+          "revision": "Published 2023-08-15; inspected 2026-11-08"
+        }
+      ]
+    },
+    {
+      "id": "practice-ap-corrections",
+      "kind": "guide",
+      "title": "AP: visible corrections and factual boundaries",
+      "summary": "Plan how readers will learn about a factual correction, and keep invented illustration visibly separate from reported events.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "report",
+          "verify",
+          "revise"
+        ],
+        "genres": [
+          "article",
+          "reported-feature",
+          "explanation"
+        ],
+        "languages": [
+          "english"
+        ],
+        "contexts": [
+          "newsroom",
+          "corrections",
+          "illustration"
+        ]
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected"
+        ],
+        "inspected_at": "2026-11-08",
+        "freshness": "live-at-inspection",
+        "scope": "Inspected selected integrity and visual-provenance sections; no claim of reading every accordion or testing editorial compliance."
+      },
+      "related": [
+        "practice-reuters-sourcing",
+        "example-hyperbolic-surfaces-reported-explanation"
+      ],
+      "path": "library/entries/practice-ap-corrections.md",
+      "card_sha256": "8a57eda4eb98b92618483838203c38988031c9ef16689e13169138e0f4cb2a4e",
+      "sources": [
+        {
+          "url": "https://www.ap.org/about/news-values-and-principles/telling-the-story/",
+          "title": "AP: Telling the Story",
+          "locator": "Integrity → Corrections/Correctives and Fabrications (lines 261–295); Visuals opening (108–114)",
+          "revision": "Live page inspected 2026-11-08; no edition date displayed"
+        }
+      ]
+    },
+    {
+      "id": "practice-korean-public-language",
+      "kind": "guide",
+      "title": "국립국어원: Korean public writing has a specific reader contract",
+      "summary": "Use Korean public-language guidance for audience relationships, omitted sentence roles, terminology and explicit obligations without treating it as a universal voice.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "explain",
+          "revise",
+          "preserve-voice"
+        ],
+        "genres": [
+          "article",
+          "explanation",
+          "tutorial"
+        ],
+        "languages": [
+          "korean"
+        ],
+        "contexts": [
+          "public-information",
+          "multilingual",
+          "non-specialist-readers"
+        ]
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected"
+        ],
+        "inspected_at": "2026-11-08",
+        "freshness": "historical",
+        "scope": "Selected PDF pages and institutional listing read; not a current legal or terminology compliance audit. PDF text inspected, layout not visually evaluated."
+      },
+      "related": [
+        "practice-toss-bilingual-technical-story",
+        "evidence-cultural-context"
+      ],
+      "path": "library/entries/practice-korean-public-language.md",
+      "card_sha256": "e72f2af3a17ab2ce0e5c02905ac3eec2933886865c6e43b774e4ad75bfc24e35",
+      "sources": [
+        {
+          "url": "https://korean.go.kr/common/download.do%3Bfront%3D4DC3D24A016834DD1A7392F51B61BC16?c_file_name=901b4032-ae19-4457-87b7-e0f61c04378e.pdf&file_path=etcData&o_file_name=%E2%98%85%EC%89%AC%EC%9A%B4_%EA%B3%B5%EA%B3%B5%EC%96%B8%EC%96%B4_%EC%93%B0%EA%B8%B0_%EA%B8%B0%EB%B3%B8_%EA%B8%B8%EC%9E%A1%EC%9D%B4%28%EC%B5%9C%EC%A2%85_%EB%B0%B0%ED%8F%AC%29%EB%8B%A8%EB%A9%B4.pdf",
+          "title": "쉬운 공공언어 쓰기 길잡이 — 문화체육관광부·국립국어원",
+          "locator": "Publication page; printed pp. 9, 12–18, 20–22",
+          "revision": "Published 2014-05; inspected 2026-11-08"
+        },
+        {
+          "url": "https://www.mcst.go.kr/site/s_policy/dept/deptView.jsp?pDataCD=0417000000&pSeq=717",
+          "title": "문화체육관광부: 쉬운 공공언어 쓰기 길잡이",
+          "locator": "Publication listing, scope, attachment and reuse notice",
+          "revision": "Posted 2014-06-17; inspected 2026-11-08"
+        }
+      ]
+    },
+    {
+      "id": "practice-ori-attribution",
+      "kind": "guide",
+      "title": "ORI: cite the work actually consulted",
+      "summary": "Separate a source you read from a source mentioned by someone else, and keep borrowed ideas identifiable after paraphrasing.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "verify",
+          "report",
+          "revise"
+        ],
+        "genres": [
+          "research-summary",
+          "article",
+          "argument"
+        ],
+        "languages": [
+          "english"
+        ],
+        "contexts": [
+          "scholarly-writing",
+          "source-integrity",
+          "literature-review"
+        ]
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected"
+        ],
+        "inspected_at": "2026-11-08",
+        "freshness": "live-at-inspection",
+        "scope": "Read numbered guideline page; no legal interpretation, plagiarism adjudication, or retraction search on cited examples."
+      },
+      "related": [
+        "practice-ori-technical-paraphrase",
+        "evidence-claim-verification"
+      ],
+      "path": "library/entries/practice-ori-attribution.md",
+      "card_sha256": "b01aa83754a68917fb711f98fdefbfd6b990276ba9d5f7964a917925ec421919",
+      "sources": [
+        {
+          "url": "https://ori.hhs.gov/28-guidelines-glance-avoiding-plagiarism",
+          "title": "28 Guidelines at a Glance on Avoiding Plagiarism — Miguel Roig, hosted by ORI",
+          "locator": "Guidelines 1–8, 15–22; read full numbered list",
+          "revision": "Live page inspected 2026-11-08; no edition date displayed"
+        }
+      ]
+    },
+    {
+      "id": "practice-ori-technical-paraphrase",
+      "kind": "example",
+      "title": "ORI: a paraphrase can change the technical claim",
+      "summary": "Inspect an educational guide that reproduces an earlier faulty paraphrase and explains why terminology substitution can damage meaning.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "explain",
+          "revise",
+          "verify"
+        ],
+        "genres": [
+          "research-summary",
+          "explanation",
+          "article"
+        ],
+        "languages": [
+          "english"
+        ],
+        "contexts": [
+          "technical-terminology",
+          "revision",
+          "multilingual"
+        ]
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected"
+        ],
+        "inspected_at": "2026-11-08",
+        "freshness": "live-at-inspection",
+        "scope": "Read complete main discussion including embedded original and prior-version passages; earlier standalone edition and underlying Science study not independently inspected."
+      },
+      "related": [
+        "craft-gopen-swan-information-order",
+        "practice-ori-attribution"
+      ],
+      "path": "library/entries/practice-ori-technical-paraphrase.md",
+      "card_sha256": "127845931fa1ac44de26efd34fa433e89cfadfb6f064df9ed577b5812f982e70",
+      "sources": [
+        {
+          "url": "https://ori.hhs.gov/paraphrasing-highly-technical-language",
+          "title": "Paraphrasing Highly-Technical Language — ORI educational guide",
+          "locator": "Discussion, source paragraph, attempted paraphrase, and explicitly identified earlier faulty version, lines 7–36",
+          "revision": "Live page inspected 2026-11-08; no edition date displayed"
+        }
+      ]
+    },
+    {
+      "id": "practice-proselint",
+      "kind": "tool",
+      "title": "proselint: select English usage checks without erasing uncertainty",
+      "summary": "Treat configurable English usage findings as optional revision questions, especially when rules conflict with the evidence.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "revise",
+          "evaluate",
+          "preserve-voice"
+        ],
+        "genres": [
+          "article",
+          "essay",
+          "research-summary"
+        ],
+        "languages": [
+          "english"
+        ],
+        "contexts": [
+          "optional-tool",
+          "usage",
+          "house-style"
+        ]
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected"
+        ],
+        "inspected_at": "2026-11-08",
+        "freshness": "versioned",
+        "scope": "Inspected metadata and documentation, not full checker implementation or dependencies. No installation, hook setup or lint run."
+      },
+      "related": [
+        "practice-vale",
+        "practice-write-good"
+      ],
+      "path": "library/entries/practice-proselint.md",
+      "card_sha256": "8b4ba29e55c6726e9d266063570e47615333fa1bc1cfa2af7bb945e3d40f8c19",
+      "sources": [
+        {
+          "url": "https://github.com/amperser/proselint/blob/dbed789caae662d06c7c8a5a13dd31f1acd36f5c/README.md",
+          "title": "proselint README",
+          "locator": "Installation, Usage, Configuring, Check selection, Per-file checks and beginning of Checks table (lines 1–340)",
+          "revision": "dbed789caae662d06c7c8a5a13dd31f1acd36f5c"
+        },
+        {
+          "url": "https://github.com/amperser/proselint/blob/dbed789caae662d06c7c8a5a13dd31f1acd36f5c/pyproject.toml",
+          "title": "proselint project metadata",
+          "locator": "Python requirement, dependencies, entry point, build backend and development tasks",
+          "revision": "dbed789caae662d06c7c8a5a13dd31f1acd36f5c"
+        },
+        {
+          "url": "https://github.com/amperser/proselint/blob/dbed789caae662d06c7c8a5a13dd31f1acd36f5c/.pre-commit-hooks.yaml",
+          "title": "proselint pre-commit declaration",
+          "locator": "Python hook, file types and check argument",
+          "revision": "dbed789caae662d06c7c8a5a13dd31f1acd36f5c"
+        }
+      ]
+    },
+    {
+      "id": "practice-reuters-sourcing",
+      "kind": "guide",
+      "title": "Reuters: sourcing and calibrated claims",
+      "summary": "Check who knows a claim, how it was obtained, and what remains unknown before polishing the sentence.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "report",
+          "verify",
+          "revise"
+        ],
+        "genres": [
+          "article",
+          "reported-feature",
+          "research-summary"
+        ],
+        "languages": [
+          "english"
+        ],
+        "contexts": [
+          "newsroom",
+          "source-integrity",
+          "translation"
+        ]
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected"
+        ],
+        "inspected_at": "2026-11-08",
+        "freshness": "live-at-inspection",
+        "scope": "Inspected these standards sections, not the complete Reuters handbook or evidence of newsroom compliance."
+      },
+      "related": [
+        "practice-ap-corrections",
+        "evidence-claim-verification"
+      ],
+      "path": "library/entries/practice-reuters-sourcing.md",
+      "card_sha256": "b804e8e319227a14336c8b4e42baaa3ebcbecb1cfc4f90a8289c227b3852e340",
+      "sources": [
+        {
+          "url": "https://reutersagency.com/about/standards-values/",
+          "title": "Reuters Journalistic Standards",
+          "locator": "Accuracy; Corrections; Sourcing; Quotes; Attribution (page lines 259–297)",
+          "revision": "Live page inspected 2026-11-08; no edition date displayed"
+        }
+      ]
+    },
+    {
+      "id": "practice-toss-bilingual-technical-story",
+      "kind": "example",
+      "title": "Toss es-toolkit: connect engineering decisions to adoption friction",
+      "summary": "Study bounded Korean and English passages that connect a technical project to contributor experience and a concrete adoption obstacle.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "explain",
+          "structure",
+          "preserve-voice",
+          "revise"
+        ],
+        "genres": [
+          "article",
+          "explanation",
+          "personal-essay"
+        ],
+        "languages": [
+          "korean",
+          "english"
+        ],
+        "contexts": [
+          "engineering-retrospective",
+          "multilingual",
+          "first-person"
+        ]
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected"
+        ],
+        "inspected_at": "2026-11-08",
+        "freshness": "live-at-inspection",
+        "scope": "Read specified text passages in both versions. Not whole-piece or visual analysis; benchmarks, adoption counts and translations were not independently validated."
+      },
+      "related": [
+        "craft-mailchimp-voice-tone",
+        "practice-korean-public-language"
+      ],
+      "path": "library/entries/practice-toss-bilingual-technical-story.md",
+      "card_sha256": "bb9e1fd6834c5a4b1f602e83d9991a55f5b6cf6eaa65675a389a69d61602a341",
+      "sources": [
+        {
+          "url": "https://toss.tech/article/50761",
+          "title": "es-toolkit, 사내 작은 라이브러리가 전세계적인 라이브러리가 되기까지 — 박서진/이다용",
+          "locator": "Opening and beginning; contributor and compatibility passages; start of future section, lines 11–108",
+          "revision": "Published 2026-06-22; inspected 2026-11-08"
+        },
+        {
+          "url": "https://toss.tech/article/50693",
+          "title": "es-toolkit: How a Small Internal Library Became a Global Project — Sojin Park/Dayong Lee",
+          "locator": "Translation notice; corresponding opening and compatibility passages, lines 11–97",
+          "revision": "Published 2026-06-24; inspected 2026-11-08"
+        }
+      ]
+    },
+    {
+      "id": "practice-vale",
+      "kind": "tool",
+      "title": "Vale: make an agreed style selective and reviewable",
+      "summary": "Inspect configuration, selected styles and script rules before using lint alerts as editorial prompts.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "revise",
+          "evaluate",
+          "preserve-voice"
+        ],
+        "genres": [
+          "article",
+          "tutorial",
+          "explanation"
+        ],
+        "languages": [
+          "english",
+          "korean"
+        ],
+        "contexts": [
+          "optional-tool",
+          "house-style",
+          "multilingual"
+        ]
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected"
+        ],
+        "inspected_at": "2026-11-08",
+        "freshness": "versioned",
+        "scope": "Read README and documented config/install/script effects only. No binary, package, sync, script or lint command installed/executed; no complete upstream security audit."
+      },
+      "related": [
+        "practice-proselint",
+        "craft-google-passive-exceptions"
+      ],
+      "path": "library/entries/practice-vale.md",
+      "card_sha256": "95e02d37a93879803e0b760dbbfb0c3b719b482f2ac762d814f4a775f549b736",
+      "sources": [
+        {
+          "url": "https://github.com/vale-cli/vale/blob/66bbb85a1a78a5b5497331e04d4033357caced4d/README.md",
+          "title": "Vale README",
+          "locator": "Install; Quickstart; Styles; Why Vale",
+          "revision": "66bbb85a1a78a5b5497331e04d4033357caced4d"
+        },
+        {
+          "url": "https://docs.vale.sh/topics/.vale.ini",
+          "title": "Vale configuration reference",
+          "locator": "Core settings; sections/rules; search and layering",
+          "revision": "Live docs inspected 2026-11-08; may differ from pinned binary"
+        },
+        {
+          "url": "https://docs.vale.sh/keys/packages",
+          "title": "Vale Packages",
+          "locator": "Naming a package and sync install destination",
+          "revision": "Live docs inspected 2026-11-08"
+        },
+        {
+          "url": "https://docs.vale.sh/checks/script",
+          "title": "Vale script extension",
+          "locator": "Tengo script example and scope execution",
+          "revision": "Live docs inspected 2026-11-08"
+        }
+      ]
+    },
+    {
+      "id": "practice-write-good",
+      "kind": "tool",
+      "title": "write-good: make heuristic flags contestable",
+      "summary": "Use narrow English wording checks as suggestions while preserving purposeful passive voice, rhythm and qualification.",
+      "status": "curated",
+      "availability": "public",
+      "facets": {
+        "tasks": [
+          "revise",
+          "evaluate",
+          "preserve-voice"
+        ],
+        "genres": [
+          "article",
+          "essay",
+          "tutorial"
+        ],
+        "languages": [
+          "english"
+        ],
+        "contexts": [
+          "optional-tool",
+          "heuristics",
+          "voice"
+        ]
+      },
+      "evidence": {
+        "mode": [
+          "source-inspected"
+        ],
+        "inspected_at": "2026-11-08",
+        "freshness": "versioned",
+        "scope": "Read README, manifest and selected CLI source; no dependency inspection, install, test, lint or remote-shell command executed."
+      },
+      "related": [
+        "practice-vale",
+        "craft-google-passive-exceptions"
+      ],
+      "path": "library/entries/practice-write-good.md",
+      "card_sha256": "8f529726b832dbdac110c30d57a3394115af0e90a9e910f3932a0c1363d8a92d",
+      "sources": [
+        {
+          "url": "https://github.com/btford/write-good/blob/6940b034c6f5a7e101c01a24d651a778fc3fe435/README.md",
+          "title": "write-good README",
+          "locator": "API, CLI, Checks, Extensions and installation examples",
+          "revision": "6940b034c6f5a7e101c01a24d651a778fc3fe435"
+        },
+        {
+          "url": "https://github.com/btford/write-good/blob/6940b034c6f5a7e101c01a24d651a778fc3fe435/package.json",
+          "title": "write-good package manifest",
+          "locator": "Scripts, dependencies and CLI bin declarations",
+          "revision": "6940b034c6f5a7e101c01a24d651a778fc3fe435"
+        },
+        {
+          "url": "https://github.com/btford/write-good/blob/6940b034c6f5a7e101c01a24d651a778fc3fe435/bin/write-good.js",
+          "title": "write-good CLI source",
+          "locator": "Default checks, E-Prime opt-in and custom module loading, lines 1–160",
+          "revision": "6940b034c6f5a7e101c01a24d651a778fc3fe435"
+        }
+      ]
+    }
+  ]
+}

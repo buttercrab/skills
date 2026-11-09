@@ -1,0 +1,1 @@
+The Harbor dashboard feels generic and hard to use. Can you improve it? This is an existing product: inspect the supplied page first, and change the actual working page. Work only in the local sandbox; no installs, publishing, or external messages. I can answer questions as you go.

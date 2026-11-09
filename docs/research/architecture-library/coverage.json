@@ -1,0 +1,29 @@
+{
+  "date": "2026-11-07",
+  "resources": 44,
+  "kinds": {
+    "pattern": 12,
+    "system": 10,
+    "foundation": 12,
+    "tool": 3,
+    "notation": 7
+  },
+  "statuses": {
+    "curated": 43,
+    "candidate": 1
+  },
+  "availability": {
+    "public": 43,
+    "partial": 1
+  },
+  "evidence_modes": {
+    "source-inspected": 44,
+    "conceptual": 23,
+    "partial": 1
+  },
+  "source_links": 100,
+  "distinct_source_urls": 93,
+  "related_edges": 88,
+  "body_words": 11032,
+  "caveat": "Resource cards and source locations are not independent confirmations or exhaustive coverage. Parse-only example validation is separate from source/system evidence."
+}

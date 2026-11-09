@@ -1,0 +1,31 @@
+{
+  "artifact": "Limited copyedit of a two-paragraph paper letter to returning volunteers",
+  "inputs_read": [
+    "/private/tmp/writing-intent-assessment-20261108/W03-narrow-edit/COMMON.md",
+    "/private/tmp/writing-intent-assessment-20261108/W03-narrow-edit/prompt.md",
+    "/private/tmp/writing-intent-assessment-20261108/W03-narrow-edit/FILES.txt",
+    "/private/tmp/writing-intent-assessment-20261108/W03-narrow-edit/letter.txt",
+    "/private/tmp/writing-intent-assessment-20261108/W03-narrow-edit/event-card.md"
+  ],
+  "guides_read": [
+    "/private/tmp/writing-intent-assessment-20261108/guide/SKILL.md",
+    "/Users/jaeyong/.codex/skills/i-have-adhd/SKILL.md"
+  ],
+  "craft_references": [],
+  "reference_decision": "No library reference needed for two comma-splice corrections and one attachment correction in a narrowly scoped edit.",
+  "changes": [
+    "Changed the comma after 'replacing' to a semicolon.",
+    "Changed the comma after 'tea' in the attendance sentence to a semicolon.",
+    "Moved 'by email' from the end of the RSVP sentence to immediately after 'Neri', removing its former preceding comma."
+  ],
+  "checks": [
+    "Manually compared the complete edited letter with letter.txt: only the three recorded corrections were made.",
+    "Manually checked that the letter retains two paragraphs and the exact required sentence: If you can spare an hour, we'd be glad of it.",
+    "Manually checked names, dates, quantities, location, session timing, tea timing and RSVP scope against event-card.md.",
+    "Checked that optional attendance and screwdriver wording, tea-only welcome, and the author's wry phrases remain unchanged.",
+    "Checked that editorial-notes.md contains two bullets and no new event details were added."
+  ],
+  "external_actions": [],
+  "material_gaps": [],
+  "automated_tests": "None; manual comparison only."
+}

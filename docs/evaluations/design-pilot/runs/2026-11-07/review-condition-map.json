@@ -1,0 +1,32 @@
+{
+  "01-alpha": {
+    "trial": "case1-willow",
+    "condition": "baseline",
+    "sha256": "44937bf0daa41473853724cda6db9d694c770cd7203a6a326c5a7a336c443a5e"
+  },
+  "01-beta": {
+    "trial": "case1-cedar",
+    "condition": "target",
+    "sha256": "dcc2a1d57123dddc558f228eb4b633d0ff43e948ed49d10c6cb4c20272469bf7"
+  },
+  "02-alpha": {
+    "trial": "case2-willow",
+    "condition": "baseline",
+    "sha256": "0adee25d6b829a19e18e88e1bcf654661140c29cd5182e451b1faccdccf73917"
+  },
+  "02-beta": {
+    "trial": "case2-cedar",
+    "condition": "target",
+    "sha256": "640f23712f1ffa9d5a17b63b6d6b81425907bda59b7742c74dabe9cd08d41c0d"
+  },
+  "03-alpha": {
+    "trial": "case3-willow",
+    "condition": "target",
+    "sha256": "b9b5b2437a0c7733e0dd6a0d676957b03b9fad2a7b07616961be4625e2a33539"
+  },
+  "03-beta": {
+    "trial": "case3-cedar",
+    "condition": "baseline",
+    "sha256": "6b368ea7b7028b95a8cc45adb19993472072917cfcc475b05d43e7a80df8fc37"
+  }
+}

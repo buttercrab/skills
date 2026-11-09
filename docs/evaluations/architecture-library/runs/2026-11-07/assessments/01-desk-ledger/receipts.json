@@ -1,0 +1,22 @@
+{
+  "scope": "Source-only architecture proposal for desk-ledger; no runtime, network, primary-source refresh, parser or rendering",
+  "snapshot_sources": [
+    {"path": "snapshot/requirements.md", "lines": "1-11", "mode": "direct line-numbered read", "supports": "Approved workload, offline operation, atomic replacement, maintenance and recovery policy; not observed deployment"},
+    {"path": "snapshot/operations.toml", "lines": "1-15", "mode": "direct line-numbered read", "supports": "Declared desktop and backup configuration; recorded drill, not repeated restore"},
+    {"path": "snapshot/ledger.py", "lines": "1-19", "mode": "direct line-numbered read", "supports": "Partial parser/preview/transaction-shaped approval source; no runtime or complete validation/schema proof"}
+  ],
+  "library_annotations_read": [
+    {"path": "guide/library/entries/system-sqlite-commit-boundaries.md", "lines": "1-90", "transfer": "Keep commit, recovery prerequisites and backup completion distinct", "mismatch": "Device/VFS configuration and deployed version unknown", "upstream_read_this_run": false, "primary_leads": ["https://sqlite.org/atomiccommit.html sections 3.7-3.11 and hardware assumptions", "sqlite/sqlite 425bfb8aa82e2fd7829d055335f164eaf617eae0 src/pager.c lines 260-410; src/wal.c lines 13-150"]},
+    {"path": "guide/library/entries/pattern-coarse-boundaries-before-distribution.md", "lines": "1-81", "transfer": "Compare operational cost and independent delivery need while preserving disagreement", "mismatch": "Historical practitioner arguments are not measured service-count rules", "upstream_read_this_run": false, "primary_leads": ["https://martinfowler.com/bliki/MonolithFirst.html", "https://martinfowler.com/articles/dont-start-monolith.html"]},
+    {"path": "guide/library/entries/pattern-cqrs-model-separation.md", "lines": "1-83", "transfer": "Keep shared authoritative model until actual query/update divergence justifies projection costs", "mismatch": "No local latency benchmark or detailed query implementation", "upstream_read_this_run": false, "primary_leads": ["https://martinfowler.com/bliki/CQRS.html", "https://learn.microsoft.com/en-us/azure/architecture/patterns/cqrs"]},
+    {"path": "guide/library/entries/diagram-mermaid-sequence-outcomes.md", "mode": "full local card read", "transfer": "Branch commit success versus lost display; replies are observations", "mismatch": "Card parser/curation receipts do not validate these diagrams", "upstream_read_this_run": false}
+  ],
+  "guides_read": [
+    "COMMON.md", "prompt.md", "FILES.txt", "guide/SKILL.md", "guide/references/context-and-tradeoffs.md", "guide/references/boundaries-and-failure.md", "guide/references/library-usage.md", "guide/references/diagram-contract.md", "guide/references/verification-and-evolution.md", "guide/library/index.md", "/Users/jaeyong/.codex/skills/i-have-adhd/SKILL.md"
+  ],
+  "proposals": ["Keep one local deployment and authoritative SQLite store", "Bind approval to validated preview", "Record import identity with replacement in same transaction", "Separate commit display and backup status", "Expose offline backup risk and retry during later session", "Verify restore before resuming after storage loss"],
+  "inferences": ["Supplied envelope provides no demonstrated justification for independently deployed components", "Full CSV materialization requires ceiling-case memory measurement"],
+  "unknowns": ["Complete UI/approval enforcement and validation behavior", "Schema, constraints, Python/SQLite version, journal/synchronization/VFS settings", "Query/export and backup implementation", "Actual device behavior, live backup freshness and repeatable restore time", "Measured ceiling-case latency/memory"],
+  "checks": {"snapshot_read": true, "manual_source_and_diagram_consistency_review": true, "fixture_executed": false, "tests_executed": false, "mermaid_parsed": false, "mermaid_rendered": false, "runtime_observed": false, "network_used": false},
+  "boundary": "Only four owned output files written; snapshot and frozen guide unchanged; no child agents or sibling/private evaluation inspection"
+}

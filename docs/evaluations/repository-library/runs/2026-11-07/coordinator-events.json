@@ -1,0 +1,24 @@
+[
+  {
+    "time_utc": "2026-11-07T14:23:20.695786+00:00",
+    "type": "inspection-scope-clarification",
+    "cases": [
+      "01-tiny-script",
+      "02-python-artifact",
+      "03-contract-monorepo",
+      "04-community-docs",
+      "05-constrained-assessment"
+    ],
+    "trigger": "Case05 requested confirmation about ordinary snapshot listing under ambiguous COMMON wording.",
+    "delivered_text": "Ordinary read-only file inspection/listing via rg --files, rg, cat, sed or equivalent is permitted inside the assigned snapshot and frozen guide. The execution ban concerns project scripts/tests/builds/generators/installers/git/network; only the bundled helper’s read/search operations may be run as application code. No write scope changes.",
+    "limit": "Normalized shared text; full per-agent native message traces not archived. All five received the same core clarification; case05 was asked to forward it to children."
+  },
+  {
+    "time_utc": "2026-11-07T14:23:20.695786+00:00",
+    "type": "scripted-human-answer",
+    "case": "03-contract-monorepo",
+    "question": "Should unknown wire fields be preserved for forward-compatible round trips or rejected?",
+    "answer": "Keep source optional; preserve unknown fields for round trips, but document known fields. Keep independent releases.",
+    "source": "Case03 evaluator-notes scripted answer; no other private criteria delivered."
+  }
+]

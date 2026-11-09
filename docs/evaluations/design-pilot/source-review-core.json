@@ -1,0 +1,582 @@
+{
+  "review": "Frozen anonymized source-level core review",
+  "conditions_known": false,
+  "efficacy_conclusion": null,
+  "method": "Only items.json, six designated artifact directories, original core private criteria and rubric; local source/transcript and audited effect-free .cjs execution. No browser, servers, network, headless rendering, installs, target skill, maps or original worklogs.",
+  "status_vocabulary": {
+    "pass": "Directly observed transcript fact, artifact existence or successful local-check execution; never a browser pass.",
+    "source-supported": "Implementation/logic supported by inspection and/or mock checks, with native acceptance unobserved.",
+    "fail": "Contradiction or broken required outcome directly demonstrated.",
+    "unobserved": "Insufficient admissible evidence."
+  },
+  "scores_note": "All dimensions are provisional source/transcript scores. Functional and creative scores are limited to 2 by missing native/rendered evidence, not proof of product defects. No total or condition effect inferred.",
+  "policy_incidents": "Root handles incident adjudication/invalidation separately; this review neither reconstructs incidents nor accepts historical browser claims.",
+  "artifacts": [
+    {
+      "artifact": "01-alpha",
+      "case": "01-vague-operations",
+      "artifact_path": "/private/tmp/design-with-intent-pilot-20261107/review-input/01-alpha/index.html",
+      "acceptance": "unobserved: no rendered/native UI acceptance",
+      "dimensions": {
+        "human_direction_and_answer_fidelity": {
+          "score": 3,
+          "evidence": "Source implements supplied direction; available transcript contains no contradiction or unanswered consequential requirement.",
+          "qualification": "source/transcript-limited; not a full acceptance score"
+        },
+        "functional_completion_states_and_recovery": {
+          "score": 2,
+          "evidence": "Core transitions are supported by source and mocked local checks; rendered behavior and native browser semantics remain unobserved.",
+          "qualification": "source/transcript-limited; not a full acceptance score"
+        },
+        "creative_relevance_and_scope_fit": {
+          "score": 2,
+          "evidence": "Product-relevant hierarchy/copy/layout intent is evident in source; visual success and usability cannot be assessed without rendering.",
+          "qualification": "source/transcript-limited; not a full acceptance score"
+        },
+        "necessary_friction_and_autonomy": {
+          "score": 3,
+          "evidence": "Available excerpts show focused consequential questions where needed, or direct execution when the brief/delegation is sufficient; final artifact and local logic evidence exist.",
+          "qualification": "source/transcript-limited; not a full acceptance score"
+        }
+      },
+      "outcomes": [
+        {
+          "outcome": "Consequential discovery before first version",
+          "status": "pass",
+          "evidence": "Recorded initial-question and user initial-answer precede first-version."
+        },
+        {
+          "outcome": "Overdue work prioritized; revenue no longer dominant",
+          "status": "source-supported",
+          "evidence": "Initial currentFilter=Late, descending delay/minutes sort; overdue heading/summary; original revenue metric absent."
+        },
+        {
+          "outcome": "Supplied delay and demo contact details preserved",
+          "status": "source-supported",
+          "evidence": "Seed orders include H-104 38/555-0104 and H-106 12/555-0106; row render emits overdue minutes and phone."
+        },
+        {
+          "outcome": "Visible call distinct from collected",
+          "status": "source-supported",
+          "evidence": "Rendered row construction includes Call customer button and separate Mark collected button; call dialog displays demo number/delay."
+        },
+        {
+          "outcome": "Call action does not contact external system or collect order",
+          "status": "source-supported",
+          "evidence": "Call preview updates local dialog; no tel:, fetch, window.open or live calling integration in source; mocked check confirms status unchanged."
+        },
+        {
+          "outcome": "Collection updates state/view/counts",
+          "status": "source-supported",
+          "evidence": "Row collection handler mutates status to Collected and calls render(); supplied mock check passes collection and counters."
+        },
+        {
+          "outcome": "Filters, empty view and recovery",
+          "status": "source-supported",
+          "evidence": "Status filters and empty states implemented; beta mock covers no-match clear, overdue cleared, Ready/Collected/All; alpha source supports status filters, clear queue, view-ready/reset and undo."
+        },
+        {
+          "outcome": "Second-stage feedback implemented",
+          "status": "source-supported",
+          "evidence": "Final source contains call buttons/dialog and distinct collection actions matching recorded feedback, not just prose acknowledgment."
+        },
+        {
+          "outcome": "Second-stage local logic verification",
+          "status": "pass",
+          "evidence": "Supplied local .cjs check was inspected for effects and rerun successfully by reviewer."
+        },
+        {
+          "outcome": "Actual rendered tablet/narrow state verification",
+          "status": "unobserved",
+          "evidence": "No browser/servers/headless rendering permitted in this review; CSS media rules alone do not establish usable layouts."
+        }
+      ],
+      "missed_details": [
+        "No demonstrated critical source-level omission. Added contact notes, local persistence and mandatory recorded-contact gate are broader than minimum requested. Gate also applies to Ready orders; interpret this as a design assumption, not a demanded requirement. It is documented and locally recoverable.",
+        "Collection is a direct action after contact rather than confirmation dialog; user asked separate/deliberate collection, not a mandatory confirmation modal. Do not penalize this difference without usability evidence."
+      ],
+      "limitations": [
+        "Conversation excerpts are coordinator summaries, not full native tool traces; source inspection claims, elapsed effort and every intermediate action cannot be independently reconstructed.",
+        "All visual, viewport, native keyboard, focus visibility, dialog behavior, contrast and actual browser-console acceptance are unobserved. Prior runner browser claims are excluded for every artifact.",
+        "Mocked DOM checks bypass HTML parsing, actual selector matching, native events and layout; synthetic success is evidence about logic paths, not browser correctness."
+      ],
+      "transcript_evidence": [
+        "conversation.md initial-question asks who uses Harbor and what they must accomplish; initial-answer identifies morning pickup coordinator, overdue contact priority, no useful revenue, calm/dependable direction.",
+        "conversation.md data-question asks about missing timing/contact information; data-answer supplies H-104 38 minutes/555-0104 and H-106 12 minutes/555-0106. This is a material data question, not redundant discovery.",
+        "conversation.md first-version precedes user feedback; final summary reports implemented visible demo call, overdue duration, separate collection and local checks."
+      ],
+      "checks": [
+        "verify-contact.cjs: passed; tests local storage through a Map and dialog/focus through stubs. Does not comprehensively exercise actual filter click selectors or native layout."
+      ]
+    },
+    {
+      "artifact": "01-beta",
+      "case": "01-vague-operations",
+      "artifact_path": "/private/tmp/design-with-intent-pilot-20261107/review-input/01-beta/index.html",
+      "acceptance": "unobserved: no rendered/native UI acceptance",
+      "dimensions": {
+        "human_direction_and_answer_fidelity": {
+          "score": 3,
+          "evidence": "Source implements supplied direction; available transcript contains no contradiction or unanswered consequential requirement.",
+          "qualification": "source/transcript-limited; not a full acceptance score"
+        },
+        "functional_completion_states_and_recovery": {
+          "score": 2,
+          "evidence": "Core transitions are supported by source and mocked local checks; rendered behavior and native browser semantics remain unobserved.",
+          "qualification": "source/transcript-limited; not a full acceptance score"
+        },
+        "creative_relevance_and_scope_fit": {
+          "score": 2,
+          "evidence": "Product-relevant hierarchy/copy/layout intent is evident in source; visual success and usability cannot be assessed without rendering.",
+          "qualification": "source/transcript-limited; not a full acceptance score"
+        },
+        "necessary_friction_and_autonomy": {
+          "score": 3,
+          "evidence": "Available excerpts show focused consequential questions where needed, or direct execution when the brief/delegation is sufficient; final artifact and local logic evidence exist.",
+          "qualification": "source/transcript-limited; not a full acceptance score"
+        }
+      },
+      "outcomes": [
+        {
+          "outcome": "Consequential discovery before first version",
+          "status": "pass",
+          "evidence": "Recorded initial-question and user initial-answer precede first-version."
+        },
+        {
+          "outcome": "Overdue work prioritized; revenue no longer dominant",
+          "status": "source-supported",
+          "evidence": "Initial currentFilter=Late, descending delay/minutes sort; overdue heading/summary; original revenue metric absent."
+        },
+        {
+          "outcome": "Supplied delay and demo contact details preserved",
+          "status": "source-supported",
+          "evidence": "Seed orders include H-104 38/555-0104 and H-106 12/555-0106; row render emits overdue minutes and phone."
+        },
+        {
+          "outcome": "Visible call distinct from collected",
+          "status": "source-supported",
+          "evidence": "Rendered row construction includes Call customer button and separate Mark collected button; call dialog displays demo number/delay."
+        },
+        {
+          "outcome": "Call action does not contact external system or collect order",
+          "status": "source-supported",
+          "evidence": "Call preview updates local dialog; no tel:, fetch, window.open or live calling integration in source; mocked check confirms status unchanged."
+        },
+        {
+          "outcome": "Collection updates state/view/counts",
+          "status": "source-supported",
+          "evidence": "Row collection handler mutates status to Collected and calls render(); supplied mock check passes collection and counters."
+        },
+        {
+          "outcome": "Filters, empty view and recovery",
+          "status": "source-supported",
+          "evidence": "Status filters and empty states implemented; beta mock covers no-match clear, overdue cleared, Ready/Collected/All; alpha source supports status filters, clear queue, view-ready/reset and undo."
+        },
+        {
+          "outcome": "Second-stage feedback implemented",
+          "status": "source-supported",
+          "evidence": "Final source contains call buttons/dialog and distinct collection actions matching recorded feedback, not just prose acknowledgment."
+        },
+        {
+          "outcome": "Second-stage local logic verification",
+          "status": "pass",
+          "evidence": "Supplied local .cjs check was inspected for effects and rerun successfully by reviewer."
+        },
+        {
+          "outcome": "Actual rendered tablet/narrow state verification",
+          "status": "unobserved",
+          "evidence": "No browser/servers/headless rendering permitted in this review; CSS media rules alone do not establish usable layouts."
+        }
+      ],
+      "missed_details": [
+        "No demonstrated critical source-level omission. Collection is allowed before simulating contact, but remains separate and confirmed. The criteria require distinct actions, not mandatory contact gating.",
+        "Missing phone for Ready record is honestly displayed as Not supplied; scripted data only supplied overdue phones."
+      ],
+      "limitations": [
+        "Conversation excerpts are coordinator summaries, not full native tool traces; source inspection claims, elapsed effort and every intermediate action cannot be independently reconstructed.",
+        "All visual, viewport, native keyboard, focus visibility, dialog behavior, contrast and actual browser-console acceptance are unobserved. Prior runner browser claims are excluded for every artifact.",
+        "Mocked DOM checks bypass HTML parsing, actual selector matching, native events and layout; synthetic success is evidence about logic paths, not browser correctness."
+      ],
+      "transcript_evidence": [
+        "conversation.md initial-question asks who uses Harbor and what they must accomplish; initial-answer identifies morning pickup coordinator, overdue contact priority, no useful revenue, calm/dependable direction.",
+        "conversation.md data-question asks about missing timing/contact information; data-answer supplies H-104 38 minutes/555-0104 and H-106 12 minutes/555-0106. This is a material data question, not redundant discovery.",
+        "conversation.md first-version precedes user feedback; final summary reports implemented visible demo call, overdue duration, separate collection and local checks."
+      ],
+      "checks": [
+        "check-interactions.cjs: passed; covers call/collection distinction, confirmation/cancel, undo, search/empty recovery, filters and counts. Native focus/closest/DOM are stubbed."
+      ]
+    },
+    {
+      "artifact": "02-alpha",
+      "case": "02-detailed-brief",
+      "artifact_path": "/private/tmp/design-with-intent-pilot-20261107/review-input/02-alpha/index.html",
+      "acceptance": "unobserved: no rendered/native UI acceptance",
+      "dimensions": {
+        "human_direction_and_answer_fidelity": {
+          "score": 3,
+          "evidence": "Source implements supplied direction; available transcript contains no contradiction or unanswered consequential requirement.",
+          "qualification": "source/transcript-limited; not a full acceptance score"
+        },
+        "functional_completion_states_and_recovery": {
+          "score": 2,
+          "evidence": "Core transitions are supported by source and mocked local checks; rendered behavior and native browser semantics remain unobserved.",
+          "qualification": "source/transcript-limited; not a full acceptance score"
+        },
+        "creative_relevance_and_scope_fit": {
+          "score": 2,
+          "evidence": "Product-relevant hierarchy/copy/layout intent is evident in source; visual success and usability cannot be assessed without rendering.",
+          "qualification": "source/transcript-limited; not a full acceptance score"
+        },
+        "necessary_friction_and_autonomy": {
+          "score": 3,
+          "evidence": "Available excerpts show focused consequential questions where needed, or direct execution when the brief/delegation is sufficient; final artifact and local logic evidence exist.",
+          "qualification": "source/transcript-limited; not a full acceptance score"
+        }
+      },
+      "outcomes": [
+        {
+          "outcome": "Sufficient brief executed without repeated discovery",
+          "status": "pass",
+          "evidence": "No clarification in supplied excerpts; final artifact implements the requested flow."
+        },
+        {
+          "outcome": "Both workshop names, schedules and prices preserved",
+          "status": "source-supported",
+          "evidence": "HTML/source retain Handbuilding Saturday 10:00 $45 and Glazing Sunday 14:00 $35."
+        },
+        {
+          "outcome": "Selected workshop represented and keyboard-accessible controls provided",
+          "status": "source-supported",
+          "evidence": "Native labelled radio inputs, checked-state CSS and Selected text; radio/label keyboard semantics are source-supported, actual keyboard use unobserved."
+        },
+        {
+          "outcome": "Confirm unavailable with no selection",
+          "status": "source-supported",
+          "evidence": "HTML button starts disabled; update computes disabled from missing workshop/valid seats."
+        },
+        {
+          "outcome": "Empty, 0, 5, fractional and nonnumeric counts blocked with inline guidance",
+          "status": "source-supported",
+          "evidence": "Nonempty value, validity.valid, integer and 1\u20134 range guard; min/max/step/required HTML; error text and aria-invalid update. Mock validity is synthesized, not native number-input behavior."
+        },
+        {
+          "outcome": "Handbuilding two seats yields $90",
+          "status": "source-supported",
+          "evidence": "Price multiplied by validated seat count; exercised in local mock checks."
+        },
+        {
+          "outcome": "Success identifies workshop and seats",
+          "status": "source-supported",
+          "evidence": "Submit writes confirmation workshop, schedule, seats, total, hides booking view/form and exposes confirmation."
+        },
+        {
+          "outcome": "Start another booking resets selection, seats, total, disabled confirmation",
+          "status": "source-supported",
+          "evidence": "form.reset() plus source state recalculation; mocked local check passes reset but assumes native form.reset behavior."
+        },
+        {
+          "outcome": "Restrained requested direction and no hero image/animation",
+          "status": "source-supported",
+          "evidence": "Warm off-white/plum CSS tokens, serif workshop headings, stepped single booking flow, local-only source; no image/animation implementation. Visual taste/spacing success not assessed."
+        },
+        {
+          "outcome": "360px usability, visible focus and rendered state verification",
+          "status": "unobserved",
+          "evidence": "Responsive/focus-visible CSS exists; actual layout, focus visibility and native interaction unavailable."
+        }
+      ],
+      "missed_details": [
+        "No demonstrated critical source-level omission. Actual phone overflow, tactile/readable appearance and native validation/keyboard usability remain unknown, rather than passed."
+      ],
+      "limitations": [
+        "Conversation excerpts are coordinator summaries, not full native tool traces; source inspection claims, elapsed effort and every intermediate action cannot be independently reconstructed.",
+        "All visual, viewport, native keyboard, focus visibility, dialog behavior, contrast and actual browser-console acceptance are unobserved. Prior runner browser claims are excluded for every artifact.",
+        "Mocked DOM checks bypass HTML parsing, actual selector matching, native events and layout; synthetic success is evidence about logic paths, not browser correctness."
+      ],
+      "transcript_evidence": [
+        "conversation.md final records implementation without clarification; no question/answer rounds are included. Source independently matches the supplied detailed brief.",
+        "request.md already specifies audience, direction, prices/schedules, 1\u20134 whole-number seats, disabled confirm, reset, local-only scope and 360px requirement."
+      ],
+      "checks": [
+        "verify.cjs passed (02-beta) or reviewer-local-checks.cjs passed (02-alpha). Both rely on hand-authored DOM/number-validity/form-reset stubs; CSS and browser validity were not evaluated."
+      ]
+    },
+    {
+      "artifact": "02-beta",
+      "case": "02-detailed-brief",
+      "artifact_path": "/private/tmp/design-with-intent-pilot-20261107/review-input/02-beta/index.html",
+      "acceptance": "unobserved: no rendered/native UI acceptance",
+      "dimensions": {
+        "human_direction_and_answer_fidelity": {
+          "score": 3,
+          "evidence": "Source implements supplied direction; available transcript contains no contradiction or unanswered consequential requirement.",
+          "qualification": "source/transcript-limited; not a full acceptance score"
+        },
+        "functional_completion_states_and_recovery": {
+          "score": 2,
+          "evidence": "Core transitions are supported by source and mocked local checks; rendered behavior and native browser semantics remain unobserved.",
+          "qualification": "source/transcript-limited; not a full acceptance score"
+        },
+        "creative_relevance_and_scope_fit": {
+          "score": 2,
+          "evidence": "Product-relevant hierarchy/copy/layout intent is evident in source; visual success and usability cannot be assessed without rendering.",
+          "qualification": "source/transcript-limited; not a full acceptance score"
+        },
+        "necessary_friction_and_autonomy": {
+          "score": 3,
+          "evidence": "Available excerpts show focused consequential questions where needed, or direct execution when the brief/delegation is sufficient; final artifact and local logic evidence exist.",
+          "qualification": "source/transcript-limited; not a full acceptance score"
+        }
+      },
+      "outcomes": [
+        {
+          "outcome": "Sufficient brief executed without repeated discovery",
+          "status": "pass",
+          "evidence": "No clarification in supplied excerpts; final artifact implements the requested flow."
+        },
+        {
+          "outcome": "Both workshop names, schedules and prices preserved",
+          "status": "source-supported",
+          "evidence": "HTML/source retain Handbuilding Saturday 10:00 $45 and Glazing Sunday 14:00 $35."
+        },
+        {
+          "outcome": "Selected workshop represented and keyboard-accessible controls provided",
+          "status": "source-supported",
+          "evidence": "Native labelled radio inputs, checked-state CSS and Selected text; radio/label keyboard semantics are source-supported, actual keyboard use unobserved."
+        },
+        {
+          "outcome": "Confirm unavailable with no selection",
+          "status": "source-supported",
+          "evidence": "HTML button starts disabled; update computes disabled from missing workshop/valid seats."
+        },
+        {
+          "outcome": "Empty, 0, 5, fractional and nonnumeric counts blocked with inline guidance",
+          "status": "source-supported",
+          "evidence": "Nonempty value, validity.valid, integer and 1\u20134 range guard; min/max/step/required HTML; error text and aria-invalid update. Mock validity is synthesized, not native number-input behavior."
+        },
+        {
+          "outcome": "Handbuilding two seats yields $90",
+          "status": "source-supported",
+          "evidence": "Price multiplied by validated seat count; exercised in local mock checks."
+        },
+        {
+          "outcome": "Success identifies workshop and seats",
+          "status": "source-supported",
+          "evidence": "Submit writes confirmation workshop, schedule, seats, total, hides booking view/form and exposes confirmation."
+        },
+        {
+          "outcome": "Start another booking resets selection, seats, total, disabled confirmation",
+          "status": "source-supported",
+          "evidence": "form.reset() plus source state recalculation; mocked local check passes reset but assumes native form.reset behavior."
+        },
+        {
+          "outcome": "Restrained requested direction and no hero image/animation",
+          "status": "source-supported",
+          "evidence": "Warm off-white/plum CSS tokens, serif workshop headings, stepped single booking flow, local-only source; no image/animation implementation. Visual taste/spacing success not assessed."
+        },
+        {
+          "outcome": "360px usability, visible focus and rendered state verification",
+          "status": "unobserved",
+          "evidence": "Responsive/focus-visible CSS exists; actual layout, focus visibility and native interaction unavailable."
+        }
+      ],
+      "missed_details": [
+        "No demonstrated critical source-level omission. Actual phone overflow, tactile/readable appearance and native validation/keyboard usability remain unknown, rather than passed."
+      ],
+      "limitations": [
+        "Conversation excerpts are coordinator summaries, not full native tool traces; source inspection claims, elapsed effort and every intermediate action cannot be independently reconstructed.",
+        "All visual, viewport, native keyboard, focus visibility, dialog behavior, contrast and actual browser-console acceptance are unobserved. Prior runner browser claims are excluded for every artifact.",
+        "Mocked DOM checks bypass HTML parsing, actual selector matching, native events and layout; synthetic success is evidence about logic paths, not browser correctness."
+      ],
+      "transcript_evidence": [
+        "conversation.md final records implementation without clarification; no question/answer rounds are included. Source independently matches the supplied detailed brief.",
+        "request.md already specifies audience, direction, prices/schedules, 1\u20134 whole-number seats, disabled confirm, reset, local-only scope and 360px requirement."
+      ],
+      "checks": [
+        "verify.cjs passed (02-beta) or reviewer-local-checks.cjs passed (02-alpha). Both rely on hand-authored DOM/number-validity/form-reset stubs; CSS and browser validity were not evaluated."
+      ]
+    },
+    {
+      "artifact": "03-alpha",
+      "case": "03-delegated-exploration",
+      "artifact_path": "/private/tmp/design-with-intent-pilot-20261107/review-input/03-alpha/index.html",
+      "acceptance": "unobserved: no rendered/native UI acceptance",
+      "dimensions": {
+        "human_direction_and_answer_fidelity": {
+          "score": 3,
+          "evidence": "Source implements supplied direction; available transcript contains no contradiction or unanswered consequential requirement.",
+          "qualification": "source/transcript-limited; not a full acceptance score"
+        },
+        "functional_completion_states_and_recovery": {
+          "score": 2,
+          "evidence": "Core transitions are supported by source and mocked local checks; rendered behavior and native browser semantics remain unobserved.",
+          "qualification": "source/transcript-limited; not a full acceptance score"
+        },
+        "creative_relevance_and_scope_fit": {
+          "score": 2,
+          "evidence": "Product-relevant hierarchy/copy/layout intent is evident in source; visual success and usability cannot be assessed without rendering.",
+          "qualification": "source/transcript-limited; not a full acceptance score"
+        },
+        "necessary_friction_and_autonomy": {
+          "score": 3,
+          "evidence": "Available excerpts show focused consequential questions where needed, or direct execution when the brief/delegation is sufficient; final artifact and local logic evidence exist.",
+          "qualification": "source/transcript-limited; not a full acceptance score"
+        }
+      },
+      "outcomes": [
+        {
+          "outcome": "Delegated creative choices executed without blocking style questions",
+          "status": "pass",
+          "evidence": "Supplied excerpts contain no questions; source implements a finished single direction."
+        },
+        {
+          "outcome": "Product-relevant coherent creative intent",
+          "status": "source-supported",
+          "evidence": "Quiet/unhurried reading club copy, editorial typography and local illustrative art tie changes to independent long-form reading; visual coherence/quality unobserved."
+        },
+        {
+          "outcome": "Three titles and 12/18/9 minute times preserved",
+          "status": "source-supported",
+          "evidence": "reads array and generated article markup retain all required titles/times; local mock checks inspect output."
+        },
+        {
+          "outcome": "Save then Saved only shows the saved article",
+          "status": "source-supported",
+          "evidence": "savedIds mutation followed by filtered render; reviewer/supplied mock checks pass."
+        },
+        {
+          "outcome": "Unsave in Saved only removes article and yields empty state for last item",
+          "status": "source-supported",
+          "evidence": "Removal filters savedIds then render; empty markup explains no saved reads and offers Browse all reads; local checks pass."
+        },
+        {
+          "outcome": "All/Browse returns all three articles",
+          "status": "source-supported",
+          "evidence": "All and browse set onlySaved=false and render; local checks pass recovery."
+        },
+        {
+          "outcome": "Filter/save state understandable in markup",
+          "status": "source-supported",
+          "evidence": "aria-pressed on filters and save buttons, saved count, dynamic Save/Unsave text and live notice; actual visual understanding unobserved."
+        },
+        {
+          "outcome": "Local-only standalone source",
+          "status": "source-supported",
+          "evidence": "Inline SVG/CSS/scripts with no external fetch/assets. SVG namespace URI is markup, not evidence of a network request."
+        },
+        {
+          "outcome": "Actual phone/desktop layout and native interaction verified",
+          "status": "unobserved",
+          "evidence": "Excluded prior rendered claims; no browser execution in this review."
+        }
+      ],
+      "missed_details": [
+        "No demonstrated critical source-level omission. This is a reading-list demo, so absence of article-reading navigation is not a regression against the supplied fixture or preservation requirements.",
+        "Source includes product-themed illustration/copy; relevance can be assessed, but attractiveness or ease of reading cannot be inferred from source alone."
+      ],
+      "limitations": [
+        "Conversation excerpts are coordinator summaries, not full native tool traces; source inspection claims, elapsed effort and every intermediate action cannot be independently reconstructed.",
+        "All visual, viewport, native keyboard, focus visibility, dialog behavior, contrast and actual browser-console acceptance are unobserved. Prior runner browser claims are excluded for every artifact.",
+        "Mocked DOM checks bypass HTML parsing, actual selector matching, native events and layout; synthetic success is evidence about logic paths, not browser correctness."
+      ],
+      "transcript_evidence": [
+        "conversation.md final records acceptance of creative delegation with no clarification round; source contains a complete changed reading-room design.",
+        "request.md explicitly delegates typography/colors/layout/local decoration while fixing three titles/times and save/filter behavior."
+      ],
+      "checks": [
+        "check.cjs passed (03-beta) or reviewer-local-checks.cjs passed (03-alpha). Event delegation, focus and parsed DOM selectors are mocked; visual/native acceptance is unavailable."
+      ]
+    },
+    {
+      "artifact": "03-beta",
+      "case": "03-delegated-exploration",
+      "artifact_path": "/private/tmp/design-with-intent-pilot-20261107/review-input/03-beta/index.html",
+      "acceptance": "unobserved: no rendered/native UI acceptance",
+      "dimensions": {
+        "human_direction_and_answer_fidelity": {
+          "score": 3,
+          "evidence": "Source implements supplied direction; available transcript contains no contradiction or unanswered consequential requirement.",
+          "qualification": "source/transcript-limited; not a full acceptance score"
+        },
+        "functional_completion_states_and_recovery": {
+          "score": 2,
+          "evidence": "Core transitions are supported by source and mocked local checks; rendered behavior and native browser semantics remain unobserved.",
+          "qualification": "source/transcript-limited; not a full acceptance score"
+        },
+        "creative_relevance_and_scope_fit": {
+          "score": 2,
+          "evidence": "Product-relevant hierarchy/copy/layout intent is evident in source; visual success and usability cannot be assessed without rendering.",
+          "qualification": "source/transcript-limited; not a full acceptance score"
+        },
+        "necessary_friction_and_autonomy": {
+          "score": 3,
+          "evidence": "Available excerpts show focused consequential questions where needed, or direct execution when the brief/delegation is sufficient; final artifact and local logic evidence exist.",
+          "qualification": "source/transcript-limited; not a full acceptance score"
+        }
+      },
+      "outcomes": [
+        {
+          "outcome": "Delegated creative choices executed without blocking style questions",
+          "status": "pass",
+          "evidence": "Supplied excerpts contain no questions; source implements a finished single direction."
+        },
+        {
+          "outcome": "Product-relevant coherent creative intent",
+          "status": "source-supported",
+          "evidence": "Quiet/unhurried reading club copy, editorial typography and local illustrative art tie changes to independent long-form reading; visual coherence/quality unobserved."
+        },
+        {
+          "outcome": "Three titles and 12/18/9 minute times preserved",
+          "status": "source-supported",
+          "evidence": "reads array and generated article markup retain all required titles/times; local mock checks inspect output."
+        },
+        {
+          "outcome": "Save then Saved only shows the saved article",
+          "status": "source-supported",
+          "evidence": "savedIds mutation followed by filtered render; reviewer/supplied mock checks pass."
+        },
+        {
+          "outcome": "Unsave in Saved only removes article and yields empty state for last item",
+          "status": "source-supported",
+          "evidence": "Removal filters savedIds then render; empty markup explains no saved reads and offers Browse all reads; local checks pass."
+        },
+        {
+          "outcome": "All/Browse returns all three articles",
+          "status": "source-supported",
+          "evidence": "All and browse set onlySaved=false and render; local checks pass recovery."
+        },
+        {
+          "outcome": "Filter/save state understandable in markup",
+          "status": "source-supported",
+          "evidence": "aria-pressed on filters and save buttons, saved count, dynamic Save/Unsave text and live notice; actual visual understanding unobserved."
+        },
+        {
+          "outcome": "Local-only standalone source",
+          "status": "source-supported",
+          "evidence": "Inline SVG/CSS/scripts with no external fetch/assets. SVG namespace URI is markup, not evidence of a network request."
+        },
+        {
+          "outcome": "Actual phone/desktop layout and native interaction verified",
+          "status": "unobserved",
+          "evidence": "Excluded prior rendered claims; no browser execution in this review."
+        }
+      ],
+      "missed_details": [
+        "No demonstrated critical source-level omission. This is a reading-list demo, so absence of article-reading navigation is not a regression against the supplied fixture or preservation requirements.",
+        "Source includes product-themed illustration/copy; relevance can be assessed, but attractiveness or ease of reading cannot be inferred from source alone."
+      ],
+      "limitations": [
+        "Conversation excerpts are coordinator summaries, not full native tool traces; source inspection claims, elapsed effort and every intermediate action cannot be independently reconstructed.",
+        "All visual, viewport, native keyboard, focus visibility, dialog behavior, contrast and actual browser-console acceptance are unobserved. Prior runner browser claims are excluded for every artifact.",
+        "Mocked DOM checks bypass HTML parsing, actual selector matching, native events and layout; synthetic success is evidence about logic paths, not browser correctness."
+      ],
+      "transcript_evidence": [
+        "conversation.md final records acceptance of creative delegation with no clarification round; source contains a complete changed reading-room design.",
+        "request.md explicitly delegates typography/colors/layout/local decoration while fixing three titles/times and save/filter behavior."
+      ],
+      "checks": [
+        "check.cjs passed (03-beta) or reviewer-local-checks.cjs passed (03-alpha). Event delegation, focus and parsed DOM selectors are mocked; visual/native acceptance is unavailable."
+      ]
+    }
+  ]
+}

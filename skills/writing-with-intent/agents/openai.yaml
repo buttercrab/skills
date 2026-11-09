@@ -1,0 +1,4 @@
+interface:
+  display_name: "Writing with Intent"
+  short_description: "Shape articles around human purpose, voice and evidence"
+  default_prompt: "Use $writing-with-intent to shape or revise this piece around its reader, my intended voice, and the evidence actually available."

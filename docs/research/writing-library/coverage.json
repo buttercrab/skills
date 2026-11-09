@@ -1,0 +1,28 @@
+{
+  "date": "2026-11-08",
+  "resources": 43,
+  "kinds": {
+    "guide": 14,
+    "example": 14,
+    "study": 10,
+    "tool": 3,
+    "foundation": 2
+  },
+  "statuses": {
+    "curated": 43
+  },
+  "availability": {
+    "public": 42,
+    "partial": 1
+  },
+  "evidence_modes": {
+    "source-inspected": 43,
+    "empirical": 10,
+    "conceptual": 11
+  },
+  "source_links": 56,
+  "distinct_source_urls": 56,
+  "related_edges": 86,
+  "body_words": 8324,
+  "caveat": "Cards/source locations are not independent outcome confirmations or exhaustive coverage. Craft interpretation is not reader testing or authorship proof."
+}

@@ -1,0 +1,34 @@
+{
+  "date": "2026-11-07",
+  "resource_cards": 107,
+  "kinds": {
+    "example": 34,
+    "system": 24,
+    "foundation": 22,
+    "skill": 16,
+    "tool": 11
+  },
+  "statuses": {
+    "curated": 106,
+    "candidate": 1
+  },
+  "availability": {
+    "public": 100,
+    "partial": 5,
+    "local-only": 2
+  },
+  "evidence_modes": {
+    "source-inspected": 107,
+    "documented-flow": 27,
+    "visual-inspected": 23,
+    "interaction-tested": 2,
+    "empirical": 10,
+    "conceptual": 8,
+    "partial": 1
+  },
+  "source_links": 152,
+  "distinct_source_urls": 147,
+  "related_edges": 253,
+  "count_caveat": "Cards are selectable resources/decision cases, not independent studies or a census of the internet. Same-family sources and distinct views of one product overlap.",
+  "body_words": 23702
+}

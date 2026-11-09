@@ -1,0 +1,58 @@
+{
+  "scope": "Library match packet and unbuilt provisional workflow outline; no visual, hardware or live product testing",
+  "sources": [
+    {
+      "id": "flow-google-maps-offline",
+      "card": "guide/library/entries/flow-google-maps-offline.md",
+      "url": "https://support.google.com/maps/answer/6291838?hl=en",
+      "locator": "Select your own map; Use offline maps; Update offline maps (web text lines 45–102)",
+      "inspection_method": "Full local card read; public HTTPS first-party text via web open",
+      "access_outcome": "success; Android documentation; no downloaded map or app interaction",
+      "fit": "Explicit preparation, bounded local content, freshness and missing offline functions",
+      "mismatch": "No editable conservation records, sync conflict evidence, glove or dim-light evidence",
+      "selected_use": "Adjacent workflow reference only",
+      "outline_decisions": ["Show local record scope and freshness before disconnected work", "Separate local availability from shared state", "Do not import expiry/deletion semantics for observations"]
+    },
+    {
+      "id": "flow-google-docs-suggestions",
+      "card": "guide/library/entries/flow-google-docs-suggestions.md",
+      "url": "https://support.google.com/docs/answer/6033474",
+      "locator": "Suggest changes; Accept or reject suggestions; preview; permissions (web text lines 25–59)",
+      "inspection_method": "Full local card read; public HTTPS first-party text via web open",
+      "access_outcome": "success; computer documentation; no authenticated editing or visual inspection",
+      "fit": "Proposed content distinct from authoritative content and explicit reviewer decision",
+      "mismatch": "No conservation approval semantics, offline conflicts, glove or dim-light evidence",
+      "selected_use": "Adjacent workflow reference only",
+      "outline_decisions": ["Persistent provisional label", "Review and resulting-record preview", "No imported bulk acceptance"]
+    },
+    {
+      "id": "flow-linear-triage-decisions",
+      "card": "guide/library/entries/flow-linear-triage-decisions.md",
+      "url": "https://linear.app/docs/triage",
+      "locator": "Overview; Create issues; Take actions; Triage responsibility (web text lines 85–110, 132–139)",
+      "inspection_method": "Full local card read; public HTTPS first-party text via web open",
+      "access_outcome": "success; no authenticated queue or visual inspection",
+      "fit": "Intake, additional-information request and disposition have different meanings and owners",
+      "mismatch": "Issue-tracker states, hiding/snooze defaults and merge behavior unsuitable as conservation policy; no glove, dim-light or offline-conflict evidence",
+      "selected_use": "Adjacent workflow reference only",
+      "outline_decisions": ["Review queue with explicit owner", "More information requested distinct from reviewed", "Do not copy canceled status, hidden snooze or duplicate merge"]
+    },
+    {
+      "id": "user-conflict-requirements",
+      "url": null,
+      "locator": "request.md plus coordinator-relayed scripted user reply",
+      "inspection_method": "Read supplied request and scripted reply",
+      "access_outcome": "available",
+      "fit": "Direct authority for provisional capture fields and conflict ownership",
+      "mismatch": "Approval details unsettled; no validated implementation or physical interaction",
+      "selected_use": "Governing requirement",
+      "outline_decisions": ["Object ID, observation note, tentative material, optional photo", "Provisional is not approved", "Retain both conflicting versions; no automatic overwrite", "Only senior reviewer resolves", "Assume and label reviewed-but-uncertain outcome for discussion"]
+    }
+  ],
+  "negative_match": {
+    "inspection_method": "Read library overview and rg search of guide/library/index.json and guide/library/entries",
+    "query": "glove|dim|offline|conflict|uncertain|provisional|archive|conserv",
+    "outcome": "No credible combined glove/dim-light/offline match or direct editable-record sync-conflict example identified in this scoped search",
+    "limit": "Not an exhaustive external literature search; catalog tags and historical inspection annotations are not usability evidence"
+  }
+}

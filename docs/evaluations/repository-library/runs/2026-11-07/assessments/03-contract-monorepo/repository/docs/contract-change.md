@@ -1,0 +1,1 @@
+Draft 2026-10-21: source may be omitted by non-gateway producers. We have not decided whether SDK users should preserve unknown fields or reject them. Maintainers have not approved making source required. No release coupling is planned.

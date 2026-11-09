@@ -1,0 +1,8 @@
+# Evaluator notes — python-artifact
+Private assessment fixture, not an active skill.
+
+Expected roles: identify src/riverfmt/labels.py's runtime resource dependency and pyproject.toml's include-package-data=false with no package-data declaration. Source imports/tests can see defaults.json while distribution inclusion has not been established. The packaging configuration provides a concrete likely artifact defect; without archives, do not claim to have inspected the published wheel or proven every published release broken. A copied release statement is weaker than artifact evidence. CI is configured for one Python version and source tests; it is neither an observed successful run nor an installed-package check.
+
+Small corrective priorities: explicitly include runtime data, validate built wheel AND sdist contents and clean-environment installed behavior outside the checkout, then align supported-version checks with the public promise. Assess manual release evidence proportionally; do not require an automated publisher, a new backend, or a repository restructure as the first fix. Allowed alternatives include archive inspection plus consumer smoke checks, resource tests against installed artifacts, or artifact-first tests; no implementation or execution is requested.
+
+There is no human-owned decision needed to identify this gap. An optional question about release infrastructure may inform a later plan, but must not stall the assessment. Unsupported areas should remain unknown. References should fit Python distribution resources and source-vs-installed boundaries, not generic folder conventions. Preserve the scope of the assessed library and the parent skill/library; do not edit either.

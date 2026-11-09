@@ -1,0 +1,1 @@
+0.6.2 is a planned patch release, not uploaded. The source tests passed on one maintainer's laptop before the latest CLI change, but no output was retained. No installed-command smoke check has been done. We prefer existing setuptools and pytest. Tabs or newlines inside labels have never been intentionally supported; reject them with ValueError if relevant.

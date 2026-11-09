@@ -1,0 +1,104 @@
+{
+  "review_version": "first-edition-independent-review-v1",
+  "date": "2026-11-07",
+  "judgments_frozen_before_followup_discussion": true,
+  "mode": "read-only source and delivered-artifact inspection",
+  "scope": {
+    "inputs": ["protocol.md", "cases/*/prompt.md", "cases/*/evaluator-notes.md", "cases/*/repository/** including hidden workflows", "runs/2026-11-07/assessments/*/assessment.md", "runs/2026-11-07/assessments/*/receipts.json", "runs/2026-11-07/assessments/*/work-log.md", "runs/2026-11-07/assessments/*/COMMON.md", "runs/2026-11-07/assessments/05-constrained-assessment/child-parser-cli.md", "runs/2026-11-07/assessments/05-constrained-assessment/child-packaging.md", "runs/2026-11-07/coordinator-events.json"],
+    "not_inspected": ["active skill or reference contents", "research notes", "root results or claims", "other evaluation trees", "upstream sources", "native runner traces"],
+    "reviewer_actions": "Ordinary filesystem listing/text inspection and writes to review.md/review.json only. No repository code, scripts, tests, builds, installs, git or network executed.",
+    "locator_convention": "Paths below are relative to docs/evaluations/repository-library; assessment section names and JSON keys locate delivered evidence. Fixture line references describe inspected source, not runtime traces.",
+    "limits": ["Runner receipts and work logs are self-reports, not a complete native trace.", "Fixture inventory is source evidence; no package/runtime/release success was demonstrated.", "Reference-transfer grading covers explanations in outputs, not independent validation of unseen cards or upstream primary sources.", "No baseline, aggregate metric, causal effectiveness claim, timing comparison or reliability claim is made."]
+  },
+  "gate_rule": {
+    "authority": "protocol.md: reported policy/scope breach excludes affected output from acceptance conclusions while preserving diagnostic review",
+    "restriction": "Each COMMON.md prohibits inspecting sibling cases/runs and original research/evaluations/private notes.",
+    "clarification": "runs/2026-11-07/coordinator-events.json, inspection-scope-clarification: ordinary read/list operations permitted inside assigned snapshot and frozen guide; not an expansion to sibling scopes.",
+    "interpretation": "Reported broad enumeration exposing sibling/evaluation names is a limited inspection-scope deviation. Exclusion is procedural; no finding of private-content access or contamination is inferred. Failed nonexistent-path reads alone are not treated as content exposure."
+  },
+  "cases": [
+    {
+      "case": "01-tiny-script",
+      "gate": {"status": "eligible_on_available_records", "acceptance_conclusions_excluded": false, "reported_deviations": ["Initial parent COMMON.md read returned file-not-found; corrected to assigned COMMON."], "basis": ["runs/2026-11-07/assessments/01-tiny-script/work-log.md, first and final bullets", "runs/2026-11-07/assessments/01-tiny-script/receipts.json, checks"]},
+      "judgment": "Meets substantive source-only brief; presentation longer than necessary.",
+      "dimensions": {
+        "concrete_change_path_and_findings": {"grade": "meets", "reason": "Traces direct invocation to total.py, benign CSV and next-run docs. Correctly identifies unchecked sys.argv[1], Decimal arithmetic and named header lookup; does not accept the owner's speculative BOM/column-order diagnosis."},
+        "contextual_reference_transfer": {"grade": "meets_as_delivered", "reason": "Uses one-file/internal-tool versus published-library mismatch to retain layout, and task-oriented docs/review ideas to support a README example and focused regressions. Explicitly rejects package mechanics and team ceremony."},
+        "proportional_priorities": {"grade": "meets_with_presentation_nit", "reason": "Argument guard and clearer invocation come first; reproducer/header diagnostics remain narrow and optional. Offers retaining the script with only docs changes. Four reference discussions and extensive limits make the answer heavier than the tool requires."},
+        "human_intent_handling": {"grade": "meets", "reason": "Uses supplied personal/offline/twice-yearly intent without an unnecessary interview. Missing offending header becomes an unknown rather than a blocker or invented fact."},
+        "evidence_discipline": {"grade": "meets", "reason": "Separates source-inferred 0.30 from observed output, historical note from cause, optional utf-8-sig support from a proven KeyError fix, and card annotations from fresh primary inspection."},
+        "useful_scope": {"grade": "meets", "reason": "No packaging, governance, CI or broad test framework demanded. Provides concrete later checks and a useful no-change option."}
+      },
+      "evidence": ["cases/01-tiny-script/repository/total.py:7-13", "cases/01-tiny-script/repository/notes.md:1", "cases/01-tiny-script/repository/examples/receipts.csv:1-3", "runs/2026-11-07/assessments/01-tiny-script/assessment.md, Ranked plan items 1-3 and What remains unknown"],
+      "material_misses_or_overclaims": [],
+      "practical_improvements": ["Compress to the argument/header issue, short README improvement and explicit unknown; retain references/receipts separately."]
+    },
+    {
+      "case": "02-python-artifact",
+      "gate": {"status": "excluded_reported_scope_deviation", "acceptance_conclusions_excluded": true, "reported_deviations": ["Discovery listing surfaced sibling path names outside assigned scope; runner reports no sibling contents read."], "basis": ["runs/2026-11-07/assessments/02-python-artifact/work-log.md, second bullet", "runs/2026-11-07/assessments/02-python-artifact/COMMON.md"]},
+      "judgment": "Diagnostic content meets installed-content brief; excluded from acceptance conclusions by scope gate.",
+      "dimensions": {
+        "concrete_change_path_and_findings": {"grade": "meets_diagnostic_only", "reason": "Maps defaults.json authority, public normalize export/resource read, PYTHONPATH tests, setuptools discovery/data configuration and manual release route. Identifies concrete missing inclusion path without asserting inspected archive contents."},
+        "contextual_reference_transfer": {"grade": "meets_as_delivered_diagnostic_only", "reason": "Uses distribution/import/build distinctions to propose consumer-shaped checks while rejecting layout/backend migration and unrelated Node/Flask mechanics. Exact setuptools semantics remain a stated later verification point."},
+        "proportional_priorities": {"grade": "meets_diagnostic_only", "reason": "Explicit package data and artifact checks precede release receipts and supported-floor evidence. Keeps manual uploads, existing backend/tree and a small interpreter scope."},
+        "human_intent_handling": {"grade": "meets_diagnostic_only", "reason": "Published-library and downstream-installed-content promise is sufficient; no human decision invented or assessment stalled."},
+        "evidence_discipline": {"grade": "meets_content_with_gate_failure", "reason": "Bounds expected omission to inspected configuration, release text to transcription and CI to configuration. Does not claim every published 1.4.0 artifact broken. However reported sibling discovery fails procedural scope isolation."},
+        "useful_scope": {"grade": "meets_diagnostic_only", "reason": "Specific pyproject change and direct-wheel/sdist-rebuilt-wheel clean-environment checks address the resource boundary. No implementation or registry action requested/performed in records."}
+      },
+      "evidence": ["cases/02-python-artifact/repository/src/riverfmt/labels.py:5-7", "cases/02-python-artifact/repository/pyproject.toml:11-15", "cases/02-python-artifact/repository/.github/workflows/check.yml:10-12", "cases/02-python-artifact/repository/release-record.txt:1-5", "runs/2026-11-07/assessments/02-python-artifact/assessment.md, Findings 1-3 and Prioritized plan"],
+      "material_misses_or_overclaims": [],
+      "practical_improvements": ["Constrain discovery to explicit assigned paths; preserve this output only as diagnostic development material.", "Retain the existing distinction between likely build omission and uninspected published artifacts."]
+    },
+    {
+      "case": "03-contract-monorepo",
+      "gate": {"status": "excluded_reported_scope_deviation", "acceptance_conclusions_excluded": true, "reported_deviations": ["Broad rg discovery listed names across task base/skills workspace, exposing sibling/evaluation filenames. Runner reports no sibling/evaluation contents opened."], "basis": ["runs/2026-11-07/assessments/03-contract-monorepo/work-log.md, third bullet", "runs/2026-11-07/assessments/03-contract-monorepo/receipts.json, scope_deviation"]},
+      "judgment": "Diagnostic content meets contract-boundary brief and incorporates actual answer; excluded from acceptance conclusions by scope gate.",
+      "dimensions": {
+        "concrete_change_path_and_findings": {"grade": "meets_diagnostic_only", "reason": "Maps authoritative schema, generator specification versus omitted implementation, stale SDK constructor, producer projection/default, console's narrower gateway contract and distinct release/deployment units. Compileall and label routing are correctly limited."},
+        "contextual_reference_transfer": {"grade": "meets_as_delivered_diagnostic_only", "reason": "Adapts generated-source authority and separate semantic/drift verification, using large-monorepo examples only for authority/publication boundaries. Rejects staging, bots, global release platform and Go-specific mechanics."},
+        "proportional_priorities": {"grade": "meets_with_compression_opportunity_diagnostic_only", "reason": "Generation repair, affected-path checks and compatibility sequencing lead. Supported overlap is left unresolved before matrix sizing. Detailed extras collision/nested-value/release-pair discussion is useful but makes the focused plan lengthy."},
+        "human_intent_handling": {"grade": "meets_diagnostic_only", "reason": "Asks consequential unknown-field policy question, then uses exact relayed answer to preserve unknown fields, source optionality and independent releases. Explicitly reconciles additionalProperties:false without claiming it already permits extras."},
+        "evidence_discipline": {"grade": "meets_content_with_gate_failure", "reason": "No demonstrated console crash claimed for ordinary gateway output, no public decoder invented, no generator determinism/CI/publication/deployment success asserted. Reported filename exposure nevertheless fails scope isolation."},
+        "useful_scope": {"grade": "meets_diagnostic_only", "reason": "Concrete drift and representative producer/consumer checks plus short per-unit record retain independent schedules. Real generator availability is an explicit prerequisite."}
+      },
+      "delivered_human_fact": {"source": "runs/2026-11-07/coordinator-events.json, scripted-human-answer", "answer": "Keep source optional; preserve unknown fields for round trips, but document known fields. Keep independent releases.", "effect": "Selected SDK preservation instead of rejection; kept optional source and independent schedules; identified schema-extension reconciliation."},
+      "evidence": ["cases/03-contract-monorepo/repository/contracts/event.json:1", "cases/03-contract-monorepo/repository/tools/generate.py:1-6", "cases/03-contract-monorepo/repository/packages/python_sdk/harbor_sdk/event.py:1-8", "cases/03-contract-monorepo/repository/services/gateway/src/event.js:1-3", "cases/03-contract-monorepo/repository/apps/console/src/event-view.ts:1-2", "cases/03-contract-monorepo/repository/.github/workflows/check.yml:2-14", "runs/2026-11-07/assessments/03-contract-monorepo/assessment.md, boundary table, Findings 1-4 and Human intent carried into the plan"],
+      "material_misses_or_overclaims": [],
+      "practical_improvements": ["Constrain inventory roots before discovery and rerun on fresh material for acceptance use.", "Compress the main plan around generation, compatibility assertions and independent release sequencing; keep optional policy detail in supporting notes."]
+    },
+    {
+      "case": "04-community-docs",
+      "gate": {"status": "eligible_on_available_records", "acceptance_conclusions_excluded": false, "reported_deviations": [], "basis": ["runs/2026-11-07/assessments/04-community-docs/work-log.md", "runs/2026-11-07/assessments/04-community-docs/receipts.json, checks"]},
+      "judgment": "Meets docs-only contributor-maintenance brief with concrete contradictions and bounded check claims.",
+      "dimensions": {
+        "concrete_change_path_and_findings": {"grade": "meets", "reason": "Traces field-note contribution through entry docs, authoring/index/review and validation. Finds Node16 versus >=20/CI22, npm ci without supplied lockfile, missing check script, wrong review target, spelling mismatch and stale historical pass."},
+        "contextual_reference_transfer": {"grade": "meets_as_delivered", "reason": "Contribution-entry, docs-as-code and reader-journey guidance supports fixing existing commands/navigation instead of adding a site build or standard folders."},
+        "proportional_priorities": {"grade": "meets_with_minor_optional_item", "reason": "Setup and broken link lead, then validation descriptions. Lockfile and support-channel choices are explicitly optional/unknown, but fourth navigation item could be more clearly deferred after concrete repairs."},
+        "human_intent_handling": {"grade": "meets", "reason": "No required interview. Does not use undispatched scripted answer about spelling/manual review or formatting exceptions as a new fact. Existing CONTRIBUTING already says maintainers can accept exceptions; actual mechanics remain to document."},
+        "evidence_discipline": {"grade": "meets", "reason": "Ordinary step failure distinguished from branch protection. Checker is inspected, not run; its scope is limited to top-level docs/local existence. Historical 2023 note is not current green evidence."},
+        "useful_scope": {"grade": "meets", "reason": "Docs are the product; package.json is check tooling. Keeps flat Markdown and existing scripts/renderer, avoids runtime/release/security bureaucracy."}
+      },
+      "evidence": ["cases/04-community-docs/repository/CONTRIBUTING.md:2", "cases/04-community-docs/repository/package.json:1", "cases/04-community-docs/repository/.github/workflows/docs.yml:10-14", "cases/04-community-docs/repository/docs/writing.md:3", "cases/04-community-docs/repository/docs/index.md:3", "cases/04-community-docs/repository/tools/check-links.mjs:4-12", "cases/04-community-docs/repository/maintenance/last-check.txt:1-2", "runs/2026-11-07/assessments/04-community-docs/assessment.md, items 1-4 and final paragraph"],
+      "material_misses_or_overclaims": [],
+      "practical_improvements": ["Label the additional navigation/support-channel polish as optional after setup, link and truthful check-description repairs."]
+    },
+    {
+      "case": "05-constrained-assessment",
+      "gate": {"status": "eligible_on_available_records", "acceptance_conclusions_excluded": false, "reported_deviations": ["Initial run-root README lookup returned file-not-found; corrected to repository README."], "basis": ["cases/05-constrained-assessment/prompt.md, explicit bounded delegation request", "runs/2026-11-07/assessments/05-constrained-assessment/work-log.md, items 2-6", "runs/2026-11-07/assessments/05-constrained-assessment/child-parser-cli.md", "runs/2026-11-07/assessments/05-constrained-assessment/child-packaging.md"]},
+      "judgment": "Meets constrained patch-assessment brief with useful ranked synthesis; no demonstrated package defect invented.",
+      "dimensions": {
+        "concrete_change_path_and_findings": {"grade": "meets", "reason": "Traces README/maintainer intent into parser, CLI, public export, tests, metadata, wheel and CI. Finds missing-separator context, uncaught parser ValueError violating exit2/no-traceback promise, and embedded label separators threatening TSV."},
+        "contextual_reference_transfer": {"grade": "meets_as_delivered", "reason": "Adapts CLI scenario testing, script-to-callable metadata, src-import isolation and patch-contract notes. Explicitly rejects Click/framework/backend/layout migration and unnecessary matrix/resource checks."},
+        "proportional_priorities": {"grade": "meets_with_budget_nit", "reason": "Parser/CLI corrections, label validation, focused regressions and one installed-command smoke dominate; uses two maintainers and preserves afternoon scope. Sdist rebuild and optional current-interpreter repeat should remain secondary to focused fixes and wheel smoke if budget tightens."},
+        "human_intent_handling": {"grade": "meets", "reason": "No repeat questionnaire; uses supplied signatures/TSV/Python/backend/budget and maintainer separator policy. Avoids narrowing integer grammar or expanding filesystem-error policy without need."},
+        "evidence_discipline": {"grade": "meets", "reason": "Examples explicitly source-derived and not executed; coherent entry-point metadata is not installed behavior. Laptop note predates CLI change; planned version is not upload/release evidence. No fabricated package omission or current green check."},
+        "useful_scope": {"grade": "meets", "reason": "Preserves public functions/columns/floor/backend, parse-before-print and existing package. Later checks cover public import/installed CLI, exact TSV, status/stderr/no traceback and empty output on invalid later row."}
+      },
+      "delegation_review": {"basis": "Actual synthesis quality, not agent count", "constraint_transfer": "Reports and parent log record shared source-only/patch limits and separate child ownership; no child scope violation reported.", "synthesis": "Parent consolidates overlapping parser/CLI test advice with packaging evidence, ranks corrections and explicitly corrects a misleading child phrase about script declaration. Frozen packaging report and final assessment both describe coherent metadata, not a declaration defect.", "trace_limit": "Task passing and correction are reported in work-log; complete native child message history is unavailable."},
+      "evidence": ["cases/05-constrained-assessment/repository/src/signal_window/parser.py:1-14", "cases/05-constrained-assessment/repository/src/signal_window/cli.py:5-13", "cases/05-constrained-assessment/repository/README.md:2-5", "cases/05-constrained-assessment/repository/maintainer-note.md:1", "cases/05-constrained-assessment/repository/pyproject.toml:1-13", "cases/05-constrained-assessment/repository/.github/workflows/check.yml:10-12", "runs/2026-11-07/assessments/05-constrained-assessment/assessment.md, Prioritized corrections, One-afternoon maintenance path and Verification to perform later"],
+      "material_misses_or_overclaims": [],
+      "practical_improvements": ["Make optional sdist-route and extra-interpreter work explicitly deferable behind the parser/CLI regressions and isolated installed wheel smoke."]
+    }
+  ],
+  "development_notes": ["Repair discovery isolation before treating cases02/03 as acceptance evidence; reported limited filename exposure is not proof of private-content reading.", "Keep strong distinctions among configured checks, source assertions, actual runs, built/installed artifacts and release observations.", "Tighten user-facing assessments while preserving detailed receipts separately.", "Exposed cases are development material. Future comparative claims need fresh tasks, suitable controls and complete-enough trace evidence."]
+}

@@ -1,0 +1,45 @@
+{
+  "scope": "bounded source-only attachment migration proposal; no implementation or runtime acceptance",
+  "inputs_read": [
+    "COMMON.md",
+    "prompt.md",
+    "FILES.txt",
+    "snapshot/contracts.md:1-6",
+    "snapshot/current.py:1-12",
+    "snapshot/migration-policy.md:1-10"
+  ],
+  "guide_root": "/private/tmp/system-architecture-assessment-20261107/guide",
+  "guides_read": [
+    "SKILL.md",
+    "references/context-and-tradeoffs.md",
+    "references/boundaries-and-failure.md",
+    "references/diagram-contract.md",
+    "references/verification-and-evolution.md",
+    "references/library-usage.md",
+    "library/index.md"
+  ],
+  "additional_host_guide": "/Users/jaeyong/.codex/skills/i-have-adhd/SKILL.md",
+  "local_card_annotations_read": [
+    {"path":"library/entries/pattern-strangler-transitional-architecture.md", "portion":"79-89", "transfer":"Coexistence seam, durable state and rollback boundary; no new service implied"},
+    {"path":"library/entries/pattern-retry-budget-and-breaker.md", "portion":"80-90", "transfer":"Bound retry ownership; no copied timeout or breaker policy"},
+    {"path":"library/entries/pattern-cache-aside-authority.md", "portion":"73-83", "transfer":"No-cache alternative and authoritative freshness; cache not authorization authority"},
+    {"path":"library/entries/foundation-slo-measurement.md", "portion":"63-73", "transfer":"Separate target, user-outcome measurement and safety"}
+  ],
+  "primary_evidence": {
+    "fresh_system_source_inspection": ["snapshot/current.py:1-12", "snapshot/contracts.md:1-6", "snapshot/migration-policy.md:1-10"],
+    "external_primary_inspection": "not performed; network prohibited",
+    "card_curator_inspection_claims_repeated_as_fresh": false,
+    "visual_inspection": false
+  },
+  "human_direction": {
+    "source": "root message relaying scripted on-call answer after question",
+    "policy": "Pilot abort: five-minute 503 rate > matched baseline +0.2 percentage points, or download p95 > baseline +200 ms in two consecutive five-minute windows; confirmed authorization leak aborts immediately; owner may tighten",
+    "status": "human-supplied policy, not frozen snapshot fact or measured result"
+  },
+  "proposals": ["Existing endpoint adapter", "No application allow cache or server retry initially", "Stable account cohorts with durable ever_enforced floor", "Additive control metadata and evaluated-policy attribution", "Degraded enforcing rollback; no owner-only restoration"],
+  "inferences": ["Remote gateway adds failure/latency exposure", "Supported client may issue three total attempts per logical download"],
+  "unknowns": ["Gateway evaluated-policy version interface", "Policy propagation and in-flight revocation semantics", "Measured workload and dependency performance", "Cross-fleet cohort-state consistency", "Intermediary caching", "Retention duration", "Invalid-session response", "Pilot minimum evidence window and recovery approval details"],
+  "actual_checks": ["Read all listed source files with line numbers", "Read selected guide/card annotations", "Manual current-to-proposed response and compatibility trace", "Manual diagram-to-prose and security-floor consistency review", "Manual threshold transcription check"],
+  "checks_not_performed": ["Fixture/upstream execution", "Tests", "Build", "Install", "Network or services", "Migration", "Infrastructure changes", "Mermaid parsing", "Diagram rendering", "Runtime fault/compatibility/latency checks"],
+  "artifact_paths": ["assessment.md", "diagrams.md", "receipts.json", "work-log.md"]
+}

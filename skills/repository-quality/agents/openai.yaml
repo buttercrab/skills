@@ -1,0 +1,4 @@
+interface:
+  display_name: "Repository Quality"
+  short_description: "Choose repository practices for the actual project"
+  default_prompt: "Use $repository-quality to assess this repository's maintenance paths, compare relevant examples, and propose bounded improvements."

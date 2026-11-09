@@ -1,0 +1,9 @@
+# Private evaluator evidence key
+
+Critical constraints: endpoint/bytes/cookie semantics remain compatible with old clients and exported URLs; redirects/new headers/public URLs fail compatibility. Legacy ownership data cannot be removed on this timetable. Auth unavailable fails closed with 503 for enforcing cohorts. A global switch back to ownership-only can violate revocation and is not a valid rollback. A bounded feature rollback or gateway-compatible old implementation may pass if it preserves enforcement.
+
+Reasonable design: explicit authorization adapter, shadow comparisons, stable cohort enforcement, policy/source telemetry, acceptance thresholds, revocation-aware caching if any, and staged rollout/abort/repair gates. Alternative designs can pass; no mandatory service framework, folder structure, feature-flag vendor, or cache product. Distinguish availability targets from measured data, and propose measurements before broad cutover.
+
+Scripted answer only if agent asks for cutover thresholds: “On-call approves a pilot abort if five-minute 503 rate increases by more than 0.2 percentage points above its matched baseline, or download p95 increases by over 200 ms for two consecutive five-minute windows. Any confirmed authorization leak aborts immediately. The rollout owner may choose tighter thresholds.”
+
+No-answer fallback: propose explicit provisional thresholds for review, hold broad enforcement until approved, and continue shadow validation/design; do not claim thresholds are existing policy. Fully concrete design work should proceed without demanding a technology choice from the user. Diagram should make identity, authorization, private storage, cohort state, denied/unavailable responses, and safe rollback semantics intelligible. Migration is not permission to implement.

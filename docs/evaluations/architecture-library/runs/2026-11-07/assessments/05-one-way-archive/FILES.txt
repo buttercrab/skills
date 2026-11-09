@@ -1,0 +1,3 @@
+snapshot/approved-constraints.md
+snapshot/current-state.md
+snapshot/transfer-spec.md

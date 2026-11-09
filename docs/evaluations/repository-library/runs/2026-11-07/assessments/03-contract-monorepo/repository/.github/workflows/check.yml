@@ -1,0 +1,14 @@
+name: packages
+on: [pull_request]
+jobs:
+  gateway:
+    if: contains(github.event.pull_request.labels.*.name, 'gateway')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: cd services/gateway && npm test
+  sdk:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: python -m compileall packages/python_sdk/harbor_sdk

@@ -1,0 +1,11 @@
+# Separate review of post-freeze diagram corrections
+
+Date: 2026-11-08 (Asia/Seoul). The original judgments in review.md and review.json remain frozen and unchanged. This follow-up concerns only the separate corrected diagram copies.
+
+The reviewer compared all five `corrections/*/diagrams.md` files with their corresponding frozen originals, checked both original/corrected SHA256 values against `corrections/manifest.json`, and inspected the changed lines. All hashes match. Removing the added provenance header leaves exactly the original text with semicolons replaced by commas **only inside sequence-diagram blocks**. Replacement counts match the manifest: A01 13, A02 11, A03 8, A04 5, A05 6. Flowcharts, state diagrams and original surrounding prose are unchanged.
+
+The header clearly identifies a separate post-freeze correction and preserves original captions as historical runner inspection limits. The punctuation edits preserve intended participants, arrows, branch guards, labels, conditions and architecture. In particular, they retain A01 approval/commit/backup distinctions, A02 stable refund identity and uncertain-outcome hold, A03 captured scope and failure/status separation, A04 fail-closed enforcement/rollback floor, and A05 one-way transport/paper acknowledgment/retention and conditional authenticity. No semantic change was found in this bounded comparison; a syntax repair is still a real delivered-artifact change, not an original success.
+
+The supplied coordinator result `corrections/diagram-syntax-corrected.json` reports all thirteen corrected blocks syntax-valid under Mermaid 12.3.0 with JSDOM 31.0.0. The reviewer read that result and did not run a parser, renderer, fixture, test or runtime check. These results support corrected-source syntax only. They do not establish rendered readability, operational correctness, SLO attainment or independent reproduction of the parser result.
+
+Unrendered limitations remain: long sequence labels/branches may be hard to scan; A03 still places its polling loop after processing and relies on its unchanged annotation to explain overlap, while broad exception scope likewise needs its annotation. The punctuation correction neither evaluates nor repairs those visual/concurrency concerns. No original judgment is promoted, and no aggregate efficacy or reliability claim follows.

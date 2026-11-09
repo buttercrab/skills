@@ -1,0 +1,291 @@
+{
+  "review": "Frozen blinded boundary/development source review",
+  "scope": "Three additional unpaired boundary/development probes; NOT held-out and NOT paired efficacy evidence. Core judgments remain unchanged.",
+  "conditions_known": false,
+  "efficacy_conclusion": null,
+  "method": "Read only boundary-items.json, designated probe dirs and original boundary private criteria; source/transcript plus audited local mocked logic. No browser, servers, network, headless rendering, installs, target skill, condition map or root manifests.",
+  "evidence_vocabulary": {
+    "pass": "Directly observed excerpt fact, file existence or local check execution, never a native UI pass.",
+    "source-supported": "Code/mocked logic supports outcome; native behavior is unobserved.",
+    "fail": "Required contradiction or broken behavior demonstrated.",
+    "unobserved": "Admissible evidence missing."
+  },
+  "limitations": [
+    "Conversation excerpts are coordinator-selected summaries, not full native tool traces.",
+    "Final HTML only: initial draft runnability in probe-04 cannot be independently reconstructed.",
+    "Mock DOM tests bypass HTML parsing, real selectors, native number/select/form/dialog behavior, event delivery and focus.",
+    "All native/rendered/layout/viewport/visual usability acceptance remains unobserved. Source-supported absence of outbound integrations does not prove every historic tool action respected scope.",
+    "Root handles policy incidents separately. No superiority, causal effect or general reliability inference is made."
+  ],
+  "artifacts": [
+    {
+      "artifact": "probe-04",
+      "case": "04-fast-draft",
+      "conversation_evidence": [
+        "conversation.md first-draft records a runnable draft before discovery interview, then user feedback specifying neighbors aged 65+, outdoor older-phone use, bigger controls, plain language and name/shift confirmation.",
+        "conversation.md final records the implemented revision and logic checks. The initial draft artifact and full native trace are not supplied, so its runnability cannot be independently reconstructed."
+      ],
+      "outcomes": [
+        {
+          "outcome": "Recorded draft-first then feedback sequence",
+          "status": "pass",
+          "evidence": "Excerpt contains first-draft, user feedback and final revision in that order; no preceding discovery question is included."
+        },
+        {
+          "outcome": "Initial draft independently runnable before feedback",
+          "status": "unobserved",
+          "evidence": "Only final HTML is supplied; the initial stage is coordinator-recorded, not independently executable here."
+        },
+        {
+          "outcome": "Feedback changes implemented in actual controls",
+          "status": "source-supported",
+          "evidence": "Later CSS overrides set labels/input/select/button text to 22px and controls to minimum 64px; single-column fields and direct plain signup instructions replace the earlier decorative composition."
+        },
+        {
+          "outcome": "Welcoming without decorative interference",
+          "status": "source-supported",
+          "evidence": "Final markup removes the large garden illustration and decorative headline composition; small local brand SVG remains. Actual distraction/visual readability cannot be judged."
+        },
+        {
+          "outcome": "Blank/whitespace name gives useful recoverable error",
+          "status": "source-supported",
+          "evidence": "Submit uses trimmed name, sets aria-invalid, error class, named guidance and focus call; reviewer mock exercises whitespace input."
+        },
+        {
+          "outcome": "Correction succeeds and removes error state",
+          "status": "source-supported",
+          "evidence": "Valid trimmed name flips aria-invalid false, removes error class, adds success class and updates the message; reviewer mock passes."
+        },
+        {
+          "outcome": "Personal confirmation names participant and chosen shift",
+          "status": "source-supported",
+          "evidence": "Confirmation interpolates trimmed name and shift.value. Reviewer mock exercises both shifts with Robin."
+        },
+        {
+          "outcome": "Both original shifts retained",
+          "status": "source-supported",
+          "evidence": "Final select retains 09:00 \u2014 Watering and 11:00 \u2014 Harvest."
+        },
+        {
+          "outcome": "Local working final artifact and script syntax",
+          "status": "pass",
+          "evidence": "Final index.html exists; inline script parses; mocked final logic checks pass."
+        },
+        {
+          "outcome": "Outdoor legibility, phone tap usability and rendered narrow verification",
+          "status": "unobserved",
+          "evidence": "CSS intent is measurable but no rendering/native tests are admissible; older-phone support and outdoor readability are not established."
+        }
+      ],
+      "notes": [
+        "No demonstrated critical source-level omission in final feedback implementation.",
+        "Old draft CSS remains before the overriding final rules, including unused illustration selectors. This is residual local code, not proof that removed artwork remains visible or that revision failed.",
+        "Do not treat 22px/64px as rubric requirements; they are evidence this artifact actually changed its controls, not a universal acceptance threshold."
+      ],
+      "checks": [
+        "reviewer-boundary-checks.cjs: inspected/written locally, passes whitespace-name validation, correction, both shift confirmations and classes. Values/events/classList/focus are mocked."
+      ],
+      "artifact_path": "/private/tmp/design-with-intent-pilot-20261107/review-input/probe-04/index.html",
+      "acceptance": "unobserved: rendered/native UI acceptance unavailable",
+      "dimensions": {
+        "human_direction_and_answer_fidelity": {
+          "score": 3,
+          "evidence": "Recorded sequence and final source honor the case-specific user authority and consequential supplied answers."
+        },
+        "functional_completion_states_and_recovery": {
+          "score": 2,
+          "evidence": "Required logic/recovery paths supported by source and mocked checks; native/rendered verification gap remains."
+        },
+        "creative_relevance_and_scope_fit": {
+          "score": 2,
+          "evidence": "Source decisions serve the audience/lifecycle; visual quality and native usability unobserved."
+        },
+        "necessary_friction_and_autonomy": {
+          "score": 3,
+          "evidence": "Draft-first/no-interview/targeted-unknown behavior matches this specific task; final local artifact and logic checks delivered."
+        }
+      }
+    },
+    {
+      "artifact": "probe-05",
+      "case": "05-narrow-bugfix",
+      "conversation_evidence": [
+        "conversation.md final records fixing dispatch state before rendering, no questions, unchanged design wording, local assertions and no rendered/native verification.",
+        "request.md explicitly limits scope to dispatch state/filter bug and preserves design/wording."
+      ],
+      "outcomes": [
+        {
+          "outcome": "Direct narrow execution without design interview",
+          "status": "pass",
+          "evidence": "No clarification questions in supplied excerpts; final source implements the requested state mutation."
+        },
+        {
+          "outcome": "Dispatch mutates only identified parcel",
+          "status": "source-supported",
+          "evidence": "queue.onclick finds matching dataset.id then sets p.state='Dispatched'; reviewer mock confirms P-81 changes while P-82 remains Ready."
+        },
+        {
+          "outcome": "All shows Dispatched and removes its Dispatch action",
+          "status": "source-supported",
+          "evidence": "Existing render emits current state and only generates Dispatch button for Ready; mock verifies P-81 status/action removal."
+        },
+        {
+          "outcome": "Ready excludes dispatched parcel",
+          "status": "source-supported",
+          "evidence": "Filter compares p.state with filter.value; mock verifies P-81 absent and P-82 present."
+        },
+        {
+          "outcome": "Dispatched includes dispatched parcel",
+          "status": "source-supported",
+          "evidence": "Mock verifies Dispatched view shows P-81 and not Ready P-82."
+        },
+        {
+          "outcome": "Dispatching both yields Ready empty state",
+          "status": "source-supported",
+          "evidence": "Mock dispatches second parcel while Ready filtered; output is No parcels in this view."
+        },
+        {
+          "outcome": "Switching All recovers both records",
+          "status": "source-supported",
+          "evidence": "Mock changes filter to All and confirms both Dispatched rows without Dispatch buttons."
+        },
+        {
+          "outcome": "Confirmation names parcel",
+          "status": "source-supported",
+          "evidence": "notice.textContent=p.id+' dispatched.'; mock verifies P-81 dispatched."
+        },
+        {
+          "outcome": "Existing design, wording and narrow scope preserved",
+          "status": "source-supported",
+          "evidence": "Final artifact retains the fixture structure, CSS, labels, views, confirmation and empty wording. The behavioral repair is the added state assignment; no redesign, persistence, backend, unrelated new controls or refactor is introduced."
+        },
+        {
+          "outcome": "Final artifact, parse and local logic checks",
+          "status": "pass",
+          "evidence": "index.html exists and script parses; reviewer mock exercises requested transitions."
+        },
+        {
+          "outcome": "Rendered state/filter and native event behavior",
+          "status": "unobserved",
+          "evidence": "Mock provides queue/filter/notice globals directly; native named-element globals, DOM event target behavior and rendering remain untested."
+        }
+      ],
+      "notes": [
+        "No demonstrated source-level omission or scope expansion.",
+        "No visual redesign was requested; preserving the existing design and limiting the implementation earns scope-fit credit without demanding embellishment."
+      ],
+      "checks": [
+        "reviewer-boundary-checks.cjs passes identified parcel isolation, All/Ready/Dispatched, action removal, named confirmation, empty and All recovery. Mock uses supplied globals instead of a native DOM."
+      ],
+      "artifact_path": "/private/tmp/design-with-intent-pilot-20261107/review-input/probe-05/index.html",
+      "acceptance": "unobserved: rendered/native UI acceptance unavailable",
+      "dimensions": {
+        "human_direction_and_answer_fidelity": {
+          "score": 3,
+          "evidence": "Recorded sequence and final source honor the case-specific user authority and consequential supplied answers."
+        },
+        "functional_completion_states_and_recovery": {
+          "score": 2,
+          "evidence": "Required logic/recovery paths supported by source and mocked checks; native/rendered verification gap remains."
+        },
+        "creative_relevance_and_scope_fit": {
+          "score": 3,
+          "evidence": "Exact narrow scope is inspectable in the minimal state repair; no creative visual change requested."
+        },
+        "necessary_friction_and_autonomy": {
+          "score": 3,
+          "evidence": "Draft-first/no-interview/targeted-unknown behavior matches this specific task; final local artifact and logic checks delivered."
+        }
+      }
+    },
+    {
+      "artifact": "probe-06",
+      "case": "06-material-unknown",
+      "conversation_evidence": [
+        "conversation.md question targets who reviews, decline/change outcomes, result communication and when materials are reserved or guaranteed; this resolves the prompt\u2019s consequential lifecycle unknown.",
+        "conversation.md answer defines review queue, stock check, per-request approve/decline, no reservation until approval, declined revision/resubmit and whole-number 1\u201320 quantity.",
+        "conversation.md final reports those requirements implemented with Node logic checks and no rendered/native verification."
+      ],
+      "outcomes": [
+        {
+          "outcome": "Targeted lifecycle question before implementation final",
+          "status": "pass",
+          "evidence": "Recorded question precedes supplied answer and final; asks meaning/commitment rather than cosmetic preferences."
+        },
+        {
+          "outcome": "Submission meaning and no reservation before approval clear in source",
+          "status": "source-supported",
+          "evidence": "Intro/process/form/list copy distinguishes request, pending review and manager stock check; confirmations explicitly say no materials reserved while pending."
+        },
+        {
+          "outcome": "Valid new request is pending review, not guaranteed",
+          "status": "source-supported",
+          "evidence": "Submit creates status:'pending'; render badge/detail and announce show pending review, not approved. Supplied mock confirms."
+        },
+        {
+          "outcome": "Per-request demo approval and decline produce distinct states",
+          "status": "source-supported",
+          "evidence": "Each pending row constructs two bound button handlers using record.id; setDecision updates only pending matching record and rerenders distinct badge/detail. Mock exercises decline and approval with another record present."
+        },
+        {
+          "outcome": "Declined request supports quantity revision and resubmission",
+          "status": "source-supported",
+          "evidence": "Declined row includes its own revision form; valid submit updates same record quantity, returns status to pending, increments attempts, rerenders and announces renewed review; mock passes decline/revise/resubmit."
+        },
+        {
+          "outcome": "Empty/0/21/fraction quantities cannot create request",
+          "status": "source-supported",
+          "evidence": "validQuantity requires nonempty integer 1\u201320; failed validate returns before creation. Audited mock exercises these plus negative/nonnumeric/Infinity; records remain empty."
+        },
+        {
+          "outcome": "Useful invalid correction, draft preservation and boundaries",
+          "status": "source-supported",
+          "evidence": "Error gives whole-number 1\u201320 instruction, sets aria-invalid/focus, preserves input; revision.draft persists across unrelated renders. Mock verifies invalid revision stays declined, other request does not clear draft, and 1/20 bounds."
+        },
+        {
+          "outcome": "Approval is guarded and remains simulated",
+          "status": "source-supported",
+          "evidence": "setDecision returns unless pending; approved copy says real reservation not made. Mock confirms attempted decline after approval has no effect."
+        },
+        {
+          "outcome": "Final artifact, syntax and audited supplied local logic checks",
+          "status": "pass",
+          "evidence": "index.html exists; check.cjs uses only local fs/vm/assert and DOM stand-ins; reviewer execution passes all assertions."
+        },
+        {
+          "outcome": "Actual native controls, focus, revised-state rendering and responsive usability",
+          "status": "unobserved",
+          "evidence": "No browser/rendering allowed. Mock checks method calls and generated state, not native DOM controls or layout."
+        }
+      ],
+      "notes": [
+        "No demonstrated critical source-level omission. Result communication is local request status and demo controls, clearly described as local only.",
+        "New form retains entered values after successful submission; clearing them was not requested. No duplicate-prevention requirement was supplied.",
+        "Initial empty list/count come from static HTML; no initial render() call is necessary for this fixture to show empty state."
+      ],
+      "checks": [
+        "probe-06/check.cjs inspected before execution: reads sibling index.html, constructs local DOM stand-ins, runs inline script via VM and asserts state/markup. Passed. It does not prove actual selector/event/native validity or CSS behavior."
+      ],
+      "artifact_path": "/private/tmp/design-with-intent-pilot-20261107/review-input/probe-06/index.html",
+      "acceptance": "unobserved: rendered/native UI acceptance unavailable",
+      "dimensions": {
+        "human_direction_and_answer_fidelity": {
+          "score": 3,
+          "evidence": "Recorded sequence and final source honor the case-specific user authority and consequential supplied answers."
+        },
+        "functional_completion_states_and_recovery": {
+          "score": 2,
+          "evidence": "Required logic/recovery paths supported by source and mocked checks; native/rendered verification gap remains."
+        },
+        "creative_relevance_and_scope_fit": {
+          "score": 2,
+          "evidence": "Source decisions serve the audience/lifecycle; visual quality and native usability unobserved."
+        },
+        "necessary_friction_and_autonomy": {
+          "score": 3,
+          "evidence": "Draft-first/no-interview/targeted-unknown behavior matches this specific task; final local artifact and logic checks delivered."
+        }
+      }
+    }
+  ]
+}

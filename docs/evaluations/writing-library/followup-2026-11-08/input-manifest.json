@@ -1,0 +1,17 @@
+{
+  "prepared_utc": "2026-11-07T17:19:54.648665+00:00",
+  "inputs_sha256": {
+    "prompt.md": "0542553d099a718d7045349b57ca6bef46c01f6c303bebac937b9de9c77e4895",
+    "author-notes.md": "13142ac53fa5ee713e06f8eee50ac1f0eb77ae754f79691ff3d840d25132ecaf",
+    "COMMON.md": "42afbf694af7c45f94e13d10adf59dfc80ef92b2c5f1a6db41cb0cfae12c6df6",
+    "FILES.txt": "733f6e3bec4292392cdade8f29c2aaa6dea7b4f8d7121301b67a30f701fb38f4"
+  },
+  "case_files_sha256": {
+    "prompt.md": "0542553d099a718d7045349b57ca6bef46c01f6c303bebac937b9de9c77e4895",
+    "evaluator-notes.md": "f7943cbb3af89574a287d615a16255ef6e980630588cbc9ad89c2c6baa082fd0",
+    "author-notes.md": "13142ac53fa5ee713e06f8eee50ac1f0eb77ae754f79691ff3d840d25132ecaf",
+    "SHA256SUMS": "048b01d39647051c07ad6708a087005a09544f2d75c3e79335a3435c38065cbb"
+  },
+  "protocol_sha256": "e47852e830d6c5ca360371ae0302bc745294c6ee5b0934a0fa71b53f96cef9b9",
+  "package_manifest_sha256": "deab01431c7c860885c62c82212b14f40eebd8dc4b9d2c6a1df4232abd32e4f3"
+}

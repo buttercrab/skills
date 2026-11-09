@@ -1,0 +1,1 @@
+Local note, 2026-10-30: exported a file with a UTF-8 BOM; got KeyError: amount because my spreadsheet reordered columns? Did not investigate. My actual file header was date,amount (BOM before date). No receipt data is checked in. I also once invoked the command without an argument and got a traceback.

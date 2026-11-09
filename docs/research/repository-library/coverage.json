@@ -1,0 +1,27 @@
+{
+  "date": "2026-11-07",
+  "resource_cards": 48,
+  "kinds": {
+    "study": 3,
+    "guide": 17,
+    "repository": 25,
+    "tool": 2,
+    "standard": 1
+  },
+  "statuses": {
+    "curated": 48
+  },
+  "availability": {
+    "public": 48
+  },
+  "evidence_modes": {
+    "source-inspected": 48,
+    "empirical": 3,
+    "conceptual": 1
+  },
+  "source_links": 182,
+  "distinct_source_urls": 179,
+  "related_edges": 97,
+  "body_words": 13419,
+  "count_caveat": "Cards and source locations are not independent studies or a census of repositories. Related examples and source families overlap."
+}

@@ -1,0 +1,118 @@
+{
+  "inspection_date": "2026-11-07",
+  "scope": "Source/reference/applied outline only; no visual or live interaction inspection",
+  "library_survey": {
+    "records": 107,
+    "queries": [
+      "glove",
+      "dim",
+      "archive",
+      "conserv",
+      "offline",
+      "conflict",
+      "review",
+      "draft"
+    ],
+    "conclusion": "No credible combined glove/dim-light/offline match found in bounded supplied-library survey; no global absence claim"
+  },
+  "receipts": [
+    {
+      "id": "flow-google-maps-offline",
+      "url": "https://support.google.com/maps/answer/6291838?hl=en",
+      "card": "guide/library/entries/flow-google-maps-offline.md",
+      "locator": "Android: Download; Use offline maps; Update offline maps; web lines 17\u2013102",
+      "inspection_method": "card + upstream public web text",
+      "access_outcome": "readable public text",
+      "fit": "Explicit local scope, supported offline functions and freshness",
+      "mismatch": "Maps coverage is not editable conservation records; no glove/dim validation",
+      "selected_use": "selected",
+      "resulting_outline_decisions": "Show local object/evidence availability and last refresh before archive entry; no imported expiry policy",
+      "visual_inspection": false,
+      "interaction_tested": false
+    },
+    {
+      "id": "flow-google-docs-suggestions",
+      "url": "https://support.google.com/docs/answer/6033474",
+      "card": "guide/library/entries/flow-google-docs-suggestions.md",
+      "locator": "Suggest changes; accept/reject; preview; permissions; web lines 21\u201359",
+      "inspection_method": "card + upstream public web text",
+      "access_outcome": "readable public text",
+      "fit": "Proposed content differs from accepted content",
+      "mismatch": "Desktop text editing, permissions and bulk operations do not establish conservation review or handheld usability",
+      "selected_use": "selected",
+      "resulting_outline_decisions": "Keep recorder interpretation separate from senior decision; display reviewed revision and uncertainty",
+      "visual_inspection": false,
+      "interaction_tested": false
+    },
+    {
+      "id": "pattern-govuk-check-answers",
+      "url": "https://design-system.service.gov.uk/patterns/check-answers/",
+      "card": "guide/library/entries/pattern-govuk-check-answers.md",
+      "locator": "Let users go back and change their answers; web lines 410\u2013430",
+      "inspection_method": "card + upstream public web text",
+      "access_outcome": "readable public text",
+      "fit": "Prepopulated corrections return to summary",
+      "mismatch": "Occasional transaction; extra confirmation may burden repeated capture; no visual or interaction evidence this run",
+      "selected_use": "selected",
+      "resulting_outline_decisions": "Edit individual fields with data retained and return to observation; no compulsory review page for local save",
+      "visual_inspection": false,
+      "interaction_tested": false
+    },
+    {
+      "id": "external-odk-collect-forms",
+      "url": "https://docs.getodk.org/collect-forms/",
+      "card": null,
+      "locator": "Downloading forms; Editing drafts; Finalizing drafts; web lines 124\u2013150",
+      "inspection_method": "upstream public web text",
+      "access_outcome": "readable public text",
+      "fit": "Local drafts and transmission are separately documented",
+      "mismatch": "Finalization is not expert approval; platform/edit rules are product-specific; no glove/dim evidence",
+      "selected_use": "selected mechanism only",
+      "resulting_outline_decisions": "Separate local draft/provisional save, queue/transmission and senior review",
+      "visual_inspection": false,
+      "interaction_tested": false
+    },
+    {
+      "id": "external-odk-entity-conflicts",
+      "url": "https://docs.getodk.org/central-entities/",
+      "card": null,
+      "locator": "Managing Entity conflicts; What are Entity conflicts; Addressing parallel updates; web lines 571\u2013614",
+      "inspection_method": "upstream public web text",
+      "access_outcome": "readable public text",
+      "fit": "Shared base/version provenance makes offline divergence explainable",
+      "mismatch": "Central applies arrival-order updates and dismissal treats current values as correct; explicitly rejected here",
+      "selected_use": "selected explanation; rejected overwrite behavior",
+      "resulting_outline_decisions": "Show base and both variants, retain originals; senior creates resolution revision; no automatic overwrite",
+      "visual_inspection": false,
+      "interaction_tested": false
+    },
+    {
+      "id": "external-w3c-target-size",
+      "url": "https://www.w3.org/WAI/WCAG22/Understanding/target-size-minimum.html",
+      "card": null,
+      "locator": "SC 2.5.8 Level AA; exceptions; Intent; web lines 21\u201352",
+      "inspection_method": "upstream public web text",
+      "access_outcome": "readable public text",
+      "fit": "Useful accessibility scope boundary",
+      "mismatch": "Web target-size criterion is not a glove compatibility test or device-specific physical measurement",
+      "selected_use": "boundary only",
+      "resulting_outline_decisions": "Avoid inferring glove usability from numerical minimums; plan actual contextual evaluation",
+      "visual_inspection": false,
+      "interaction_tested": false
+    },
+    {
+      "id": "flow-linear-triage-decisions",
+      "url": "https://linear.app/docs/triage",
+      "card": "guide/library/entries/flow-linear-triage-decisions.md",
+      "locator": "Card When to use; What to borrow; Mismatches",
+      "inspection_method": "local full card only; upstream not opened",
+      "access_outcome": "local card readable; upstream not attempted",
+      "fit": "Explicit queue dispositions",
+      "mismatch": "Software issue actions would import unnecessary semantics; current upstream unverified",
+      "selected_use": "not selected",
+      "resulting_outline_decisions": "Use domain-specific review states rather than accept/decline/duplicate/snooze menu",
+      "visual_inspection": false,
+      "interaction_tested": false
+    }
+  ]
+}

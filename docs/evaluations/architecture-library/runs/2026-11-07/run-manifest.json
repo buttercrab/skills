@@ -1,0 +1,73 @@
+{
+  "prepared_utc": "2026-11-07T14:49:25.965452+00:00",
+  "protocol_sha256": "bb45f11e8989239cc5ee80a07e952830e92c9e8206e0d294fc2c23edae5f2044",
+  "package_manifest_sha256": "d2a3a06057569a23a1176250f269318c10ef5337e30bd1432b9f3e012ee75230",
+  "runs": [
+    {
+      "case": "01-desk-ledger",
+      "path": "/private/tmp/system-architecture-assessment-20261107/01-desk-ledger",
+      "inputs_sha256": {
+        "COMMON.md": "9207a43aa2492af41b3d9e886694d08476563d8c070f9c5d1afa741863acfb86",
+        "FILES.txt": "e72cd4fdadda2da2b1549732ccc4b2c1c375d873020a1537c7a70a419e7f82fc",
+        "prompt.md": "c944d8bb51f67d7df741b04ac71c48e8304e705eed8bdbe9543c870c16d5003a",
+        "snapshot/ledger.py": "316ffe9cf56a4562d6a8a071b8ea10d9ee865e9fc05b8d3b269f7bad6949e255",
+        "snapshot/operations.toml": "3fe89e446521faaabf84b874a212121d2bc1bcbe5d16dfe48f2eae0d05c35ec9",
+        "snapshot/requirements.md": "9b15f702638e3cd5dd8f222458c4bba5cad3961b5b6c1b3a80da9693ebc4df46"
+      },
+      "case_sums_sha256": "db69c7d2b468c8cd874d92b33a54a8b306e282ddc8fb1ceed8a802973c77a096"
+    },
+    {
+      "case": "02-refund-queue",
+      "path": "/private/tmp/system-architecture-assessment-20261107/02-refund-queue",
+      "inputs_sha256": {
+        "COMMON.md": "120e6ec1162f961ad3c7cf3a0ac67449905c4d44098b55e45e3a31622d667db7",
+        "FILES.txt": "44cdfbc7ab1112d0e95082fe050a9c496bc6ad298e7c19a78edf51c8193c9d1e",
+        "prompt.md": "18f168271265345d5ce03c9dc2a80139e4e1f74b360dcca932321cf269183048",
+        "snapshot/contracts.md": "be218cae7ea91cce4b2d005517976f2e1ff8187161a7b5667ea4edb6e08a1b32",
+        "snapshot/policy.md": "bd549a229ceaa851095744950910269f8596fd006fe97ad0af83516a9fc64e89",
+        "snapshot/worker.py": "2230387cc6aa95414cef93b24d5b387700c2f8447d8fd24cfc463dd1649ce76d"
+      },
+      "case_sums_sha256": "d57ddeebf4682a1da83c5da1921791a1d5f892098f8df5b923f3b28438ec2bc3"
+    },
+    {
+      "case": "03-map-the-running-system",
+      "path": "/private/tmp/system-architecture-assessment-20261107/03-map-the-running-system",
+      "inputs_sha256": {
+        "COMMON.md": "a613428b5573fa0de3ebab24c630af9ce8de1f115fe4b6e038d284e120b88ce2",
+        "FILES.txt": "c3f54f7f3b0a1fd4156e878cefbb70cb5dbc89745ac6f918c906aaf6ddfe1c9e",
+        "prompt.md": "6f74f061b5212553e39c9a43b30246b4cad8024ca329a184bf0d7e443609d288",
+        "snapshot/README.md": "9e44f8d02b6ad71666d647481d43c5afaa799427432170981b8190e40e7069a2",
+        "snapshot/client-and-operations.md": "870f39f15cd84e226f50006c8437cb3d141d060e97ca787c7f54077360b61204",
+        "snapshot/deployment.yaml": "d392aaa0fd797354c096b41567df13288bbd28bbaf3b57787858480f2909b923",
+        "snapshot/intake.ts": "4f5b061e8dd867c3a52b061336b9f18ca10f4263d04fb6ffa1ae5cbd29cf9d78"
+      },
+      "case_sums_sha256": "51fe7a2d0e29439ba790a1578448ff3a0e4e82ca6f498d25c0edc1c57ab55567"
+    },
+    {
+      "case": "04-compatible-rollout",
+      "path": "/private/tmp/system-architecture-assessment-20261107/04-compatible-rollout",
+      "inputs_sha256": {
+        "COMMON.md": "ecc98205102821359784e232dd8ce44e30248541fec0c6c27b1c2595fae3c5b7",
+        "FILES.txt": "c120350cf503552acad015015f201cd757cdbbaecf746fa505c6321f0781d988",
+        "prompt.md": "42cff8f5ac60e5113d0dd67232e3ce7b6098affe34f1e2fe9e056b52d5a4d2df",
+        "snapshot/contracts.md": "cf444ad06f892c699199feba5e710c30068af48c4b4b2f4e17da6a7ee83b52fd",
+        "snapshot/current.py": "cee95cd572314b2dc8cc8822787fc31598f4ace2c47c8b81bee4d3efd9e0ae03",
+        "snapshot/migration-policy.md": "b9ba5f90639813d09202d9b909a03026eb97833fd5731fcbfc22a8db0dc87419"
+      },
+      "case_sums_sha256": "237d7f2ef111e250a853b78b6a3102c8a7bfc5882d88ddedabd8cb4a4c9d269a"
+    },
+    {
+      "case": "05-one-way-archive",
+      "path": "/private/tmp/system-architecture-assessment-20261107/05-one-way-archive",
+      "inputs_sha256": {
+        "COMMON.md": "a03359d1a944a8a38f04eaa340720859c27e255f451dc1d950d1d50ab5424727",
+        "FILES.txt": "6fefc2ae22825574d62ac07796f43b91f19340d209e7d41e41962bae54ea2c4f",
+        "prompt.md": "66b174e779cd809ee3cfa99b44b09f98ad6d0530c8618f3029c2417d8e30d3d7",
+        "snapshot/approved-constraints.md": "049638287d718085e6f34d695c64f615fd97d8af9092a24f324f9ff4b8464017",
+        "snapshot/current-state.md": "6a82a910e064315c9fe16f23319f87f8abb08635042696abfa333e4464e3846d",
+        "snapshot/transfer-spec.md": "4e62eceed86a5e9065f1e67721983bd3f05b54319b34ffb359e4f4dbdb098e8e"
+      },
+      "case_sums_sha256": "72071f62a546812c63866da6e253a5a7664e270f2a053dd506fbbf094c914434"
+    }
+  ]
+}

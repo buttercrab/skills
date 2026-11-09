@@ -1,0 +1,501 @@
+{
+  "date": "2026-11-07",
+  "timezone": "Asia/Seoul",
+  "prepared_utc": "2026-11-07T09:12:49.663353+00:00",
+  "seed": 731107,
+  "mapping_sha256": "91aef07ea5b89482a05ccd48dd1612f3d03272eb20f9483fb91cb9f5cb310a1c",
+  "case_fixture_freeze_sha256": "3b39b09cb0782839a84de2372622941a86129f8eafb2d77202231065f79c6fe4",
+  "corpus_manifest_sha256": "949f666fb9d52c652ae388cd992f5d8bea50bfbfedf655f67bafa276491ea774",
+  "condition_difference": "Old pilot SKILL/references/UI metadata versus expanded workflow; identical library/cards/views/vocabulary/FORMAT and catalog.py provided in each guide. Both instructed that shared catalog/search is available.",
+  "model_policy": "Fresh non-forked contexts, inherited model/effort, no overrides. Normal host mandatory skills remain available; log actual additional guides.",
+  "execution_authority": "User go approved implementation/evaluation plan; all tasks reversible source/match/outline only.",
+  "environment": "Public HTTPS read-only primary evidence via web/GitHub and own native Chrome source screenshots permitted equally; no accounts/submissions/copy-assets/install/localbrowser URLs/server/headless/app build/externalwrites. On policydenial stop blockedoutcome entirely, never retryanotherroute.",
+  "external_source_controls": "Same frozen cards/locators and source-tool availability. Complete upstream pages/search packets not frozen. Log live source windows/URLs/outcomes; exploratory comparisons cannot isolate workflow effects from all live-response variability.",
+  "timing": "Soft15active-minute ceiling per trial excluding scripted response waiting; no time/cost claims without reliable measurements.",
+  "trials": [
+    {
+      "trial": "01-birch",
+      "case": "01-first-visit-community",
+      "condition": "baseline",
+      "dispatch_order": 1,
+      "workspace": "/private/tmp/design-library-matching-20261107/runs/01-birch",
+      "request_sha256": "618fa02559aa929a8fe0fb9dd94051a3f77127b361a693452e080a08022961eb",
+      "status": "local deliverables complete",
+      "events": [
+        {
+          "trial": "01-birch",
+          "role": "assistant",
+          "stage": "initial-question-and-options",
+          "text": "Asked about first visitor purpose/attendance and contextual directions before settling the outline; preliminary reference options were provided.",
+          "record_type": "coordinator-summary"
+        },
+        {
+          "trial": "01-birch",
+          "role": "user",
+          "stage": "context-and-initial-option-feedback",
+          "text": "Mostly adults who don't know anyone in the group. They arrive from a printed QR code on their phone. Let them see what happens at a table and find the next meeting before asking them to join. Coming once without teaching anything is welcome. We are informal and warm, but I don't want it to feel like a club you have to qualify for.\n\nNext meeting is Saturday 21 November, 14:00–16:00, at Alder Library. Free. Step-free entrance. People can arrive alone; no account is needed to see details. RSVP is optional and just reserves a chair.\n\nOn the initial options: Keep the option that best explains what actually happens at a table. Drop the direction that feels most like recruiting members. Borrow the clearest next-meeting treatment from a different option. If none explains arriving alone, find something that does. I'd rather see ordinary people and specific activities than a polished club identity. None needs to be recruiting; keep that true as you combine them.",
+          "record_type": "exact-relay"
+        }
+      ],
+      "output_sha256": {
+        "result.md": "637348928e7beda141766de1f2a04bd88db6dcd142637c8fcc977845f586c650",
+        "work-log.md": "eaca9e2134b32124d39a232c137a43d2fe503c5afeb36c8b88b913428cee74fb",
+        "receipts.json": "9183b24d50cd0844d53800d74be5e3e4fff0d31e28d33154994025ed09a36578"
+      },
+      "guide_mutated": false
+    },
+    {
+      "trial": "01-elm",
+      "case": "01-first-visit-community",
+      "condition": "library",
+      "dispatch_order": 2,
+      "workspace": "/private/tmp/design-library-matching-20261107/runs/01-elm",
+      "request_sha256": "618fa02559aa929a8fe0fb9dd94051a3f77127b361a693452e080a08022961eb",
+      "status": "local deliverables complete",
+      "events": [
+        {
+          "trial": "01-elm",
+          "role": "assistant",
+          "stage": "initial-question-and-options",
+          "text": "Asked about first visitor purpose/attendance and contextual directions before settling the outline; preliminary reference options were provided.",
+          "record_type": "coordinator-summary"
+        },
+        {
+          "trial": "01-elm",
+          "role": "user",
+          "stage": "context-and-initial-option-feedback",
+          "text": "Mostly adults who don't know anyone in the group. They arrive from a printed QR code on their phone. Let them see what happens at a table and find the next meeting before asking them to join. Coming once without teaching anything is welcome. We are informal and warm, but I don't want it to feel like a club you have to qualify for.\n\nNext meeting is Saturday 21 November, 14:00–16:00, at Alder Library. Free. Step-free entrance. People can arrive alone; no account is needed to see details. RSVP is optional and just reserves a chair.\n\nOn the initial options: Keep the option that best explains what actually happens at a table. Drop the direction that feels most like recruiting members. Borrow the clearest next-meeting treatment from a different option. If none explains arriving alone, find something that does. I'd rather see ordinary people and specific activities than a polished club identity. None needs to be recruiting; keep that true as you combine them.",
+          "record_type": "exact-relay"
+        }
+      ],
+      "output_sha256": {
+        "result.md": "27464d64c87afece3e09442401a99186159356d2f4ea7689b8c31c1e268eaba1",
+        "work-log.md": "16252a5f01d1f2c1a527ca089b1a8356881bdb84364690fa963755b6b10c3746",
+        "receipts.json": "f82cb8db4e0cd9b61ead3e17043002c62c3f072945e29e5cdc7ef19b46ea4241"
+      },
+      "guide_mutated": false
+    },
+    {
+      "trial": "02-birch",
+      "case": "02-expert-response-desk",
+      "condition": "library",
+      "dispatch_order": 1,
+      "workspace": "/private/tmp/design-library-matching-20261107/runs/02-birch",
+      "request_sha256": "8018bdb13e303457656ffbdb52b6c7e68393d60114b1dd607230bd5c8fd0f109",
+      "status": "local deliverables complete",
+      "events": [
+        {
+          "trial": "02-birch",
+          "role": "user",
+          "stage": "after-initial-packet",
+          "text": "The sparse option looks the most polished. Could we make every request a huge card like that?",
+          "record_type": "exact-relay"
+        },
+        {
+          "trial": "02-birch",
+          "role": "assistant",
+          "stage": "density-question",
+          "text": "Asked whether to preserve rapid comparison with one spacious selected-request card or shift priority to large cards for all; explained scrolling/comparison tradeoff.",
+          "record_type": "coordinator-summary"
+        },
+        {
+          "trial": "02-birch",
+          "role": "user",
+          "stage": "density-not-settled",
+          "text": "That is not settled; make and label a reasonable assumption if it doesn't block the outline.",
+          "record_type": "exact-relay"
+        }
+      ],
+      "output_sha256": {
+        "result.md": "62cb3aba0be4b7c4e8fd3076139a8d6d903e772e3959584b805e9d53bde34e61",
+        "work-log.md": "c826aa129b4202df2e64b1f27306cbe099e1106628aa8a2ccc64aab3940d513b",
+        "receipts.json": "f6baad810bbe8f84f8dca083991fbd43a3386613264ec33be4a336c097bb42fc"
+      },
+      "guide_mutated": false
+    },
+    {
+      "trial": "02-elm",
+      "case": "02-expert-response-desk",
+      "condition": "baseline",
+      "dispatch_order": 2,
+      "workspace": "/private/tmp/design-library-matching-20261107/runs/02-elm",
+      "request_sha256": "8018bdb13e303457656ffbdb52b6c7e68393d60114b1dd607230bd5c8fd0f109",
+      "status": "local deliverables complete",
+      "events": [
+        {
+          "trial": "02-elm",
+          "role": "assistant",
+          "stage": "policy-question",
+          "text": "Asked whether undo can retract dispatch or only operate before crew acceptance, and how later correction should work.",
+          "record_type": "coordinator-summary"
+        },
+        {
+          "trial": "02-elm",
+          "role": "user",
+          "stage": "assignment-policy",
+          "text": "Requests can be reassigned. Undo is allowed for 30 seconds unless the crew has accepted; then the dispatcher must request reassignment and the pending state must be visible. Crew acceptance arrives asynchronously. Keep all 30 requests reachable without switching to a separate page.",
+          "record_type": "exact-relay"
+        },
+        {
+          "trial": "02-elm",
+          "role": "user",
+          "stage": "after-initial-packet",
+          "text": "The sparse option looks the most polished. Could we make every request a huge card like that?",
+          "record_type": "exact-relay"
+        },
+        {
+          "trial": "02-elm",
+          "role": "assistant",
+          "stage": "density-question",
+          "text": "Asked whether to preserve rapid comparison with one spacious selected-request card or shift priority to large cards for all; explained scrolling/comparison tradeoff.",
+          "record_type": "coordinator-summary"
+        },
+        {
+          "trial": "02-elm",
+          "role": "user",
+          "stage": "density-not-settled",
+          "text": "That is not settled; make and label a reasonable assumption if it doesn't block the outline.",
+          "record_type": "exact-relay"
+        }
+      ],
+      "output_sha256": {
+        "result.md": "892b9b34cd3dfe9fe7473247428464c6bc367dd84e916706be5a2a5081ddca66",
+        "work-log.md": "b0f61c7c06c68f69be89068bc871ef43be43c959a18ee90750d823b4a4b566f1",
+        "receipts.json": "70eeb66a2987f31ef95c0d8ff08c754ad0bf8f12ad3d1058026805e681f29203"
+      },
+      "guide_mutated": false
+    },
+    {
+      "trial": "03-birch",
+      "case": "03-character-led-learning",
+      "condition": "baseline",
+      "dispatch_order": 1,
+      "workspace": "/private/tmp/design-library-matching-20261107/runs/03-birch",
+      "request_sha256": "ee4c8c3940dccb59a7e2d8d42e564a3428db07d998f07dfeaca6e8b1cab1878f",
+      "status": "local deliverables complete",
+      "events": [
+        {
+          "trial": "03-birch",
+          "role": "user",
+          "stage": "chosen-direction-feedback",
+          "text": "I like an expressive partner. Please don't make a missed day disappoint the creature, and don't turn corrections into a red failure screen.",
+          "record_type": "exact-relay"
+        }
+      ],
+      "output_sha256": {
+        "result.md": "bd99501c4e6ae3a2f572d1267b3ea3e290b7ad2dfc8b93639590423039d34550",
+        "work-log.md": "686c3d6a67925aca6b905b9c9b81a06740fce8b3e7dfbef09f6d47fb7c9d6471",
+        "receipts.json": "1bd2683458a0dd414a0d582316da93633fa579d945ed8aeac58b067614bb1649"
+      },
+      "guide_mutated": false
+    },
+    {
+      "trial": "03-elm",
+      "case": "03-character-led-learning",
+      "condition": "library",
+      "dispatch_order": 2,
+      "workspace": "/private/tmp/design-library-matching-20261107/runs/03-elm",
+      "request_sha256": "ee4c8c3940dccb59a7e2d8d42e564a3428db07d998f07dfeaca6e8b1cab1878f",
+      "status": "local deliverables complete",
+      "events": [
+        {
+          "trial": "03-elm",
+          "role": "user",
+          "stage": "chosen-direction-feedback",
+          "text": "I like an expressive partner. Please don't make a missed day disappoint the creature, and don't turn corrections into a red failure screen.",
+          "record_type": "exact-relay"
+        }
+      ],
+      "output_sha256": {
+        "result.md": "674755296a08b31d828d7794bd05e77251d056f27c50cde45c4307f0e3c7b1be",
+        "work-log.md": "d3b87bc78dff4844c21eca46820026ccc4e875cec8c68c12dbc45915ae8faa6d",
+        "receipts.json": "b8f82713eb9aa3f9dbd5e31a0c8911c77805232b9316cc2f88cb276542d4fe36"
+      },
+      "guide_mutated": false
+    },
+    {
+      "trial": "04-birch",
+      "case": "04-structure-over-skin",
+      "condition": "library",
+      "dispatch_order": 1,
+      "workspace": "/private/tmp/design-library-matching-20261107/runs/04-birch",
+      "request_sha256": "02dbe3563627f7378c231ec69a8412b52190be101b27cb105d29ea175de212e4",
+      "status": "local deliverables complete",
+      "events": [
+        {
+          "trial": "04-birch",
+          "role": "user",
+          "stage": "after-shortlist",
+          "text": "I'd rather keep the noticeboard character even if the most useful recovery reference is visually loud.",
+          "record_type": "exact-relay"
+        }
+      ],
+      "output_sha256": {
+        "result.md": "03abbd2e0da7c6c7ca3512010017d3d62a4bbb0deea453ee128790f4738800b5",
+        "work-log.md": "3c9f118d76e07470523362606186388efb81a8e25e23a08aeee928580bf25cfd",
+        "receipts.json": "5d250f004834facce70ad61696fb744beb3c24e93347da12727a7ab154d5121b"
+      },
+      "guide_mutated": false
+    },
+    {
+      "trial": "04-elm",
+      "case": "04-structure-over-skin",
+      "condition": "baseline",
+      "dispatch_order": 2,
+      "workspace": "/private/tmp/design-library-matching-20261107/runs/04-elm",
+      "request_sha256": "02dbe3563627f7378c231ec69a8412b52190be101b27cb105d29ea175de212e4",
+      "status": "local deliverables complete",
+      "events": [
+        {
+          "trial": "04-elm",
+          "role": "user",
+          "stage": "after-shortlist",
+          "text": "I'd rather keep the noticeboard character even if the most useful recovery reference is visually loud.",
+          "record_type": "exact-relay"
+        }
+      ],
+      "output_sha256": {
+        "result.md": "6efd24191426171c7563eb384c71d82518745639ae1239b6af01fdd7215ab5b3",
+        "work-log.md": "0d69a13843c69e34a681a7e2ffc8d7c5f135f962b89175b1fa5ab34f17377c86",
+        "receipts.json": "4cf8b5e20a6f31d56938c1dc1654581d8dc6c3605deb8240b095150632012885"
+      },
+      "guide_mutated": false
+    },
+    {
+      "trial": "05-birch",
+      "case": "05-absent-and-conflicting-source",
+      "condition": "library",
+      "dispatch_order": 1,
+      "workspace": "/private/tmp/design-library-matching-20261107/runs/05-birch",
+      "request_sha256": "8c369332fb9e466614c9f9146c192b5de709514f752cc792a0172f9be5d6f11b",
+      "status": "local deliverables complete",
+      "events": [
+        {
+          "trial": "05-birch",
+          "role": "assistant",
+          "stage": "policy-and-context-question",
+          "text": "Asked consequential language, authoritative shared-screen/return/identity or timing facts before finalizing; initial scoped source matches were proposed.",
+          "record_type": "coordinator-summary"
+        },
+        {
+          "trial": "05-birch",
+          "role": "user",
+          "stage": "policy-and-context",
+          "text": "Current room policy: show only instrument ID and a non-personal receipt code after checkout/return. Clear name and contact details at completion and after 60 seconds idle; warn at 45 seconds and let the person continue. No staff photograph of borrower details. Timeout does not automatically complete a loan or return. Staff can help from a separate authenticated console. Arabic and English are required.\n\nTouch kiosk; no keyboard assumed. You may flag hardware-specific unknowns.\n\nFor remaining unspecified details: That is not settled; make and label a reasonable assumption if it doesn't block the outline.",
+          "record_type": "exact-relay"
+        },
+        {
+          "trial": "05-birch",
+          "role": "user",
+          "stage": "source-limits-feedback",
+          "text": "If this source predates the policy or only demonstrates English, please keep its useful bits but make the unresolved parts explicit.",
+          "record_type": "exact-relay"
+        }
+      ],
+      "output_sha256": {
+        "result.md": "d57adfdb7cff226c697fbfd2d159dca61d82cb0d7b19389904de7c508ee0639e",
+        "work-log.md": "7a26dfca4d85d33091f75d99f95dfb1d75ad2229a77d8e83ce2ab07429d66b43",
+        "receipts.json": "2d518b153aa9c3ebf4c98fc1f4cd6843c8849c0bda6a69d09f3df343a9eaa2e4"
+      },
+      "guide_mutated": false
+    },
+    {
+      "trial": "05-elm",
+      "case": "05-absent-and-conflicting-source",
+      "condition": "baseline",
+      "dispatch_order": 2,
+      "workspace": "/private/tmp/design-library-matching-20261107/runs/05-elm",
+      "request_sha256": "8c369332fb9e466614c9f9146c192b5de709514f752cc792a0172f9be5d6f11b",
+      "status": "local deliverables complete",
+      "events": [
+        {
+          "trial": "05-elm",
+          "role": "assistant",
+          "stage": "policy-and-context-question",
+          "text": "Asked consequential language, authoritative shared-screen/return/identity or timing facts before finalizing; initial scoped source matches were proposed.",
+          "record_type": "coordinator-summary"
+        },
+        {
+          "trial": "05-elm",
+          "role": "user",
+          "stage": "policy-and-context",
+          "text": "Current room policy: show only instrument ID and a non-personal receipt code after checkout/return. Clear name and contact details at completion and after 60 seconds idle; warn at 45 seconds and let the person continue. No staff photograph of borrower details. Timeout does not automatically complete a loan or return. Staff can help from a separate authenticated console. Arabic and English are required.\n\nTouch kiosk; no keyboard assumed. You may flag hardware-specific unknowns.\n\nFor remaining unspecified details: That is not settled; make and label a reasonable assumption if it doesn't block the outline.",
+          "record_type": "exact-relay"
+        },
+        {
+          "trial": "05-elm",
+          "role": "user",
+          "stage": "source-limits-feedback",
+          "text": "If this source predates the policy or only demonstrates English, please keep its useful bits but make the unresolved parts explicit.",
+          "record_type": "exact-relay"
+        }
+      ],
+      "output_sha256": {
+        "result.md": "e92680989121f37906113516d61f2c935d8ed9611ed04c6347aa1c43306d3093",
+        "work-log.md": "3b8ecbfa4f8521484fd05e8839d4331ecf55735f65b6c3e966ed262e68dffb1a",
+        "receipts.json": "b29a114bd32fa3291ee880c1721d26b4fa642131695a1f1324cf97ba79765341"
+      },
+      "guide_mutated": false
+    },
+    {
+      "trial": "06-birch",
+      "case": "06-narrow-existing-copy-fix",
+      "condition": "baseline",
+      "dispatch_order": 1,
+      "workspace": "/private/tmp/design-library-matching-20261107/runs/06-birch",
+      "request_sha256": "f9280f64b64298a4d3be50305c10d86db0da1511824b72d694ed2fe440dda911",
+      "status": "local deliverables complete",
+      "events": [
+        {
+          "trial": "06-birch",
+          "role": "assistant",
+          "stage": "completion",
+          "text": "No clarifying question; delivered the requested narrow wording/state repair.",
+          "record_type": "coordinator-summary"
+        }
+      ],
+      "output_sha256": {
+        "result.md": "c9719d4f658efb292e0fe4fb70c97f6f8870e5b1edc4ca9c1881948a01097d3b",
+        "work-log.md": "164bd8e06d828cb51ddfb69cdcd6aaf4a76abe5b1404a7430d5867d41ab4a576",
+        "receipts.json": "982dc4ec2bb7926275de7b65c3bcc139d6b894cc8bcaf5538be18fa4fa0d09db"
+      },
+      "guide_mutated": false
+    },
+    {
+      "trial": "06-elm",
+      "case": "06-narrow-existing-copy-fix",
+      "condition": "library",
+      "dispatch_order": 2,
+      "workspace": "/private/tmp/design-library-matching-20261107/runs/06-elm",
+      "request_sha256": "f9280f64b64298a4d3be50305c10d86db0da1511824b72d694ed2fe440dda911",
+      "status": "local deliverables complete",
+      "events": [
+        {
+          "trial": "06-elm",
+          "role": "assistant",
+          "stage": "completion",
+          "text": "No clarifying question; delivered the requested narrow wording/state repair.",
+          "record_type": "coordinator-summary"
+        }
+      ],
+      "output_sha256": {
+        "result.md": "93869f558d933c025d511c956d04d07703fb0fba1cad33e658b6aa26ece045a6",
+        "work-log.md": "5b1f65acdb4616a0365157b653032eb17edcfc339e15dfaec515ca6d2e99775c",
+        "receipts.json": "04fcaec4608a574c98808de3186552495c143105c7e44f7a46d3bc4666c67929"
+      },
+      "guide_mutated": false
+    },
+    {
+      "trial": "07-birch",
+      "case": "07-explore-only-editorial",
+      "condition": "library",
+      "dispatch_order": 1,
+      "workspace": "/private/tmp/design-library-matching-20261107/runs/07-birch",
+      "request_sha256": "62d85d60d92b2f615db5817ef103a16a4e748f471813bb446250b9d74a563277",
+      "status": "local deliverables complete",
+      "events": [
+        {
+          "trial": "07-birch",
+          "role": "user",
+          "stage": "after-packet",
+          "text": "Can one direction be less image-led, for people who are here to read? Keep the photo-led option too.",
+          "record_type": "exact-relay"
+        }
+      ],
+      "output_sha256": {
+        "result.md": "075a585fc02871019a7ab107ffd9c30aaa12dda64ed73c5b3b1a3b5751406cc9",
+        "work-log.md": "3a0975158cd3fcd1149de394b451a139c0336f52193c2607f050ae438596bae4",
+        "receipts.json": "4167122b54c594c64b7dec08ac45b47d527bbb2899d4b50349f5e059f86c8ed9"
+      },
+      "guide_mutated": false
+    },
+    {
+      "trial": "07-elm",
+      "case": "07-explore-only-editorial",
+      "condition": "baseline",
+      "dispatch_order": 2,
+      "workspace": "/private/tmp/design-library-matching-20261107/runs/07-elm",
+      "request_sha256": "62d85d60d92b2f615db5817ef103a16a4e748f471813bb446250b9d74a563277",
+      "status": "local deliverables complete",
+      "events": [
+        {
+          "trial": "07-elm",
+          "role": "user",
+          "stage": "after-packet",
+          "text": "Can one direction be less image-led, for people who are here to read? Keep the photo-led option too.",
+          "record_type": "exact-relay"
+        }
+      ],
+      "output_sha256": {
+        "result.md": "783c315e00c48c6c489140fed1427ad51c01c288bd640c0f9bbe3d31dddaaa29",
+        "work-log.md": "2b3a29a6ea6ba2099372db45e63dd9bce18d674df8101403a6368621f27498dc",
+        "receipts.json": "edd6c722506160947e270cdcef5be26900c3615f22101cdbd0cc7f9f8cf9f66e"
+      },
+      "guide_mutated": false
+    },
+    {
+      "trial": "08-birch",
+      "case": "08-no-complete-match-specialist",
+      "condition": "baseline",
+      "dispatch_order": 1,
+      "workspace": "/private/tmp/design-library-matching-20261107/runs/08-birch",
+      "request_sha256": "e3a273adb6931d002ad54fe94623c66a9718e406799218f9ec9286ebbad32c3d",
+      "status": "local deliverables complete",
+      "events": [
+        {
+          "trial": "08-birch",
+          "role": "assistant",
+          "stage": "senior-review-and-conflict-question",
+          "text": "Asked whether senior approval may retain uncertainty and who may resolve conflicting edits; reported adjacent rather than complete glove/dim-light/offline matches.",
+          "record_type": "coordinator-summary"
+        },
+        {
+          "trial": "08-birch",
+          "role": "user",
+          "stage": "data-policy-and-candidate-feedback",
+          "text": "Capture object ID, observation note, tentative material and optional photo. A provisional record is not an approved finding. Keep both versions of a sync conflict available; only the senior reviewer can resolve it. No automatic overwriting.\n\nFor remaining unspecified approval details: That is not settled; make and label a reasonable assumption if it doesn't block the outline.\n\nFeedback on the candidate packet: The references seem adjacent. Please don't imply their usability carries over to gloved work.",
+          "record_type": "exact-relay"
+        }
+      ],
+      "output_sha256": {
+        "result.md": "63e5a222a4979fb34bd42aa4561fb9a57b30f8946cdcd7c4a1c549f24bb754ef",
+        "work-log.md": "b711a919d9cb0d8d8cca1d3df92c473ffd21e58c6b0da8f527edd398a03cc27f",
+        "receipts.json": "a0c17bb56d0909684177cbcad873c48c018cf9022d54fbb7c360387d52a59b23"
+      },
+      "guide_mutated": false
+    },
+    {
+      "trial": "08-elm",
+      "case": "08-no-complete-match-specialist",
+      "condition": "library",
+      "dispatch_order": 2,
+      "workspace": "/private/tmp/design-library-matching-20261107/runs/08-elm",
+      "request_sha256": "e3a273adb6931d002ad54fe94623c66a9718e406799218f9ec9286ebbad32c3d",
+      "status": "local deliverables complete",
+      "events": [
+        {
+          "trial": "08-elm",
+          "role": "assistant",
+          "stage": "senior-review-and-conflict-question",
+          "text": "Asked whether senior approval may retain uncertainty and who may resolve conflicting edits; reported adjacent rather than complete glove/dim-light/offline matches.",
+          "record_type": "coordinator-summary"
+        },
+        {
+          "trial": "08-elm",
+          "role": "user",
+          "stage": "data-policy-and-candidate-feedback",
+          "text": "Capture object ID, observation note, tentative material and optional photo. A provisional record is not an approved finding. Keep both versions of a sync conflict available; only the senior reviewer can resolve it. No automatic overwriting.\n\nFor remaining unspecified approval details: That is not settled; make and label a reasonable assumption if it doesn't block the outline.\n\nFeedback on the candidate packet: The references seem adjacent. Please don't imply their usability carries over to gloved work.",
+          "record_type": "exact-relay"
+        }
+      ],
+      "output_sha256": {
+        "result.md": "db2cec5238f4c45e7b345cac90dcbfff348f495e48617d91ab12ca81371c3f8d",
+        "work-log.md": "3529c15af675032b80614c32005b13ef1806e65ec84f159e8aaf108c8143bac9",
+        "receipts.json": "4318230bdcd65a82e7c17f09e6f016b70e757ed64648481b34cf1e42acd82b14"
+      },
+      "guide_mutated": false
+    }
+  ],
+  "completed_utc": "2026-11-07T09:29:13.104074+00:00",
+  "trace_limits": "Coordinator exact normalized user relays plus assistant summaries and runner-provided work logs/receipts; not complete native tool traces. No timing/cost conclusion."
+}

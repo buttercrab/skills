@@ -1,0 +1,37 @@
+{
+  "task": "Exact reimbursement action/status wording and recovery outline",
+  "sources": [
+    {
+      "id": "system-govuk",
+      "locator": "guide/library/entries/system-govuk.md",
+      "url": "https://design-system.service.gov.uk/",
+      "inspection_method": "Local card text read after targeted index search",
+      "access_outcome": "Read successfully; homepage not separately opened",
+      "fit": "Transactional service content and task completion",
+      "mismatch": "Government brand and broad system exceed repair scope",
+      "selected_use": "Discovery route to confirmation pattern",
+      "resulting_outline_decisions": ["Preserve current styling and navigation"]
+    },
+    {
+      "id": "external-govuk-confirmation-pages",
+      "url": "https://design-system.service.gov.uk/patterns/confirmation-pages/",
+      "locator": "Example markup and How it works, returned lines 51–152",
+      "inspection_method": "Live web open; primary documentation text only",
+      "access_outcome": "Successful public HTTPS text access; no visual or interaction inspection",
+      "fit": "Reference number and explanation of next steps and timing after confirmed completion",
+      "mismatch": "Full confirmation page and government service extras unsuitable for fixed existing screen",
+      "selected_use": "Content mechanism only",
+      "resulting_outline_decisions": ["Request submitted banner", "Show confirmed R-1842 reference", "State awaiting finance review and usual three-working-day reply", "Do not adopt page layout or branding"]
+    },
+    {
+      "id": "supplied-request",
+      "locator": "request.md",
+      "inspection_method": "Local text read",
+      "access_outcome": "Read successfully",
+      "fit": "Authoritative scope and domain facts",
+      "mismatch": "No code, rendering or backend evidence supplied",
+      "selected_use": "Governing requirements",
+      "resulting_outline_decisions": ["Submit request replaces Send", "No payment claim", "Retain amount and attachment", "Distinguish failure and unknown outcome", "Require duplicate-free retry through stable operation identity"]
+    }
+  ]
+}

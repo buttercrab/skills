@@ -1,0 +1,117 @@
+{
+  "date": "2026-11-07",
+  "timezone": "Asia/Seoul",
+  "source_records": 270,
+  "statuses": {
+    "inspected": 242,
+    "inaccessible": 13,
+    "partial": 12,
+    "discovery-only": 3
+  },
+  "distinct_primary_urls_ignoring_fragments": 269,
+  "duplicate_primary_url_groups": {
+    "https://cs.uwaterloo.ca/~rtholmes/papers/icse_2014_inozemtseva.pdf": [
+      "REP-24",
+      "VER-10"
+    ]
+  },
+  "count_caveat": "Records and URLs are not independent studies; some records bundle multiple files, and mirrors/versions/source families can overlap.",
+  "lanes": [
+    {
+      "lane": "architecture",
+      "records": 31,
+      "statuses": {
+        "inspected": 30,
+        "inaccessible": 1
+      }
+    },
+    {
+      "lane": "code-and-contracts",
+      "records": 18,
+      "statuses": {
+        "inspected": 18
+      }
+    },
+    {
+      "lane": "knowledge-synthesis",
+      "records": 16,
+      "statuses": {
+        "partial": 3,
+        "inspected": 12,
+        "inaccessible": 1
+      }
+    },
+    {
+      "lane": "repositories",
+      "records": 33,
+      "statuses": {
+        "inspected": 29,
+        "partial": 1,
+        "inaccessible": 3
+      }
+    },
+    {
+      "lane": "skills-evaluation",
+      "records": 26,
+      "statuses": {
+        "inspected": 26
+      }
+    },
+    {
+      "lane": "ux-flows",
+      "records": 33,
+      "statuses": {
+        "inspected": 29,
+        "inaccessible": 2,
+        "discovery-only": 1,
+        "partial": 1
+      }
+    },
+    {
+      "lane": "verification",
+      "records": 32,
+      "statuses": {
+        "partial": 3,
+        "inspected": 27,
+        "inaccessible": 2
+      }
+    },
+    {
+      "lane": "visual-design",
+      "records": 42,
+      "statuses": {
+        "inspected": 38,
+        "partial": 2,
+        "inaccessible": 1,
+        "discovery-only": 1
+      }
+    },
+    {
+      "lane": "writing",
+      "records": 39,
+      "statuses": {
+        "inspected": 33,
+        "partial": 2,
+        "inaccessible": 3,
+        "discovery-only": 1
+      }
+    }
+  ],
+  "domain_dossiers": 9,
+  "targeted_review_files": 8,
+  "validation": [
+    "JSON syntax and required fields",
+    "allowed access statuses and research dates",
+    "globally unique source IDs",
+    "domain report source-ID references",
+    "local Markdown link existence",
+    "CSV row count"
+  ],
+  "not_validated": [
+    "all remote link availability anew",
+    "full contents of every registered source",
+    "runtime behavior or test passes",
+    "new skill efficacy",
+    "independent experiment reproduction"
+  ]
+}

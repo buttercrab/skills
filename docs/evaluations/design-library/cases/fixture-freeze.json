@@ -1,0 +1,37 @@
+{
+  "status": "authored-unexecuted; immutable candidate fixture version 1",
+  "date": "2026-11-07",
+  "author_exposure": [
+    "docs/plans/awesome-design-library-plan.md",
+    "docs/evaluations/design-pilot/results.md",
+    "parent task coverage requirements"
+  ],
+  "not_inspected": [
+    "target skill",
+    "new catalog entries or generated indexes",
+    "current design research",
+    "old case prompts or private keys"
+  ],
+  "freeze_limits": "Hashes establish current artifact bytes, not access isolation. Coordinator must freeze corpus, independent card mapping, condition snapshots and environment before any run. Changes require a new fixture version. No trials authorized or executed.",
+  "sha256": {
+    "cases/01-first-visit-community/evaluator-private.md": "976c5acc1925cad06bcf46331031412687bdd62476963d452a75c2da7b3265a8",
+    "cases/01-first-visit-community/prompt.md": "618fa02559aa929a8fe0fb9dd94051a3f77127b361a693452e080a08022961eb",
+    "cases/02-expert-response-desk/evaluator-private.md": "24d8d03ec4e9d395fb1f091cb73b3099d9b895253f701781e90fed005edc9ef5",
+    "cases/02-expert-response-desk/prompt.md": "8018bdb13e303457656ffbdb52b6c7e68393d60114b1dd607230bd5c8fd0f109",
+    "cases/03-character-led-learning/evaluator-private.md": "e24af290465a70a2c5711ed0702f41bed738bfbc22236c899638dc08f2f5da5e",
+    "cases/03-character-led-learning/prompt.md": "ee4c8c3940dccb59a7e2d8d42e564a3428db07d998f07dfeaca6e8b1cab1878f",
+    "cases/04-structure-over-skin/evaluator-private.md": "1017e4c7a121b0dcb76ea46dd4ed67d7810b6debfbd8f09ca577c03bbc8214b1",
+    "cases/04-structure-over-skin/prompt.md": "02dbe3563627f7378c231ec69a8412b52190be101b27cb105d29ea175de212e4",
+    "cases/05-absent-and-conflicting-source/evaluator-private.md": "b109a6eaf5bea43245f4724d686cfb08fcab36b6e1e1c8b287ad2a7e6aa63a8d",
+    "cases/05-absent-and-conflicting-source/prompt.md": "8c369332fb9e466614c9f9146c192b5de709514f752cc792a0172f9be5d6f11b",
+    "cases/06-narrow-existing-copy-fix/evaluator-private.md": "ad8610d175dd7f39053d4c7b02bf8efa39703bba98598396abb61042efc26b78",
+    "cases/06-narrow-existing-copy-fix/prompt.md": "f9280f64b64298a4d3be50305c10d86db0da1511824b72d694ed2fe440dda911",
+    "cases/07-explore-only-editorial/evaluator-private.md": "5b2e9c468ca5b365a0f23bbeeccf120ab8dcf2355eae148008df1c226ab6f3de",
+    "cases/07-explore-only-editorial/prompt.md": "62d85d60d92b2f615db5817ef103a16a4e748f471813bb446250b9d74a563277",
+    "cases/08-no-complete-match-specialist/evaluator-private.md": "525c2f4df2aea2aa3dded9c6c0834ff9a55be5d8e14d637abe3054ad81494b43",
+    "cases/08-no-complete-match-specialist/prompt.md": "e3a273adb6931d002ad54fe94623c66a9718e406799218f9ec9286ebbad32c3d",
+    "cases/README.md": "76dbd77543d6f4ae00283af0cbc479b1aba97e4e00c6da818ac33eab11066fcf",
+    "protocol.md": "c668e8e9e2b3ef046f48eb10860aa1edbd9a18e904f1418e8edb991ef57aad1b",
+    "rubric.md": "e93935e99e206333bd894ed41731d17f48dc0a24e008343a3a317deccd4be606"
+  }
+}

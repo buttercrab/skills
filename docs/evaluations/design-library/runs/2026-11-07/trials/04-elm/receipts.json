@@ -1,0 +1,77 @@
+{
+  "inspection_date": "2026-11-07",
+  "scope": "Read-only documentation text/HTML; no visual or live product workflow inspection",
+  "sources": [
+    {
+      "id": "pattern-govuk-check-answers",
+      "url": "https://design-system.service.gov.uk/patterns/check-answers/",
+      "locator": "Example HTML; When to use; Let users go back and change their answers (lines 390\u2013429)",
+      "local_card": "guide/library/entries/pattern-govuk-check-answers.md",
+      "inspection_method": "Local card read where present; public HTTPS source opened through web tool as text/HTML; relevant documented sections inspected",
+      "access_outcome": "success",
+      "fit": "Direct correction loop with prefilled answers",
+      "mismatch": "Government identity is not museum identity; isolated pattern is not a persistence implementation",
+      "selected_use": "Primary structure",
+      "outline_decisions": "Screen 2 grouped summary and specific change links; editing returns directly to review; retained contact"
+    },
+    {
+      "id": "pattern-govuk-error-summary",
+      "url": "https://design-system.service.gov.uk/components/error-summary/",
+      "locator": "When to use; How it works (lines 105\u2013118)",
+      "local_card": "guide/library/entries/pattern-govuk-error-summary.md",
+      "inspection_method": "Local card read where present; public HTTPS source opened through web tool as text/HTML; relevant documented sections inspected",
+      "access_outcome": "success",
+      "fit": "Navigable validation recovery",
+      "mismatch": "Capacity loss is not invalid volunteer input",
+      "selected_use": "Supporting recovery reference",
+      "outline_decisions": "Focused linked summary for contact errors; factual unavailable notice for capacity loss"
+    },
+    {
+      "id": "flow-meetup-waitlist",
+      "url": "https://help.meetup.com/hc/en-us/articles/41229648295181-How-to-Join-an-Event-Waitlist-on-Meetup",
+      "locator": "What Is a Waitlist; joining; promotion; status (lines 26\u201389)",
+      "local_card": "guide/library/entries/flow-meetup-waitlist.md",
+      "inspection_method": "Local card read where present; public HTTPS source opened through web tool as text/HTML; relevant documented sections inspected",
+      "access_outcome": "success",
+      "fit": "Waiting differs from confirmed attendance",
+      "mismatch": "Automatic promotion, paid priority and absent wait label do not transfer",
+      "selected_use": "State distinction only",
+      "outline_decisions": "Explicit Pending/Approved/Unavailable labels; coordinator approval replaces promotion; no waitlist"
+    },
+    {
+      "id": "flow-google-docs-suggestions",
+      "url": "https://support.google.com/docs/answer/6033474",
+      "locator": "Suggest changes; Accept or reject (lines 25\u201354)",
+      "local_card": "guide/library/entries/flow-google-docs-suggestions.md",
+      "inspection_method": "Local card read where present; public HTTPS source opened through web tool as text/HTML; relevant documented sections inspected",
+      "access_outcome": "success",
+      "fit": "Proposal does not change authoritative object until owner accepts",
+      "mismatch": "Inline document editing/comment UI does not help shift choice",
+      "selected_use": "Inspected secondary candidate, not screen structure",
+      "outline_decisions": "Coordinator approval boundary supported; no comment threads or bulk approval copied"
+    },
+    {
+      "id": "direct-govuk-confirmation-pages",
+      "url": "https://design-system.service.gov.uk/patterns/confirmation-pages/",
+      "locator": "HTML example; How it works; Help users who bookmark (lines 65\u2013145)",
+      "local_card": null,
+      "inspection_method": "Local card read where present; public HTTPS source opened through web tool as text/HTML; relevant documented sections inspected",
+      "access_outcome": "success",
+      "fit": "Receipt states next steps and supports returning",
+      "mismatch": "Completed intake is not a confirmed place; no email or timing may be inferred",
+      "selected_use": "Primary status content",
+      "outline_decisions": "Screen 3 pending receipt distinct from approved; actual next-step/contact/return channel required"
+    }
+  ],
+  "uninspected_reference": {
+    "description": "Colorful travel-booking calendar screenshot described in brief",
+    "url": null,
+    "outcome": "No screenshot or product locator supplied; not inspected",
+    "use": "No structural or behavioral evidence inferred"
+  },
+  "user_direction": {
+    "stage": "After reference shortlist",
+    "feedback": "Keep the noticeboard character even if the most useful recovery reference is visually loud.",
+    "applied_decision": "Retain quiet museum paper-noticeboard styling; transfer review, correction and status behavior independently of reference styling."
+  }
+}

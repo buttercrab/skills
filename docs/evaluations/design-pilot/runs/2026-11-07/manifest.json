@@ -1,0 +1,297 @@
+{
+  "date": "2026-11-07",
+  "timezone": "Asia/Seoul",
+  "created_utc": "2026-11-07T07:49:45.085385+00:00",
+  "revision": "v1",
+  "target_package": "/private/tmp/design-with-intent-pilot-20261107/target-v1",
+  "target_files_sha256": {
+    "SKILL.md": "66eaacf2932257971e5862fe63425fe1db1a5514d3f08a6c34d5f87662b414f0",
+    "agents/openai.yaml": "570e311f686a548967b51c9c4c35a55099b6a407b6f177d0450bb50da9ff83fa",
+    "references/eliciting-direction.md": "16086a78e1479ba7d8a3975ffb3991666903e0e92e613843cb373deb696dde02",
+    "references/evidence-and-maintenance.md": "039e987648c23a49566720e0c6347cd569525b75b8b085be70bcf4712cbb092d",
+    "references/flows-and-craft.md": "d8522efc1c9ee510b40ef282e7e69e139395728c8927bfda1aca61918170996c",
+    "references/verification.md": "4e817d698f4ffcca48fcb89a4ed7a5b4ed06e3eae3910ae4ab94fde8a3178251"
+  },
+  "randomization_seed": 20261107,
+  "active_time_limit_seconds": 900,
+  "time_limit_scope": "soft wall-time cap excluding scripted-answer waiting, monitored by coordinator",
+  "model_policy": "same inherited model and effort; no overrides",
+  "baseline_policy": "target skill not supplied; normal host instructions and mandatory host skills remain available",
+  "isolation": "separate /private/tmp directories and fresh non-forked contexts; instruction-level access boundary, not container isolation",
+  "trials": [
+    {
+      "trial": "case1-cedar",
+      "case": "01-vague-operations",
+      "condition": "target",
+      "dispatch_order": 1,
+      "workspace": "/private/tmp/design-with-intent-pilot-20261107/case1-cedar",
+      "initial_input_sha256": "a79682a3ce02d06cdf1a86ed361c41e0bf5a5c6c247f3e967faadf0175e59a8a",
+      "turns": [
+        {
+          "trial": "case1-cedar",
+          "stage": "initial-question",
+          "role": "assistant",
+          "text": "1. Who uses Harbor, and what usually brings them here: handling late pickups, quickly finding and collecting an order, or comparing overall operations? What is hardest in that moment?\n2. What should Harbor feel like, and what should it avoid? For example, a compact dispatch desk keeps many orders visible; a calmer service counter emphasizes one clear next action. A mixture or different direction is welcome."
+        },
+        {
+          "trial": "case1-cedar",
+          "stage": "initial-answer",
+          "role": "user",
+          "text": "This is for the morning pickup coordinator on a shared tablet. The first job is spotting overdue pickups and deciding who to contact. Revenue is not useful here. Keep the collected action. It should feel calm and dependable, not salesy."
+        },
+        {
+          "trial": "case1-cedar",
+          "stage": "data-question",
+          "role": "assistant",
+          "text": "The supplied records only include customer, order ID, and Late/Ready status. What information do coordinators use to decide whom to contact—pickup deadline, time overdue, prior contact, or something else? Should the page support a local contact checklist, or only identify overdue orders for follow-up elsewhere?"
+        },
+        {
+          "trial": "case1-cedar",
+          "stage": "data-answer",
+          "role": "user",
+          "text": "For the local demo, H-104 is 38 minutes late, phone 555-0104; H-106 is 12 minutes late, phone 555-0106. Additional reasonable sample records are allowed. No prior-contact data is supplied. Use sensible local choices within the brief for unspecified details; keep this a local demo."
+        },
+        {
+          "trial": "case1-cedar",
+          "stage": "infrastructure",
+          "role": "coordinator",
+          "text": "Same shared host note: Chrome via CUA available; IAB unavailable; localhost-only server may require exec auto-reviewed escalation. No installs or external network. Distinguish unobserved browser checks. No product guidance."
+        },
+        {
+          "trial": "case1-cedar",
+          "role": "assistant",
+          "stage": "first-version",
+          "text": "Updated index.html with overdue-first pickup desk, supplied phone numbers, search, collection, undo, restore. Interaction simulation passed; browser policy blocked local-file inspection; rendered layouts/native keyboard remain unverified."
+        },
+        {
+          "trial": "case1-cedar",
+          "role": "user",
+          "stage": "feedback",
+          "text": "Closer. I need to contact a customer before marking anything collected. Put a visible call action on overdue orders, show how overdue each is, and keep collected as a separate deliberate action. Use demo phone numbers; don't actually call anyone."
+        },
+        {
+          "trial": "case1-cedar",
+          "role": "assistant",
+          "stage": "final",
+          "text": "Overdue orders show visible Call customer and minutes overdue. Calls open demo preview, never contact or mark collected. Mark collected separate with confirmation. Local interaction simulation passed; rendered/native checks unavailable due denial."
+        }
+      ],
+      "completion": "local artifact delivered",
+      "final_html_sha256": "dcc2a1d57123dddc558f228eb4b633d0ff43e948ed49d10c6cb4c20272469bf7",
+      "archive_artifact": "artifacts/case1-cedar/index.html",
+      "browser_scope_breach": false,
+      "independent_review_scope": "source/transcript/local mocked logic; rendered/native acceptance unobserved"
+    },
+    {
+      "trial": "case1-willow",
+      "case": "01-vague-operations",
+      "condition": "baseline",
+      "dispatch_order": 2,
+      "workspace": "/private/tmp/design-with-intent-pilot-20261107/case1-willow",
+      "initial_input_sha256": "a79682a3ce02d06cdf1a86ed361c41e0bf5a5c6c247f3e967faadf0175e59a8a",
+      "turns": [
+        {
+          "trial": "case1-willow",
+          "stage": "initial-question",
+          "role": "assistant",
+          "text": "I inspected the existing page: three summary metrics, a status filter, and orders with “Mark collected” actions.\n1. Who uses Harbor, and what should they accomplish first?\n2. What currently makes that task difficult?\n3. Should I retain the green visual style, or are there brand/accessibility constraints to follow?\nThe task restricts external network requests, so I’ll make the design directly in the local HTML without generated or remote assets."
+        },
+        {
+          "trial": "case1-willow",
+          "stage": "initial-answer",
+          "role": "user",
+          "text": "This is for the morning pickup coordinator on a shared tablet. The first job is spotting overdue pickups and deciding who to contact. Revenue is not useful here. Keep the collected action. It should feel calm and dependable, not salesy."
+        },
+        {
+          "trial": "case1-willow",
+          "stage": "data-question",
+          "role": "assistant",
+          "text": "To help the coordinator decide who to contact, what information is available for each pickup—for example scheduled pickup time, customer phone/contact, last contact, or notes? May I add clearly labeled sample values for the local demo, or should I use only the three existing orders and their current statuses?"
+        },
+        {
+          "trial": "case1-willow",
+          "stage": "data-answer",
+          "role": "user",
+          "text": "For the local demo, H-104 is 38 minutes late, phone 555-0104; H-106 is 12 minutes late, phone 555-0106. Additional reasonable sample records are allowed. No prior-contact data is supplied. Use sensible local choices within the brief for unspecified details; keep this a local demo."
+        },
+        {
+          "trial": "case1-willow",
+          "stage": "infrastructure",
+          "role": "coordinator",
+          "text": "Same shared host note: Chrome via CUA available; IAB unavailable; localhost-only server may require exec auto-reviewed escalation. No installs or external network. Distinguish unobserved browser checks. No product guidance."
+        },
+        {
+          "trial": "case1-willow",
+          "role": "assistant",
+          "stage": "first-version",
+          "text": "Updated actual Harbor page: overdue pickups first ordered by delay with supplied phone numbers, revenue removed; collection/undo/filters/local contact notes. Claimed rendered checks of first version in work log."
+        },
+        {
+          "trial": "case1-willow",
+          "role": "user",
+          "stage": "feedback",
+          "text": "Closer. I need to contact a customer before marking anything collected. Put a visible call action on overdue orders, show how overdue each is, and keep collected as a separate deliberate action. Use demo phone numbers; don't actually call anyone."
+        },
+        {
+          "trial": "case1-willow",
+          "role": "coordinator",
+          "stage": "verification-boundary",
+          "text": "No further browser actions in this trial; respect prior browser denial and use allowed source/logic checks only."
+        },
+        {
+          "trial": "case1-willow",
+          "role": "assistant",
+          "stage": "final",
+          "text": "Visible Call customer shows demo numbers/durations. Recording demo contact unlocks separate collected action. No calls. Local source/logic checks passed; revision not browser verified."
+        }
+      ],
+      "completion": "local artifact delivered",
+      "final_html_sha256": "44937bf0daa41473853724cda6db9d694c770cd7203a6a326c5a7a336c443a5e",
+      "archive_artifact": "artifacts/case1-willow/index.html",
+      "browser_scope_breach": false,
+      "independent_review_scope": "source/transcript/local mocked logic; rendered/native acceptance unobserved"
+    },
+    {
+      "trial": "case2-cedar",
+      "case": "02-detailed-brief",
+      "condition": "target",
+      "dispatch_order": 1,
+      "workspace": "/private/tmp/design-with-intent-pilot-20261107/case2-cedar",
+      "initial_input_sha256": "1c4add46eb46b866bb0efabd6d18fc72e3e5309e91a5150e9ddeb182cdbaacc3",
+      "turns": [
+        {
+          "trial": "case2-cedar",
+          "stage": "infrastructure",
+          "role": "coordinator",
+          "text": "Same shared host note: Chrome via CUA available; IAB unavailable; localhost-only server may require exec auto-reviewed escalation. No installs or external network. Distinguish unobserved browser checks. No product guidance."
+        },
+        {
+          "trial": "case2-cedar",
+          "role": "coordinator",
+          "stage": "policy-incident",
+          "text": "Coordinator's shared localhost infrastructure note led to a Chrome HTTP retry after a prior explicit file:// denial forbidding same-outcome workarounds. Trial runner confirmed subsequent tool acceptance did not waive earlier restriction. No further browser actions allowed. Mark browser evidence invalid and this pair non-comparable for acceptance; preserve artifact and logs. This is coordinator/harness error, not evidence of skill efficacy."
+        },
+        {
+          "trial": "case2-cedar",
+          "role": "assistant",
+          "stage": "final",
+          "text": "Implemented supplied booking brief without clarification; source/logic checks passed. Later browser checks excluded due recorded policy incident."
+        }
+      ],
+      "completion": "local artifact delivered",
+      "final_html_sha256": "640f23712f1ffa9d5a17b63b6d6b81425907bda59b7742c74dabe9cd08d41c0d",
+      "archive_artifact": "artifacts/case2-cedar/index.html",
+      "browser_scope_breach": true,
+      "independent_review_scope": "source/transcript/local mocked logic; rendered/native acceptance unobserved"
+    },
+    {
+      "trial": "case2-willow",
+      "case": "02-detailed-brief",
+      "condition": "baseline",
+      "dispatch_order": 2,
+      "workspace": "/private/tmp/design-with-intent-pilot-20261107/case2-willow",
+      "initial_input_sha256": "1c4add46eb46b866bb0efabd6d18fc72e3e5309e91a5150e9ddeb182cdbaacc3",
+      "turns": [
+        {
+          "trial": "case2-willow",
+          "stage": "infrastructure",
+          "role": "coordinator",
+          "text": "Same shared host note: Chrome via CUA available; IAB unavailable; localhost-only server may require exec auto-reviewed escalation. No installs or external network. Distinguish unobserved browser checks. No product guidance."
+        },
+        {
+          "trial": "case2-willow",
+          "role": "coordinator",
+          "stage": "policy-incident",
+          "text": "Runner confirmed explicit file:// denial forbade same-outcome workaround; later local HTTP browser preview occurred without express waiver. Exclude browser evidence and mark acceptance comparison invalid. Stop further browser actions."
+        },
+        {
+          "trial": "case2-willow",
+          "role": "assistant",
+          "stage": "final",
+          "text": "Implemented supplied booking brief without clarification; later browser checks excluded due recorded policy incident."
+        }
+      ],
+      "completion": "local artifact delivered",
+      "final_html_sha256": "0adee25d6b829a19e18e88e1bcf654661140c29cd5182e451b1faccdccf73917",
+      "archive_artifact": "artifacts/case2-willow/index.html",
+      "browser_scope_breach": true,
+      "independent_review_scope": "source/transcript/local mocked logic; rendered/native acceptance unobserved"
+    },
+    {
+      "trial": "case3-cedar",
+      "case": "03-delegated-exploration",
+      "condition": "baseline",
+      "dispatch_order": 1,
+      "workspace": "/private/tmp/design-with-intent-pilot-20261107/case3-cedar",
+      "initial_input_sha256": "a470151d9bc2bd77cee1a3af8fa0375b154a1673d4bc167a1f50dce9fbb6ad26",
+      "turns": [
+        {
+          "trial": "case3-cedar",
+          "stage": "infrastructure",
+          "role": "coordinator",
+          "text": "Same shared host note: Chrome via CUA available; IAB unavailable; localhost-only server may require exec auto-reviewed escalation. No installs or external network. Distinguish unobserved browser checks. No product guidance."
+        },
+        {
+          "trial": "case3-cedar",
+          "role": "coordinator",
+          "stage": "policy-incident",
+          "text": "Runner confirmed explicit file:// denial forbade same-outcome workaround; later local HTTP browser preview occurred without express waiver. Exclude browser evidence and mark acceptance comparison invalid. Stop further browser actions."
+        },
+        {
+          "trial": "case3-cedar",
+          "role": "assistant",
+          "stage": "final",
+          "text": "Accepted creative delegation; finished editorial reading room preserving titles/times and save/filter states. Local VM checks reported; browser checks excluded due recorded policy incident."
+        }
+      ],
+      "completion": "local artifact delivered",
+      "final_html_sha256": "6b368ea7b7028b95a8cc45adb19993472072917cfcc475b05d43e7a80df8fc37",
+      "archive_artifact": "artifacts/case3-cedar/index.html",
+      "browser_scope_breach": true,
+      "independent_review_scope": "source/transcript/local mocked logic; rendered/native acceptance unobserved"
+    },
+    {
+      "trial": "case3-willow",
+      "case": "03-delegated-exploration",
+      "condition": "target",
+      "dispatch_order": 2,
+      "workspace": "/private/tmp/design-with-intent-pilot-20261107/case3-willow",
+      "initial_input_sha256": "a470151d9bc2bd77cee1a3af8fa0375b154a1673d4bc167a1f50dce9fbb6ad26",
+      "turns": [
+        {
+          "trial": "case3-willow",
+          "stage": "infrastructure",
+          "role": "coordinator",
+          "text": "Same shared host note: Chrome via CUA available; IAB unavailable; localhost-only server may require exec auto-reviewed escalation. No installs or external network. Distinguish unobserved browser checks. No product guidance."
+        },
+        {
+          "trial": "case3-willow",
+          "role": "assistant",
+          "stage": "final",
+          "text": "Accepted creative delegation; finished midnight/paper reading club with preserved titles/times and save/filter states. Runner reports rendered checks at desktop and phone; no file:// denial recorded."
+        }
+      ],
+      "completion": "local artifact delivered",
+      "final_html_sha256": "b9b5b2437a0c7733e0dd6a0d676957b03b9fad2a7b07616961be4625e2a33539",
+      "archive_artifact": "artifacts/case3-willow/index.html",
+      "browser_scope_breach": false,
+      "independent_review_scope": "source/transcript/local mocked logic; rendered/native acceptance unobserved"
+    }
+  ],
+  "end_state": "All six local artifacts completed; no controlled rendered acceptance comparison. Source review retained separately.",
+  "policy_adjudication": {
+    "scope_breaches": [
+      "case2-cedar",
+      "case2-willow",
+      "case3-cedar"
+    ],
+    "pairs_invalid_for_acceptance": [
+      "02-detailed-brief",
+      "03-delegated-exploration"
+    ],
+    "remaining_pair": "01 final source/logic only; final rendered acceptance unobserved",
+    "coordinator_error": "Shared infrastructure note suggested HTTP fallback without first checking exact earlier outcome-level denial. Later accepted call did not waive denial.",
+    "resolution": "Stopped further browser work; excluded all browser claims from independent review; boundary probes explicitly source/logic only."
+  },
+  "timing_limit": "15-active-minute limit advisory; reliable active timing/token records unavailable; no cost comparison."
+}
