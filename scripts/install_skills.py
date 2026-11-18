@@ -21,6 +21,7 @@ LEGACY_JOURNAL_VERSION = "skills-install-transaction/v1"
 RETIRED_NAMES = frozenset({
     "align-work", "execute-goal-loop", "mine-history-tool-landscapes", "agent-mail",
     "brief-linked-evidence", "map-technical-landscapes", "front-agent-orchestration",
+    "responsive-coordinator",
 })
 NAME_RE = re.compile(r"^[a-z0-9][a-z0-9-]{0,63}$")
 TX_RE = re.compile(r"^[A-Za-z0-9][A-Za-z0-9-]{0,79}$")
@@ -596,7 +597,7 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--exclude", action="append", default=[], metavar="NAME[,NAME]", help="exclude named skills")
     parser.add_argument(
         "--migrate", action="store_true",
-        help="also retire links owned by this repository for the seven retired skills; "
+        help="also retire links owned by this repository for the eight retired skills; "
              "enabled by default only when neither --only nor --exclude is given; "
              "foreign links and real directories are preserved",
     )

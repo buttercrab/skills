@@ -1,0 +1,6 @@
+interface:
+  display_name: "Coordinate Work"
+  short_description: "Stay in conversation while workers or a lead execute"
+  default_prompt: "Use $coordinate-work to turn on coordinator mode: talk with me while workers, or a lead session running parallel lanes, execute the task."
+policy:
+  allow_implicit_invocation: false

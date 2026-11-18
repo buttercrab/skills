@@ -14,13 +14,14 @@ The rewrite retains capabilities that add specific task expertise and removes re
 | `map-technical-landscapes` | Merged into `research-with-evidence`; optional former-format validator retained under `tools/technical-landscape/`. |
 | `mine-history-tool-landscapes` | Retired from installation; source processing and privacy checks retained under `tools/agent-history/`. |
 | `agent-mail` | Retired from installation; service preserved under `integrations/agent-mail/`. |
-| `front-agent-orchestration` | Replaced by explicit-only `responsive-coordinator`; old runtime preserved under `integrations/front-agent/`. |
+| `front-agent-orchestration` | Replaced by explicit-only `responsive-coordinator`, now part of `coordinate-work`; old runtime preserved under `integrations/front-agent/`. |
+| `responsive-coordinator` | Merged into explicit-only `coordinate-work` as its direct shape. The new with-lead shape uses the host's own thread or session messaging; it does not restore the Agent Mail protocol, pairing runtime or Align packets. |
 
 Removed generated routing catalogs, generators, gate/trial governance receipts, and instructional phrase tests. Retained actual preservation, isolation, installer recovery, and runtime tests. Preserved tools have usage documents rather than discoverable SKILL.md files.
 
 ## Existing state and compatibility
 
-No packet schema, message protocol, deployed service, credential, or operational state was migrated. Legacy instructions describe compatibility operations, not a prerequisite for new work. Existing packets can still use their original helper semantics. The old Front runtime remains a gateway/main protocol and is not the responsive coordinator.
+No packet schema, message protocol, deployed service, credential, or operational state was migrated. Legacy instructions describe compatibility operations, not a prerequisite for new work. Existing packets can still use their original helper semantics. The old Front runtime remains a gateway/main protocol and is not `coordinate-work`.
 
 For local installations, a full install migrates only verified links to former `skills/<name>` paths in this checkout. It does not remove another checkout's links, foreign packages, or real directories. Selective installation requires `--migrate` to perform retirement. The installer backs up retired/replaced links in the target filesystem, recovers interrupted v1 and v2 journals, and preserves conflicting concurrent changes rather than overwriting them during rollback.
 

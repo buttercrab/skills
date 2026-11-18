@@ -114,9 +114,9 @@ class InstallerTests(unittest.TestCase):
 
         excluded, excluded_agent, excluded_codex, _ = self.fixture("excluded")
         self.remove_go(excluded)
-        self.run_installer(["--exclude", "responsive-coordinator"], environment=excluded)
-        self.assertFalse((excluded_agent / "responsive-coordinator").exists())
-        self.assertFalse((excluded_codex / "responsive-coordinator").exists())
+        self.run_installer(["--exclude", "coordinate-work"], environment=excluded)
+        self.assertFalse((excluded_agent / "coordinate-work").exists())
+        self.assertFalse((excluded_codex / "coordinate-work").exists())
         for directory in (excluded_agent, excluded_codex):
             self.assert_link(directory, "audit-technical-work")
 
@@ -130,10 +130,10 @@ class InstallerTests(unittest.TestCase):
         self.assertFalse((claude / "audit-technical-work").exists())
 
         excluded, *_ = self.fixture("claude-excluded")
-        self.run_installer(["--exclude", "responsive-coordinator"], environment=excluded)
+        self.run_installer(["--exclude", "coordinate-work"], environment=excluded)
         claude = Path(excluded["CLAUDE_SKILLS_DIR"])
         self.assert_link(claude, "writing-with-intent")
-        self.assertFalse((claude / "responsive-coordinator").exists())
+        self.assertFalse((claude / "coordinate-work").exists())
 
     def test_claude_conflicts_fail_before_any_installation(self):
         for kind in ("nonlink", "equal-agent", "inside-codex", "symlink-parent"):
@@ -455,13 +455,14 @@ class InstallerTests(unittest.TestCase):
     def test_default_migrates_owned_absolute_relative_and_dangling_links(self):
         environment, agent, codex, state = self.fixture("migration")
         self.retired_links(agent, codex)
+        self.retired_links(agent, codex, "responsive-coordinator")
         for directory in (agent, codex):
             os.symlink(os.path.relpath(ROOT / "skills" / "agent-mail", directory),
                        directory / "agent-mail")
         result = self.run_installer(environment=environment)
-        self.assertIn("Retired 4 owned links", result.stdout)
+        self.assertIn("Retired 6 owned links", result.stdout)
         for directory in (agent, codex):
-            for name in ("align-work", "agent-mail"):
+            for name in ("align-work", "agent-mail", "responsive-coordinator"):
                 self.assertFalse(os.path.lexists(directory / name))
             for name in CATALOG:
                 self.assert_link(directory, name)
@@ -490,21 +491,21 @@ class InstallerTests(unittest.TestCase):
 
     def test_selective_install_requires_explicit_migration_and_preserves_unselected(self):
         for index, arguments in enumerate((["--only", "audit-technical-work"],
-                                            ["--exclude", "responsive-coordinator"])):
+                                            ["--exclude", "coordinate-work"])):
             environment, agent, codex, _ = self.fixture(f"selective-migrate-{index}")
             self.retired_links(agent, codex)
             for directory in (agent, codex):
-                (directory / "responsive-coordinator").symlink_to("/user/coordinator")
+                (directory / "coordinate-work").symlink_to("/user/coordinator")
             self.run_installer(arguments, environment=environment)
             for directory in (agent, codex):
                 self.assertEqual(str(ROOT / "skills" / "align-work"),
                                  os.readlink(directory / "align-work"))
-                self.assertEqual("/user/coordinator", os.readlink(directory / "responsive-coordinator"))
+                self.assertEqual("/user/coordinator", os.readlink(directory / "coordinate-work"))
             result = self.run_installer([*arguments, "--migrate"], environment=environment)
             self.assertIn("Retired 2 owned links", result.stdout)
             for directory in (agent, codex):
                 self.assertFalse(os.path.lexists(directory / "align-work"))
-                self.assertEqual("/user/coordinator", os.readlink(directory / "responsive-coordinator"))
+                self.assertEqual("/user/coordinator", os.readlink(directory / "coordinate-work"))
 
     def test_migration_only_with_empty_selection(self):
         environment, agent, codex, _ = self.fixture("retirement-only")

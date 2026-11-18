@@ -9,7 +9,7 @@ Thirteen task-focused skills, including catalog-backed design, repository-qualit
 | `propagate-contract-changes` | Carry a changed contract across definitions, producers, boundaries, and consumers. | Normal discovery |
 | `write-task-handoff` | Prepare a restartable continuation with current state, decisions, and evidence. | Normal discovery |
 | `research-with-evidence` | Synthesize supplied sources or discover and compare options. | Normal discovery |
-| `responsive-coordinator` | Keep the main agent conversational while workers execute the task. | Explicit opt-in only |
+| `coordinate-work` | Keep the conversation with the user while workers, or a lead session running parallel lanes, execute. | Explicit opt-in only |
 | `maintain-project-dashboard` | Maintain a durable project dashboard with current evidence. | Normal discovery |
 | `prioritize-important-information` | Surface decision-changing information before activity detail. | Normal discovery |
 | `write-daily-report` | Summarize a day with material outcomes and one next action. | Normal discovery |
@@ -70,11 +70,11 @@ python3 skills/writing-with-intent/scripts/catalog.py list --language korean --s
 
 The [cross-library integration review](docs/research/fundamentals-library-consistency.md) checks resource routes, human questions, evidence boundaries and example-task scope across these four packages. It is a static review, separate from their behavioral trials.
 
-## Responsive coordination
+## Coordinator mode
 
-Invoke `$responsive-coordinator` or ask to turn responsive coordination on. The mode stays active in that chat until you turn it off. Creating, reviewing, or discussing the skill does not activate it.
+Invoke `$coordinate-work` or ask to turn coordinator mode on. The mode stays active in that chat until you turn it off; creating, reviewing or discussing the skill does not activate it.
 
-The main agent handles discussion, scope, assignments, steering, and synthesis. Workers perform exploration, detailed planning, changes, research, testing, and review. Native subagents are preferred; no Agent Mail service, Go runtime, or second user-owned chat is required. On deactivation, the coordinator reconciles workers before returning to normal execution. Host blocking calls can still delay responses; the skill cannot guarantee a response time.
+The conversation handles intent, authority, briefs, steering, verification and plain reports; workers execute. Short work runs **direct** (the coordinator dispatches workers). Wide or long work runs **with a lead**: a separate long-lived session that dispatches parallel lanes, integrates their results and reports back. T3 Code supports both shapes; Claude Code supports a lead as a second local session; Codex lead support is unverified. See [host mappings](skills/coordinate-work/references/hosts.md).
 
 ## Maintain the libraries
 
@@ -85,11 +85,11 @@ To add or refresh a resource, follow the [library maintenance path](docs/library
 ```bash
 ./install.sh --list
 ./install.sh
-./install.sh --only research-with-evidence,responsive-coordinator
-./install.sh --exclude responsive-coordinator
+./install.sh --only research-with-evidence,coordinate-work
+./install.sh --exclude coordinate-work
 ```
 
-Python 3 is the only installer prerequisite. Full installation links the thirteen available skills into `~/.agents/skills`, `~/.codex/skills` and `~/.claude/skills` and retires known links owned by this repository for the seven removed skill names. Selective `--only` or `--exclude` installations do not retire old links unless `--migrate` is supplied:
+Python 3 is the only installer prerequisite. Full installation links the thirteen available skills into `~/.agents/skills`, `~/.codex/skills` and `~/.claude/skills` and retires known links owned by this repository for the eight removed skill names. Selective `--only` or `--exclude` installations do not retire old links unless `--migrate` is supplied:
 
 ```bash
 ./install.sh --only research-with-evidence --migrate

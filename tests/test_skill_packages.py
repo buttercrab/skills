@@ -8,7 +8,7 @@ ROOT = Path(__file__).resolve().parents[1]
 SKILLS = ROOT / 'skills'
 EXPECTED = {
     'audit-technical-work', 'refactor-by-invariant', 'propagate-contract-changes',
-    'write-task-handoff', 'research-with-evidence', 'responsive-coordinator',
+    'write-task-handoff', 'research-with-evidence', 'coordinate-work',
     'maintain-project-dashboard', 'prioritize-important-information', 'write-daily-report',
     'design-with-intent', 'repository-quality', 'system-architecture',
     'writing-with-intent',
@@ -35,7 +35,7 @@ class SkillPackageTests(unittest.TestCase):
                 self.assertTrue(25 <= len(interface['short_description']) <= 64)
                 self.assertIn(f'${name}', interface['default_prompt'])
                 implicit = agent.get('policy', {}).get('allow_implicit_invocation', True)
-                self.assertIs(implicit, name != 'responsive-coordinator')
+                self.assertIs(implicit, name != 'coordinate-work')
 
     def test_linked_local_resources_resolve(self):
         for name in EXPECTED:
